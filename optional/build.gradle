@@ -1,0 +1,16 @@
+apply plugin: 'java'
+sourceCompatibility = 1.7
+
+configurations {
+    pom
+}
+
+apply from: '../publish.gradle'
+
+dependencies {
+    compile project(':iterators')
+
+    testCompile 'junit:junit:' + JUNIT
+    testCompile 'org.hamcrest:hamcrest-all:' + HAMCREST
+    testCompile project(":optional-testing")
+}
