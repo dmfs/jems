@@ -36,7 +36,7 @@ public class AbsentMatcherTest
     @Test
     public void testMatchesSafely() throws Exception
     {
-        assertThat(new AbsentMatcher<>("xxx").matchesSafely(Absent.absent(), new Description.NullDescription()), CoreMatchers.is(true));
+        assertThat(new AbsentMatcher<>("xxx").matchesSafely(Absent.<String>absent(), new Description.NullDescription()), CoreMatchers.is(true));
         assertThat(new AbsentMatcher<>("xxx").matchesSafely(new Present<>("test"), new Description.NullDescription()), CoreMatchers.is(false));
     }
 
