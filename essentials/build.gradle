@@ -1,0 +1,13 @@
+apply plugin: 'java'
+sourceCompatibility = 1.7
+
+configurations {
+    pom
+}
+
+apply from: '../publish.gradle'
+
+dependencies {
+    testCompile 'junit:junit:' + JUNIT
+    testCompile 'org.hamcrest:hamcrest-all:' + HAMCREST
+}

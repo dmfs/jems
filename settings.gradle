@@ -1,5 +1,5 @@
 rootProject.name = 'jems'
+include 'essentials'
 include 'iterators'
 include 'optional'
 include 'optional-testing'
-
