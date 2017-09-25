@@ -20,9 +20,9 @@ package org.dmfs.optional.decorators;
 import org.dmfs.optional.Absent;
 import org.dmfs.optional.Optional;
 import org.dmfs.optional.Present;
+import org.dmfs.optional.hamcrest.AbsentMatcher;
 import org.junit.Test;
 
-import static org.dmfs.optional.hamcrest.AbsentMatcher.isAbsent;
 import static org.dmfs.optional.hamcrest.PresentMatcher.isPresent;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -36,7 +36,7 @@ public class DelegatingOptionalTest
     @Test
     public void testIsPresent() throws Exception
     {
-        assertThat(new TestOptional<>(new Absent<String>()), isAbsent("test"));
+        assertThat(new TestOptional<>(new Absent<String>()), AbsentMatcher.<String>isAbsent());
         assertThat(new TestOptional<>(new Present<>("test")), isPresent("test"));
     }
 

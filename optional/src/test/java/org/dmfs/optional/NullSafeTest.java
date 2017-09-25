@@ -17,10 +17,10 @@
 
 package org.dmfs.optional;
 
+import org.dmfs.optional.hamcrest.AbsentMatcher;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.dmfs.optional.hamcrest.AbsentMatcher.isAbsent;
 import static org.dmfs.optional.hamcrest.PresentMatcher.isPresent;
 import static org.junit.Assert.assertThat;
 
@@ -33,7 +33,7 @@ public class NullSafeTest
     @Test
     public void testIsPresent() throws Exception
     {
-        assertThat(new NullSafe<String>(null), isAbsent("test"));
+        assertThat(new NullSafe<String>(null), AbsentMatcher.<String>isAbsent());
         assertThat(new NullSafe<>("test"), isPresent("test"));
     }
 

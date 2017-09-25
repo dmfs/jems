@@ -21,11 +21,11 @@ import org.dmfs.iterators.ArrayIterator;
 import org.dmfs.optional.Absent;
 import org.dmfs.optional.Optional;
 import org.dmfs.optional.Present;
+import org.dmfs.optional.hamcrest.AbsentMatcher;
 import org.junit.Test;
 
 import java.util.Iterator;
 
-import static org.dmfs.optional.hamcrest.AbsentMatcher.isAbsent;
 import static org.dmfs.optional.hamcrest.PresentMatcher.isPresent;
 import static org.junit.Assert.assertThat;
 
@@ -44,10 +44,10 @@ public final class NextPresentTest
     @Test
     public void testVariousCases()
     {
-        assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>()), isAbsent("test"));
+        assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>()), AbsentMatcher.<String>isAbsent());
 
-        assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>(ABSENT)), isAbsent("test"));
-        assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>(ABSENT, ABSENT)), isAbsent("test"));
+        assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>(ABSENT)), AbsentMatcher.<String>isAbsent());
+        assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>(ABSENT, ABSENT)), AbsentMatcher.<String>isAbsent());
 
         assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>(new Present<>("1"))), isPresent("1"));
         assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>(ABSENT, new Present<>("1"))), isPresent("1"));
@@ -62,7 +62,7 @@ public final class NextPresentTest
     {
         Iterator<Optional<String>> it1 = new ArrayIterator<>(new Present<>("1"), ABSENT);
         it1.next();
-        assertThat(new NextPresent<>(it1), isAbsent("test"));
+        assertThat(new NextPresent<>(it1), AbsentMatcher.<String>isAbsent());
 
         Iterator<Optional<String>> it2 = new ArrayIterator<Optional<String>>(new Present<>("1"), new Present<>("2"));
         it2.next();
@@ -71,7 +71,7 @@ public final class NextPresentTest
         Iterator<Optional<String>> it3 = new ArrayIterator<Optional<String>>(new Present<>("1"), new Present<>("2"));
         it3.next();
         it3.next();
-        assertThat(new NextPresent<>(it3), isAbsent("test"));
+        assertThat(new NextPresent<>(it3), AbsentMatcher.<String>isAbsent());
     }
 
 }

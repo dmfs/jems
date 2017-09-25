@@ -17,12 +17,12 @@
 
 package org.dmfs.optional;
 
+import org.dmfs.optional.hamcrest.AbsentMatcher;
 import org.junit.Test;
 
 import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.dmfs.optional.hamcrest.AbsentMatcher.isAbsent;
 import static org.dmfs.optional.hamcrest.PresentMatcher.isPresent;
 import static org.junit.Assert.assertThat;
 
@@ -35,7 +35,7 @@ public class FirstTest
     @Test
     public void testIsPresent() throws Exception
     {
-        assertThat(new First<>(Arrays.<String>asList()), isAbsent("test"));
+        assertThat(new First<>(Arrays.<String>asList()), AbsentMatcher.<String>isAbsent());
         assertThat(new First<>(Arrays.asList("test")), isPresent("test"));
         assertThat(new First<>(Arrays.asList("test", "test123")), isPresent("test"));
     }
