@@ -8,6 +8,8 @@ configurations {
 apply from: '../publish.gradle'
 
 dependencies {
+    compile project(':essentials')
+
     testCompile 'junit:junit:' + JUNIT
     testCompile 'org.hamcrest:hamcrest-all:' + HAMCREST
 }
