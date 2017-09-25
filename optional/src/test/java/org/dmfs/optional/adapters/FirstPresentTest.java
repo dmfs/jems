@@ -21,9 +21,9 @@ import org.dmfs.iterables.ArrayIterable;
 import org.dmfs.optional.Absent;
 import org.dmfs.optional.Optional;
 import org.dmfs.optional.Present;
+import org.dmfs.optional.hamcrest.AbsentMatcher;
 import org.junit.Test;
 
-import static org.dmfs.optional.hamcrest.AbsentMatcher.isAbsent;
 import static org.dmfs.optional.hamcrest.PresentMatcher.isPresent;
 import static org.junit.Assert.assertThat;
 
@@ -42,10 +42,10 @@ public final class FirstPresentTest
     @Test
     public void testVariousCases()
     {
-        assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>()), isAbsent("test"));
+        assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>()), AbsentMatcher.<String>isAbsent());
 
-        assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>(ABSENT)), isAbsent("test"));
-        assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>(ABSENT, ABSENT)), isAbsent("test"));
+        assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>(ABSENT)), AbsentMatcher.<String>isAbsent());
+        assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>(ABSENT, ABSENT)), AbsentMatcher.<String>isAbsent());
 
         assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>(new Present<>("1"))), isPresent("1"));
         assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>(ABSENT, new Present<>("1"))), isPresent("1"));

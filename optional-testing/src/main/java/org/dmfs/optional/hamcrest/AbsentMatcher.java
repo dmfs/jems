@@ -29,19 +29,15 @@ import java.util.NoSuchElementException;
  */
 public final class AbsentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<T>>
 {
+    private static final AbsentMatcher<?> INSTANCE = new AbsentMatcher<>();
 
-    public static <T> AbsentMatcher<T> isAbsent(T defaultValue)
+    private static final Object DUMMY_DEFAULT = new Object();
+
+
+    public static <T> AbsentMatcher<T> isAbsent()
     {
-        return new AbsentMatcher<T>(defaultValue);
-    }
-
-
-    private final T mDefault;
-
-
-    public AbsentMatcher(T defaultValue)
-    {
-        mDefault = defaultValue;
+        //noinspection unchecked
+        return (AbsentMatcher<T>) INSTANCE;
     }
 
 
@@ -64,7 +60,7 @@ public final class AbsentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<T
             // pass
         }
 
-        if (item.value(mDefault) != mDefault)
+        if (((Optional) item).value(DUMMY_DEFAULT) != DUMMY_DEFAULT)
         {
             mismatchDescription.appendText("value(default) did not return the default value");
             return false;
