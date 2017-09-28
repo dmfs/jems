@@ -26,6 +26,7 @@ configurations {
 apply from: 'publish.gradle'
 
 dependencies {
+    compile project(':essentials')
     compile project(':iterators')
     compile project(':optional')
 }
