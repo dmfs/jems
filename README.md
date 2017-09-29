@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/dmfs/jems.svg?branch=master)](https://travis-ci.org/dmfs/jems)
+[![codecov](https://codecov.io/gh/dmfs/jems/branch/master/graph/badge.svg)](https://codecov.io/gh/dmfs/jems)
 
 # Jems
 
