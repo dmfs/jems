@@ -65,7 +65,7 @@ public final class FrozenTest
                 mFirst = false;
                 return mFirstValue;
             }
-            return new Object();
+            throw new RuntimeException("Shouldn't be called");
         }
     }
 
