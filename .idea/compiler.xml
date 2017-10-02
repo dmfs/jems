@@ -12,6 +12,8 @@
       <module name="optional-testing_test" target="1.7" />
       <module name="optional_main" target="1.7" />
       <module name="optional_test" target="1.7" />
+      <module name="test-utils_main" target="1.7" />
+      <module name="test-utils_test" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
