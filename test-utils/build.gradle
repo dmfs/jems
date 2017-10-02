@@ -1,0 +1,16 @@
+apply plugin: 'java'
+apply from: '../jacoco.gradle'
+
+sourceCompatibility = 1.7
+
+configurations {
+    pom
+}
+
+apply from: '../publish.gradle'
+
+dependencies {
+    compile 'junit:junit:' + JUNIT
+    compile 'org.hamcrest:hamcrest-all:' + HAMCREST
+    compile 'org.mockito:mockito-core:' + MOCKITO
+}
