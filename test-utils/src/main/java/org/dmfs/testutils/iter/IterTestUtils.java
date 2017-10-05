@@ -51,4 +51,9 @@ public final class IterTestUtils
     {
         return new ArrayIterator<>(items);
     }
+
+
+    private IterTestUtils()
+    {
+    }
 }
