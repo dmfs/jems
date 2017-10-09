@@ -18,9 +18,8 @@
 package org.dmfs.iterables.composite;
 
 import org.dmfs.iterables.decorators.DelegatingIterable;
-import org.dmfs.jems.function.BiFunction;
+import org.dmfs.jems.function.elementary.PairingFunction;
 import org.dmfs.jems.pair.Pair;
-import org.dmfs.jems.pair.elementary.ValuePair;
 
 
 /**
@@ -30,22 +29,12 @@ import org.dmfs.jems.pair.elementary.ValuePair;
  *
  * @author Gabor Keszthelyi
  */
-public final class ZippedPairs<Left, Right> extends DelegatingIterable<Pair<Left, Right>>
+public final class PairZipped<Left, Right> extends DelegatingIterable<Pair<Left, Right>>
 {
 
-    public ZippedPairs(Iterable<Left> left, Iterable<Right> right)
+    public PairZipped(Iterable<Left> leftIterable, Iterable<Right> rightIterable)
     {
-        super(new Zipped<>(left, right, new PairingFunction<Left, Right>()));
+        super(new Zipped<>(leftIterable, rightIterable, PairingFunction.<Left, Right>instance()));
     }
 
-
-    private static final class PairingFunction<Left, Right> implements BiFunction<Left, Right, Pair<Left, Right>>
-    {
-
-        @Override
-        public Pair<Left, Right> value(Left left, Right right)
-        {
-            return new ValuePair<>(left, right);
-        }
-    }
 }

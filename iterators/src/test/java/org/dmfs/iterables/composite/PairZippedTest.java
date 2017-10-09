@@ -26,30 +26,30 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 import org.junit.Test;
 
-import static org.dmfs.iterables.composite.ZippedPairsTest.PairMatcher.isPair;
+import static org.dmfs.iterables.composite.PairZippedTest.PairMatcher.isPair;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.emptyIterable;
 
 
 /**
- * Unit test for {@link ZippedPairs}.
+ * Unit test for {@link PairZipped}.
  *
  * @author Gabor Keszthelyi
  */
-public final class ZippedPairsTest
+public final class PairZippedTest
 {
 
     @Test
-    public void testIterator()
+    public void test()
     {
-        assertThat(new ZippedPairs<>(EmptyIterable.<String>instance(), EmptyIterable.<String>instance()), emptyIterable());
-        assertThat(new ZippedPairs<>(new ArrayIterable<>("1", "2", "3"), EmptyIterable.<String>instance()), emptyIterable());
-        assertThat(new ZippedPairs<>(EmptyIterable.<String>instance(), new ArrayIterable<>("a", "b", "c")), emptyIterable());
+        assertThat(new PairZipped<>(EmptyIterable.<String>instance(), EmptyIterable.<String>instance()), emptyIterable());
+        assertThat(new PairZipped<>(new ArrayIterable<>("1", "2", "3"), EmptyIterable.<String>instance()), emptyIterable());
+        assertThat(new PairZipped<>(EmptyIterable.<String>instance(), new ArrayIterable<>("a", "b", "c")), emptyIterable());
 
-        assertThat(new ZippedPairs<>(new ArrayIterable<>("1"), new ArrayIterable<>("a", "b", "c")), contains(isPair("1", "a")));
-        assertThat(new ZippedPairs<>(new ArrayIterable<>("1", "2", "3"), new ArrayIterable<>("a")), contains(isPair("1", "a")));
-        assertThat(new ZippedPairs<>(new ArrayIterable<>("1", "2", "3"), new ArrayIterable<>("a", "b", "c")),
+        assertThat(new PairZipped<>(new ArrayIterable<>("1"), new ArrayIterable<>("a", "b", "c")), contains(isPair("1", "a")));
+        assertThat(new PairZipped<>(new ArrayIterable<>("1", "2", "3"), new ArrayIterable<>("a")), contains(isPair("1", "a")));
+        assertThat(new PairZipped<>(new ArrayIterable<>("1", "2", "3"), new ArrayIterable<>("a", "b", "c")),
                 contains(isPair("1", "a"), isPair("2", "b"), isPair("3", "c")));
     }
 
