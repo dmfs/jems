@@ -6,10 +6,10 @@
       <module name="essentials_test" target="1.7" />
       <module name="iterators_main" target="1.7" />
       <module name="iterators_test" target="1.7" />
+      <module name="jems-testing_main" target="1.7" />
+      <module name="jems-testing_test" target="1.7" />
       <module name="jems_main" target="1.7" />
       <module name="jems_test" target="1.7" />
-      <module name="optional-testing_main" target="1.7" />
-      <module name="optional-testing_test" target="1.7" />
       <module name="optional_main" target="1.7" />
       <module name="optional_test" target="1.7" />
       <module name="test-utils_main" target="1.7" />
