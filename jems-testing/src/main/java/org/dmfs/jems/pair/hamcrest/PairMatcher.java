@@ -58,10 +58,7 @@ public final class PairMatcher<L, R> extends TypeSafeDiagnosingMatcher<Pair>
             mLeftValueMatcher.describeMismatch(actualPair.left(), mismatchDescription);
             return false;
         }
-        else
-        {
-            return true;
-        }
+        return true;
     }
 
 
