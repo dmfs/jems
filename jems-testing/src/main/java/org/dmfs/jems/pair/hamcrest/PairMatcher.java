@@ -78,7 +78,7 @@ public final class PairMatcher<L, R> extends TypeSafeDiagnosingMatcher<Pair>
     /**
      * Matcher that matches when the provided left and right value equals() to actual {@link Pair}s left and right value.
      */
-    public static <L, R> Matcher<Pair> isPair(L leftValue, R rightValue)
+    public static <L, R> Matcher<Pair> pair(L leftValue, R rightValue)
     {
         return new PairMatcher<>(equalTo(leftValue), equalTo(rightValue));
     }
@@ -87,7 +87,7 @@ public final class PairMatcher<L, R> extends TypeSafeDiagnosingMatcher<Pair>
     /**
      * Matcher that matches when the provided {@link Matcher}s for the left and right value match with the {@link Pair}s left and right value.
      */
-    public static <L, R> Matcher<Pair> isPair(Matcher<L> leftValueMatcher, Matcher<R> rightValueMatcher)
+    public static <L, R> Matcher<Pair> pair(Matcher<L> leftValueMatcher, Matcher<R> rightValueMatcher)
     {
         return new PairMatcher<>(leftValueMatcher, rightValueMatcher);
     }

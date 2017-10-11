@@ -23,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.dmfs.jems.pair.hamcrest.PairMatcher.isPair;
+import static org.dmfs.jems.pair.hamcrest.PairMatcher.pair;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -45,7 +45,7 @@ public final class PairMatcherTest
     public void test_isPairWithNoMatcher_defaultsToEqualTo()
     {
         assertThat(new ValuePair<>(new LeftValueObject(1), new RightValueObject(5)),
-                isPair(new LeftValueObject(1), new RightValueObject(5)));
+                PairMatcher.pair(new LeftValueObject(1), new RightValueObject(5)));
     }
 
 
@@ -56,13 +56,13 @@ public final class PairMatcherTest
         Right right = new Right();
 
         assertThat(new ValuePair<>(left, right),
-                isPair(sameInstance(left), sameInstance(right)));
+                pair(sameInstance(left), sameInstance(right)));
 
         assertThat(new ValuePair<>(left, new RightValueObject(3)),
-                isPair(sameInstance(left), equalTo(new RightValueObject(3))));
+                pair(sameInstance(left), equalTo(new RightValueObject(3))));
 
         assertThat(new ValuePair<>(new LeftValueObject(2), right),
-                isPair(equalTo(new LeftValueObject(2)), sameInstance(right)));
+                pair(equalTo(new LeftValueObject(2)), sameInstance(right)));
     }
 
 
@@ -74,7 +74,7 @@ public final class PairMatcherTest
                 "     but: Left value doesn't match: was <LeftValueObject{1}>");
 
         assertThat(new ValuePair<>(new LeftValueObject(1), new RightValueObject(5)),
-                isPair(new LeftValueObject(2), new RightValueObject(5)));
+                PairMatcher.pair(new LeftValueObject(2), new RightValueObject(5)));
     }
 
 
@@ -87,7 +87,7 @@ public final class PairMatcherTest
                         "     but: Left value doesn't match: was <LeftValueObject{1}>");
 
         assertThat(new ValuePair<>(new LeftValueObject(1), new RightValueObject(5)),
-                isPair(sameInstance(new LeftValueObject(1)), sameInstance(new RightValueObject(5))));
+                pair(sameInstance(new LeftValueObject(1)), sameInstance(new RightValueObject(5))));
     }
 
 
