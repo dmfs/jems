@@ -10,9 +10,11 @@ configurations {
 apply from: '../publish.gradle'
 
 dependencies {
+    compile project(':iterators')
     compile project(':optional')
-    compile project(':test-utils')
 
     // in this case, junit is not (only) a test dependency, but a build dependency
     compile 'junit:junit:' + JUNIT
+    compile 'org.hamcrest:hamcrest-all:' + HAMCREST
+    compile 'org.mockito:mockito-core:' + MOCKITO
 }

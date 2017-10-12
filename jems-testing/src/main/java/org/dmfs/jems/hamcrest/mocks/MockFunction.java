@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.dmfs.testutils.mocks;
+package org.dmfs.jems.hamcrest.mocks;
 
 import org.dmfs.iterables.ArrayIterable;
 import org.dmfs.iterables.SingletonIterable;

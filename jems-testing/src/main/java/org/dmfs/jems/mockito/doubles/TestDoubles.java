@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 
-package org.dmfs.testutils;
+package org.dmfs.jems.mockito.doubles;
 
+import org.dmfs.jems.mockito.answers.FailAnswer;
 import org.mockito.Mockito;
 
 
