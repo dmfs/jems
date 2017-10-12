@@ -66,16 +66,13 @@ public final class MockFunctionTest
     @Test(expected = AssertionError.class)
     public void test_priCtorIterablePairs_differentArg_fail()
     {
-        MockFunction<Integer, Object> mockFunction = new MockFunction<>(
+        new MockFunction<>(
                 new ArrayIterable<Pair<Matcher<Integer>, Object>>(
                         new ValuePair<>(equalTo(arg(1)), RES_1),
                         new ValuePair<>(equalTo(arg(2)), RES_2),
                         new ValuePair<>(equalTo(arg(3)), RES_3)
-                ));
-
-        assertThat(mockFunction.apply(arg(1)), sameInstance(RES_1));
-        assertThat(mockFunction.apply(arg(2)), sameInstance(RES_2));
-        mockFunction.apply(arg(5));
+                ))
+                .apply(arg(5));
     }
 
 
@@ -110,12 +107,10 @@ public final class MockFunctionTest
     @Test(expected = AssertionError.class)
     public void test_secCtorIterableIterable_differentArgs_fail()
     {
-        Function<Integer, Object> mockFunction = new MockFunction<>(
+        new MockFunction<>(
                 new ArrayIterable<>(equalTo(arg(1)), equalTo(arg(2)), equalTo(arg(3))),
-                new ArrayIterable<>(RES_1, RES_2, RES_3));
-
-        assertThat(mockFunction.apply(arg(1)), sameInstance(RES_1));
-        mockFunction.apply(arg(555));
+                new ArrayIterable<>(RES_1, RES_2, RES_3))
+                .apply(arg(555));
     }
 
 
