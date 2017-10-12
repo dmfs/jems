@@ -17,16 +17,18 @@
 
 package org.dmfs.jems.pair.hamcrest;
 
-import org.dmfs.jems.pair.elementary.ValuePair;
-import org.dmfs.testutils.tools.AbstractValueObject;
+import org.dmfs.jems.pair.Pair;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.dmfs.jems.pair.hamcrest.PairMatcher.pair;
+import static org.dmfs.testutils.TestDoubles.failingMock;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsSame.sameInstance;
+import static org.mockito.Mockito.doReturn;
 
 
 /**
@@ -42,84 +44,60 @@ public final class PairMatcherTest
 
 
     @Test
-    public void test_isPairWithNoMatcher_defaultsToEqualTo()
+    public void test_pairWithAndWithoutMatcher_withDifferentArgPermutations()
     {
-        assertThat(new ValuePair<>(new LeftValueObject(1), new RightValueObject(5)),
-                PairMatcher.pair(new LeftValueObject(1), new RightValueObject(5)));
+        assertThat(pair(equalTo(new String("a")), equalTo(new Integer(1)))
+                .matches(mockPair(new String("a"), new Integer(1))), is(true));
+        assertThat(pair(new String("a"), new Integer(1))
+                .matches(mockPair(new String("a"), new Integer(1))), is(true));
+
+        assertThat(pair(equalTo(new String("b")), equalTo(new Integer(1)))
+                .matches(mockPair(new String("a"), new Integer(1))), is(false));
+        assertThat(pair(new String("b"), new Integer(1))
+                .matches(mockPair(new String("a"), new Integer(1))), is(false));
+
+        assertThat(pair(equalTo(new String("a")), equalTo(new Integer(2)))
+                .matches(mockPair(new String("a"), new Integer(1))), is(false));
+        assertThat(pair(new String("a"), new Integer(2))
+                .matches(mockPair(new String("a"), new Integer(1))), is(false));
+
+        assertThat(pair(equalTo(new String("b")), equalTo(new Integer(2)))
+                .matches(mockPair(new String("a"), new Integer(1))), is(false));
+        assertThat(pair(new String("b"), new Integer(2))
+                .matches(mockPair(new String("a"), new Integer(1))), is(false));
     }
 
 
     @Test
-    public void test_isPairWithMatcher()
-    {
-        Left left = new Left();
-        Right right = new Right();
-
-        assertThat(new ValuePair<>(left, right),
-                pair(sameInstance(left), sameInstance(right)));
-
-        assertThat(new ValuePair<>(left, new RightValueObject(3)),
-                pair(sameInstance(left), equalTo(new RightValueObject(3))));
-
-        assertThat(new ValuePair<>(new LeftValueObject(2), right),
-                pair(equalTo(new LeftValueObject(2)), sameInstance(right)));
-    }
-
-
-    @Test
-    public void test_isPair_failsForNotMatchingEquals()
+    public void test_pairWithoutMatcher_whenFailsForNotMatchingLeft_shouldThrowWithCorrectMessage()
     {
         exception.expect(AssertionError.class);
-        exception.expectMessage("Expected: is Pair with left value: <LeftValueObject{2}> , and right value: <RightValueObject{5}>\n" +
-                "     but: Left value doesn't match: was <LeftValueObject{1}>");
+        exception.expectMessage("Expected: is Pair with left value: \"a\" , and right value: <1>\n" +
+                "     but: Left value doesn't match: was \"b\"");
 
-        assertThat(new ValuePair<>(new LeftValueObject(1), new RightValueObject(5)),
-                PairMatcher.pair(new LeftValueObject(2), new RightValueObject(5)));
+        assertThat(mockPair(new String("b"), new Integer(1)),
+                pair(new String("a"), new Integer(1)));
     }
 
 
     @Test
-    public void test_isPair_failsForNotMatchingInstance()
+    public void test_pairWithMatcher_whenFailsForNotMatchingRight_shouldThrowWithCorrectMessage()
     {
         exception.expect(AssertionError.class);
-        exception.expectMessage(
-                "Expected: is Pair with left value: sameInstance(<LeftValueObject{1}>) , and right value: sameInstance(<RightValueObject{5}>)\n" +
-                        "     but: Left value doesn't match: was <LeftValueObject{1}>");
+        exception.expectMessage("Expected: is Pair with left value: \"a\" , and right value: sameInstance(<1>)\n" +
+                "     but: Right value doesn't match: was <1>");
 
-        assertThat(new ValuePair<>(new LeftValueObject(1), new RightValueObject(5)),
-                pair(sameInstance(new LeftValueObject(1)), sameInstance(new RightValueObject(5))));
+        assertThat(mockPair(new String("a"), new Integer(1)),
+                pair(equalTo(new String("a")), sameInstance(new Integer(1))));
     }
 
 
-    private static final class Left
+    private <L, R> Pair<L, R> mockPair(L left, R right)
     {
-
-    }
-
-
-    private static final class Right
-    {
-
-    }
-
-
-    private static final class LeftValueObject extends AbstractValueObject
-    {
-
-        LeftValueObject(int value)
-        {
-            super(value);
-        }
-    }
-
-
-    private static final class RightValueObject extends AbstractValueObject
-    {
-
-        RightValueObject(int value)
-        {
-            super(value);
-        }
+        Pair<L, R> mockPair = failingMock(Pair.class);
+        doReturn(left).when(mockPair).left();
+        doReturn(right).when(mockPair).right();
+        return mockPair;
     }
 
 }
