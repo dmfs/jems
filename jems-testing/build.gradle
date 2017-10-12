@@ -11,6 +11,7 @@ apply from: '../publish.gradle'
 
 dependencies {
     compile project(':optional')
+    compile project(':test-utils')
 
     // in this case, junit is not (only) a test dependency, but a build dependency
     compile 'junit:junit:' + JUNIT
