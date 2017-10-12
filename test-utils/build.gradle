@@ -10,6 +10,9 @@ configurations {
 apply from: '../publish.gradle'
 
 dependencies {
+    compile project(':iterators')
+    compile project(':optional')
+
     compile 'junit:junit:' + JUNIT
     compile 'org.hamcrest:hamcrest-all:' + HAMCREST
     compile 'org.mockito:mockito-core:' + MOCKITO
