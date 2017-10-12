@@ -19,6 +19,7 @@ package org.dmfs.jems.pair.elementary;
 
 import org.junit.Test;
 
+import static org.dmfs.jems.pair.hamcrest.PairMatcher.pair;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
@@ -33,25 +34,10 @@ public final class ValuePairTest
     @Test
     public void testThatSameInstancesAreReturned()
     {
-        LeftHand leftHand = new LeftHand();
-        RightHand rightHand = new RightHand();
+        String left = new String("a");
+        Integer right = new Integer(1);
 
-        ValuePair<LeftHand, RightHand> hands = new ValuePair<>(leftHand, rightHand);
-
-        assertThat(hands.left(), sameInstance(leftHand));
-        assertThat(hands.right(), sameInstance(rightHand));
-    }
-
-
-    private final static class LeftHand
-    {
-
-    }
-
-
-    private final static class RightHand
-    {
-
+        assertThat(new ValuePair<>(left, right), pair(sameInstance(left), sameInstance(right)));
     }
 
 }

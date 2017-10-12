@@ -19,6 +19,7 @@ package org.dmfs.jems.function.elementary;
 
 import org.junit.Test;
 
+import static org.dmfs.jems.pair.hamcrest.PairMatcher.pair;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
@@ -34,27 +35,12 @@ public final class PairingFunctionTest
     @Test
     public void test()
     {
-        LeftHand leftHand = new LeftHand();
-        RightHand rightHand = new RightHand();
+        String left = new String("a");
+        Integer right = new Integer(1);
 
-        PairingFunction<LeftHand, RightHand> pairingFunction = new PairingFunction<>();
-        assertThat(pairingFunction.value(leftHand, rightHand).left(), sameInstance(leftHand));
-        assertThat(pairingFunction.value(leftHand, rightHand).right(), sameInstance(rightHand));
+        assertThat(new PairingFunction<String, Integer>().value(left, right), pair(sameInstance(left), sameInstance(right)));
 
-        assertThat(PairingFunction.<LeftHand, RightHand>instance().value(leftHand, rightHand).left(), sameInstance(leftHand));
-        assertThat(PairingFunction.<LeftHand, RightHand>instance().value(leftHand, rightHand).right(), sameInstance(rightHand));
-    }
-
-
-    private static final class LeftHand
-    {
-
-    }
-
-
-    private static final class RightHand
-    {
-
+        assertThat(PairingFunction.<String, Integer>instance().value(left, right), pair(sameInstance(left), sameInstance(right)));
     }
 
 }
