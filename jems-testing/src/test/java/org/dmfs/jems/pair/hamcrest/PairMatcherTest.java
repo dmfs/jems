@@ -20,9 +20,7 @@ package org.dmfs.jems.pair.hamcrest;
 import org.dmfs.jems.pair.Pair;
 import org.hamcrest.Description;
 import org.hamcrest.StringDescription;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import static org.dmfs.jems.pair.hamcrest.PairMatcher.pair;
 import static org.dmfs.testutils.TestDoubles.failingMock;
@@ -39,10 +37,6 @@ import static org.mockito.Mockito.doReturn;
  */
 public final class PairMatcherTest
 {
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
 
     @Test
     public void test_pairWithAndWithoutMatcher_withDifferentArgPermutations()
