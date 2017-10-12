@@ -18,6 +18,8 @@
 package org.dmfs.jems.pair.hamcrest;
 
 import org.dmfs.jems.pair.Pair;
+import org.hamcrest.Description;
+import org.hamcrest.StringDescription;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -27,7 +29,6 @@ import static org.dmfs.testutils.TestDoubles.failingMock;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.IsSame.sameInstance;
 import static org.mockito.Mockito.doReturn;
 
 
@@ -69,26 +70,24 @@ public final class PairMatcherTest
 
 
     @Test
-    public void test_pairWithoutMatcher_whenFailsForNotMatchingLeft_shouldThrowWithCorrectMessage()
+    public void test_describeMismatch()
     {
-        exception.expect(AssertionError.class);
-        exception.expectMessage("Expected: is Pair with left value: \"a\" , and right value: <1>\n" +
-                "     but: Left value doesn't match: was \"b\"");
+        Description mismatchMsg = new StringDescription();
+        pair("a", 1).describeMismatch(mockPair("b", 1), mismatchMsg);
+        assertThat(mismatchMsg.toString(), is("Left value doesn't match: was \"b\""));
 
-        assertThat(mockPair(new String("b"), new Integer(1)),
-                pair(new String("a"), new Integer(1)));
+        mismatchMsg = new StringDescription();
+        pair("a", 1).describeMismatch(mockPair("a", 2), mismatchMsg);
+        assertThat(mismatchMsg.toString(), is("Right value doesn't match: was <2>"));
     }
 
 
     @Test
-    public void test_pairWithMatcher_whenFailsForNotMatchingRight_shouldThrowWithCorrectMessage()
+    public void test_describeTo()
     {
-        exception.expect(AssertionError.class);
-        exception.expectMessage("Expected: is Pair with left value: \"a\" , and right value: sameInstance(<1>)\n" +
-                "     but: Right value doesn't match: was <1>");
-
-        assertThat(mockPair(new String("a"), new Integer(1)),
-                pair(equalTo(new String("a")), sameInstance(new Integer(1))));
+        Description describeTo = new StringDescription();
+        pair("a", 1).describeTo(describeTo);
+        assertThat(describeTo.toString(), is("is Pair with left value: \"a\" , and right value: <1>"));
     }
 
 

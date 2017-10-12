@@ -55,7 +55,7 @@ public final class PairMatcher<L, R> extends TypeSafeDiagnosingMatcher<Pair>
         else if (!mRightValueMatcher.matches(actualPair.right()))
         {
             mismatchDescription.appendText("Right value doesn't match: ");
-            mLeftValueMatcher.describeMismatch(actualPair.right(), mismatchDescription);
+            mRightValueMatcher.describeMismatch(actualPair.right(), mismatchDescription);
             return false;
         }
         return true;
