@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.pair.hamcrest;
+package org.dmfs.jems.hamcrest.matchers;
 
 import org.dmfs.jems.pair.Pair;
 import org.hamcrest.Description;
 import org.hamcrest.StringDescription;
 import org.junit.Test;
 
-import static org.dmfs.jems.pair.hamcrest.PairMatcher.pair;
+import static org.dmfs.jems.hamcrest.matchers.PairMatcher.pair;
 import static org.dmfs.jems.mockito.doubles.TestDoubles.failingMock;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;

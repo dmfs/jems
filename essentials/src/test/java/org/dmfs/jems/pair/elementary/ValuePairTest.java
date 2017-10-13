@@ -19,7 +19,7 @@ package org.dmfs.jems.pair.elementary;
 
 import org.junit.Test;
 
-import static org.dmfs.jems.pair.hamcrest.PairMatcher.pair;
+import static org.dmfs.jems.hamcrest.matchers.PairMatcher.pair;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 

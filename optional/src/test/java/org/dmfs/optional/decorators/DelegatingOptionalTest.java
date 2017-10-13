@@ -20,10 +20,10 @@ package org.dmfs.optional.decorators;
 import org.dmfs.optional.Absent;
 import org.dmfs.optional.Optional;
 import org.dmfs.optional.Present;
-import org.dmfs.optional.hamcrest.AbsentMatcher;
+import org.dmfs.jems.hamcrest.matchers.AbsentMatcher;
 import org.junit.Test;
 
-import static org.dmfs.optional.hamcrest.PresentMatcher.isPresent;
+import static org.dmfs.jems.hamcrest.matchers.PresentMatcher.isPresent;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 

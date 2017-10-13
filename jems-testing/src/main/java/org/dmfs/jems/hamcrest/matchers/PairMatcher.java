@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.pair.hamcrest;
+package org.dmfs.jems.hamcrest.matchers;
 
 import org.dmfs.jems.pair.Pair;
 import org.hamcrest.Description;

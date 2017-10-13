@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.dmfs.optional.hamcrest;
+package org.dmfs.jems.hamcrest.matchers;
 
 import org.dmfs.optional.Absent;
 import org.dmfs.optional.Present;
@@ -27,18 +27,17 @@ import static org.junit.Assert.assertThat;
 
 
 /**
- * Test for {@link PresentMatcher}.
+ * Test for {@link AbsentMatcher}.
  *
  * @author Marten Gajda
  */
-public class PresentMatcherTest
+public class AbsentMatcherTest
 {
     @Test
     public void testMatchesSafely() throws Exception
     {
-        assertThat(new PresentMatcher<>().matchesSafely(Absent.absent(), new Description.NullDescription()), CoreMatchers.is(false));
-        assertThat(new PresentMatcher<String>().matchesSafely(new Present<>("test"), new Description.NullDescription()), CoreMatchers.is(true));
-        assertThat(new PresentMatcher<>("test").matchesSafely(new Present<>("test"), new Description.NullDescription()), CoreMatchers.is(true));
-        assertThat(new PresentMatcher<>("test").matchesSafely(new Present<>("tost"), new Description.NullDescription()), CoreMatchers.is(false));
+        assertThat(new AbsentMatcher<String>().matchesSafely(Absent.<String>absent(), new Description.NullDescription()), CoreMatchers.is(true));
+        assertThat(new AbsentMatcher<String>().matchesSafely(new Present<>("test"), new Description.NullDescription()), CoreMatchers.is(false));
     }
+
 }

@@ -17,11 +17,11 @@
 
 package org.dmfs.optional;
 
-import org.dmfs.optional.hamcrest.AbsentMatcher;
+import org.dmfs.jems.hamcrest.matchers.AbsentMatcher;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.dmfs.optional.hamcrest.PresentMatcher.isPresent;
+import static org.dmfs.jems.hamcrest.matchers.PresentMatcher.isPresent;
 import static org.junit.Assert.assertThat;
 
 
