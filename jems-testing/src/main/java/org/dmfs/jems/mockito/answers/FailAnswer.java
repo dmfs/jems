@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.dmfs.testutils;
+package org.dmfs.jems.mockito.answers;
 
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;

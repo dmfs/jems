@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.dmfs.testutils.matchers;
+package org.dmfs.jems.hamcrest.matchers;
 
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
