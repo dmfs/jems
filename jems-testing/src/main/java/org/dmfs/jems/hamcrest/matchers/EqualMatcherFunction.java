@@ -24,6 +24,8 @@ import org.hamcrest.Matcher;
 
 /**
  * {@link Function} that creates a {@link Matcher} for the given argument that matches for object equality (equals()).
+ * <p>
+ * Note: This is a workaround for the lack of method references in Java 7.
  *
  * @author Gabor Keszthelyi
  */
