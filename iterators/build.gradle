@@ -14,4 +14,5 @@ dependencies {
 
     testCompile 'junit:junit:' + JUNIT
     testCompile 'org.hamcrest:hamcrest-all:' + HAMCREST
+    testCompile project(':jems-testing')
 }
