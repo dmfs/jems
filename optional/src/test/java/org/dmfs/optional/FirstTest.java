@@ -17,14 +17,17 @@
 
 package org.dmfs.optional;
 
+import org.dmfs.iterables.EmptyIterable;
+import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.iterators.Filter;
 import org.dmfs.jems.hamcrest.matchers.AbsentMatcher;
 import org.junit.Test;
 
-import java.util.Arrays;
-
-import static junit.framework.TestCase.assertEquals;
 import static org.dmfs.jems.hamcrest.matchers.PresentMatcher.isPresent;
+import static org.dmfs.jems.mockito.doubles.TestDoubles.failingMock;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doReturn;
 
 
 /**
@@ -33,19 +36,23 @@ import static org.junit.Assert.assertThat;
 public class FirstTest
 {
     @Test
-    public void testIsPresent() throws Exception
+    public void testFirst() throws Exception
     {
-        assertThat(new First<>(Arrays.<String>asList()), AbsentMatcher.<String>isAbsent());
-        assertThat(new First<>(Arrays.asList("test")), isPresent("test"));
-        assertThat(new First<>(Arrays.asList("test", "test123")), isPresent("test"));
+        assertThat(new First<>(EmptyIterable.<String>instance()), AbsentMatcher.<String>isAbsent());
+        assertThat(new First<>(new Seq<>("test")), isPresent("test"));
+        assertThat(new First<>(new Seq<>("test", "test123")), isPresent("test"));
     }
 
 
     @Test
-    public void testValueWithDefault() throws Exception
+    public void testFilteredFirst() throws Exception
     {
-        assertEquals("xyz", new First<>(Arrays.asList()).value("xyz"));
-        assertEquals("test", new First<>(Arrays.asList("test")).value("xyz"));
-        assertEquals("test", new First<>(Arrays.asList("test", "test123")).value("xyz"));
+        Filter<String> mockFilter = failingMock(Filter.class);
+        doReturn(false).when(mockFilter).iterate(anyString());
+        doReturn(true).when(mockFilter).iterate("test123");
+
+        assertThat(new First<>(EmptyIterable.<String>instance(), mockFilter), AbsentMatcher.<String>isAbsent());
+        assertThat(new First<>(new Seq<>("test"), mockFilter), AbsentMatcher.<String>isAbsent());
+        assertThat(new First<>(new Seq<>("test", "test123"), mockFilter), isPresent("test123"));
     }
 }

@@ -17,6 +17,9 @@
 
 package org.dmfs.optional;
 
+import org.dmfs.iterables.decorators.Filtered;
+import org.dmfs.iterators.Filter;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -30,6 +33,20 @@ public final class First<T> implements Optional<T>
 {
     private final Iterable<T> mIterable;
     private Optional<T> mDelegate;
+
+
+    /**
+     * Creates an {@link Optional} of the first value of the given {@link Iterable} which matches the given {@link Filter}.
+     *
+     * @param iterable
+     *         The {@link Iterable}
+     * @param filter
+     *         The {@link Filter}
+     */
+    public First(Iterable<T> iterable, Filter<T> filter)
+    {
+        this(new Filtered<T>(iterable, filter));
+    }
 
 
     /**
