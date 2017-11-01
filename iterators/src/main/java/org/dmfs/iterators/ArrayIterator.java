@@ -17,6 +17,8 @@
 
 package org.dmfs.iterators;
 
+import org.dmfs.iterators.elementary.Seq;
+
 import java.util.Iterator;
 
 
@@ -27,7 +29,9 @@ import java.util.Iterator;
  *         The type of the values in the array.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link Seq}
  */
+@Deprecated
 public final class ArrayIterator<E> extends AbstractBaseIterator<E>
 {
     private final E[] mValue;

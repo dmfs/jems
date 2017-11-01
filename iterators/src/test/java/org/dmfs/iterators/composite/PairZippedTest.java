@@ -17,8 +17,8 @@
 
 package org.dmfs.iterators.composite;
 
-import org.dmfs.iterators.ArrayIterator;
 import org.dmfs.iterators.EmptyIterator;
+import org.dmfs.iterators.elementary.Seq;
 import org.dmfs.jems.pair.Pair;
 import org.dmfs.jems.pair.elementary.ValuePair;
 import org.hamcrest.Description;
@@ -47,14 +47,14 @@ public final class PairZippedTest
     public void test()
     {
         assertThat(new PairZipped<>(EmptyIterator.<String>instance(), EmptyIterator.<String>instance()), IsEmptyIterator.<Pair<String, String>>emptyIterator());
-        assertThat(new PairZipped<>(new ArrayIterator<>("1", "2", "3"), EmptyIterator.<String>instance()),
+        assertThat(new PairZipped<>(new Seq<>("1", "2", "3"), EmptyIterator.<String>instance()),
                 IsEmptyIterator.<Pair<String, String>>emptyIterator());
-        assertThat(new PairZipped<>(EmptyIterator.<String>instance(), new ArrayIterator<>("a", "b", "c")),
+        assertThat(new PairZipped<>(EmptyIterator.<String>instance(), new Seq<>("a", "b", "c")),
                 IsEmptyIterator.<Pair<String, String>>emptyIterator());
 
-        assertThat(new PairZipped<>(new ArrayIterator<>("1"), new ArrayIterator<>("a", "b", "c")), contains(isPair("1", "a")));
-        assertThat(new PairZipped<>(new ArrayIterator<>("1", "2", "3"), new ArrayIterator<>("a")), contains(isPair("1", "a")));
-        assertThat(new PairZipped<>(new ArrayIterator<>("1", "2", "3"), new ArrayIterator<>("a", "b", "c")),
+        assertThat(new PairZipped<>(new Seq<>("1"), new Seq<>("a", "b", "c")), contains(isPair("1", "a")));
+        assertThat(new PairZipped<>(new Seq<>("1", "2", "3"), new Seq<>("a")), contains(isPair("1", "a")));
+        assertThat(new PairZipped<>(new Seq<>("1", "2", "3"), new Seq<>("a", "b", "c")),
                 contains(isPair("1", "a"), isPair("2", "b"), isPair("3", "c")));
     }
 

@@ -15,42 +15,34 @@
  * limitations under the License.
  */
 
-package org.dmfs.iterables.decorators;
-
-import org.dmfs.iterables.elementary.Seq;
+package org.dmfs.iterables.elementary;
 
 import java.util.Iterator;
 
 
 /**
- * An {@link Iterable} which iterates the elements of other {@link Iterable}s.
+ * {@link Iterable} sequence of values.
  *
  * @param <T>
  *         The type of the iterated elements.
  *
  * @author Marten Gajda
  */
-public final class Flattened<T> implements Iterable<T>
+public final class Seq<T> implements Iterable<T>
 {
-    private final Iterable<Iterable<T>> mIterables;
+    private final T[] mArray;
 
 
     @SafeVarargs
-    public Flattened(Iterable<T>... iterables)
+    public Seq(T... elements)
     {
-        this(new Seq<>(iterables));
-    }
-
-
-    public Flattened(Iterable<Iterable<T>> iterables)
-    {
-        mIterables = iterables;
+        mArray = elements;
     }
 
 
     @Override
     public Iterator<T> iterator()
     {
-        return new org.dmfs.iterators.decorators.Flattened<>(mIterables.iterator());
+        return new org.dmfs.iterators.elementary.Seq<>(mArray);
     }
 }

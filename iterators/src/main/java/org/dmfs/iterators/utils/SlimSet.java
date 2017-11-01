@@ -17,11 +17,11 @@
 
 package org.dmfs.iterators.utils;
 
-import org.dmfs.iterators.ArrayIterator;
 import org.dmfs.iterators.EmptyIterator;
 import org.dmfs.iterators.SingletonIterator;
 import org.dmfs.iterators.decorators.Filtered;
 import org.dmfs.iterators.decorators.Serialized;
+import org.dmfs.iterators.elementary.Seq;
 import org.dmfs.iterators.filters.NonNull;
 
 import java.util.Collection;
@@ -31,8 +31,8 @@ import java.util.Set;
 
 
 /**
- * An open addressing {@link Set} implementation. While insert performance is mostly comparable to the default {@link
- * HashSet} implementation, this set aims to be much more memory efficient.
+ * An open addressing {@link Set} implementation. While insert performance is mostly comparable to the default {@link HashSet} implementation, this set aims to
+ * be much more memory efficient.
  * <p>
  * This class is not thread safe.
  *
@@ -91,8 +91,8 @@ public final class SlimSet<E> implements Set<E>, Cloneable
 
 
     /**
-     * Constructor to create a set that can take at least the given number of elements before it needs to be rehashed.
-     * This constructor also allows to specify the load factor of the set.
+     * Constructor to create a set that can take at least the given number of elements before it needs to be rehashed. This constructor also allows to specify
+     * the load factor of the set.
      *
      * @param size
      *         The number of elements that the set can hold before it needs to be resized and rehashed.
@@ -245,8 +245,8 @@ public final class SlimSet<E> implements Set<E>, Cloneable
 
 
     /**
-     * Calculates the position of the given element in the given array. The value at the calculated position will be
-     * <code>null</code> if the element doesn't exist in the array, otherwise the position will point to the element.
+     * Calculates the position of the given element in the given array. The value at the calculated position will be <code>null</code> if the element doesn't
+     * exist in the array, otherwise the position will point to the element.
      *
      * @param array
      * @param object
@@ -330,7 +330,7 @@ public final class SlimSet<E> implements Set<E>, Cloneable
             return new SingletonIterator<E>(null);
         }
 
-        Iterator<E> result = new Filtered<E>(new ArrayIterator<E>((E[]) mArray.clone()),
+        Iterator<E> result = new Filtered<E>(new Seq<E>((E[]) mArray.clone()),
                 NonNull.<E>instance());
         if (mContainsNull)
         {

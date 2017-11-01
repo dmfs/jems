@@ -15,42 +15,50 @@
  * limitations under the License.
  */
 
-package org.dmfs.iterables.decorators;
+package org.dmfs.iterators.elementary;
 
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.iterators.AbstractBaseIterator;
 
 import java.util.Iterator;
 
 
 /**
- * An {@link Iterable} which iterates the elements of other {@link Iterable}s.
+ * An {@link Iterator} of a sequence of values.
  *
- * @param <T>
- *         The type of the iterated elements.
+ * @param <E>
+ *         The type of the values in the array.
  *
  * @author Marten Gajda
  */
-public final class Flattened<T> implements Iterable<T>
+public final class Seq<E> extends AbstractBaseIterator<E>
 {
-    private final Iterable<Iterable<T>> mIterables;
+    private final E[] mValue;
+    private int mNext;
 
 
+    /**
+     * Creates an {@link Iterator} which iterates all values in the given array.
+     *
+     * @param array
+     *         The array.
+     */
     @SafeVarargs
-    public Flattened(Iterable<T>... iterables)
+    public Seq(E... array)
     {
-        this(new Seq<>(iterables));
-    }
-
-
-    public Flattened(Iterable<Iterable<T>> iterables)
-    {
-        mIterables = iterables;
+        mValue = array;
     }
 
 
     @Override
-    public Iterator<T> iterator()
+    public boolean hasNext()
     {
-        return new org.dmfs.iterators.decorators.Flattened<>(mIterables.iterator());
+        return mNext < mValue.length;
+    }
+
+
+    @Override
+    public E next()
+    {
+        return mValue[mNext++];
     }
 }

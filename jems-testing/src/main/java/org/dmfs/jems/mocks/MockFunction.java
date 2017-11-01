@@ -17,10 +17,10 @@
 
 package org.dmfs.jems.mocks;
 
-import org.dmfs.iterables.ArrayIterable;
 import org.dmfs.iterables.SingletonIterable;
 import org.dmfs.iterables.composite.PairZipped;
 import org.dmfs.iterables.decorators.Filtered;
+import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.iterators.Filter;
 import org.dmfs.iterators.Function;
 import org.dmfs.jems.pair.Pair;
@@ -56,7 +56,7 @@ public final class MockFunction<Argument, Value> implements Function<Argument, V
     @SafeVarargs
     public MockFunction(Pair<Matcher<Argument>, Value>... pairs)
     {
-        this(new ArrayIterable<>(pairs));
+        this(new Seq<>(pairs));
     }
 
 

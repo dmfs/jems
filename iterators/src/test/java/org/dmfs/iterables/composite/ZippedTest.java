@@ -17,8 +17,8 @@
 
 package org.dmfs.iterables.composite;
 
-import org.dmfs.iterables.ArrayIterable;
 import org.dmfs.iterables.EmptyIterable;
+import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.jems.function.BiFunction;
 import org.junit.Test;
 
@@ -36,12 +36,12 @@ public class ZippedTest
     public void testIterator() throws Exception
     {
         assertThat(new Zipped<>(EmptyIterable.<String>instance(), EmptyIterable.<String>instance(), new TestFunction()), emptyIterable());
-        assertThat(new Zipped<>(new ArrayIterable<>("1", "2", "3"), EmptyIterable.<String>instance(), new TestFunction()), emptyIterable());
-        assertThat(new Zipped<>(EmptyIterable.<String>instance(), new ArrayIterable<>("a", "b", "c"), new TestFunction()), emptyIterable());
+        assertThat(new Zipped<>(new Seq<>("1", "2", "3"), EmptyIterable.<String>instance(), new TestFunction()), emptyIterable());
+        assertThat(new Zipped<>(EmptyIterable.<String>instance(), new Seq<>("a", "b", "c"), new TestFunction()), emptyIterable());
 
-        assertThat(new Zipped<>(new ArrayIterable<>("1"), new ArrayIterable<>("a", "b", "c"), new TestFunction()), contains("1a"));
-        assertThat(new Zipped<>(new ArrayIterable<>("1", "2", "3"), new ArrayIterable<>("a"), new TestFunction()), contains("1a"));
-        assertThat(new Zipped<>(new ArrayIterable<>("1", "2", "3"), new ArrayIterable<>("a", "b", "c"), new TestFunction()), contains("1a", "2b", "3c"));
+        assertThat(new Zipped<>(new Seq<>("1"), new Seq<>("a", "b", "c"), new TestFunction()), contains("1a"));
+        assertThat(new Zipped<>(new Seq<>("1", "2", "3"), new Seq<>("a"), new TestFunction()), contains("1a"));
+        assertThat(new Zipped<>(new Seq<>("1", "2", "3"), new Seq<>("a", "b", "c"), new TestFunction()), contains("1a", "2b", "3c"));
     }
 
 

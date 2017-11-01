@@ -15,35 +15,26 @@
  * limitations under the License.
  */
 
-package org.dmfs.optional.iterable;
+package org.dmfs.iterables.elementary;
 
-import org.dmfs.iterables.elementary.Seq;
-import org.dmfs.optional.Absent;
-import org.dmfs.optional.Present;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
-import java.util.List;
-
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.emptyIterable;
+import static org.hamcrest.Matchers.emptyIterableOf;
 import static org.junit.Assert.assertThat;
 
 
 /**
- * Test {@link OptionalIterable}.
- *
- * @author Marten Gajda
+ * @author marten
  */
-public class OptionalIterableTest
+public class SeqTest
 {
     @Test
     public void testIterator() throws Exception
     {
-        assertThat(new OptionalIterable<>(Absent.<List<String>>absent()), emptyIterable());
-        assertThat(new OptionalIterable<>(new Present<>(new Seq<>())), Matchers.emptyIterable());
-        assertThat(new OptionalIterable<>(new Present<>(new Seq<>("1"))), contains("1"));
-        assertThat(new OptionalIterable<>(new Present<>(new Seq<>("1", "2"))), contains("1", "2"));
+        assertThat(new Seq<String>(), emptyIterableOf(String.class));
+        assertThat(new Seq<>("1"), contains("1"));
+        assertThat(new Seq<>("1", "2", "3"), contains("1", "2", "3"));
     }
 
 }

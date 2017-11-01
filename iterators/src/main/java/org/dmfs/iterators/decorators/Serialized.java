@@ -18,16 +18,16 @@
 package org.dmfs.iterators.decorators;
 
 import org.dmfs.iterators.AbstractBaseIterator;
-import org.dmfs.iterators.ArrayIterator;
 import org.dmfs.iterators.EmptyIterator;
+import org.dmfs.iterators.elementary.Seq;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
 /**
- * An {@link Iterator} that serializes the results of other {@link Iterator}s. This means, it iterates the elements of
- * each {@link Iterator} before moving on to the next {@link Iterator}.
+ * An {@link Iterator} that serializes the results of other {@link Iterator}s. This means, it iterates the elements of each {@link Iterator} before moving on to
+ * the next {@link Iterator}.
  *
  * @param <E>
  *         The type of the iterated values.
@@ -50,13 +50,12 @@ public final class Serialized<E> extends AbstractBaseIterator<E>
     @SafeVarargs
     public Serialized(final Iterator<E>... iterators)
     {
-        this(new ArrayIterator<>(iterators));
+        this(new Seq<>(iterators));
     }
 
 
     /**
-     * Constructor of an {@link Iterator} that serializes the elements of the {@link Iterator}s iterated by the given
-     * {@link Iterator}.
+     * Constructor of an {@link Iterator} that serializes the elements of the {@link Iterator}s iterated by the given {@link Iterator}.
      *
      * @param iteratorIterator
      *         An {@link Iterator} that iterates other iterators of type &lt;E&gt;.

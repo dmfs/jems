@@ -18,10 +18,10 @@
 package org.dmfs.optional.iterator;
 
 import org.dmfs.iterators.AbstractBaseIterator;
-import org.dmfs.iterators.ArrayIterator;
 import org.dmfs.iterators.Filter;
 import org.dmfs.iterators.SingletonIterator;
 import org.dmfs.iterators.decorators.Filtered;
+import org.dmfs.iterators.elementary.Seq;
 import org.dmfs.optional.Optional;
 
 import java.util.Iterator;
@@ -47,7 +47,7 @@ public final class PresentValues<E> extends AbstractBaseIterator<E>
     @SafeVarargs
     public PresentValues(Optional<E>... optionals)
     {
-        this(new ArrayIterator<>(optionals));
+        this(new Seq<>(optionals));
     }
 
 
