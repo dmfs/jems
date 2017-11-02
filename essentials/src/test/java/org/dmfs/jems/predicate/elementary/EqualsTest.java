@@ -31,7 +31,7 @@ public class EqualsTest
     @Test
     public void testSatisfiedBy() throws Exception
     {
-        assertThat(new Equals<>("test").satisfiedBy("test"), is(true));
+        assertThat(new Equals<>(new String("test")).satisfiedBy(new String("test")), is(true));
         assertThat(new Equals<>("test").satisfiedBy("fail"), is(false));
     }
 
