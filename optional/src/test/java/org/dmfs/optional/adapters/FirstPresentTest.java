@@ -17,11 +17,11 @@
 
 package org.dmfs.optional.adapters;
 
-import org.dmfs.iterables.ArrayIterable;
+import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.hamcrest.matchers.AbsentMatcher;
 import org.dmfs.optional.Absent;
 import org.dmfs.optional.Optional;
 import org.dmfs.optional.Present;
-import org.dmfs.jems.hamcrest.matchers.AbsentMatcher;
 import org.junit.Test;
 
 import static org.dmfs.jems.hamcrest.matchers.PresentMatcher.isPresent;
@@ -42,16 +42,16 @@ public final class FirstPresentTest
     @Test
     public void testVariousCases()
     {
-        assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>()), AbsentMatcher.<String>isAbsent());
+        assertThat(new FirstPresent<>(new Seq<Optional<String>>()), AbsentMatcher.<String>isAbsent());
 
-        assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>(ABSENT)), AbsentMatcher.<String>isAbsent());
-        assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>(ABSENT, ABSENT)), AbsentMatcher.<String>isAbsent());
+        assertThat(new FirstPresent<>(new Seq<Optional<String>>(ABSENT)), AbsentMatcher.<String>isAbsent());
+        assertThat(new FirstPresent<>(new Seq<Optional<String>>(ABSENT, ABSENT)), AbsentMatcher.<String>isAbsent());
 
-        assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>(new Present<>("1"))), isPresent("1"));
-        assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>(ABSENT, new Present<>("1"))), isPresent("1"));
-        assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>(new Present<>("1"), ABSENT)), isPresent("1"));
+        assertThat(new FirstPresent<>(new Seq<Optional<String>>(new Present<>("1"))), isPresent("1"));
+        assertThat(new FirstPresent<>(new Seq<Optional<String>>(ABSENT, new Present<>("1"))), isPresent("1"));
+        assertThat(new FirstPresent<>(new Seq<Optional<String>>(new Present<>("1"), ABSENT)), isPresent("1"));
 
-        assertThat(new FirstPresent<>(new ArrayIterable<Optional<String>>(new Present<>("1"), new Present<>("2"))), isPresent("1"));
+        assertThat(new FirstPresent<>(new Seq<Optional<String>>(new Present<>("1"), new Present<>("2"))), isPresent("1"));
     }
 
 }

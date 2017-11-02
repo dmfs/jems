@@ -17,7 +17,7 @@
 
 package org.dmfs.jems.mocks;
 
-import org.dmfs.iterables.ArrayIterable;
+import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.iterators.Function;
 import org.dmfs.jems.pair.Pair;
 import org.dmfs.jems.pair.elementary.ValuePair;
@@ -51,7 +51,7 @@ public final class MockFunctionTest
     public void test_priCtorIterablePairs_matchingArgs_pass()
     {
         MockFunction<Integer, Object> mockFunction = new MockFunction<>(
-                new ArrayIterable<Pair<Matcher<Integer>, Object>>(
+                new Seq<Pair<Matcher<Integer>, Object>>(
                         new ValuePair<>(equalTo(arg(1)), RES_1),
                         new ValuePair<>(equalTo(arg(2)), RES_2),
                         new ValuePair<>(equalTo(arg(3)), RES_3)
@@ -67,7 +67,7 @@ public final class MockFunctionTest
     public void test_priCtorIterablePairs_differentArg_fail()
     {
         new MockFunction<>(
-                new ArrayIterable<Pair<Matcher<Integer>, Object>>(
+                new Seq<Pair<Matcher<Integer>, Object>>(
                         new ValuePair<>(equalTo(arg(1)), RES_1),
                         new ValuePair<>(equalTo(arg(2)), RES_2),
                         new ValuePair<>(equalTo(arg(3)), RES_3)
@@ -95,8 +95,8 @@ public final class MockFunctionTest
     public void test_secCtorIterableIterable_matchingArgs_pass()
     {
         Function<Integer, Object> mockFunction = new MockFunction<>(
-                new ArrayIterable<>(equalTo(arg(1)), equalTo(arg(2)), equalTo(arg(3))),
-                new ArrayIterable<>(RES_1, RES_2, RES_3));
+                new Seq<>(equalTo(arg(1)), equalTo(arg(2)), equalTo(arg(3))),
+                new Seq<>(RES_1, RES_2, RES_3));
 
         assertThat(mockFunction.apply(arg(1)), sameInstance(RES_1));
         assertThat(mockFunction.apply(arg(2)), sameInstance(RES_2));
@@ -108,8 +108,8 @@ public final class MockFunctionTest
     public void test_secCtorIterableIterable_differentArgs_fail()
     {
         new MockFunction<>(
-                new ArrayIterable<>(equalTo(arg(1)), equalTo(arg(2)), equalTo(arg(3))),
-                new ArrayIterable<>(RES_1, RES_2, RES_3))
+                new Seq<>(equalTo(arg(1)), equalTo(arg(2)), equalTo(arg(3))),
+                new Seq<>(RES_1, RES_2, RES_3))
                 .apply(arg(555));
     }
 

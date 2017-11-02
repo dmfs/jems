@@ -17,11 +17,11 @@
 
 package org.dmfs.optional.adapters;
 
-import org.dmfs.iterators.ArrayIterator;
+import org.dmfs.iterators.elementary.Seq;
+import org.dmfs.jems.hamcrest.matchers.AbsentMatcher;
 import org.dmfs.optional.Absent;
 import org.dmfs.optional.Optional;
 import org.dmfs.optional.Present;
-import org.dmfs.jems.hamcrest.matchers.AbsentMatcher;
 import org.junit.Test;
 
 import java.util.Iterator;
@@ -44,31 +44,31 @@ public final class NextPresentTest
     @Test
     public void testVariousCases()
     {
-        assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>()), AbsentMatcher.<String>isAbsent());
+        assertThat(new NextPresent<>(new Seq<Optional<String>>()), AbsentMatcher.<String>isAbsent());
 
-        assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>(ABSENT)), AbsentMatcher.<String>isAbsent());
-        assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>(ABSENT, ABSENT)), AbsentMatcher.<String>isAbsent());
+        assertThat(new NextPresent<>(new Seq<Optional<String>>(ABSENT)), AbsentMatcher.<String>isAbsent());
+        assertThat(new NextPresent<>(new Seq<Optional<String>>(ABSENT, ABSENT)), AbsentMatcher.<String>isAbsent());
 
-        assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>(new Present<>("1"))), isPresent("1"));
-        assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>(ABSENT, new Present<>("1"))), isPresent("1"));
-        assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>(new Present<>("1"), ABSENT)), isPresent("1"));
+        assertThat(new NextPresent<>(new Seq<Optional<String>>(new Present<>("1"))), isPresent("1"));
+        assertThat(new NextPresent<>(new Seq<Optional<String>>(ABSENT, new Present<>("1"))), isPresent("1"));
+        assertThat(new NextPresent<>(new Seq<Optional<String>>(new Present<>("1"), ABSENT)), isPresent("1"));
 
-        assertThat(new NextPresent<>(new ArrayIterator<Optional<String>>(new Present<>("1"), new Present<>("2"))), isPresent("1"));
+        assertThat(new NextPresent<>(new Seq<Optional<String>>(new Present<>("1"), new Present<>("2"))), isPresent("1"));
     }
 
 
     @Test
     public void testUsedIterator()
     {
-        Iterator<Optional<String>> it1 = new ArrayIterator<>(new Present<>("1"), ABSENT);
+        Iterator<Optional<String>> it1 = new Seq<>(new Present<>("1"), ABSENT);
         it1.next();
         assertThat(new NextPresent<>(it1), AbsentMatcher.<String>isAbsent());
 
-        Iterator<Optional<String>> it2 = new ArrayIterator<Optional<String>>(new Present<>("1"), new Present<>("2"));
+        Iterator<Optional<String>> it2 = new Seq<Optional<String>>(new Present<>("1"), new Present<>("2"));
         it2.next();
         assertThat(new NextPresent<>(it2), isPresent("2"));
 
-        Iterator<Optional<String>> it3 = new ArrayIterator<Optional<String>>(new Present<>("1"), new Present<>("2"));
+        Iterator<Optional<String>> it3 = new Seq<Optional<String>>(new Present<>("1"), new Present<>("2"));
         it3.next();
         it3.next();
         assertThat(new NextPresent<>(it3), AbsentMatcher.<String>isAbsent());

@@ -17,7 +17,7 @@
 
 package org.dmfs.optional.iterable;
 
-import org.dmfs.iterables.ArrayIterable;
+import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.optional.Absent;
 import org.dmfs.optional.Optional;
 import org.dmfs.optional.Present;
@@ -42,7 +42,7 @@ public final class PresentValuesTest
     @Test
     public void test()
     {
-        Iterable<Optional<String>> optionals = new ArrayIterable<>(
+        Iterable<Optional<String>> optionals = new Seq<>(
                 new Present<>("1"),
                 ABSENT,
                 ABSENT,

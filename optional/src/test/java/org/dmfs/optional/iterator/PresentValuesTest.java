@@ -17,9 +17,9 @@
 
 package org.dmfs.optional.iterator;
 
-import org.dmfs.iterators.ArrayIterator;
 import org.dmfs.iterators.EmptyIterator;
 import org.dmfs.iterators.SingletonIterator;
+import org.dmfs.iterators.elementary.Seq;
 import org.dmfs.optional.Absent;
 import org.dmfs.optional.Optional;
 import org.dmfs.optional.Present;
@@ -77,7 +77,7 @@ public final class PresentValuesTest
     @Test
     public void test_various()
     {
-        Iterator<Optional<String>> iterator = new ArrayIterator<>(
+        Iterator<Optional<String>> iterator = new Seq<>(
                 new Present<>("1"),
                 ABSENT,
                 ABSENT,

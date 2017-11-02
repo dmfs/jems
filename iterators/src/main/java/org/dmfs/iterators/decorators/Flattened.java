@@ -18,16 +18,16 @@
 package org.dmfs.iterators.decorators;
 
 import org.dmfs.iterators.AbstractBaseIterator;
-import org.dmfs.iterators.ArrayIterator;
 import org.dmfs.iterators.EmptyIterator;
+import org.dmfs.iterators.elementary.Seq;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
 /**
- * An {@link Iterator} that serializes the values of multiple {@link Iterable}s. This means, it iterates the elements of
- * each {@link Iterable} before moving on to the next {@link Iterable}.
+ * An {@link Iterator} that serializes the values of multiple {@link Iterable}s. This means, it iterates the elements of each {@link Iterable} before moving on
+ * to the next {@link Iterable}.
  *
  * @param <E>
  *         The type of the iterated values.
@@ -51,7 +51,7 @@ public final class Flattened<E> extends AbstractBaseIterator<E>
     @SafeVarargs
     public Flattened(final Iterable<E>... iterables)
     {
-        this(new ArrayIterator<>(iterables));
+        this(new Seq<>(iterables));
     }
 
 

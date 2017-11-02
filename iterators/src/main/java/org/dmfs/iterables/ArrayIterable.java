@@ -17,6 +17,7 @@
 
 package org.dmfs.iterables;
 
+import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.iterators.ArrayIterator;
 
 import java.util.Iterator;
@@ -29,7 +30,9 @@ import java.util.Iterator;
  *         The type of the iterated elements.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link Seq}
  */
+@Deprecated
 public final class ArrayIterable<T> implements Iterable<T>
 {
     private final T[] mArray;

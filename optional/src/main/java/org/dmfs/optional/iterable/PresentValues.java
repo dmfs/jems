@@ -17,7 +17,8 @@
 
 package org.dmfs.optional.iterable;
 
-import org.dmfs.iterables.ArrayIterable;
+import org.dmfs.iterables.SingletonIterable;
+import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.optional.Optional;
 
 import java.util.Iterator;
@@ -36,15 +37,14 @@ public final class PresentValues<E> implements Iterable<E>
 
     public PresentValues(Optional<E> optional)
     {
-        // TODO: replace with `SingletonIterable` once available
-        this(new ArrayIterable<>(optional));
+        this(new SingletonIterable<>(optional));
     }
 
 
     @SafeVarargs
     public PresentValues(Optional<E>... optionals)
     {
-        this(new ArrayIterable<>(optionals));
+        this(new Seq<>(optionals));
     }
 
 

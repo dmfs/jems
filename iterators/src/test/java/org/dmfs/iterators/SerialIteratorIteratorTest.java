@@ -17,6 +17,7 @@
 
 package org.dmfs.iterators;
 
+import org.dmfs.iterators.elementary.Seq;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -46,37 +47,37 @@ public class SerialIteratorIteratorTest
 
         // trivial case, only one iterator
         assertIterateSame(list1.iterator(),
-                new SerialIteratorIterator<String>(new ArrayIterator<Iterator<String>>(list1.iterator())));
+                new SerialIteratorIterator<String>(new Seq<Iterator<String>>(list1.iterator())));
 
         // test various combinations of empty and non-empty iterators
         assertIterateSame(Arrays.asList("1", "2", "3", "4", "1", "2", "3", "4").iterator(),
                 new SerialIteratorIterator<String>(
-                        new ArrayIterator<Iterator<String>>(list1.iterator(), list1.iterator())));
+                        new Seq<Iterator<String>>(list1.iterator(), list1.iterator())));
         assertIterateSame(Arrays.asList(
                 "1", "2", "3", "4", "a", "b", "c", "d", "1", "2", "3", "4", "a", "b", "c", "d")
                         .iterator(),
                 new SerialIteratorIterator<String>(
-                        new ArrayIterator<Iterator<String>>(list1.iterator(), list2.iterator(), list1.iterator(),
+                        new Seq<Iterator<String>>(list1.iterator(), list2.iterator(), list1.iterator(),
                                 list2.iterator())));
 
         assertIterateSame(Arrays.asList("1", "2", "3", "4", "a", "b", "c", "d").iterator(),
                 new SerialIteratorIterator<String>(
-                        new ArrayIterator<Iterator<String>>(emptyStringList.iterator(), list1.iterator(),
+                        new Seq<Iterator<String>>(emptyStringList.iterator(), list1.iterator(),
                                 list2.iterator())));
 
         assertIterateSame(Arrays.asList("1", "2", "3", "4", "a", "b", "c", "d").iterator(),
                 new SerialIteratorIterator<String>(
-                        new ArrayIterator<Iterator<String>>(list1.iterator(), emptyStringList.iterator(),
+                        new Seq<Iterator<String>>(list1.iterator(), emptyStringList.iterator(),
                                 list2.iterator())));
 
         assertIterateSame(Arrays.asList("1", "2", "3", "4", "a", "b", "c", "d").iterator(),
                 new SerialIteratorIterator<String>(
-                        new ArrayIterator<Iterator<String>>(list1.iterator(), list2.iterator(),
+                        new Seq<Iterator<String>>(list1.iterator(), list2.iterator(),
                                 emptyStringList.iterator())));
 
         assertIterateSame(Arrays.asList("a", "b", "c", "d", "1", "2", "3", "4").iterator(),
                 new SerialIteratorIterator<String>(
-                        new ArrayIterator<Iterator<String>>(list2.iterator(), list1.iterator(),
+                        new Seq<Iterator<String>>(list2.iterator(), list1.iterator(),
                                 emptyStringList.iterator())));
     }
 
