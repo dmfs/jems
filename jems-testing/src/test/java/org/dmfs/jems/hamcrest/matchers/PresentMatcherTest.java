@@ -18,12 +18,16 @@
 package org.dmfs.jems.hamcrest.matchers;
 
 import org.dmfs.optional.Absent;
+import org.dmfs.optional.Optional;
 import org.dmfs.optional.Present;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Description;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 
+import static org.dmfs.jems.mockito.doubles.TestDoubles.failingMock;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.doReturn;
 
 
 /**
@@ -40,5 +44,12 @@ public class PresentMatcherTest
         assertThat(new PresentMatcher<String>().matchesSafely(new Present<>("test"), new Description.NullDescription()), CoreMatchers.is(true));
         assertThat(new PresentMatcher<>("test").matchesSafely(new Present<>("test"), new Description.NullDescription()), CoreMatchers.is(true));
         assertThat(new PresentMatcher<>("test").matchesSafely(new Present<>("tost"), new Description.NullDescription()), CoreMatchers.is(false));
+
+        // test that not returning the present value in value(T) will fail.
+        Optional<String> mockOptional = failingMock(Optional.class);
+        doReturn(true).when(mockOptional).isPresent();
+        doReturn("test").when(mockOptional).value();
+        doReturn("wrong").when(mockOptional).value((String) ArgumentMatchers.any());
+        assertThat(new PresentMatcher<>("test").matchesSafely(mockOptional, new Description.NullDescription()), CoreMatchers.is(false));
     }
 }
