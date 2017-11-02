@@ -21,6 +21,7 @@ import org.dmfs.iterables.EmptyIterable;
 import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.iterators.Filter;
 import org.dmfs.jems.hamcrest.matchers.AbsentMatcher;
+import org.dmfs.jems.predicate.Predicate;
 import org.junit.Test;
 
 import static org.dmfs.jems.hamcrest.matchers.PresentMatcher.isPresent;
@@ -54,5 +55,18 @@ public class FirstTest
         assertThat(new First<>(EmptyIterable.<String>instance(), mockFilter), AbsentMatcher.<String>isAbsent());
         assertThat(new First<>(new Seq<>("test"), mockFilter), AbsentMatcher.<String>isAbsent());
         assertThat(new First<>(new Seq<>("test", "test123"), mockFilter), isPresent("test123"));
+    }
+
+
+    @Test
+    public void testSievedFirst() throws Exception
+    {
+        Predicate<String> mockPredicate = failingMock(Predicate.class);
+        doReturn(false).when(mockPredicate).satisfiedBy(anyString());
+        doReturn(true).when(mockPredicate).satisfiedBy("test123");
+
+        assertThat(new First<>(EmptyIterable.<String>instance(), mockPredicate), AbsentMatcher.<String>isAbsent());
+        assertThat(new First<>(new Seq<>("test"), mockPredicate), AbsentMatcher.<String>isAbsent());
+        assertThat(new First<>(new Seq<>("test", "test123"), mockPredicate), isPresent("test123"));
     }
 }

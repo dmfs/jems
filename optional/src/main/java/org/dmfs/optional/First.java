@@ -18,7 +18,9 @@
 package org.dmfs.optional;
 
 import org.dmfs.iterables.decorators.Filtered;
+import org.dmfs.iterables.decorators.Sieved;
 import org.dmfs.iterators.Filter;
+import org.dmfs.jems.predicate.Predicate;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -33,6 +35,20 @@ public final class First<T> implements Optional<T>
 {
     private final Iterable<T> mIterable;
     private Optional<T> mDelegate;
+
+
+    /**
+     * Creates an {@link Optional} of the first value of the given {@link Iterable} which matches the given {@link Predicate}.
+     *
+     * @param iterable
+     *         The {@link Iterable}
+     * @param predicate
+     *         The {@link Predicate}
+     */
+    public First(Iterable<T> iterable, Predicate<T> predicate)
+    {
+        this(new Sieved<T>(predicate, iterable));
+    }
 
 
     /**
