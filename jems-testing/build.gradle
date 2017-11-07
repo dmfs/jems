@@ -10,8 +10,7 @@ configurations {
 apply from: '../publish.gradle'
 
 dependencies {
-    compile project(':iterators')
-    compile project(':optional')
+    compile rootProject
 
     // in this case, junit is not (only) a test dependency, but a build dependency
     compile 'junit:junit:' + JUNIT
