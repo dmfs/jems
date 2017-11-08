@@ -1,4 +1,5 @@
 apply plugin: 'java'
+
 sourceCompatibility = 1.7
 
 def gitVersion = { ->
@@ -24,9 +25,10 @@ configurations {
 }
 
 apply from: 'publish.gradle'
+apply from: 'jacoco.gradle'
 
 dependencies {
-    compile project(':essentials')
-    compile project(':iterators')
-    compile project(':optional')
+    testCompile 'junit:junit:' + JUNIT
+    testCompile 'org.hamcrest:hamcrest-all:' + HAMCREST
+    testCompile project(":jems-testing")
 }

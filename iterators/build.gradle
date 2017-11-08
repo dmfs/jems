@@ -1,5 +1,4 @@
 apply plugin: 'java'
-apply from: '../jacoco.gradle'
 
 sourceCompatibility = 1.7
 
@@ -10,9 +9,5 @@ configurations {
 apply from: '../publish.gradle'
 
 dependencies {
-    compile project(':essentials')
-
-    testCompile 'junit:junit:' + JUNIT
-    testCompile 'org.hamcrest:hamcrest-all:' + HAMCREST
-    testCompile project(':jems-testing')
+    compile rootProject
 }
