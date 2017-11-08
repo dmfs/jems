@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.charsequence;
+package org.dmfs.jems.charsequence.elementary;
 
 /**
  * {@link CharSequence} that delegates all calls to another {@link CharSequence}.

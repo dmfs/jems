@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.charsequence;
+package org.dmfs.jems.charsequence.elementary;
 
 import org.junit.Test;
 
