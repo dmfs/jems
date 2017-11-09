@@ -35,25 +35,25 @@ import java.util.Locale;
  *
  * @author Marten Gajda
  */
-public final class Digested implements Single<byte[]>
+public final class Digest implements Single<byte[]>
 {
     private final MessageDigestFactory mMessageDigestFactory;
     private final Iterable<Single<byte[]>> mParts;
 
 
-    public Digested(MessageDigestFactory messageDigestFactory, byte[]... parts)
+    public Digest(MessageDigestFactory messageDigestFactory, byte[]... parts)
     {
         this(messageDigestFactory, new Mapped<>(new Seq<>(parts), new SingleFunction<byte[]>()));
     }
 
 
-    public Digested(MessageDigestFactory messageDigestFactory, CharSequence... parts)
+    public Digest(MessageDigestFactory messageDigestFactory, CharSequence... parts)
     {
         this(messageDigestFactory, "UTF-8", parts);
     }
 
 
-    public Digested(MessageDigestFactory messageDigestFactory, final String encoding, CharSequence... parts)
+    public Digest(MessageDigestFactory messageDigestFactory, final String encoding, CharSequence... parts)
     {
         this(messageDigestFactory, new Mapped<>(new Seq<>(parts), new Function<CharSequence, Single<byte[]>>()
         {
@@ -74,13 +74,13 @@ public final class Digested implements Single<byte[]>
 
 
     @SafeVarargs
-    public Digested(MessageDigestFactory messageDigestFactory, Single<byte[]>... parts)
+    public Digest(MessageDigestFactory messageDigestFactory, Single<byte[]>... parts)
     {
         this(messageDigestFactory, new Seq<>(parts));
     }
 
 
-    public Digested(MessageDigestFactory messageDigestFactory, Iterable<Single<byte[]>> parts)
+    public Digest(MessageDigestFactory messageDigestFactory, Iterable<Single<byte[]>> parts)
     {
         mMessageDigestFactory = messageDigestFactory;
         mParts = parts;
@@ -94,10 +94,10 @@ public final class Digested implements Single<byte[]>
     }
 
 
-    private final static class DigestFunction implements BiFunction<Single<byte[]>, MessageDigest, MessageDigest>
+    private final static class DigestFunction implements BiFunction<MessageDigest, Single<byte[]>, MessageDigest>
     {
         @Override
-        public MessageDigest value(Single<byte[]> bytes, MessageDigest messageDigest)
+        public MessageDigest value(MessageDigest messageDigest, Single<byte[]> bytes)
         {
             messageDigest.update(bytes.value());
             return messageDigest;

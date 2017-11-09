@@ -51,7 +51,7 @@ public class ReducedTest
             public String value(String s, String s2)
             {
                 // append new element to reduced ones
-                return s2 + s;
+                return s + s2;
             }
         }, new SingletonIterable<String>("1")).value(), is("01"));
     }
@@ -66,7 +66,7 @@ public class ReducedTest
             public String value(String s, String s2)
             {
                 // append new element to reduced ones
-                return s2 + s;
+                return s + s2;
             }
         }, new Seq<>("1", "2", "3", "4")).value(), is("01234"));
     }

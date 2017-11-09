@@ -28,28 +28,28 @@ import org.dmfs.jems.single.Single;
  *
  * @author Marten Gajda
  */
-public final class Reduced<V, T> implements Single<T>
+public final class Reduced<Value, Result> implements Single<Result>
 {
-    private final T mInitialValue;
-    private final Iterable<V> mIterable;
-    private final BiFunction<V, T, T> mFunction;
+    private final Result mInitialValue;
+    private final Iterable<Value> mIterable;
+    private final BiFunction<Result, Value, Result> mFunction;
 
 
-    public Reduced(T initialValue, BiFunction<V, T, T> function, Iterable<V> iterable)
+    public Reduced(Result initialValue, BiFunction<Result, Value, Result> accumulatorFunction, Iterable<Value> iterable)
     {
         mInitialValue = initialValue;
         mIterable = iterable;
-        mFunction = function;
+        mFunction = accumulatorFunction;
     }
 
 
     @Override
-    public T value()
+    public Result value()
     {
-        T result = mInitialValue;
-        for (V value : mIterable)
+        Result result = mInitialValue;
+        for (Value value : mIterable)
         {
-            result = mFunction.value(value, result);
+            result = mFunction.value(result, value);
         }
         return result;
     }
