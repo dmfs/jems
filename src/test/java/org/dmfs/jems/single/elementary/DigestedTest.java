@@ -18,10 +18,11 @@
 package org.dmfs.jems.single.elementary;
 
 import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.messagedigest.elementary.Md5;
 import org.dmfs.jems.single.Single;
 import org.junit.Test;
 
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -31,53 +32,53 @@ public class DigestedTest
     @Test
     public void value() throws Exception
     {
-        assertThat(new Digested(new Md5(), new byte[0]).value(), is(new Md5().value().digest()));
-        assertThat(new Digested(new Md5(), new byte[0], new byte[0]).value(), is(new Md5().value().digest()));
-        assertThat(new Digested(new Md5(), new byte[0], new byte[0], new byte[0]).value(), is(new Md5().value().digest()));
-        assertThat(new Digested(new Md5(), new byte[] { 1, 2, 3 }).value(), is(new Md5().value().digest(new byte[] { 1, 2, 3 })));
+        assertThat(new Digested(new Md5(), new byte[0]).value(), is(new Md5().newInstance().digest()));
+        assertThat(new Digested(new Md5(), new byte[0], new byte[0]).value(), is(new Md5().newInstance().digest()));
+        assertThat(new Digested(new Md5(), new byte[0], new byte[0], new byte[0]).value(), is(new Md5().newInstance().digest()));
+        assertThat(new Digested(new Md5(), new byte[] { 1, 2, 3 }).value(), is(new Md5().newInstance().digest(new byte[] { 1, 2, 3 })));
         assertThat(new Digested(new Md5(), new byte[] { 1, 2, 3 }, new byte[] { 4, 5, 6 }).value(),
-                is(new Md5().value().digest(new byte[] { 1, 2, 3, 4, 5, 6 })));
+                is(new Md5().newInstance().digest(new byte[] { 1, 2, 3, 4, 5, 6 })));
         assertThat(new Digested(new Md5(), new byte[] { 1, 2, 3 }, new byte[] { 4, 5, 6 }, new byte[] { 7, 8, 9 }).value(),
-                is(new Md5().value().digest(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 })));
+                is(new Md5().newInstance().digest(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 })));
 
-        assertThat(new Digested(new Md5(), (CharSequence) "").value(), is(new Md5().value().digest()));
-        assertThat(new Digested(new Md5(), (CharSequence) "", "").value(), is(new Md5().value().digest()));
-        assertThat(new Digested(new Md5(), (CharSequence) "", "", "").value(), is(new Md5().value().digest()));
-        assertThat(new Digested(new Md5(), (CharSequence) "1äöü").value(), is(new Md5().value().digest("1äöü".getBytes("UTF-8"))));
-        assertThat(new Digested(new Md5(), (CharSequence) "1äöü", "456").value(), is(new Md5().value().digest("1äöü456".getBytes("UTF-8"))));
-        assertThat(new Digested(new Md5(), (CharSequence) "1äöü", "456", "789").value(), is(new Md5().value().digest("1äöü456789".getBytes("UTF-8"))));
+        assertThat(new Digested(new Md5(), (CharSequence) "").value(), is(new Md5().newInstance().digest()));
+        assertThat(new Digested(new Md5(), (CharSequence) "", "").value(), is(new Md5().newInstance().digest()));
+        assertThat(new Digested(new Md5(), (CharSequence) "", "", "").value(), is(new Md5().newInstance().digest()));
+        assertThat(new Digested(new Md5(), (CharSequence) "1äöü").value(), is(new Md5().newInstance().digest("1äöü".getBytes("UTF-8"))));
+        assertThat(new Digested(new Md5(), (CharSequence) "1äöü", "456").value(), is(new Md5().newInstance().digest("1äöü456".getBytes("UTF-8"))));
+        assertThat(new Digested(new Md5(), (CharSequence) "1äöü", "456", "789").value(), is(new Md5().newInstance().digest("1äöü456789".getBytes("UTF-8"))));
 
-        assertThat(new Digested(new Md5(), "latin1", (CharSequence) "").value(), is(new Md5().value().digest()));
-        assertThat(new Digested(new Md5(), "latin1", (CharSequence) "1äöü").value(), is(new Md5().value().digest("1äöü".getBytes("latin1"))));
-        assertThat(new Digested(new Md5(), "latin1", (CharSequence) "1äöü", "456").value(), is(new Md5().value().digest("1äöü456".getBytes("latin1"))));
+        assertThat(new Digested(new Md5(), "latin1", (CharSequence) "").value(), is(new Md5().newInstance().digest()));
+        assertThat(new Digested(new Md5(), "latin1", (CharSequence) "1äöü").value(), is(new Md5().newInstance().digest("1äöü".getBytes("latin1"))));
+        assertThat(new Digested(new Md5(), "latin1", (CharSequence) "1äöü", "456").value(), is(new Md5().newInstance().digest("1äöü456".getBytes("latin1"))));
         assertThat(new Digested(new Md5(), "latin1", (CharSequence) "1äöü", "456", "789").value(),
-                is(new Md5().value().digest("1äöü456789".getBytes("latin1"))));
+                is(new Md5().newInstance().digest("1äöü456789".getBytes("latin1"))));
 
-        assertThat(new Digested(new Md5(), new ValueSingle<>(new byte[0])).value(), is(new Md5().value().digest()));
-        assertThat(new Digested(new Md5(), new ValueSingle<>(new byte[0]), new ValueSingle<>(new byte[0])).value(), is(new Md5().value().digest()));
+        assertThat(new Digested(new Md5(), new ValueSingle<>(new byte[0])).value(), is(new Md5().newInstance().digest()));
+        assertThat(new Digested(new Md5(), new ValueSingle<>(new byte[0]), new ValueSingle<>(new byte[0])).value(), is(new Md5().newInstance().digest()));
         assertThat(new Digested(new Md5(), new ValueSingle<>(new byte[0]), new ValueSingle<>(new byte[0]), new ValueSingle<>(new byte[0])).value(),
-                is(new Md5().value().digest()));
+                is(new Md5().newInstance().digest()));
 
-        assertThat(new Digested(new Md5(), new ValueSingle<>(new byte[] { 1, 2, 3 })).value(), is(new Md5().value().digest(new byte[] { 1, 2, 3 })));
+        assertThat(new Digested(new Md5(), new ValueSingle<>(new byte[] { 1, 2, 3 })).value(), is(new Md5().newInstance().digest(new byte[] { 1, 2, 3 })));
         assertThat(new Digested(new Md5(), new ValueSingle<>(new byte[] { 1, 2, 3 }), new ValueSingle<>(new byte[] { 4, 5, 6 })).value(),
-                is(new Md5().value().digest(new byte[] { 1, 2, 3, 4, 5, 6 })));
+                is(new Md5().newInstance().digest(new byte[] { 1, 2, 3, 4, 5, 6 })));
         assertThat(new Digested(new Md5(), new ValueSingle<>(new byte[] { 1, 2, 3 }), new ValueSingle<>(new byte[] { 4, 5, 6 }),
-                new ValueSingle<>(new byte[] { 7, 8, 9 })).value(), is(new Md5().value().digest(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 })));
+                new ValueSingle<>(new byte[] { 7, 8, 9 })).value(), is(new Md5().newInstance().digest(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 })));
 
-        assertThat(new Digested(new Md5(), new Seq<Single<byte[]>>(new ValueSingle<>(new byte[0]))).value(), is(new Md5().value().digest()));
+        assertThat(new Digested(new Md5(), new Seq<Single<byte[]>>(new ValueSingle<>(new byte[0]))).value(), is(new Md5().newInstance().digest()));
         assertThat(new Digested(new Md5(), new Seq<Single<byte[]>>(new ValueSingle<>(new byte[0]), new ValueSingle<>(new byte[0]))).value(),
-                is(new Md5().value().digest()));
+                is(new Md5().newInstance().digest()));
         assertThat(
                 new Digested(new Md5(), new Seq<Single<byte[]>>(new ValueSingle<>(new byte[0]), new ValueSingle<>(new byte[0]), new ValueSingle<>(new byte[0])))
-                        .value(), is(new Md5().value().digest()));
+                        .value(), is(new Md5().newInstance().digest()));
 
         assertThat(new Digested(new Md5(), new Seq<Single<byte[]>>(new ValueSingle<>(new byte[] { 1, 2, 3 }))).value(),
-                is(new Md5().value().digest(new byte[] { 1, 2, 3 })));
+                is(new Md5().newInstance().digest(new byte[] { 1, 2, 3 })));
         assertThat(
                 new Digested(new Md5(), new Seq<Single<byte[]>>(new ValueSingle<>(new byte[] { 1, 2, 3 }), new ValueSingle<>(new byte[] { 4, 5, 6 }))).value(),
-                is(new Md5().value().digest(new byte[] { 1, 2, 3, 4, 5, 6 })));
+                is(new Md5().newInstance().digest(new byte[] { 1, 2, 3, 4, 5, 6 })));
         assertThat(new Digested(new Md5(), new Seq<Single<byte[]>>(new ValueSingle<>(new byte[] { 1, 2, 3 }), new ValueSingle<>(new byte[] { 4, 5, 6 }),
-                new ValueSingle<>(new byte[] { 7, 8, 9 }))).value(), is(new Md5().value().digest(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 })));
+                new ValueSingle<>(new byte[] { 7, 8, 9 }))).value(), is(new Md5().newInstance().digest(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 })));
     }
 
 

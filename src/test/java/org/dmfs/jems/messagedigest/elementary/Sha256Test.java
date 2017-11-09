@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.single.elementary;
+package org.dmfs.jems.messagedigest.elementary;
 
 import org.junit.Test;
 
@@ -23,20 +23,15 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 
-public class MessageDigestTest
+/**
+ * @author Marten Gajda
+ */
+public class Sha256Test
 {
     @Test
-    public void value() throws Exception
+    public void testNewInstance() throws Exception
     {
-        assertThat(new MessageDigest("MD5").value().getAlgorithm(), is("MD5"));
-        assertThat(new MessageDigest("SHA-1").value().getAlgorithm(), is("SHA-1"));
-        assertThat(new MessageDigest("SHA-256").value().getAlgorithm(), is("SHA-256"));
+        assertThat(new Sha256().newInstance().getAlgorithm(), is("SHA-256"));
     }
 
-
-    @Test(expected = RuntimeException.class)
-    public void valueInvalid() throws Exception
-    {
-        assertThat(new MessageDigest("BOGUS-FAKE-INVALID").value().getAlgorithm(), is("MD5"));
-    }
 }

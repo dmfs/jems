@@ -15,21 +15,23 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.single.elementary;
+package org.dmfs.jems.messagedigest.elementary;
 
-import org.dmfs.jems.single.Single;
-import org.dmfs.jems.single.decorators.DelegatingSingle;
+import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 
 /**
- * A {@link Single} MD5 message digest.
- *
  * @author Marten Gajda
  */
-public final class Md5 extends DelegatingSingle<java.security.MessageDigest>
+public class Md5Test
 {
-    public Md5()
+    @Test
+    public void testNewInstance() throws Exception
     {
-        super(new MessageDigest("MD5"));
+        assertThat(new Md5().newInstance().getAlgorithm(), is("MD5"));
     }
+
 }

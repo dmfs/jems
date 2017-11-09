@@ -15,22 +15,26 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.single.elementary;
+package org.dmfs.jems.messagedigest;
 
-import org.junit.Test;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import java.security.MessageDigest;
+import java.security.Provider;
 
 
 /**
+ * A factory for new and unused {@link MessageDigest} instances.
+ *
  * @author Marten Gajda
  */
-public class Md5Test
+public interface MessageDigestFactory
 {
-    @Test
-    public void test()
-    {
-        assertThat(new Md5().value().getAlgorithm(), is("MD5"));
-    }
+    /**
+     * Returns a new {@link MessageDigest} instance.
+     *
+     * @return An unused {@link MessageDigest}.
+     *
+     * @throws RuntimeException
+     *         if no {@link Provider} supports the algorithm.
+     */
+    MessageDigest newInstance() throws RuntimeException;
 }

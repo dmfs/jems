@@ -15,21 +15,30 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.single.elementary;
+package org.dmfs.jems.messagedigest.elementary;
 
-import org.dmfs.jems.single.Single;
-import org.dmfs.jems.single.decorators.DelegatingSingle;
+import org.dmfs.jems.messagedigest.MessageDigestFactory;
 
 
 /**
- * A {@link Single} SHA-256 message digest.
+ * An {@code MD5} {@link java.security.MessageDigest} factory.
  *
  * @author Marten Gajda
  */
-public final class Sha256 extends DelegatingSingle<java.security.MessageDigest>
+public final class Md5 implements MessageDigestFactory
 {
-    public Sha256()
+    private final MessageDigestFactory mDelegate;
+
+
+    public Md5()
     {
-        super(new MessageDigest("SHA-256"));
+        mDelegate = new DigestFactory("MD5");
+    }
+
+
+    @Override
+    public java.security.MessageDigest newInstance()
+    {
+        return mDelegate.newInstance();
     }
 }

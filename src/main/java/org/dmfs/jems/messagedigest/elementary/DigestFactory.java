@@ -15,32 +15,32 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.single.elementary;
+package org.dmfs.jems.messagedigest.elementary;
 
-import org.dmfs.jems.single.Single;
+import org.dmfs.jems.messagedigest.MessageDigestFactory;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 
 /**
- * A {@link Single} {@link java.security.MessageDigest} of a specific digest algorithm.
+ * A factory for {@link java.security.MessageDigest} instances of a specific digest algorithm.
  *
  * @author Marten Gajda
  */
-public final class MessageDigest implements Single<java.security.MessageDigest>
+public final class DigestFactory implements MessageDigestFactory
 {
     private final String mAlgorithm;
 
 
-    public MessageDigest(String algorithm)
+    public DigestFactory(String algorithm)
     {
         mAlgorithm = algorithm;
     }
 
 
     @Override
-    public java.security.MessageDigest value()
+    public java.security.MessageDigest newInstance() throws RuntimeException
     {
         try
         {
@@ -48,7 +48,7 @@ public final class MessageDigest implements Single<java.security.MessageDigest>
         }
         catch (NoSuchAlgorithmException e)
         {
-            throw new RuntimeException(String.format(Locale.ENGLISH, "Algorithm %s not supported by runtime.", mAlgorithm, e));
+            throw new RuntimeException(String.format(Locale.ENGLISH, "Algorithm %s not supported by runtime.", mAlgorithm), e);
         }
     }
 }

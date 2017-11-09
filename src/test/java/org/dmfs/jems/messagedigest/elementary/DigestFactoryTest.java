@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.single.elementary;
+package org.dmfs.jems.messagedigest.elementary;
 
 import org.junit.Test;
 
@@ -26,11 +26,20 @@ import static org.junit.Assert.assertThat;
 /**
  * @author Marten Gajda
  */
-public class Sha256Test
+public class DigestFactoryTest
 {
     @Test
-    public void test()
+    public void testNewInstance() throws Exception
     {
-        assertThat(new Sha256().value().getAlgorithm(), is("SHA-256"));
+        assertThat(new DigestFactory("MD5").newInstance().getAlgorithm(), is("MD5"));
+        assertThat(new DigestFactory("SHA-1").newInstance().getAlgorithm(), is("SHA-1"));
+        assertThat(new DigestFactory("SHA-256").newInstance().getAlgorithm(), is("SHA-256"));
+    }
+
+
+    @Test(expected = RuntimeException.class)
+    public void testInvalid() throws Exception
+    {
+        new DigestFactory("BOGUS-FAKE-INVALID").newInstance();
     }
 }

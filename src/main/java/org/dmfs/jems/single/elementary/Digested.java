@@ -20,7 +20,9 @@ package org.dmfs.jems.single.elementary;
 import org.dmfs.iterables.decorators.Mapped;
 import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.iterators.Function;
+import org.dmfs.jems.function.BiFunction;
 import org.dmfs.jems.function.elementary.SingleFunction;
+import org.dmfs.jems.messagedigest.MessageDigestFactory;
 import org.dmfs.jems.single.Single;
 
 import java.io.UnsupportedEncodingException;
@@ -35,25 +37,25 @@ import java.util.Locale;
  */
 public final class Digested implements Single<byte[]>
 {
-    private final Single<MessageDigest> mDigest;
+    private final MessageDigestFactory mMessageDigestFactory;
     private final Iterable<Single<byte[]>> mParts;
 
 
-    public Digested(Single<MessageDigest> digest, byte[]... parts)
+    public Digested(MessageDigestFactory messageDigestFactory, byte[]... parts)
     {
-        this(digest, new Mapped<>(new Seq<>(parts), new SingleFunction<byte[]>()));
+        this(messageDigestFactory, new Mapped<>(new Seq<>(parts), new SingleFunction<byte[]>()));
     }
 
 
-    public Digested(Single<MessageDigest> digest, CharSequence... parts)
+    public Digested(MessageDigestFactory messageDigestFactory, CharSequence... parts)
     {
-        this(digest, "UTF-8", parts);
+        this(messageDigestFactory, "UTF-8", parts);
     }
 
 
-    public Digested(Single<MessageDigest> digest, final String encoding, CharSequence... parts)
+    public Digested(MessageDigestFactory messageDigestFactory, final String encoding, CharSequence... parts)
     {
-        this(digest, new Mapped<>(new Seq<>(parts), new Function<CharSequence, Single<byte[]>>()
+        this(messageDigestFactory, new Mapped<>(new Seq<>(parts), new Function<CharSequence, Single<byte[]>>()
         {
             @Override
             public Single<byte[]> apply(CharSequence bytes)
@@ -64,7 +66,7 @@ public final class Digested implements Single<byte[]>
                 }
                 catch (UnsupportedEncodingException e)
                 {
-                    throw new RuntimeException(String.format(Locale.ENGLISH, "%s encoding not supported by runtime", encoding));
+                    throw new RuntimeException(String.format(Locale.ENGLISH, "%s encoding not supported by runtime", encoding), e);
                 }
             }
         }));
@@ -72,15 +74,15 @@ public final class Digested implements Single<byte[]>
 
 
     @SafeVarargs
-    public Digested(Single<MessageDigest> digest, Single<byte[]>... parts)
+    public Digested(MessageDigestFactory messageDigestFactory, Single<byte[]>... parts)
     {
-        this(digest, new Seq<>(parts));
+        this(messageDigestFactory, new Seq<>(parts));
     }
 
 
-    public Digested(Single<MessageDigest> digest, Iterable<Single<byte[]>> parts)
+    public Digested(MessageDigestFactory messageDigestFactory, Iterable<Single<byte[]>> parts)
     {
-        mDigest = digest;
+        mMessageDigestFactory = messageDigestFactory;
         mParts = parts;
     }
 
@@ -88,12 +90,17 @@ public final class Digested implements Single<byte[]>
     @Override
     public byte[] value()
     {
-        MessageDigest digest = mDigest.value();
-        for (Single<byte[]> part : mParts)
-        {
-            digest.update(part.value());
-        }
-        return digest.digest();
+        return new Reduced<>(mMessageDigestFactory.newInstance(), new DigestFunction(), mParts).value().digest();
     }
 
+
+    private final static class DigestFunction implements BiFunction<Single<byte[]>, MessageDigest, MessageDigest>
+    {
+        @Override
+        public MessageDigest value(Single<byte[]> bytes, MessageDigest messageDigest)
+        {
+            messageDigest.update(bytes.value());
+            return messageDigest;
+        }
+    }
 }
