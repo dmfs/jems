@@ -17,45 +17,29 @@
 
 package org.dmfs.jems.predicate.composite;
 
-import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.jems.predicate.Predicate;
+import org.dmfs.jems.single.Single;
 
 
 /**
- * A {@link Predicate} which is satisfied if any of a given number of predicates are satisfied. This is equivalent to the boolean "OR" operation.
+ * A {@link Predicate} to match the value of a {@link Single}.
  *
  * @author Marten Gajda
  */
-public final class AnyOf<T> implements Predicate<T>
+public final class SingleWith<V, T extends Single<V>> implements Predicate<T>
 {
-    private final Iterable<Predicate<T>> mDelegates;
+    private final Predicate<V> mDelegate;
 
 
-    @SafeVarargs
-    public AnyOf(Predicate<T>... delegates)
+    public SingleWith(Predicate<V> delegate)
     {
-        this(new Seq<>(delegates));
-    }
-
-
-    public AnyOf(Iterable<Predicate<T>> delegates)
-    {
-        mDelegates = delegates;
+        mDelegate = delegate;
     }
 
 
     @Override
     public boolean satisfiedBy(T testedInstance)
     {
-        boolean emtpy = true;
-        for (Predicate<T> predicate : mDelegates)
-        {
-            if (predicate.satisfiedBy(testedInstance))
-            {
-                return true;
-            }
-            emtpy = false;
-        }
-        return emtpy;
+        return mDelegate.satisfiedBy(testedInstance.value());
     }
 }

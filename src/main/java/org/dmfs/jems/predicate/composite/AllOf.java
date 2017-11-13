@@ -17,6 +17,7 @@
 
 package org.dmfs.jems.predicate.composite;
 
+import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.jems.predicate.Predicate;
 
 
@@ -29,10 +30,14 @@ public final class AllOf<T> implements Predicate<T>
 {
     private final Iterable<Predicate<T>> mDelegates;
 
-    // TODO: we could use an "AllOf(Predicate<T> ... delegates)" ctor, but that requires a `Seq`, which is in the iterators module ...
+
+    @SafeVarargs
+    public AllOf(Predicate<T>... delegates)
+    {
+        this(new Seq<>(delegates));
+    }
 
 
-    // TODO: how do we handle empty delegates? Error, always satisfied or never satisfied?
     public AllOf(Iterable<Predicate<T>> delegates)
     {
         mDelegates = delegates;
