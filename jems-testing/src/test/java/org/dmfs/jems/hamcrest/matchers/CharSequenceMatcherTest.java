@@ -39,7 +39,7 @@ public class CharSequenceMatcherTest
 
 
     @Test
-    public void testCharSequenceChatAtMismatch() throws Exception
+    public void testCharSequenceCharAtMismatch() throws Exception
     {
         // test charAt with wrong result
         assertFalse(validCharSequence("123").matches(new TestSequence("123")
@@ -54,7 +54,7 @@ public class CharSequenceMatcherTest
 
 
     @Test
-    public void testCharSequenceChatAtNoException1() throws Exception
+    public void testCharSequenceCharAtNoException1() throws Exception
     {
         // test charAt which doesn't throw at invalid index
         assertFalse(validCharSequence("123").matches(new TestSequence("123")
@@ -69,7 +69,7 @@ public class CharSequenceMatcherTest
 
 
     @Test
-    public void testCharSequenceChatAtNoException2() throws Exception
+    public void testCharSequenceCharAtNoException2() throws Exception
     {
         // test charAt which doesn't throw at invalid index
         assertFalse(validCharSequence("123").matches(new TestSequence("123")
