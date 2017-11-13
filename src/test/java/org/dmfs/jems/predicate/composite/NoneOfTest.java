@@ -37,9 +37,12 @@ public class NoneOfTest
     public void testSatisfiedBy() throws Exception
     {
         // trivial predicate
+        assertThat(new NoneOf<>().satisfiedBy(new Object()), is(false));
         assertThat(new NoneOf<>(EmptyIterable.<Predicate<Object>>instance()).satisfiedBy(new Object()), is(false));
 
         // test matching predicates
+        assertThat(new NoneOf<>(new Equals<>("fail"), new Equals<>("fail"), new Equals<>("fail")).satisfiedBy("test"), is(true));
+
         assertThat(new NoneOf<>(new Seq<Predicate<String>>(new Equals<>("fail"))).satisfiedBy("test"), is(true));
         assertThat(new NoneOf<>(new Seq<Predicate<String>>(new Equals<>("fail"), new Equals<>("fail"))).satisfiedBy("test"), is(true));
         assertThat(new NoneOf<>(new Seq<Predicate<String>>(new Equals<>("fail"), new Equals<>("fail"), new Equals<>("fail"))).satisfiedBy("test"),

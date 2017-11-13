@@ -17,28 +17,26 @@
 
 package org.dmfs.jems.predicate.composite;
 
-import org.dmfs.iterables.elementary.Seq;
-import org.dmfs.jems.predicate.Predicate;
-import org.dmfs.jems.predicate.elementary.DelegatingPredicate;
+import org.dmfs.jems.pair.elementary.ValuePair;
+import org.dmfs.jems.predicate.elementary.SameAs;
+import org.junit.Test;
+
+import static org.dmfs.jems.mockito.doubles.TestDoubles.dummy;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 
 /**
- * A {@link Predicate} which matches if none of another sequence of predicates matches. This is equivalent to the boolean "NOR" operation.
- *
  * @author Marten Gajda
  */
-public final class NoneOf<T> extends DelegatingPredicate<T>
+public class LeftWithTest
 {
-
-    @SafeVarargs
-    public NoneOf(Predicate<T>... delegates)
+    @Test
+    public void testSatisfiedBy() throws Exception
     {
-        this(new Seq<>(delegates));
+        Object leftDummy = dummy(Object.class);
+        assertThat(new LeftWith<>(new SameAs<>(leftDummy)).satisfiedBy(new ValuePair<>(leftDummy, dummy(Object.class))), is(true));
+        assertThat(new LeftWith<>(new SameAs<>(leftDummy)).satisfiedBy(new ValuePair<>(dummy(Object.class), dummy(Object.class))), is(false));
     }
 
-
-    public NoneOf(Iterable<Predicate<T>> delegate)
-    {
-        super(new Not<>(new AnyOf<>(delegate)));
-    }
 }

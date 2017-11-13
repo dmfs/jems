@@ -36,9 +36,11 @@ public class AnyOfTest
     public void testSatisfiedBy() throws Exception
     {
         // trivial predicate
+        assertThat(new AnyOf<>().satisfiedBy(new Object()), is(true));
         assertThat(new AnyOf<>(EmptyIterable.<Predicate<Object>>instance()).satisfiedBy(new Object()), is(true));
 
         // test matching predicates
+        assertThat(new AnyOf<>(new Equals<>("test"), new Equals<>("fail"), new Equals<>("fail")).satisfiedBy("test"), is(true));
         assertThat(new AnyOf<>(new Seq<Predicate<String>>(new Equals<>("test"))).satisfiedBy("test"), is(true));
 
         assertThat(new AnyOf<>(new Seq<Predicate<String>>(new Equals<>("test"), new Equals<>("test"))).satisfiedBy("test"), is(true));

@@ -17,45 +17,29 @@
 
 package org.dmfs.jems.predicate.composite;
 
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.pair.Pair;
 import org.dmfs.jems.predicate.Predicate;
 
 
 /**
- * A {@link Predicate} which is satisfied if any of a given number of predicates are satisfied. This is equivalent to the boolean "OR" operation.
+ * A {@link Predicate} to match the left value of a {@link Pair}.
  *
  * @author Marten Gajda
  */
-public final class AnyOf<T> implements Predicate<T>
+public final class LeftWith<Left, Right, T extends Pair<Left, Right>> implements Predicate<T>
 {
-    private final Iterable<Predicate<T>> mDelegates;
+    private final Predicate<Left> mDelegate;
 
 
-    @SafeVarargs
-    public AnyOf(Predicate<T>... delegates)
+    public LeftWith(Predicate<Left> delegate)
     {
-        this(new Seq<>(delegates));
-    }
-
-
-    public AnyOf(Iterable<Predicate<T>> delegates)
-    {
-        mDelegates = delegates;
+        mDelegate = delegate;
     }
 
 
     @Override
     public boolean satisfiedBy(T testedInstance)
     {
-        boolean emtpy = true;
-        for (Predicate<T> predicate : mDelegates)
-        {
-            if (predicate.satisfiedBy(testedInstance))
-            {
-                return true;
-            }
-            emtpy = false;
-        }
-        return emtpy;
+        return mDelegate.satisfiedBy(testedInstance.left());
     }
 }

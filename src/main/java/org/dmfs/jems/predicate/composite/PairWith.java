@@ -17,28 +17,20 @@
 
 package org.dmfs.jems.predicate.composite;
 
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.pair.Pair;
 import org.dmfs.jems.predicate.Predicate;
 import org.dmfs.jems.predicate.elementary.DelegatingPredicate;
 
 
 /**
- * A {@link Predicate} which matches if none of another sequence of predicates matches. This is equivalent to the boolean "NOR" operation.
+ * A {@link Predicate} to match left and right value of a {@link Pair}.
  *
  * @author Marten Gajda
  */
-public final class NoneOf<T> extends DelegatingPredicate<T>
+public final class PairWith<Left, Right, T extends Pair<Left, Right>> extends DelegatingPredicate<T>
 {
-
-    @SafeVarargs
-    public NoneOf(Predicate<T>... delegates)
+    public PairWith(Predicate<Left> leftDelegate, Predicate<Right> rightPredicate)
     {
-        this(new Seq<>(delegates));
-    }
-
-
-    public NoneOf(Iterable<Predicate<T>> delegate)
-    {
-        super(new Not<>(new AnyOf<>(delegate)));
+        super(new AllOf<>(new LeftWith<Left, Right, T>(leftDelegate), new RightWith<Left, Right, T>(rightPredicate)));
     }
 }
