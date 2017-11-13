@@ -37,7 +37,7 @@ import static org.hamcrest.Matchers.hasToString;
  */
 public final class CharSequenceSubSequenceMatcher extends TypeSafeDiagnosingMatcher<CharSequence>
 {
-    private final String mExpectedValue;
+    private final CharSequence mExpectedValue;
     private final int mSubSequenceTestDepth;
 
 
@@ -51,13 +51,13 @@ public final class CharSequenceSubSequenceMatcher extends TypeSafeDiagnosingMatc
      *
      * @return A {@link CharSequenceSubSequenceMatcher}
      */
-    public static CharSequenceSubSequenceMatcher hasSubSequences(String expectedValue, int subSequenceTestDepth)
+    public static CharSequenceSubSequenceMatcher hasSubSequences(CharSequence expectedValue, int subSequenceTestDepth)
     {
         return new CharSequenceSubSequenceMatcher(expectedValue, subSequenceTestDepth);
     }
 
 
-    public CharSequenceSubSequenceMatcher(String expectedValue, int subSequenceTestDepth)
+    public CharSequenceSubSequenceMatcher(CharSequence expectedValue, int subSequenceTestDepth)
     {
         mExpectedValue = expectedValue;
         mSubSequenceTestDepth = subSequenceTestDepth;
@@ -96,7 +96,7 @@ public final class CharSequenceSubSequenceMatcher extends TypeSafeDiagnosingMatc
                 else
                 {
                     // test valid indexes
-                    String expected = mExpectedValue.substring(i, j);
+                    String expected = mExpectedValue.subSequence(i, j).toString();
                     Matcher<CharSequence> subSequenceMatcher = new AllOf<>(
                             new Seq<Matcher<? super CharSequence>>(
                                     hasToString(expected),
@@ -119,6 +119,6 @@ public final class CharSequenceSubSequenceMatcher extends TypeSafeDiagnosingMatc
     @Override
     public void describeTo(Description description)
     {
-        description.appendText("sub-sequences match \"").appendText(mExpectedValue).appendText("\"");
+        description.appendText("sub-sequences match \"").appendText(mExpectedValue.toString()).appendText("\"");
     }
 }

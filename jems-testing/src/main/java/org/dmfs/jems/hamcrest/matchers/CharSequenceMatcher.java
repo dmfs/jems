@@ -42,15 +42,15 @@ public final class CharSequenceMatcher
      * Tests the contract of a {@link CharSequence} against the given String value.
      *
      * @param expected
-     *         A {@link String} which represents the expected characters.
+     *         A {@link CharSequence} which represents the expected characters.
      *
      * @return A {@link Matcher} which tests {@link CharSequence}s.
      */
-    public static Matcher<CharSequence> validCharSequence(String expected)
+    public static Matcher<CharSequence> validCharSequence(CharSequence expected)
     {
         return new AllOf<>(
                 new Seq<Matcher<? super CharSequence>>(
-                        hasToString(expected),
+                        hasToString(expected.toString()),
                         hasLength(expected.length()),
                         hasChars(expected),
                         hasSubSequences(expected, 3)));

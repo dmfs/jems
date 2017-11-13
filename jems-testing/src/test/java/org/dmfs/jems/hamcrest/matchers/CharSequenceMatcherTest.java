@@ -17,8 +17,6 @@
 
 package org.dmfs.jems.hamcrest.matchers;
 
-import org.hamcrest.Description;
-import org.hamcrest.StringDescription;
 import org.junit.Test;
 
 import static org.dmfs.jems.hamcrest.matchers.CharSequenceMatcher.validCharSequence;
@@ -43,7 +41,7 @@ public class CharSequenceMatcherTest
     @Test
     public void testCharSequenceChatAtMismatch() throws Exception
     {
-        // test charAt does not throw
+        // test charAt with wrong result
         assertFalse(validCharSequence("123").matches(new TestSequence("123")
         {
             @Override
@@ -52,15 +50,13 @@ public class CharSequenceMatcherTest
                 return i != 1 ? super.charAt(i) : 'x';
             }
         }));
-
-        Description description = new StringDescription();
     }
 
 
     @Test
     public void testCharSequenceChatAtNoException1() throws Exception
     {
-        // test charAt does not throw
+        // test charAt which doesn't throw at invalid index
         assertFalse(validCharSequence("123").matches(new TestSequence("123")
         {
             @Override
@@ -75,7 +71,7 @@ public class CharSequenceMatcherTest
     @Test
     public void testCharSequenceChatAtNoException2() throws Exception
     {
-        // test charAt does not throw
+        // test charAt which doesn't throw at invalid index
         assertFalse(validCharSequence("123").matches(new TestSequence("123")
         {
             @Override
@@ -90,6 +86,7 @@ public class CharSequenceMatcherTest
     @Test
     public void testCharSequenceWrongToString() throws Exception
     {
+        // test wrong result of toString()
         assertFalse(validCharSequence("123").matches(new TestSequence("123")
         {
             @Override
@@ -119,6 +116,7 @@ public class CharSequenceMatcherTest
     @Test
     public void testCharSequenceWrongSubSequence() throws Exception
     {
+        // test subSequence with wrong result
         assertFalse(validCharSequence("123").matches(new TestSequence("123")
         {
             @Override
@@ -133,6 +131,7 @@ public class CharSequenceMatcherTest
     @Test
     public void testCharSequenceNotThrowing1() throws Exception
     {
+        // test subSequence which doesn't throw at invalid index
         assertFalse(validCharSequence("123").matches(new TestSequence("123")
         {
             @Override
@@ -147,6 +146,7 @@ public class CharSequenceMatcherTest
     @Test
     public void testCharSequenceNotThrowing2() throws Exception
     {
+        // test subSequence which doesn't throw at invalid index
         assertFalse(validCharSequence("123").matches(new TestSequence("123")
         {
             @Override

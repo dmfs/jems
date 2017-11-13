@@ -31,7 +31,7 @@ import java.util.Locale;
  */
 public final class CharSequenceCharAtMatcher extends TypeSafeDiagnosingMatcher<CharSequence>
 {
-    private final String mExpectedValue;
+    private final CharSequence mExpectedValue;
 
 
     /**
@@ -42,13 +42,13 @@ public final class CharSequenceCharAtMatcher extends TypeSafeDiagnosingMatcher<C
      *
      * @return A {@link CharSequenceCharAtMatcher}.
      */
-    public static CharSequenceCharAtMatcher hasChars(String expectedValues)
+    public static CharSequenceCharAtMatcher hasChars(CharSequence expectedValues)
     {
         return new CharSequenceCharAtMatcher(expectedValues);
     }
 
 
-    public CharSequenceCharAtMatcher(String expectedValue)
+    public CharSequenceCharAtMatcher(CharSequence expectedValue)
     {
         mExpectedValue = expectedValue;
     }
@@ -86,6 +86,6 @@ public final class CharSequenceCharAtMatcher extends TypeSafeDiagnosingMatcher<C
     @Override
     public void describeTo(Description description)
     {
-        description.appendText("chars match \"").appendText(mExpectedValue).appendText("\"");
+        description.appendText("chars match \"").appendText(mExpectedValue.toString()).appendText("\"");
     }
 }
