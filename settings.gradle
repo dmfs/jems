@@ -3,3 +3,5 @@ include 'essentials'
 include 'iterators'
 include 'optional'
 include 'jems-testing'
+include 'textperiment'
+
