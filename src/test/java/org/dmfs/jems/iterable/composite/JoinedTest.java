@@ -1,0 +1,117 @@
+/*
+ * Copyright 2017 dmfs GmbH
+ *
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.dmfs.jems.iterable.composite;
+
+import org.dmfs.iterables.EmptyIterable;
+import org.dmfs.iterables.SingletonIterable;
+import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.function.Function;
+import org.junit.Test;
+
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.emptyIterableOf;
+import static org.junit.Assert.assertThat;
+
+
+/**
+ * @author Marten Gajda
+ */
+public class JoinedTest
+{
+    @Test
+    public void testTrivial() throws Exception
+    {
+        assertThat(new Joined<>(EmptyIterable.<Iterable<String>>instance()), emptyIterableOf(String.class));
+        assertThat(new Joined<>(new Seq<Iterable<String>>(EmptyIterable.<String>instance())), emptyIterableOf(String.class));
+    }
+
+
+    @Test
+    public void testSingle() throws Exception
+    {
+        assertThat(new Joined<>(new Seq<Iterable<String>>(new SingletonIterable<>("1"))), contains("1"));
+    }
+
+
+    @Test
+    public void testMultiSingle() throws Exception
+    {
+        assertThat(new Joined<>(new Seq<Iterable<String>>(new SingletonIterable<>("1"), new SingletonIterable<>("2"), new SingletonIterable<>("3"))),
+                contains("1", "2", "3"));
+    }
+
+
+    @Test
+    public void testMulti() throws Exception
+    {
+        assertThat(new Joined<>(new Seq<Iterable<String>>(new Seq<>("1", "2", "3"))), contains("1", "2", "3"));
+        assertThat(new Joined<>(new Seq<>(new Seq<>("1", "2", "3"), EmptyIterable.<String>instance())), contains("1", "2", "3"));
+        assertThat(new Joined<>(new Seq<>(EmptyIterable.<String>instance(), new Seq<>("1", "2", "3"), EmptyIterable.<String>instance())),
+                contains("1", "2", "3"));
+    }
+
+
+    @Test
+    public void testMultiMulti() throws Exception
+    {
+        assertThat(new Joined<>(
+                        new Seq<Iterable<String>>(
+                                new Seq<>("1", "2", "3"),
+                                new Seq<>("a", "b", "c"),
+                                new Seq<>("z", "zz", "zzz")
+                        )),
+                contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
+
+        assertThat(new Joined<>(
+                        new Seq<>(
+                                EmptyIterable.<String>instance(),
+                                new Seq<>("1", "2", "3"),
+                                new Seq<>("a", "b", "c"),
+                                new Seq<>("z", "zz", "zzz")
+                        )),
+                contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
+
+        assertThat(new Joined<>(
+                        new Seq<>(
+                                new Seq<>("1", "2", "3"),
+                                new Seq<>("a", "b", "c"),
+                                new Seq<>("z", "zz", "zzz"),
+                                EmptyIterable.<String>instance()
+                        )),
+                contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
+    }
+
+
+    @Test
+    public void testMappingCtor() throws Exception
+    {
+        assertThat(new Joined<>(
+                        new Function<String, Iterable<String>>()
+                        {
+                            @Override
+                            public Iterable<String> value(String s)
+                            {
+                                return new Seq<>(s + "1", s + "2", s + "3");
+                            }
+                        },
+                        new Seq<>("a", "b", "c")
+                ),
+                contains("a1", "a2", "a3", "b1", "b2", "b3", "c1", "c2", "c3"));
+    }
+
+}
