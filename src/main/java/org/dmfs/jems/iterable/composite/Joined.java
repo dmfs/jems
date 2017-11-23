@@ -15,37 +15,42 @@
  * limitations under the License.
  */
 
-package org.dmfs.iterables.decorators;
+package org.dmfs.jems.iterable.composite;
 
-import org.dmfs.iterables.elementary.Seq;
-import org.dmfs.jems.iterable.composite.Joined;
+import org.dmfs.iterables.decorators.Mapped;
+import org.dmfs.jems.function.Function;
 
 import java.util.Iterator;
 
 
 /**
- * An {@link Iterable} which iterates the elements of other {@link Iterable}s.
+ * An {@link Iterable} which joins other {@link Iterable}s by iterating the values of them one after another.
  *
  * @param <T>
  *         The type of the iterated elements.
  *
  * @author Marten Gajda
- * @deprecated in favour of {@link Joined}
  */
-@Deprecated
-public final class Flattened<T> implements Iterable<T>
+public final class Joined<T> implements Iterable<T>
 {
     private final Iterable<Iterable<T>> mIterables;
 
 
-    @SafeVarargs
-    public Flattened(Iterable<T>... iterables)
+    public <V> Joined(final Function<V, Iterable<T>> function, Iterable<V> iterables)
     {
-        this(new Seq<>(iterables));
+        this(new Mapped<>(iterables, new org.dmfs.iterators.Function<V, Iterable<T>>()
+        {
+
+            @Override
+            public Iterable<T> apply(V argument)
+            {
+                return function.value(argument);
+            }
+        }));
     }
 
 
-    public Flattened(Iterable<Iterable<T>> iterables)
+    public Joined(Iterable<Iterable<T>> iterables)
     {
         mIterables = iterables;
     }
