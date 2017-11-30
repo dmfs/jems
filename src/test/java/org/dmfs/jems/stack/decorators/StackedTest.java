@@ -37,7 +37,7 @@ public class StackedTest
     @Test
     public void testSingle() throws Exception
     {
-        assertThat(new Stacked<>("1").top(), isPresent(stackTop(is("1"), StackMatcher.<String>stacked())));
+        assertThat(new Stacked<>("1").top(), isPresent(stackTop(is("1"), StackMatcher.<String>emptyStack())));
     }
 
 

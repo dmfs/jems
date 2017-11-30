@@ -25,6 +25,7 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.StringDescription;
 import org.junit.Test;
 
+import static org.dmfs.jems.hamcrest.matchers.StackMatcher.emptyStack;
 import static org.dmfs.jems.hamcrest.matchers.StackMatcher.stacked;
 import static org.dmfs.jems.mockito.doubles.TestDoubles.failingMock;
 import static org.dmfs.optional.Absent.absent;
@@ -66,7 +67,7 @@ public class StackMatcherTest
         doReturn(mockStack).when(mockStackTop2).bottom();
         doReturn(new Present<>(mockStackTop2)).when(mockStackOuter).top();
 
-        assertThat(stacked().matches(emptyMockStack), is(true));
+        assertThat(emptyStack().matches(emptyMockStack), is(true));
         assertThat(stacked(sameInstance(dummyElement)).matches(mockStack), is(true));
         assertThat(stacked(sameInstance(dummyElement2), sameInstance(dummyElement)).matches(mockStackOuter), is(true));
     }
@@ -92,11 +93,11 @@ public class StackMatcherTest
         doReturn(mockStack).when(mockStackTop2).bottom();
         doReturn(new Present<>(mockStackTop2)).when(mockStackOuter).top();
 
-        assertThat(stacked().matches(mockStack), is(false));
+        assertThat(emptyStack().matches(mockStack), is(false));
         assertThat(stacked(sameInstance(dummyElement2)).matches(mockStack), is(false));
         assertThat(stacked(sameInstance(dummyElement2), sameInstance(dummyElement)).matches(mockStack), is(false));
 
-        assertThat(stacked().matches(mockStackOuter), is(false));
+        assertThat(emptyStack().matches(mockStackOuter), is(false));
         assertThat(stacked(sameInstance(dummyElement)).matches(mockStackOuter), is(false));
         assertThat(stacked(sameInstance(dummyElement2)).matches(mockStackOuter), is(false));
         assertThat(stacked(sameInstance(dummyElement2), sameInstance(dummyElement), sameInstance(new Object())).matches(mockStackOuter), is(false));
@@ -113,7 +114,7 @@ public class StackMatcherTest
         doReturn("matcher").when(bottomMockMatcher).toString();
 
         stacked(elementMockMatcher, bottomMockMatcher).describeTo(description);
-        MatcherAssert.assertThat(description.toString(), is("A Stack with elements matching [is <is \"xyz\">, is <matcher>]"));
+        MatcherAssert.assertThat(description.toString(), is("Elements in Stack iterable containing [is <is \"xyz\">, is <matcher>]"));
     }
 
 }
