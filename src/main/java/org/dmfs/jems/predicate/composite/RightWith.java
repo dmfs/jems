@@ -26,7 +26,7 @@ import org.dmfs.jems.predicate.Predicate;
  *
  * @author Marten Gajda
  */
-public final class RightWith<Left, Right, T extends Pair<Left, Right>> implements Predicate<T>
+public final class RightWith<Left, Right> implements Predicate<Pair<Left, Right>>
 {
     private final Predicate<Right> mDelegate;
 
@@ -38,7 +38,7 @@ public final class RightWith<Left, Right, T extends Pair<Left, Right>> implement
 
 
     @Override
-    public boolean satisfiedBy(T testedInstance)
+    public boolean satisfiedBy(Pair<Left, Right> testedInstance)
     {
         return mDelegate.satisfiedBy(testedInstance.right());
     }

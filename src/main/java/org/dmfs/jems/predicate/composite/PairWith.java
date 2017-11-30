@@ -27,10 +27,10 @@ import org.dmfs.jems.predicate.elementary.DelegatingPredicate;
  *
  * @author Marten Gajda
  */
-public final class PairWith<Left, Right, T extends Pair<Left, Right>> extends DelegatingPredicate<T>
+public final class PairWith<Left, Right> extends DelegatingPredicate<Pair<Left, Right>>
 {
     public PairWith(Predicate<Left> leftDelegate, Predicate<Right> rightPredicate)
     {
-        super(new AllOf<>(new LeftWith<Left, Right, T>(leftDelegate), new RightWith<Left, Right, T>(rightPredicate)));
+        super(new AllOf<>(new LeftWith<Left, Right>(leftDelegate), new RightWith<Left, Right>(rightPredicate)));
     }
 }
