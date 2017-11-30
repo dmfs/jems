@@ -17,8 +17,9 @@
 
 package org.dmfs.jems.iterable.elementary;
 
-import org.dmfs.jems.stack.decorators.Stacked;
+import org.dmfs.jems.stack.decorators.Topped;
 import org.dmfs.jems.stack.elementary.EmptyStack;
+import org.dmfs.jems.stack.elementary.SingleStack;
 import org.junit.Test;
 
 import static org.dmfs.jems.hamcrest.matchers.IterableMatcher.iteratesTo;
@@ -35,9 +36,9 @@ public class StackIterableTest
     public void test() throws Exception
     {
         assertThat(new StackIterable<>(new EmptyStack<>()), emptyIterable());
-        assertThat(new StackIterable<>(new Stacked<>("1")), iteratesTo("1"));
-        assertThat(new StackIterable<>(new Stacked<>("2", new Stacked<>("1"))), iteratesTo("2", "1"));
-        assertThat(new StackIterable<>(new Stacked<>("3", new Stacked<>("2", new Stacked<>("1")))), iteratesTo("3", "2", "1"));
+        assertThat(new StackIterable<>(new SingleStack<>("1")), iteratesTo("1"));
+        assertThat(new StackIterable<>(new Topped<>("2", new SingleStack<>("1"))), iteratesTo("2", "1"));
+        assertThat(new StackIterable<>(new Topped<>("3", new Topped<>("2", new SingleStack<>("1")))), iteratesTo("3", "2", "1"));
     }
 
 }

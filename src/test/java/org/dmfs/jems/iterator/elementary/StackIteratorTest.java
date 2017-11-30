@@ -17,8 +17,9 @@
 
 package org.dmfs.jems.iterator.elementary;
 
-import org.dmfs.jems.stack.decorators.Stacked;
+import org.dmfs.jems.stack.decorators.Topped;
 import org.dmfs.jems.stack.elementary.EmptyStack;
+import org.dmfs.jems.stack.elementary.SingleStack;
 import org.junit.Test;
 
 import java.util.Iterator;
@@ -38,7 +39,7 @@ public class StackIteratorTest
     @Test
     public void testEmpty()
     {
-        Iterator<String> testIterator = new StackIterator<>(new Stacked<>("1"));
+        Iterator<String> testIterator = new StackIterator<>(new SingleStack<>("1"));
         assertThat(testIterator.hasNext(), is(true));
         assertThat(testIterator.hasNext(), is(true));
         assertThat(testIterator.hasNext(), is(true));
@@ -57,7 +58,7 @@ public class StackIteratorTest
     @Test
     public void testNonEmpty1()
     {
-        Iterator<String> testIterator = new StackIterator<>(new Stacked<>("1"));
+        Iterator<String> testIterator = new StackIterator<>(new SingleStack<>("1"));
         assertThat(testIterator.hasNext(), is(true));
         assertThat(testIterator.hasNext(), is(true));
         assertThat(testIterator.hasNext(), is(true));
@@ -81,7 +82,7 @@ public class StackIteratorTest
     @Test
     public void testNonEmpty2()
     {
-        Iterator<String> testIterator = new StackIterator<>(new Stacked<>("1", new Stacked<String>("2")));
+        Iterator<String> testIterator = new StackIterator<>(new Topped<>("1", new SingleStack<>("2")));
         assertThat(testIterator.hasNext(), is(true));
         assertThat(testIterator.hasNext(), is(true));
         assertThat(testIterator.hasNext(), is(true));

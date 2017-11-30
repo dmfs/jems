@@ -117,4 +117,17 @@ public class StackMatcherTest
         MatcherAssert.assertThat(description.toString(), is("Elements in Stack iterable containing [is <is \"xyz\">, is <matcher>]"));
     }
 
+
+    @Test
+    public void test_emptyDescribeTo()
+    {
+        Description description = new StringDescription();
+        Matcher<String> elementMockMatcher = is("xyz");
+        Matcher<Stack<Object>> bottomMockMatcher = failingMock(Matcher.class);
+        doNothing().when(bottomMockMatcher).describeTo(description);
+        doReturn("matcher").when(bottomMockMatcher).toString();
+
+        emptyStack().describeTo(description);
+        MatcherAssert.assertThat(description.toString(), is("StackTop absent"));
+    }
 }

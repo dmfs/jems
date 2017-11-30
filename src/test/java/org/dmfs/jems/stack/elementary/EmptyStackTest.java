@@ -17,10 +17,9 @@
 
 package org.dmfs.jems.stack.elementary;
 
-import org.dmfs.jems.hamcrest.matchers.AbsentMatcher;
-import org.dmfs.jems.stack.Stack;
 import org.junit.Test;
 
+import static org.dmfs.jems.hamcrest.matchers.StackMatcher.emptyStack;
 import static org.junit.Assert.assertThat;
 
 
@@ -32,8 +31,7 @@ public class EmptyStackTest
     @Test
     public void value() throws Exception
     {
-        // on an empty stack the top is always absent
-        assertThat(new EmptyStack<>().top(), AbsentMatcher.<Stack.StackTop<Object>>isAbsent());
+        assertThat(new EmptyStack<>(), emptyStack());
     }
 
 }

@@ -17,7 +17,6 @@
 
 package org.dmfs.jems.stack.decorators;
 
-import org.dmfs.jems.hamcrest.matchers.StackMatcher;
 import org.dmfs.jems.stack.Stack;
 import org.junit.Test;
 
@@ -32,19 +31,13 @@ import static org.junit.Assert.assertThat;
 /**
  * @author Marten Gajda
  */
-public class StackedTest
+public class ToppedTest
 {
-    @Test
-    public void testSingle() throws Exception
-    {
-        assertThat(new Stacked<>("1").top(), isPresent(stackTop(is("1"), StackMatcher.<String>emptyStack())));
-    }
-
 
     @Test
-    public void testStacked() throws Exception
+    public void test() throws Exception
     {
         Stack<String> dummyStack = dummy(Stack.class);
-        assertThat(new Stacked<>("1", dummyStack).top(), isPresent(stackTop(is("1"), sameInstance(dummyStack))));
+        assertThat(new Topped<>("1", dummyStack).top(), isPresent(stackTop(is("1"), sameInstance(dummyStack))));
     }
 }

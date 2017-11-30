@@ -18,7 +18,6 @@
 package org.dmfs.jems.stack.decorators;
 
 import org.dmfs.jems.stack.Stack;
-import org.dmfs.jems.stack.elementary.EmptyStack;
 import org.dmfs.optional.Optional;
 
 import java.util.NoSuchElementException;
@@ -32,21 +31,9 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
-public final class Stacked<Element> implements Stack<Element>
+public final class Topped<Element> implements Stack<Element>
 {
     private final Optional<StackTop<Element>> mTop;
-
-
-    /**
-     * Creates a new {@link Stack} containing only the given element.
-     *
-     * @param element
-     *         The sole element on the stack.
-     */
-    public Stacked(Element element)
-    {
-        this(new PresentTop<>(element, new EmptyStack<Element>()));
-    }
 
 
     /**
@@ -57,7 +44,7 @@ public final class Stacked<Element> implements Stack<Element>
      * @param bottom
      *         The {@link Stack} underneath the top element.
      */
-    public Stacked(Element element, Stack<Element> bottom)
+    public Topped(Element element, Stack<Element> bottom)
     {
         this(new PresentTop<>(element, bottom));
     }
@@ -71,7 +58,7 @@ public final class Stacked<Element> implements Stack<Element>
      * @param top
      *         {@link StackTop}
      */
-    private Stacked(Optional<StackTop<Element>> top)
+    private Topped(Optional<StackTop<Element>> top)
     {
         mTop = top;
     }
