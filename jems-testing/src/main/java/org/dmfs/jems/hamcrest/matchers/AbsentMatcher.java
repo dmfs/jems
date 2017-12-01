@@ -17,27 +17,31 @@
 
 package org.dmfs.jems.hamcrest.matchers;
 
+import org.dmfs.jems.mockito.doubles.DummySingle;
+import org.dmfs.jems.single.Single;
+import org.dmfs.jems.single.elementary.ValueSingle;
 import org.dmfs.optional.Optional;
 import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
 import java.util.NoSuchElementException;
 
 
 /**
+ * {@link Matcher} or {@link Optional} that matches when the tested value is absent.
+ *
  * @author Marten Gajda
+ * @author Gabor Keszthelyi
  */
 public final class AbsentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<T>>
 {
-    private static final AbsentMatcher<?> INSTANCE = new AbsentMatcher<>();
-
-    private static final Object DUMMY_DEFAULT = new Object();
+    private final Single<T> mFallbackDummySingle;
 
 
-    public static <T> AbsentMatcher<T> isAbsent()
+    private AbsentMatcher(Single<T> fallbackDummySingle)
     {
-        //noinspection unchecked
-        return (AbsentMatcher<T>) INSTANCE;
+        mFallbackDummySingle = fallbackDummySingle;
     }
 
 
@@ -60,7 +64,18 @@ public final class AbsentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<T
             // pass
         }
 
-        if (((Optional) item).value(DUMMY_DEFAULT) != DUMMY_DEFAULT)
+        T fallbackDummy = mFallbackDummySingle.value();
+        T fallbackMethodResult;
+        try
+        {
+            fallbackMethodResult = item.value(fallbackDummy);
+        }
+        catch (ClassCastException e)
+        {
+            throw new RuntimeException("ClassCastException in AbsentMatcher, need to use #absent(Class<T> c) or #absent(T t) method", e);
+        }
+
+        if (fallbackMethodResult != fallbackDummy)
         {
             mismatchDescription.appendText("value(default) did not return the default value");
             return false;
@@ -74,5 +89,48 @@ public final class AbsentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<T
     public void describeTo(Description description)
     {
         description.appendText("absent");
+    }
+
+
+    /**
+     * Creates a matcher that matches when the tested value is absent,
+     * <p>
+     * works with any kind of `Optional` class.
+     *
+     * @param fallbackDummy
+     *         used for testing the {@link Optional#value(Object)} method
+     * @param <T>
+     *         the type parameter of the tested {@link Optional}
+     */
+    public static <T> AbsentMatcher<T> isAbsent(T fallbackDummy)
+    {
+        return new AbsentMatcher<>(new ValueSingle<T>(fallbackDummy));
+    }
+
+
+    /**
+     * Creates a matcher that matches when the tested value is absent,
+     * <p>
+     * works with `Optional` classes whose parameter type is a general type, or an interface, or a non-final class (so Mockito can create a dummy instance)
+     * (throws with clear message otherwise).
+     *
+     * @param <T>
+     *         the type parameter of the tested {@link Optional}
+     */
+    public static <T> AbsentMatcher<T> isAbsent(final Class<T> clazz)
+    {
+        return new AbsentMatcher<>(new DummySingle<T>(clazz, "in AbsentMatcher, need to use #absent() or #absent(T t) method"));
+    }
+
+
+    /**
+     * Creates a matcher that matches when the tested value is absent,
+     * <p>
+     * works with `Optional` classes that have generic type parameter (throws with clear message otherwise).
+     */
+    public static <T> AbsentMatcher<T> isAbsent()
+    {
+        //noinspection unchecked
+        return (AbsentMatcher<T>) new AbsentMatcher<>(new ValueSingle<>(new Object()));
     }
 }
