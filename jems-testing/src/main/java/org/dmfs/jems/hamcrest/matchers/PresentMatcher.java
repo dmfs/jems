@@ -87,18 +87,8 @@ public final class PresentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<
             return false;
         }
 
-        try
+        if (!mDelegate.matches(item.value(null)))
         {
-            if (!mDelegate.matches(item.value((T) new Object()))) // note: apparently this works because a present Optional must ignore the default value
-            {
-                mismatchDescription.appendText("present, but value(T) ");
-                mDelegate.describeMismatch(item.value(), mismatchDescription);
-                return false;
-            }
-        }
-        catch (ClassCastException e)
-        {
-            // unless the Optional carries an Object this test will result in a ClassCastException if the test fails
             mismatchDescription.appendText("present, but value(T) ");
             mDelegate.describeMismatch(item.value(), mismatchDescription);
             return false;
