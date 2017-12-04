@@ -38,7 +38,7 @@ public final class OptionalFallbackSingleTest
     public void test()
     {
         assertThat(new OptionalFallbackSingle<>(new Present<>("test"), new ValueSingle<>("fallback")),
-                hasValue("test2"));
+                hasValue("test"));
 
         assertThat(new OptionalFallbackSingle<>(new Absent<String>(), new ValueSingle<>("fallback")),
                 hasValue("fallback"));
