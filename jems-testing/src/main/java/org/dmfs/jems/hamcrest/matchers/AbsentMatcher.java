@@ -53,6 +53,7 @@ public final class AbsentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<T
             mismatchDescription.appendText("present");
             return false;
         }
+
         try
         {
             item.value();
@@ -64,21 +65,18 @@ public final class AbsentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<T
             // pass
         }
 
-        T fallbackDummy = mFallbackDummySingle.value();
-        T fallbackMethodResult;
         try
         {
-            fallbackMethodResult = item.value(fallbackDummy);
+            T fallbackDummy = mFallbackDummySingle.value();
+            if (item.value(fallbackDummy) != fallbackDummy)
+            {
+                mismatchDescription.appendText("value(default) did not return the default value");
+                return false;
+            }
         }
         catch (ClassCastException e)
         {
             throw new RuntimeException("ClassCastException in AbsentMatcher, need to use #absent(Class<T> c) or #absent(T t) method", e);
-        }
-
-        if (fallbackMethodResult != fallbackDummy)
-        {
-            mismatchDescription.appendText("value(default) did not return the default value");
-            return false;
         }
 
         return true;
