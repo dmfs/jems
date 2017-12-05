@@ -32,7 +32,7 @@ public final class SingleMatcher<T> extends FeatureMatcher<Single<T>, T>
 {
     public SingleMatcher(Matcher<? super T> valueMatcher)
     {
-        super(valueMatcher, "value()", "value()");
+        super(valueMatcher, "Single with value()", "Single with value()");
     }
 
 
