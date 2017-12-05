@@ -30,13 +30,13 @@ import org.dmfs.optional.Optional;
 public final class BackedUp<T> implements Single<T>
 {
     private final Optional<T> mOptional;
-    private final Single<T> mFallback;
+    private final Single<T> mBackUp;
 
 
     public BackedUp(Optional<T> optional, Single<T> backUp)
     {
         mOptional = optional;
-        mFallback = backUp;
+        mBackUp = backUp;
     }
 
 
@@ -49,6 +49,6 @@ public final class BackedUp<T> implements Single<T>
     @Override
     public T value()
     {
-        return mOptional.isPresent() ? mOptional.value() : mFallback.value();
+        return mOptional.isPresent() ? mOptional.value() : mBackUp.value();
     }
 }
