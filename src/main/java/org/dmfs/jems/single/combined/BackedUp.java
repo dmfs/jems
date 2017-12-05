@@ -23,26 +23,26 @@ import org.dmfs.optional.Optional;
 
 
 /**
- * {@link Single} that delegates to the given {@link Optional} if that is present, otherwise falls back to the provided fallback {@link Single}.
+ * {@link Single} that delegates to the given {@link Optional} if that is present, otherwise falls back to the provided back-up {@link Single}.
  *
  * @author Gabor Keszthelyi
  */
-public final class OptionalFallbackSingle<T> implements Single<T>
+public final class BackedUp<T> implements Single<T>
 {
     private final Optional<T> mOptional;
     private final Single<T> mFallback;
 
 
-    public OptionalFallbackSingle(Optional<T> optional, Single<T> fallback)
+    public BackedUp(Optional<T> optional, Single<T> backUp)
     {
         mOptional = optional;
-        mFallback = fallback;
+        mFallback = backUp;
     }
 
 
-    public OptionalFallbackSingle(Optional<T> optional, T fallback)
+    public BackedUp(Optional<T> optional, T backUp)
     {
-        this(optional, new ValueSingle<T>(fallback));
+        this(optional, new ValueSingle<T>(backUp));
     }
 
 

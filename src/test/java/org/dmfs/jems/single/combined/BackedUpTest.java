@@ -27,24 +27,24 @@ import static org.junit.Assert.assertThat;
 
 
 /**
- * Unit test for {@link OptionalFallbackSingle}.
+ * Unit test for {@link BackedUp}.
  *
  * @author Gabor Keszthelyi
  */
-public final class OptionalFallbackSingleTest
+public final class BackedUpTest
 {
 
     @Test
     public void test()
     {
-        assertThat(new OptionalFallbackSingle<>(new Present<>("test"), new ValueSingle<>("fallback")),
+        assertThat(new BackedUp<>(new Present<>("test"), new ValueSingle<>("fallback")),
                 hasValue("test"));
-        assertThat(new OptionalFallbackSingle<>(new Present<>("test"), "fallback"),
+        assertThat(new BackedUp<>(new Present<>("test"), "fallback"),
                 hasValue("test"));
 
-        assertThat(new OptionalFallbackSingle<>(new Absent<String>(), new ValueSingle<>("fallback")),
+        assertThat(new BackedUp<>(new Absent<String>(), new ValueSingle<>("fallback")),
                 hasValue("fallback"));
-        assertThat(new OptionalFallbackSingle<>(new Absent<String>(), "fallback"),
+        assertThat(new BackedUp<>(new Absent<String>(), "fallback"),
                 hasValue("fallback"));
     }
 
