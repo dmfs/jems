@@ -27,20 +27,20 @@ import org.dmfs.optional.Optional;
  *
  * @author Gabor Keszthelyi
  */
-public final class BackedUp<T> implements Single<T>
+public final class Backed<T> implements Single<T>
 {
     private final Optional<T> mOptional;
     private final Single<T> mBackUp;
 
 
-    public BackedUp(Optional<T> optional, Single<T> backUp)
+    public Backed(Optional<T> optional, Single<T> backUp)
     {
         mOptional = optional;
         mBackUp = backUp;
     }
 
 
-    public BackedUp(Optional<T> optional, T backUp)
+    public Backed(Optional<T> optional, T backUp)
     {
         this(optional, new ValueSingle<T>(backUp));
     }

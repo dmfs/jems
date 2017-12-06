@@ -27,24 +27,24 @@ import static org.junit.Assert.assertThat;
 
 
 /**
- * Unit test for {@link BackedUp}.
+ * Unit test for {@link Backed}.
  *
  * @author Gabor Keszthelyi
  */
-public final class BackedUpTest
+public final class BackedTest
 {
 
     @Test
     public void test()
     {
-        assertThat(new BackedUp<>(new Present<>("test"), new ValueSingle<>("fallback")),
+        assertThat(new Backed<>(new Present<>("test"), new ValueSingle<>("fallback")),
                 hasValue("test"));
-        assertThat(new BackedUp<>(new Present<>("test"), "fallback"),
+        assertThat(new Backed<>(new Present<>("test"), "fallback"),
                 hasValue("test"));
 
-        assertThat(new BackedUp<>(new Absent<String>(), new ValueSingle<>("fallback")),
+        assertThat(new Backed<>(new Absent<String>(), new ValueSingle<>("fallback")),
                 hasValue("fallback"));
-        assertThat(new BackedUp<>(new Absent<String>(), "fallback"),
+        assertThat(new Backed<>(new Absent<String>(), "fallback"),
                 hasValue("fallback"));
     }
 
