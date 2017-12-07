@@ -17,7 +17,8 @@
 
 package org.dmfs.optional.decorators;
 
-import org.dmfs.iterators.Function;
+import org.dmfs.jems.function.Function;
+import org.dmfs.jems.function.adapters.NewFunction;
 import org.dmfs.optional.Optional;
 
 import java.util.NoSuchElementException;
@@ -41,6 +42,16 @@ public final class Mapped<From, To> implements Optional<To>
     }
 
 
+    /**
+     * @deprecated use {@link Function} instead of {@link org.dmfs.iterators.Function} wherever possible
+     */
+    @Deprecated
+    public Mapped(org.dmfs.iterators.Function<From, To> conversion, Optional<From> fromValue)
+    {
+        this(new NewFunction<>(conversion), fromValue);
+    }
+
+
     @Override
     public boolean isPresent()
     {
@@ -58,6 +69,6 @@ public final class Mapped<From, To> implements Optional<To>
     @Override
     public To value() throws NoSuchElementException
     {
-        return mConversion.apply(mFromValue.value());
+        return mConversion.value(mFromValue.value());
     }
 }
