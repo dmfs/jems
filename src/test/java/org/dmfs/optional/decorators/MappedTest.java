@@ -38,7 +38,7 @@ import static org.junit.Assert.fail;
  */
 public class MappedTest
 {
-    private static final Function<Boolean, Integer> CONVERSION = new Function<Boolean, Integer>()
+    private static final Function<Boolean, Integer> CONVERSION_OLD = new Function<Boolean, Integer>()
     {
         @Override
         public Integer apply(Boolean bool)
@@ -47,11 +47,20 @@ public class MappedTest
         }
     };
 
+    private static final org.dmfs.jems.function.Function<Boolean, Integer> CONVERSION_NEW = new org.dmfs.jems.function.Function<Boolean, Integer>()
+    {
+        @Override
+        public Integer value(Boolean bool)
+        {
+            return bool ? 1 : 0;
+        }
+    };
+
 
     @Test
-    public void test_whenValueIsAbsent()
+    public void test_whenValueIsAbsent_old()
     {
-        Optional<Integer> result = new Mapped<>(CONVERSION, Absent.<Boolean>absent());
+        Optional<Integer> result = new Mapped<>(CONVERSION_OLD, Absent.<Boolean>absent());
 
         assertFalse(result.isPresent());
         assertEquals(5, (int) result.value(5));
@@ -67,9 +76,38 @@ public class MappedTest
 
 
     @Test
-    public void test_whenValueIsPresent()
+    public void test_whenValueIsAbsent_new()
     {
-        Optional<Integer> result = new Mapped<>(CONVERSION, new Present<>(true));
+        Optional<Integer> result = new Mapped<>(CONVERSION_NEW, Absent.<Boolean>absent());
+
+        assertFalse(result.isPresent());
+        assertEquals(5, (int) result.value(5));
+        try
+        {
+            result.value();
+            fail();
+        }
+        catch (NoSuchElementException e)
+        {
+        }
+    }
+
+
+    @Test
+    public void test_whenValueIsPresent_old()
+    {
+        Optional<Integer> result = new Mapped<>(CONVERSION_OLD, new Present<>(true));
+
+        assertTrue(result.isPresent());
+        assertEquals(1, (int) result.value(5));
+        assertEquals(1, (int) result.value());
+    }
+
+
+    @Test
+    public void test_whenValueIsPresent_new()
+    {
+        Optional<Integer> result = new Mapped<>(CONVERSION_NEW, new Present<>(true));
 
         assertTrue(result.isPresent());
         assertEquals(1, (int) result.value(5));
