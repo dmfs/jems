@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-package org.dmfs.iterators.decorators;
+package org.dmfs.jems.iterator.decorators;
 
 import org.dmfs.iterators.AbstractBaseIterator;
-import org.dmfs.iterators.Function;
+import org.dmfs.jems.function.Function;
 
 import java.util.Iterator;
 
@@ -33,12 +33,11 @@ import java.util.Iterator;
  *         The type of the values iterated by this {@link Iterator}.
  *
  * @author Marten Gajda
- * @deprecated use {@link org.dmfs.jems.iterator.decorators.Mapped} instead
+ * @author Gabor Keszthelyi
  */
-@Deprecated
 public final class Mapped<OriginalType, ResultType> extends AbstractBaseIterator<ResultType>
 {
-    private final Iterator<OriginalType> mDelegate;
+    private final Iterator<OriginalType> mOriginal;
     private final Function<OriginalType, ResultType> mFunction;
 
 
@@ -46,29 +45,29 @@ public final class Mapped<OriginalType, ResultType> extends AbstractBaseIterator
      * Creates a {@link Mapped} {@link Iterator} that iterates the elements of the given {@link Iterator} after mapping
      * them using the given {@link Function}.
      *
-     * @param delegate
-     *         The {@link Iterator} to be mapped.
-     * @param function
+     * @param mapFunction
      *         The {@link Function} to apply to all elements.
+     * @param original
+     *         The {@link Iterator} to be mapped.
      */
-    public Mapped(final Iterator<OriginalType> delegate, final Function<OriginalType, ResultType> function)
+    public Mapped(Function<OriginalType, ResultType> mapFunction, Iterator<OriginalType> original)
     {
-        mDelegate = delegate;
-        mFunction = function;
+        mOriginal = original;
+        mFunction = mapFunction;
     }
 
 
     @Override
     public final boolean hasNext()
     {
-        return mDelegate.hasNext();
+        return mOriginal.hasNext();
     }
 
 
     @Override
     public final ResultType next()
     {
-        return mFunction.apply(mDelegate.next());
+        return mFunction.value(mOriginal.next());
     }
 
 }
