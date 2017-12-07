@@ -17,29 +17,27 @@
 
 package org.dmfs.jems.function.conversions;
 
-import org.junit.Test;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import org.dmfs.jems.function.Function;
 
 
 /**
- * Unit test for {@link IdToTimeZoneFunc}.
+ * {@link Function} to convert from String to Long.
  *
  * @author Gabor Keszthelyi
  */
-public final class IdToTimeZoneFuncTest
+public final class StringToLong implements Function<String, Long>
 {
-    @Test
-    public void test()
+    public static final Function<String, Long> FUNC = new StringToLong();
+
+
+    private StringToLong()
     {
-        assertThat(IdToTimeZoneFunc.INST.value("Europe/Berlin").getID(), is("Europe/Berlin"));
     }
 
 
-    @Test
-    public void test_invalidId_returnsGMT()
+    @Override
+    public Long value(String argument)
     {
-        assertThat(IdToTimeZoneFunc.INST.value("an invalid id").getID(), is("GMT"));
+        return Long.valueOf(argument);
     }
 }

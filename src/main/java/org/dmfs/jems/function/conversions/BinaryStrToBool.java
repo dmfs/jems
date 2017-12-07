@@ -21,23 +21,31 @@ import org.dmfs.jems.function.Function;
 
 
 /**
- * {@link Function} to convert from String to Long.
+ * {@link Function} to convert from a binary String ("0" or "1") to Boolean.
  *
  * @author Gabor Keszthelyi
  */
-public final class StringToLongFunc implements Function<String, Long>
+public final class BinaryStrToBool implements Function<String, Boolean>
 {
-    public static final Function<String, Long> INST = new StringToLongFunc();
+    public static final Function<String, Boolean> FUNC = new BinaryStrToBool();
 
 
-    private StringToLongFunc()
+    private BinaryStrToBool()
     {
     }
 
 
     @Override
-    public Long value(String argument)
+    public Boolean value(String argument)
     {
-        return Long.valueOf(argument);
+        if ("0".equals(argument))
+        {
+            return false;
+        }
+        if ("1".equals(argument))
+        {
+            return true;
+        }
+        throw new IllegalArgumentException("Binary string is not \"0\" or \"1\" but: " + argument);
     }
 }

@@ -21,31 +21,23 @@ import org.dmfs.jems.function.Function;
 
 
 /**
- * {@link Function} to convert from a binary String ("0" or "1") to Boolean.
+ * {@link Function} to convert from String to Integer.
  *
  * @author Gabor Keszthelyi
  */
-public final class BinaryStrToBoolFunc implements Function<String, Boolean>
+public final class StringToInt implements Function<String, Integer>
 {
-    public static final Function<String, Boolean> INST = new BinaryStrToBoolFunc();
+    public static final Function<String, Integer> FUNC = new StringToInt();
 
 
-    private BinaryStrToBoolFunc()
+    private StringToInt()
     {
     }
 
 
     @Override
-    public Boolean value(String argument)
+    public Integer value(String argument)
     {
-        if ("0".equals(argument))
-        {
-            return false;
-        }
-        if ("1".equals(argument))
-        {
-            return true;
-        }
-        throw new IllegalArgumentException("Binary string is not \"0\" or \"1\" but: " + argument);
+        return Integer.valueOf(argument);
     }
 }

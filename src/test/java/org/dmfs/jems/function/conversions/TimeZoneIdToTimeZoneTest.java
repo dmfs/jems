@@ -17,27 +17,29 @@
 
 package org.dmfs.jems.function.conversions;
 
-import org.dmfs.jems.function.Function;
+import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 
 /**
- * {@link Function} to convert from String to Integer.
+ * Unit test for {@link TimeZoneIdToTimeZone}.
  *
  * @author Gabor Keszthelyi
  */
-public final class StringToIntFunc implements Function<String, Integer>
+public final class TimeZoneIdToTimeZoneTest
 {
-    public static final Function<String, Integer> INST = new StringToIntFunc();
-
-
-    private StringToIntFunc()
+    @Test
+    public void test()
     {
+        assertThat(TimeZoneIdToTimeZone.FUNC.value("Europe/Berlin").getID(), is("Europe/Berlin"));
     }
 
 
-    @Override
-    public Integer value(String argument)
+    @Test
+    public void test_invalidId_returnsGMT()
     {
-        return Integer.valueOf(argument);
+        assertThat(TimeZoneIdToTimeZone.FUNC.value("an invalid id").getID(), is("GMT"));
     }
 }

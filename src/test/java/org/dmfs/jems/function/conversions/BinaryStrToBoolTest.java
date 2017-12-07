@@ -24,29 +24,37 @@ import static org.junit.Assert.assertThat;
 
 
 /**
- * Unit test for {@link StringToIntFunc}.
+ * Unit test for {@link BinaryStrToBool}.
  *
  * @author Gabor Keszthelyi
  */
-public final class StringToIntFuncTest
+public final class BinaryStrToBoolTest
 {
     @Test
     public void test()
     {
-        assertThat(StringToIntFunc.INST.value("233"), is(233));
+        assertThat(BinaryStrToBool.FUNC.value("0"), is(false));
+        assertThat(BinaryStrToBool.FUNC.value("1"), is(true));
     }
 
 
-    @Test(expected = Exception.class)
+    @Test(expected = IllegalArgumentException.class)
     public void test_empty_throws()
     {
-        StringToIntFunc.INST.value("");
+        BinaryStrToBool.FUNC.value("");
     }
 
 
-    @Test(expected = Exception.class)
-    public void test_nonNumber_throws()
+    @Test(expected = IllegalArgumentException.class)
+    public void test_2_throws()
     {
-        StringToIntFunc.INST.value("a");
+        BinaryStrToBool.FUNC.value("2");
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_minus1_throws()
+    {
+        BinaryStrToBool.FUNC.value("-1");
     }
 }

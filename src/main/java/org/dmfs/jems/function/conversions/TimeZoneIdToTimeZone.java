@@ -17,37 +17,30 @@
 
 package org.dmfs.jems.function.conversions;
 
-import org.junit.Test;
+import org.dmfs.jems.function.Function;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import java.util.TimeZone;
 
 
 /**
- * Unit test for {@link StringToLongFunc}.
+ * {@link Function} that converts a time zone id to {@link TimeZone}.
+ * For invalid/unsupported ids it returns GMT.
  *
  * @author Gabor Keszthelyi
  */
-public final class StringToLongFuncTest
+public final class TimeZoneIdToTimeZone implements Function<String, TimeZone>
 {
-    @Test
-    public void test()
+    public static final Function<String, TimeZone> FUNC = new TimeZoneIdToTimeZone();
+
+
+    private TimeZoneIdToTimeZone()
     {
-        assertThat(StringToLongFunc.INST.value("233"), is(233L));
     }
 
 
-    @Test(expected = Exception.class)
-    public void test_empty_throws()
+    @Override
+    public TimeZone value(String timeZoneId)
     {
-        StringToLongFunc.INST.value("");
+        return TimeZone.getTimeZone(timeZoneId);
     }
-
-
-    @Test(expected = Exception.class)
-    public void test_nonNumber_throws()
-    {
-        StringToLongFunc.INST.value("a");
-    }
-
 }
