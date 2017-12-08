@@ -20,6 +20,7 @@ package org.dmfs.jems.iterable.decorators;
 import org.dmfs.iterables.EmptyIterable;
 import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.jems.function.Function;
+import org.dmfs.jems.mockito.doubles.TestDoubles;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
@@ -38,14 +39,8 @@ public final class MappedTest
     @Test
     public void test_emptyIterable()
     {
-        assertThat(new Mapped<>(new Function<Object, Object>()
-        {
-            @Override
-            public Object value(Object o)
-            {
-                throw new RuntimeException();
-            }
-        }, new EmptyIterable<>()), Matchers.emptyIterable());
+        Function<Object, Object> dummyFunc = TestDoubles.dummy(Function.class);
+        assertThat(new Mapped<>(dummyFunc, new EmptyIterable<>()), Matchers.emptyIterable());
     }
 
 
