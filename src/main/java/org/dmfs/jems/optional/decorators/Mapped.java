@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package org.dmfs.optional.decorators;
+package org.dmfs.jems.optional.decorators;
 
-import org.dmfs.iterators.Function;
+import org.dmfs.jems.function.Function;
 import org.dmfs.optional.Optional;
 
 import java.util.NoSuchElementException;
@@ -27,9 +27,7 @@ import java.util.NoSuchElementException;
  * {@link Optional} that maps an {@link Optional} if it's present using the given {@link Function}.
  *
  * @author Gabor Keszthelyi
- * @deprecated use {@link org.dmfs.jems.optional.decorators.Mapped} instead
  */
-@Deprecated
 public final class Mapped<From, To> implements Optional<To>
 {
     private final Optional<From> mFromValue;
@@ -60,6 +58,6 @@ public final class Mapped<From, To> implements Optional<To>
     @Override
     public To value() throws NoSuchElementException
     {
-        return mConversion.apply(mFromValue.value());
+        return mConversion.value(mFromValue.value());
     }
 }

@@ -26,7 +26,9 @@ package org.dmfs.iterators;
  *         The type of the results.
  *
  * @author Marten Gajda
+ * @deprecated use {@link org.dmfs.jems.function.Function} instead
  */
+@Deprecated
 public interface Function<OriginalType, ResultType>
 {
     /**

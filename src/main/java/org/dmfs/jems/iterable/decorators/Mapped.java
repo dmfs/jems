@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package org.dmfs.iterables.decorators;
+package org.dmfs.jems.iterable.decorators;
 
-import org.dmfs.iterators.Function;
+import org.dmfs.jems.function.Function;
 
 import java.util.Iterator;
 
@@ -26,25 +26,23 @@ import java.util.Iterator;
  * {@link Iterable} decorator that applies {@link org.dmfs.iterators.decorators.Mapped} to the returned {@link Iterator}.
  *
  * @author Gabor Keszthelyi
- * @deprecated use {@link org.dmfs.jems.iterable.decorators.Mapped} instead
  */
-@Deprecated
 public final class Mapped<OriginalType, ResultType> implements Iterable<ResultType>
 {
-    private final Iterable<OriginalType> mDelegate;
-    private final Function<OriginalType, ResultType> mFunction;
+    private final Iterable<OriginalType> mOriginal;
+    private final Function<OriginalType, ResultType> mMapFunction;
 
 
-    public Mapped(Iterable<OriginalType> delegate, Function<OriginalType, ResultType> function)
+    public Mapped(Function<OriginalType, ResultType> mapFunction, Iterable<OriginalType> original)
     {
-        mDelegate = delegate;
-        mFunction = function;
+        mOriginal = original;
+        mMapFunction = mapFunction;
     }
 
 
     @Override
     public Iterator<ResultType> iterator()
     {
-        return new org.dmfs.iterators.decorators.Mapped<>(mDelegate.iterator(), mFunction);
+        return new org.dmfs.jems.iterator.decorators.Mapped<>(mMapFunction, mOriginal.iterator());
     }
 }
