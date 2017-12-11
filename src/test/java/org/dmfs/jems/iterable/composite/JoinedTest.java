@@ -20,7 +20,6 @@ package org.dmfs.jems.iterable.composite;
 import org.dmfs.iterables.EmptyIterable;
 import org.dmfs.iterables.SingletonIterable;
 import org.dmfs.iterables.elementary.Seq;
-import org.dmfs.jems.function.Function;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.contains;
@@ -98,20 +97,29 @@ public class JoinedTest
 
 
     @Test
-    public void testMappingCtor() throws Exception
+    public void testVarArgCtor() throws Exception
     {
         assertThat(new Joined<>(
-                        new Function<String, Iterable<String>>()
-                        {
-                            @Override
-                            public Iterable<String> value(String s)
-                            {
-                                return new Seq<>(s + "1", s + "2", s + "3");
-                            }
-                        },
-                        new Seq<>("a", "b", "c")
+                        new Seq<>("1", "2", "3"),
+                        new Seq<>("a", "b", "c"),
+                        new Seq<>("z", "zz", "zzz")
                 ),
-                contains("a1", "a2", "a3", "b1", "b2", "b3", "c1", "c2", "c3"));
-    }
+                contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
 
+        assertThat(new Joined<>(
+                        EmptyIterable.<String>instance(),
+                        new Seq<>("1", "2", "3"),
+                        new Seq<>("a", "b", "c"),
+                        new Seq<>("z", "zz", "zzz")
+                ),
+                contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
+
+        assertThat(new Joined<>(
+                        new Seq<>("1", "2", "3"),
+                        new Seq<>("a", "b", "c"),
+                        new Seq<>("z", "zz", "zzz"),
+                        EmptyIterable.<String>instance()
+                ),
+                contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
+    }
 }

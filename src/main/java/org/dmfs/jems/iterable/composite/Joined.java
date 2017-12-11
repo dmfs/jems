@@ -17,14 +17,23 @@
 
 package org.dmfs.jems.iterable.composite;
 
-import org.dmfs.iterables.decorators.Mapped;
-import org.dmfs.jems.function.Function;
+import org.dmfs.iterables.elementary.Seq;
 
 import java.util.Iterator;
 
 
 /**
  * An {@link Iterable} which joins other {@link Iterable}s by iterating the values of them one after another.
+ * <p>
+ * Note: other frameworks call this operation, "flatten". While this is technically appropriate, it often doesn't really express the intent very well. For
+ * instance, if you want to iterate the elements of two lists one after another, this code is probably easier to grasp:
+ * <pre><code>
+ * Iterable&lt;SomeType&gt; result = new Joined&lt;&gt;(list1, list2);
+ * </code></pre>
+ * than this one
+ * <pre><code>
+ * Iterable&lt;SomeType&gt; result = new Flattened&lt;&gt;(list1, list2);
+ * </code></pre>
  *
  * @param <T>
  *         The type of the iterated elements.
@@ -36,17 +45,10 @@ public final class Joined<T> implements Iterable<T>
     private final Iterable<Iterable<T>> mIterables;
 
 
-    public <V> Joined(final Function<V, Iterable<T>> function, Iterable<V> iterables)
+    @SafeVarargs
+    public Joined(Iterable<T>... iterables)
     {
-        this(new Mapped<>(iterables, new org.dmfs.iterators.Function<V, Iterable<T>>()
-        {
-
-            @Override
-            public Iterable<T> apply(V argument)
-            {
-                return function.value(argument);
-            }
-        }));
+        this(new Seq<>(iterables));
     }
 
 
