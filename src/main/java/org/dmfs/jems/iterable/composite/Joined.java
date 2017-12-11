@@ -15,37 +15,44 @@
  * limitations under the License.
  */
 
-package org.dmfs.iterables.decorators;
+package org.dmfs.jems.iterable.composite;
 
 import org.dmfs.iterables.elementary.Seq;
-import org.dmfs.jems.iterable.composite.Joined;
 
 import java.util.Iterator;
 
 
 /**
- * An {@link Iterable} which iterates the elements of other {@link Iterable}s.
+ * An {@link Iterable} which joins other {@link Iterable}s by iterating the values of them one after another.
+ * <p>
+ * Note: other frameworks call this operation, "flatten". While this is technically appropriate, it often doesn't really express the intent very well. For
+ * instance, if you want to iterate the elements of two lists one after another, this code is probably easier to grasp:
+ * <pre><code>
+ * Iterable&lt;SomeType&gt; result = new Joined&lt;&gt;(list1, list2);
+ * </code></pre>
+ * than this one
+ * <pre><code>
+ * Iterable&lt;SomeType&gt; result = new Flattened&lt;&gt;(list1, list2);
+ * </code></pre>
  *
  * @param <T>
  *         The type of the iterated elements.
  *
  * @author Marten Gajda
- * @deprecated in favour of {@link Joined}
  */
-@Deprecated
-public final class Flattened<T> implements Iterable<T>
+public final class Joined<T> implements Iterable<T>
 {
     private final Iterable<Iterable<T>> mIterables;
 
 
     @SafeVarargs
-    public Flattened(Iterable<T>... iterables)
+    public Joined(Iterable<T>... iterables)
     {
         this(new Seq<>(iterables));
     }
 
 
-    public Flattened(Iterable<Iterable<T>> iterables)
+    public Joined(Iterable<Iterable<T>> iterables)
     {
         mIterables = iterables;
     }
