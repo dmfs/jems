@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.iterable.composite;
+package org.dmfs.jems.iterable.decorators;
 
 import org.dmfs.iterables.EmptyIterable;
 import org.dmfs.iterables.elementary.Seq;

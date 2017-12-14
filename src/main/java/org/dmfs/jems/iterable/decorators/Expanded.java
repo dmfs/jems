@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.iterable.composite;
+package org.dmfs.jems.iterable.decorators;
 
 import org.dmfs.iterables.decorators.DelegatingIterable;
 import org.dmfs.jems.function.Function;
-import org.dmfs.jems.iterable.decorators.Mapped;
+import org.dmfs.jems.iterable.composite.Joined;
 
 
 /**
