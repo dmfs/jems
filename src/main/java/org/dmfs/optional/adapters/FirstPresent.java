@@ -17,6 +17,7 @@
 
 package org.dmfs.optional.adapters;
 
+import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.optional.First;
 import org.dmfs.optional.Optional;
 import org.dmfs.optional.decorators.DelegatingOptional;
@@ -30,6 +31,13 @@ import org.dmfs.optional.iterable.PresentValues;
  */
 public final class FirstPresent<T> extends DelegatingOptional<T>
 {
+    @SafeVarargs
+    public FirstPresent(Optional<T>... optionals)
+    {
+        this(new Seq<>(optionals));
+    }
+
+
     public FirstPresent(Iterable<Optional<T>> optionals)
     {
         super(new First<T>(new PresentValues<T>(optionals)));

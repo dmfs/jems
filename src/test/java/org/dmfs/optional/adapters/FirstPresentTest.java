@@ -24,6 +24,7 @@ import org.dmfs.optional.Optional;
 import org.dmfs.optional.Present;
 import org.junit.Test;
 
+import static org.dmfs.jems.hamcrest.matchers.AbsentMatcher.isAbsent;
 import static org.dmfs.jems.hamcrest.matchers.PresentMatcher.isPresent;
 import static org.junit.Assert.assertThat;
 
@@ -52,6 +53,22 @@ public final class FirstPresentTest
         assertThat(new FirstPresent<>(new Seq<Optional<String>>(new Present<>("1"), ABSENT)), isPresent("1"));
 
         assertThat(new FirstPresent<>(new Seq<Optional<String>>(new Present<>("1"), new Present<>("2"))), isPresent("1"));
+    }
+
+
+    @Test
+    public void testVariousVarargCases()
+    {
+        assertThat(new FirstPresent<>(), isAbsent());
+
+        assertThat(new FirstPresent<>(ABSENT), AbsentMatcher.<String>isAbsent());
+        assertThat(new FirstPresent<>(ABSENT, ABSENT), AbsentMatcher.<String>isAbsent());
+
+        assertThat(new FirstPresent<>(new Present<>("1")), isPresent("1"));
+        assertThat(new FirstPresent<>(ABSENT, new Present<>("1")), isPresent("1"));
+        assertThat(new FirstPresent<>(new Present<>("1"), ABSENT), isPresent("1"));
+
+        assertThat(new FirstPresent<>(new Present<>("1"), new Present<>("2")), isPresent("1"));
     }
 
 }
