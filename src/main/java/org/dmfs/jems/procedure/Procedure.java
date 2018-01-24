@@ -15,17 +15,17 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.function;
+package org.dmfs.jems.procedure;
 
 /**
- * Functional interface for a void function taking two arguments.
+ * Functional interface for a void function taking one argument.
  *
  * @author Gabor Keszthelyi
  */
-public interface BiProcedure<T, U>
+public interface Procedure<T>
 {
     /**
-     * Executes the procedure with the given arguments.
+     * Executes the procedure with the given argument.
      */
-    void process(T t, U u);
+    void process(T arg);
 }
