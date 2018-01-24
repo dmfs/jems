@@ -27,5 +27,5 @@ public interface Procedure<T>
     /**
      * Executes the procedure with the given argument.
      */
-    void execute(T arg);
+    void process(T arg);
 }

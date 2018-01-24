@@ -27,5 +27,5 @@ public interface BiProcedure<T, U>
     /**
      * Executes the procedure with the given arguments.
      */
-    void execute(T t, U u);
+    void process(T t, U u);
 }
