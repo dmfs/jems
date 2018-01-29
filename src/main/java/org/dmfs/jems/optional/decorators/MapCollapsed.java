@@ -24,11 +24,7 @@ import org.dmfs.optional.decorators.DelegatingOptional;
 
 
 /**
- * {@link Optional} decorator corresponding to the flatmap operation.
- * <p>
- * It takes a mapping {@link Function} which returns an {@link Optional} which serves as the 'delegate' value if the original value is present.
- * <p>
- * (Collapsing here means turning {@code Optional<Optional<T>} into {@code Optional<T>}.)
+ * {@link Optional} decorator maps the given {@link Optional} to an {@link Optional} and collapses the result.
  *
  * @author Gabor Keszthelyi
  */
