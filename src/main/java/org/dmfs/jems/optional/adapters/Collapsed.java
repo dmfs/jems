@@ -25,7 +25,7 @@ import static org.dmfs.optional.Absent.absent;
 
 
 /**
- * Collapses (or flattens) the given {@link Optional} of {@link Optional} into {@link Optional}.
+ * Collapses the given {@link Optional} of {@link Optional} into {@link Optional}.
  *
  * @author Marten Gajda
  * @author Gabor Keszthelyi

@@ -27,23 +27,23 @@ import static org.junit.Assert.assertThat;
 
 
 /**
- * Test for {@link MapFlattened}.
+ * Test for {@link MapCollapsed}.
  *
  * @author Gabor Keszthelyi
  */
-public final class MapFlattenedTest
+public final class MapCollapsedTest
 {
 
     @Test
     public void test()
     {
-        assertThat(new MapFlattened<>(i -> new Present<>(String.valueOf(i)), new Present<>(3)), isPresent("3"));
+        assertThat(new MapCollapsed<>(i -> new Present<>(String.valueOf(i)), new Present<>(3)), isPresent("3"));
 
-        assertThat(new MapFlattened<>(i -> new Present<>(String.valueOf(i)), absent()), isAbsent());
+        assertThat(new MapCollapsed<>(i -> new Present<>(String.valueOf(i)), absent()), isAbsent());
 
-        assertThat(new MapFlattened<>(i -> absent(), new Present<>(3)), isAbsent());
+        assertThat(new MapCollapsed<>(i -> absent(), new Present<>(3)), isAbsent());
 
-        assertThat(new MapFlattened<>(i -> absent(), absent()), isAbsent());
+        assertThat(new MapCollapsed<>(i -> absent(), absent()), isAbsent());
     }
 
 }

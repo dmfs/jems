@@ -28,13 +28,13 @@ import org.dmfs.optional.decorators.DelegatingOptional;
  * <p>
  * It takes a mapping {@link Function} which returns an {@link Optional} which serves as the 'delegate' value if the original value is present.
  * <p>
- * (Flattening here means turning {@code Optional<Optional<T>} into {@code Optional<T>}.)
+ * (Collapsing here means turning {@code Optional<Optional<T>} into {@code Optional<T>}.)
  *
  * @author Gabor Keszthelyi
  */
-public final class MapFlattened<From, To> extends DelegatingOptional<To>
+public final class MapCollapsed<From, To> extends DelegatingOptional<To>
 {
-    public MapFlattened(Function<From, Optional<To>> mapFunction, Optional<From> original)
+    public MapCollapsed(Function<From, Optional<To>> mapFunction, Optional<From> original)
     {
         super(new Collapsed<>(new Mapped<>(mapFunction, original)));
     }
