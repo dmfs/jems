@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 dmfs GmbH
+ * Copyright 2017 dmfs GmbH
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,21 +17,28 @@
 
 package org.dmfs.jems.fragile.elementary;
 
-import org.junit.Test;
-
-import static org.dmfs.jems.hamcrest.matchers.FragileMatcher.isFragile;
-import static org.junit.Assert.assertThat;
+import org.dmfs.jems.fragile.Fragile;
 
 
 /**
- * @author marten
+ * A {@link Fragile} which is broken and always throws an Exception.
+ *
+ * @author Marten Gajda
  */
-public class ThrowingFragileTest
+public final class Broken<T, E extends Throwable> implements Fragile<T, E>
 {
-    @Test
-    public void testValue() throws Exception
+    private final E mException;
+
+
+    public Broken(E exception)
     {
-        assertThat(new ThrowingFragile<>(new UnsupportedOperationException()), isFragile(UnsupportedOperationException.class));
+        mException = exception;
     }
 
+
+    @Override
+    public T value() throws E
+    {
+        throw mException;
+    }
 }

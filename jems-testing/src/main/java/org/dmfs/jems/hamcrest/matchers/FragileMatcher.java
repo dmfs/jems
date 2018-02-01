@@ -41,21 +41,22 @@ public final class FragileMatcher<T> extends TypeSafeDiagnosingMatcher<Fragile<T
     }
 
 
-    public static <T> Matcher<Fragile<T, ?>> hasValue(Matcher<T> valueMatcher)
+    public static <T> Matcher<Fragile<T, ?>> isIntact(Matcher<T> valueMatcher)
     {
         return new FragileMatcher<>(valueMatcher);
     }
 
 
-    public static <T> Matcher<Fragile<T, ?>> hasValue(T expectedValue)
+    public static <T> Matcher<Fragile<T, ?>> isIntact(T expectedValue)
     {
         return new FragileMatcher<>(CoreMatchers.equalTo(expectedValue));
     }
 
 
-    public static <E extends Throwable> Matcher<Fragile<?, E>> isFragile(Class<E> exception)
+    public static <E extends Throwable> Matcher<Fragile<?, E>> isBroken(Class<E> exception)
     {
-        return new FeatureMatcher<Fragile<?, E>, E>(instanceOf(exception), "Fragile throws", "Fragile throws")
+        return new FeatureMatcher<Fragile<?, E>, E>(instanceOf(exception), "broken Fragile throwing",
+                String.format("broken Fragile throwing %s", exception.getName()))
         {
             @Override
             protected E featureValueOf(Fragile<?, E> actual)
@@ -82,13 +83,14 @@ public final class FragileMatcher<T> extends TypeSafeDiagnosingMatcher<Fragile<T
             boolean result = mDelegate.matches(item.value());
             if (!result)
             {
-                mDelegate.describeMismatch(mDelegate.matches(item.value()), mismatchDescription);
+                mismatchDescription.appendText("intact Fragile ");
+                mDelegate.describeMismatch(item.value(), mismatchDescription);
             }
             return result;
         }
         catch (Throwable throwable)
         {
-            mismatchDescription.appendText(String.format("did throw %s", throwable.getClass().getName()));
+            mismatchDescription.appendText(String.format("broken throwing %s", throwable.getClass().getName()));
             return false;
         }
     }
@@ -97,6 +99,7 @@ public final class FragileMatcher<T> extends TypeSafeDiagnosingMatcher<Fragile<T
     @Override
     public void describeTo(Description description)
     {
+        description.appendText("intact Fragile ");
         mDelegate.describeTo(description);
     }
 }

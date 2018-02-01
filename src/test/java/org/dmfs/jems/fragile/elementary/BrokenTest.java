@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 dmfs GmbH
+ * Copyright 2018 dmfs GmbH
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,29 +17,23 @@
 
 package org.dmfs.jems.fragile.elementary;
 
-import org.dmfs.jems.fragile.Fragile;
-import org.dmfs.jems.single.Single;
+import org.junit.Test;
+
+import static org.dmfs.jems.hamcrest.matchers.FragileMatcher.isBroken;
+import static org.junit.Assert.assertThat;
 
 
 /**
- * A "stable" {@link Fragile} derived from a {@link Single}.
+ * Test for {@link Broken}.
  *
  * @author Marten Gajda
  */
-public final class SingleFragile<T> implements Fragile<T, Exception>
+public class BrokenTest
 {
-    private final Single<T> mValue;
-
-
-    public SingleFragile(Single<T> value)
+    @Test
+    public void testValue() throws Exception
     {
-        mValue = value;
+        assertThat(new Broken<>(new UnsupportedOperationException()), isBroken(UnsupportedOperationException.class));
     }
 
-
-    @Override
-    public T value()
-    {
-        return mValue.value();
-    }
 }

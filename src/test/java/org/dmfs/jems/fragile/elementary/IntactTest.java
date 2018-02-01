@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 dmfs GmbH
+ * Copyright 2018 dmfs GmbH
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,28 +17,24 @@
 
 package org.dmfs.jems.fragile.elementary;
 
-import org.dmfs.jems.fragile.Fragile;
+import org.dmfs.jems.single.elementary.ValueSingle;
+import org.junit.Test;
+
+import static org.dmfs.jems.hamcrest.matchers.FragileMatcher.isIntact;
+import static org.junit.Assert.assertThat;
 
 
 /**
- * A {@link Fragile} which always throws an Exception.
+ * Test for {@link Intact}
  *
  * @author Marten Gajda
  */
-public final class ThrowingFragile<T, E extends Throwable> implements Fragile<T, E>
+public class IntactTest
 {
-    private final E mException;
-
-
-    public ThrowingFragile(E exception)
+    @Test
+    public void testValue() throws Exception
     {
-        mException = exception;
-    }
-
-
-    @Override
-    public T value() throws E
-    {
-        throw mException;
+        assertThat(new Intact<>(new ValueSingle<>("abc")), isIntact("abc"));
+        assertThat(new Intact<>("abc"), isIntact("abc"));
     }
 }
