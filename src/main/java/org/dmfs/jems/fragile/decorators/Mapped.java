@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 dmfs GmbH
+ * Copyright 2018 dmfs GmbH
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,38 +15,33 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.fragile.elementary;
+package org.dmfs.jems.fragile.decorators;
 
 import org.dmfs.jems.fragile.Fragile;
-import org.dmfs.jems.single.Single;
-import org.dmfs.jems.single.elementary.ValueSingle;
+import org.dmfs.jems.function.Function;
 
 
 /**
- * A {@link Fragile} which is not broken.
+ * A {@link Fragile} decorator which maps the value using a given {@link Function}.
  *
  * @author Marten Gajda
  */
-public final class Intact<T, E extends Throwable> implements Fragile<T, E>
+public final class Mapped<From, To, E extends Throwable> implements Fragile<To, E>
 {
-    private final Single<T> mValue;
+    private final Function<From, To> mMapFunction;
+    private final Fragile<From, E> mDelegate;
 
 
-    public Intact(Single<T> value)
+    public Mapped(Function<From, To> mapFunction, Fragile<From, E> delegate)
     {
-        mValue = value;
-    }
-
-
-    public Intact(T value)
-    {
-        this(new ValueSingle<>(value));
+        mMapFunction = mapFunction;
+        mDelegate = delegate;
     }
 
 
     @Override
-    public T value()
+    public To value() throws E
     {
-        return mValue.value();
+        return mMapFunction.value(mDelegate.value());
     }
 }
