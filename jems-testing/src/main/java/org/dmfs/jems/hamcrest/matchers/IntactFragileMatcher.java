@@ -20,58 +20,35 @@ package org.dmfs.jems.hamcrest.matchers;
 import org.dmfs.jems.fragile.Fragile;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Description;
-import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-
 
 /**
- * @author marten
+ * A {@link Matcher} to match {@link Fragile}s which are supposed to be non-broken.
+ *
+ * @author Marten Gajda
  */
-public final class FragileMatcher<T> extends TypeSafeDiagnosingMatcher<Fragile<T, ?>>
+public final class IntactFragileMatcher<T> extends TypeSafeDiagnosingMatcher<Fragile<T, ?>>
 {
     private final Matcher<? super T> mDelegate;
 
 
-    public FragileMatcher(Matcher<? super T> valueMatcher)
-    {
-        mDelegate = valueMatcher;
-    }
-
-
     public static <T> Matcher<Fragile<T, ?>> isIntact(Matcher<T> valueMatcher)
     {
-        return new FragileMatcher<>(valueMatcher);
+        return new IntactFragileMatcher<>(valueMatcher);
     }
 
 
     public static <T> Matcher<Fragile<T, ?>> isIntact(T expectedValue)
     {
-        return new FragileMatcher<>(CoreMatchers.equalTo(expectedValue));
+        return new IntactFragileMatcher<>(CoreMatchers.equalTo(expectedValue));
     }
 
 
-    public static <E extends Throwable> Matcher<Fragile<?, E>> isBroken(Class<E> exception)
+    public IntactFragileMatcher(Matcher<? super T> valueMatcher)
     {
-        return new FeatureMatcher<Fragile<?, E>, E>(instanceOf(exception), "broken Fragile throwing",
-                String.format("broken Fragile throwing %s", exception.getName()))
-        {
-            @Override
-            protected E featureValueOf(Fragile<?, E> actual)
-            {
-                try
-                {
-                    actual.value();
-                    throw new AssertionError("Did not throw");
-                }
-                catch (Throwable e)
-                {
-                    return (E) e;
-                }
-            }
-        };
+        mDelegate = valueMatcher;
     }
 
 

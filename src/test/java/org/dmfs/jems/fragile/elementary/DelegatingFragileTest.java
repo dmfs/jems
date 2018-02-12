@@ -22,8 +22,8 @@ import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
 
-import static org.dmfs.jems.hamcrest.matchers.FragileMatcher.isBroken;
-import static org.dmfs.jems.hamcrest.matchers.FragileMatcher.isIntact;
+import static org.dmfs.jems.hamcrest.matchers.BrokenFragileMatcher.isBroken;
+import static org.dmfs.jems.hamcrest.matchers.IntactFragileMatcher.isIntact;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 

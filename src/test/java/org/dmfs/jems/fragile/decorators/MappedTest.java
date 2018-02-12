@@ -23,8 +23,8 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 
-import static org.dmfs.jems.hamcrest.matchers.FragileMatcher.isBroken;
-import static org.dmfs.jems.hamcrest.matchers.FragileMatcher.isIntact;
+import static org.dmfs.jems.hamcrest.matchers.BrokenFragileMatcher.isBroken;
+import static org.dmfs.jems.hamcrest.matchers.IntactFragileMatcher.isIntact;
 import static org.junit.Assert.assertThat;
 
 

@@ -19,7 +19,7 @@ package org.dmfs.jems.fragile.elementary;
 
 import org.junit.Test;
 
-import static org.dmfs.jems.hamcrest.matchers.FragileMatcher.isBroken;
+import static org.dmfs.jems.hamcrest.matchers.BrokenFragileMatcher.isBroken;
 import static org.junit.Assert.assertThat;
 
 

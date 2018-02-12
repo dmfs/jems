@@ -24,38 +24,18 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.dmfs.jems.hamcrest.matchers.FragileMatcher.isBroken;
-import static org.dmfs.jems.hamcrest.matchers.FragileMatcher.isIntact;
+import static org.dmfs.jems.hamcrest.matchers.BrokenFragileMatcher.isBroken;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 
 /**
- * Test {@link FragileMatcher}.
+ * Test {@link IntactFragileMatcher}.
  *
  * @author Marten Gajda
  */
-public class FragileMatcherTest
+public class BrokenFragileMatcherTest
 {
-    @Test
-    public void testIntactValueDescribeMismatch() throws Exception
-    {
-        Description description = new StringDescription();
-        isIntact(is("123")).describeMismatch((Fragile) () -> "456", description);
-        assertThat(description.toString(), is("intact Fragile was \"456\""));
-    }
-
-
-    @Test
-    public void testIntactExceptionDescribeMismatch() throws Exception
-    {
-        Description description = new StringDescription();
-        isIntact(is("123")).describeMismatch((Fragile) () -> {
-            throw new Exception();
-        }, description);
-        assertThat(description.toString(), is("broken throwing java.lang.Exception"));
-    }
-
 
     @Test
     public void testBrokenIntactDescribeMismatch() throws Exception
@@ -63,7 +43,7 @@ public class FragileMatcherTest
         Description description = new StringDescription();
         isBroken(RuntimeException.class).describeMismatch((Fragile) () -> "456", description);
         assertThat(description.toString(),
-                is("broken Fragile throwing java.lang.RuntimeException <java.lang.AssertionError: Did not throw> is a java.lang.AssertionError"));
+                is("Fragile was not broken"));
     }
 
 
@@ -74,16 +54,7 @@ public class FragileMatcherTest
         isBroken(RuntimeException.class).describeMismatch((Fragile) () -> {
             throw new Exception();
         }, description);
-        assertThat(description.toString(), is("broken Fragile throwing java.lang.RuntimeException <java.lang.Exception> is a java.lang.Exception"));
-    }
-
-
-    @Test
-    public void testIntactDescribeTo() throws Exception
-    {
-        Description description = new StringDescription();
-        isIntact(is("123")).describeTo(description);
-        assertThat(description.toString(), is("intact Fragile is \"123\""));
+        assertThat(description.toString(), is("broken Fragile threw java.lang.Exception"));
     }
 
 
@@ -92,26 +63,7 @@ public class FragileMatcherTest
     {
         Description description = new StringDescription();
         isBroken(RuntimeException.class).describeTo(description);
-        assertThat(description.toString(), is("broken Fragile throwing an instance of java.lang.RuntimeException"));
-    }
-
-
-    @Test
-    public void testHasValue() throws Exception
-    {
-        // does not throw
-        assertThat(isIntact("123").matches((Fragile<String, Exception>) () -> "123"), is(true));
-        assertThat(isIntact(is("123")).matches((Fragile<String, Exception>) () -> "123"), is(true));
-
-        assertThat(isIntact("456").matches((Fragile<String, Exception>) () -> "123"), is(false));
-        assertThat(isIntact(is("456")).matches((Fragile<String, Exception>) () -> "123"), is(false));
-
-        assertThat(isIntact("123").matches((Fragile) () -> {
-            throw new UnsupportedOperationException();
-        }), is(false));
-        assertThat(isIntact(is("123")).matches((Fragile) () -> {
-            throw new UnsupportedOperationException();
-        }), is(false));
+        assertThat(description.toString(), is("broken Fragile throwing java.lang.RuntimeException"));
     }
 
 

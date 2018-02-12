@@ -20,7 +20,7 @@ package org.dmfs.jems.fragile.elementary;
 import org.dmfs.jems.single.elementary.ValueSingle;
 import org.junit.Test;
 
-import static org.dmfs.jems.hamcrest.matchers.FragileMatcher.isIntact;
+import static org.dmfs.jems.hamcrest.matchers.IntactFragileMatcher.isIntact;
 import static org.junit.Assert.assertThat;
 
 
