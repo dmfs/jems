@@ -23,45 +23,29 @@ import org.dmfs.jems.generator.Generator;
 
 /**
  * A sequence {@link Generator}. It generates a sequence by passing the previous result (or initial value) into a given {@link Function}.
- * <p>
- * Note, this {@link Generator} always generates the upcoming value ahead of time, which means it generates one more value than you actually need. For very
- * expensive functions you should consider using a different {@link Generator}.
  *
  * @author Marten Gajda
  */
 public final class Sequence<T> implements Generator<T>
 {
     private T mNext;
-    private final Function<T, T> mFunction;
+    private Function<T, T> mFunction;
 
 
     public Sequence(T first, Function<T, T> function)
     {
         mNext = first;
-        mFunction = function;
+        mFunction = value -> {
+            // the first call returns value as is, afterwards we use the given function
+            mFunction = function;
+            return value;
+        };
     }
 
 
     @Override
     public T next()
     {
-        // TODO: is it ok to use try-finally like this or should we use the imperative version underneath?
-        // I like this version because it looks very clean and expresses what I want to achieve (if you don't think of it as error handling).
-        try
-        {
-            // return the next result
-            return mNext;
-        }
-        finally
-        {
-            mNext = mFunction.value(mNext);
-        }
-
-        /*
-        // imperative version
-        T next = mNext;
-        mNext = mFunction.value(next);
-        return next;
-        */
+        return mNext = mFunction.value(mNext);
     }
 }

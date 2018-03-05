@@ -24,9 +24,6 @@ import org.dmfs.jems.generator.Generator;
 
 /**
  * A sequence {@link Generatable}. It generates a sequence by passing the previous result (or initial value) into a given {@link Function}.
- * <p>
- * Note, this {@link Generator} returned by this Sequence always generates the upcoming value ahead of time, which means it generates one more value than you
- * actually need. For very expensive functions you should consider using a different {@link Generatable}.
  *
  * @author Marten Gajda
  */
