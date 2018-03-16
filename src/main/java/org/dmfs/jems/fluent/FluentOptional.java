@@ -1,0 +1,47 @@
+/*
+ * Copyright 2018 dmfs GmbH
+ *
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.dmfs.jems.fluent;
+
+import org.dmfs.jems.function.BiFunction;
+import org.dmfs.jems.function.Function;
+import org.dmfs.jems.optional.Optional;
+import org.dmfs.jems.predicate.Predicate;
+import org.dmfs.jems.single.Single;
+
+
+/**
+ * @author Marten Gajda
+ */
+public interface FluentOptional<T> extends Optional<T>
+{
+    <V> FluentOptional<V> mapped(Function<T, V> function);
+
+    <V> FluentOptional<V> mapCollapsed(Function<T, Optional<V>> function);
+
+    FluentOptional<T> sieved(Predicate<T> predicate);
+
+    FluentOptional<T> restrained(Single<Boolean> condition);
+
+    <S, Result> FluentOptional<Result> zipped(Optional<S> right, BiFunction<T, S, Result> zipFunction);
+
+    FluentOptional<T> frozen();
+
+    Single<T> backedBy(Single<T> fallback);
+
+    FluentIterable<T> presentIterable();
+}
