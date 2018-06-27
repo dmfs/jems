@@ -18,7 +18,7 @@
 package org.dmfs.jems.optional.decorators;
 
 import org.dmfs.jems.function.Function;
-import org.dmfs.optional.Optional;
+import org.dmfs.jems.optional.Optional;
 
 import java.util.NoSuchElementException;
 
@@ -28,7 +28,7 @@ import java.util.NoSuchElementException;
  *
  * @author Gabor Keszthelyi
  */
-public final class Mapped<From, To> implements Optional<To>
+public final class Mapped<From, To> implements org.dmfs.optional.Optional<To>
 {
     private final Optional<From> mFromValue;
     private final Function<From, To> mConversion;

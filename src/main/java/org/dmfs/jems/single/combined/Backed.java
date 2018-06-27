@@ -17,9 +17,9 @@
 
 package org.dmfs.jems.single.combined;
 
+import org.dmfs.jems.optional.Optional;
 import org.dmfs.jems.single.Single;
 import org.dmfs.jems.single.elementary.ValueSingle;
-import org.dmfs.optional.Optional;
 
 
 /**

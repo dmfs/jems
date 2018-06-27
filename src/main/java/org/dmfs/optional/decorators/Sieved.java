@@ -27,7 +27,9 @@ import java.util.NoSuchElementException;
  * {@link Optional} decorator which is present if the delegate is present and satisfies a specific {@link Predicate}.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.jems.optional.decorators.Sieved}.
  */
+@Deprecated
 public final class Sieved<T> implements Optional<T>
 {
     private final Predicate<T> mPredicate;

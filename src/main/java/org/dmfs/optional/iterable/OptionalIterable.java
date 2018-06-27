@@ -27,7 +27,9 @@ import java.util.Iterator;
  * An {@link Iterable} which iterates the elements of an {@link Optional} {@link Iterable} or nothing if the Optional is not present.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.iterables.elementary.OptionalIterable}.
  */
+@Deprecated
 public final class OptionalIterable<T> implements Iterable<T>
 {
     private final Optional<? extends Iterable<T>> mDelegate;

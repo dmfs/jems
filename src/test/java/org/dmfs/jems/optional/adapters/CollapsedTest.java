@@ -17,8 +17,8 @@
 
 package org.dmfs.jems.optional.adapters;
 
-import org.dmfs.optional.Absent;
-import org.dmfs.optional.Present;
+import org.dmfs.jems.optional.elementary.Absent;
+import org.dmfs.jems.optional.elementary.Present;
 import org.junit.Test;
 
 import static org.dmfs.jems.hamcrest.matchers.AbsentMatcher.isAbsent;

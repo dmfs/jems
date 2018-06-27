@@ -16,4 +16,6 @@ dependencies {
     compile 'junit:junit:' + JUNIT
     compile 'org.hamcrest:hamcrest-all:' + HAMCREST
     compile 'org.mockito:mockito-core:' + MOCKITO
+
+    testImplementation 'org.hamcrest:hamcrest-all:' + HAMCREST
 }

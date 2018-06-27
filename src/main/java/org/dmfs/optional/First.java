@@ -30,7 +30,9 @@ import java.util.NoSuchElementException;
  * The first value of an {@link Iterable}.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.jems.optional.adapters.First}.
  */
+@Deprecated
 public final class First<T> implements Optional<T>
 {
     private final Iterable<T> mIterable;

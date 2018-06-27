@@ -23,7 +23,9 @@ import java.util.NoSuchElementException;
  * An {@link Optional} that's not present if the given value is {@code null}.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.jems.optional.elementary.NullSafe}.
  */
+@Deprecated
 public final class NullSafe<T> implements Optional<T>
 {
     private final T mValue;
