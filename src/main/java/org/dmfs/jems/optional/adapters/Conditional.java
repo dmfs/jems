@@ -29,8 +29,7 @@ import static org.dmfs.optional.Absent.absent;
 
 
 /**
- * {@link Optional} that is present with the value of the provided target if it satisfies the given {@link Predicate},
- * otherwise it is absent.
+ * {@link Optional} that is present with the value of the provided target if it satisfies the given {@link Predicate}, otherwise it is absent.
  *
  * @author Gabor Keszthelyi
  */

@@ -33,7 +33,9 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  * @author Gabor Keszthelyi
+ * @deprecated in favour of {@link org.dmfs.jems.hamcrest.matchers.optional.AbsentMatcher}.
  */
+@Deprecated
 public final class AbsentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<T>>
 {
     private final Single<T> mFallbackDummySingle;

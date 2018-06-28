@@ -28,7 +28,7 @@ apply from: 'publish.gradle'
 apply from: 'jacoco.gradle'
 
 dependencies {
-    testCompile 'junit:junit:' + JUNIT
-    testCompile 'org.hamcrest:hamcrest-all:' + HAMCREST
-    testCompile project(":jems-testing")
+    testImplementation 'junit:junit:' + JUNIT
+    testImplementation 'org.hamcrest:hamcrest-all:' + HAMCREST
+    testImplementation project(":jems-testing")
 }

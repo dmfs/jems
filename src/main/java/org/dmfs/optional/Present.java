@@ -23,7 +23,9 @@ import java.util.NoSuchElementException;
  * A special {@link Optional} that's always present. As a consequence this doesn't take {@code null} values.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.jems.optional.elementary.Present}.
  */
+@Deprecated
 public final class Present<T> implements Optional<T>
 {
     private final T mValue;

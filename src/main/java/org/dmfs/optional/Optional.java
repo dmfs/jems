@@ -16,9 +16,6 @@
 
 package org.dmfs.optional;
 
-import java.util.NoSuchElementException;
-
-
 /**
  * An optional value. In contrast to Java's {@code Optional} this an interface, so custom implementations can be developed.
  *
@@ -26,15 +23,11 @@ import java.util.NoSuchElementException;
  *         the type of the value.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.jems.optional.Optional}.
  */
-public interface Optional<T>
+@Deprecated
+public interface Optional<T> extends org.dmfs.jems.optional.Optional<T>
 {
-    /**
-     * Returns whether the optional value is present.
-     *
-     * @return {@code true} if the value is present, {@code false} otherwise.
-     */
-    boolean isPresent();
 
     /**
      * Returns the optional value or the given default value if the optional value is not present.
@@ -46,13 +39,4 @@ public interface Optional<T>
      */
     T value(T defaultValue);
 
-    /**
-     * Returns the optional value.
-     *
-     * @return The value.
-     *
-     * @throws NoSuchElementException
-     *         if the optional value is not present.
-     */
-    T value() throws NoSuchElementException;
 }

@@ -29,7 +29,9 @@ import java.util.Iterator;
  * The next present value in the given {@link Iterator} of {@link Optional}s.
  *
  * @author Gabor Keszthelyi
+ * @deprecated in favour of {@link org.dmfs.jems.optional.adapters.NextPresent}.
  */
+@Deprecated
 public final class NextPresent<T> extends DelegatingOptional<T>
 {
     public NextPresent(Iterator<Optional<T>> optionals)

@@ -23,7 +23,9 @@ import java.util.NoSuchElementException;
  * An {@link Optional} value that's never present.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.jems.optional.elementary.Absent}.
  */
+@Deprecated
 public final class Absent<T> implements Optional<T>
 {
     private final static Optional<?> INSTANCE = new Absent<Void>();

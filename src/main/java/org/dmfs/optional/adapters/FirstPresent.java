@@ -28,7 +28,9 @@ import org.dmfs.optional.iterable.PresentValues;
  * The first present value of an {@link Iterable} of {@link Optional}s.
  *
  * @author Gabor Keszthelyi
+ * @deprecated in favour of {@link org.dmfs.jems.optional.adapters.FirstPresent}.
  */
+@Deprecated
 public final class FirstPresent<T> extends DelegatingOptional<T>
 {
     @SafeVarargs

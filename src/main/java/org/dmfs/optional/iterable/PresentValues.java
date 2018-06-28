@@ -29,7 +29,9 @@ import java.util.Iterator;
  *
  * @author Gabor Keszthelyi
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.iterables.elementary.PresentValues}.
  */
+@Deprecated
 public final class PresentValues<E> implements Iterable<E>
 {
     private final Iterable<Optional<E>> mOptionals;

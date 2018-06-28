@@ -27,7 +27,9 @@ import java.util.NoSuchElementException;
  * A present {@link Optional} that takes a {@link Single} for the value.
  *
  * @author Gabor Keszthelyi
+ * @deprecated in favour of {@link org.dmfs.jems.optional.adapters.SinglePresent}.
  */
+@Deprecated
 public final class SinglePresent<T> implements Optional<T>
 {
     private final Single<T> mSingle;

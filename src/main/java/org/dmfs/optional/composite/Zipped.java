@@ -27,7 +27,9 @@ import java.util.NoSuchElementException;
  * An {@link Optional} which combines two other {@link Optional}s with a {@link BiFunction} if they are both present and is absent otherwise
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.jems.optional.composite.Zipped}.
  */
+@Deprecated
 public final class Zipped<Left, Right, Result> implements Optional<Result>
 {
     private final Optional<Left> mLeft;

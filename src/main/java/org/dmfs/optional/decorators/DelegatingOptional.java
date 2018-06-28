@@ -29,7 +29,9 @@ import java.util.NoSuchElementException;
  * Java.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.jems.optional.decorators.DelegatingOptional}.
  */
+@Deprecated
 public abstract class DelegatingOptional<T> implements Optional<T>
 {
     private final Optional<T> mDelegate;

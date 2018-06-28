@@ -29,7 +29,9 @@ import org.hamcrest.core.IsEqual;
  * A {@link Matcher} to match the presence and value of an {@link Optional}.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.jems.hamcrest.matchers.optional.PresentMatcher}.
  */
+@Deprecated
 public final class PresentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<T>>
 {
     public static <T> PresentMatcher<T> isPresent()

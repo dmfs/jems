@@ -25,7 +25,9 @@ import java.util.NoSuchElementException;
  * The next value of an {@link Iterator}.
  *
  * @author Gabor Keszthelyi
+ * @deprecated in favour of {@link org.dmfs.jems.optional.adapters.Next}
  */
+@Deprecated
 public final class Next<E> implements Optional<E>
 {
     private final Iterator<E> mIterator;

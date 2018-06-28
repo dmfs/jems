@@ -32,7 +32,9 @@ import java.util.Iterator;
  *
  * @author Gabor Keszthelyi
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.iterators.elementary.PresentValues}.
  */
+@Deprecated
 public final class PresentValues<E> extends AbstractBaseIterator<E>
 {
     private final Iterator<Optional<E>> mDelegate;

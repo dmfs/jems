@@ -27,7 +27,9 @@ import java.util.NoSuchElementException;
  * An {@link Optional} element of a {@link Map}. This is present if the given {@link Map} contains a non-{@code null} value for the given key.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.jems.optional.adapters.MapEntry}.
  */
+@Deprecated
 public final class MapEntry<K, V> implements Optional<V>
 {
     private final Map<K, V> mMap;

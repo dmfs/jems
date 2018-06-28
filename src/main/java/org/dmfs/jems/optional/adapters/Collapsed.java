@@ -17,11 +17,9 @@
 
 package org.dmfs.jems.optional.adapters;
 
-import org.dmfs.optional.Optional;
+import org.dmfs.jems.optional.Optional;
 
 import java.util.NoSuchElementException;
-
-import static org.dmfs.optional.Absent.absent;
 
 
 /**
@@ -30,7 +28,7 @@ import static org.dmfs.optional.Absent.absent;
  * @author Marten Gajda
  * @author Gabor Keszthelyi
  */
-public final class Collapsed<T> implements Optional<T>
+public final class Collapsed<T> implements org.dmfs.optional.Optional<T>
 {
     private final Optional<Optional<T>> mDelegate;
 
@@ -44,14 +42,14 @@ public final class Collapsed<T> implements Optional<T>
     @Override
     public boolean isPresent()
     {
-        return mDelegate.value(absent()).isPresent();
+        return mDelegate.isPresent() && mDelegate.value().isPresent();
     }
 
 
     @Override
     public T value(T defaultValue)
     {
-        return mDelegate.value(absent()).value(defaultValue);
+        return isPresent() ? value() : defaultValue;
     }
 
 
