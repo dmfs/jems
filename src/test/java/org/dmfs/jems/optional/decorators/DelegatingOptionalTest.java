@@ -17,8 +17,8 @@
 
 package org.dmfs.jems.optional.decorators;
 
-import org.dmfs.jems.optional.elementary.Absent;
 import org.dmfs.jems.optional.Optional;
+import org.dmfs.jems.optional.elementary.Absent;
 import org.dmfs.jems.optional.elementary.Present;
 import org.junit.Test;
 
@@ -36,7 +36,7 @@ import static org.junit.Assert.assertThat;
 public class DelegatingOptionalTest
 {
     @Test
-    public void testIsPresent() throws Exception
+    public void testIsPresent()
     {
         assertThat(new TestOptional<>(new Absent<String>()), is(absent()));
         assertThat(new TestOptional<>(new Present<>("test")), is(present("test")));
