@@ -19,7 +19,6 @@ package org.dmfs.jems.optional.adapters;
 
 import org.dmfs.iterators.EmptyIterator;
 import org.dmfs.jems.optional.Optional;
-import org.dmfs.jems.optional.adapters.Next;
 import org.junit.Test;
 
 import java.util.Arrays;

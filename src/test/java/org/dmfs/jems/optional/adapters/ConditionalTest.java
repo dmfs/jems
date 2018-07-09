@@ -20,13 +20,14 @@ package org.dmfs.jems.optional.adapters;
 import org.dmfs.jems.single.elementary.ValueSingle;
 import org.junit.Test;
 
-import static org.dmfs.jems.hamcrest.matchers.AbsentMatcher.isAbsent;
-import static org.dmfs.jems.hamcrest.matchers.PresentMatcher.isPresent;
+import static org.dmfs.jems.hamcrest.matchers.optional.AbsentMatcher.absent;
+import static org.dmfs.jems.hamcrest.matchers.optional.PresentMatcher.present;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 
 /**
- * Test for {@link Conditional}.
+ * Test for {@link Conditional}. O
  *
  * @author Gabor Keszthelyi
  */
@@ -36,11 +37,11 @@ public final class ConditionalTest
     @Test
     public void test()
     {
-        assertThat(new Conditional<>(v -> v == 1, 1), isPresent());
-        assertThat(new Conditional<Integer>(v -> v == 1, new ValueSingle<>(1)), isPresent());
+        assertThat(new Conditional<>(v -> v == 1, 1), is(present(1)));
+        assertThat(new Conditional<Integer>(v -> v == 1, new ValueSingle<>(1)), is(present(1)));
 
-        assertThat(new Conditional<>(v -> v == 1, 2), isAbsent());
-        assertThat(new Conditional<Integer>(v -> v == 1, new ValueSingle<>(2)), isAbsent());
+        assertThat(new Conditional<>(v -> v == 1, 2), is(absent()));
+        assertThat(new Conditional<Integer>(v -> v == 1, new ValueSingle<>(2)), is(absent()));
     }
 
 }

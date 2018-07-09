@@ -17,63 +17,29 @@
 
 package org.dmfs.jems.optional.decorators;
 
-import org.dmfs.jems.function.Function;
-import org.dmfs.optional.Absent;
-import org.dmfs.optional.Optional;
-import org.dmfs.optional.Present;
+import org.dmfs.jems.optional.elementary.Absent;
+import org.dmfs.jems.optional.elementary.Present;
 import org.junit.Test;
 
-import java.util.NoSuchElementException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.dmfs.jems.hamcrest.matchers.optional.AbsentMatcher.absent;
+import static org.dmfs.jems.hamcrest.matchers.optional.PresentMatcher.present;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 
 /**
  * Unit test for {@link Mapped}.
  *
- * @author Gabor Keszthelyi
+ * @author Marten Gajda
  */
 public final class MappedTest
 {
-    private static final Function<Boolean, Integer> CONVERSION = new Function<Boolean, Integer>()
-    {
-        @Override
-        public Integer value(Boolean bool)
-        {
-            return bool ? 1 : 0;
-        }
-    };
-
 
     @Test
-    public void test_whenValueIsAbsent()
+    public void test()
     {
-        Optional<Integer> result = new Mapped<>(CONVERSION, Absent.<Boolean>absent());
-
-        assertFalse(result.isPresent());
-        assertEquals(5, (int) result.value(5));
-        try
-        {
-            result.value();
-            fail();
-        }
-        catch (NoSuchElementException e)
-        {
-        }
-    }
-
-
-    @Test
-    public void test_whenValueIsPresent()
-    {
-        Optional<Integer> result = new Mapped<>(CONVERSION, new Present<>(true));
-
-        assertTrue(result.isPresent());
-        assertEquals(1, (int) result.value(5));
-        assertEquals(1, (int) result.value());
+        assertThat(new Mapped<>(v -> v * 10, new Absent<Integer>()), is(absent()));
+        assertThat(new Mapped<>(v -> v * 10, new Present<>(10)), is(present(100)));
     }
 
 }
