@@ -19,22 +19,25 @@ package org.dmfs.jems.predicate.elementary;
 
 import org.junit.Test;
 
+import static org.dmfs.jems.hamcrest.matchers.predicate.PredicateMatcher.satisfiedBy;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 
 /**
- * @author marten
+ * Test {@link Anything}.
+ *
+ * @author Marten Gajda
  */
 public class AnythingTest
 {
     @Test
-    public void testSatisfiedBy() throws Exception
+    public void testSatisfiedBy()
     {
-        assertThat(new Anything<>().satisfiedBy("test"), is(true));
-        assertThat(new Anything<>().satisfiedBy(1), is(true));
-        assertThat(new Anything<>().satisfiedBy(true), is(true));
-        assertThat(new Anything<>().satisfiedBy(new Object()), is(true));
+        assertThat(new Anything<>(), is(satisfiedBy("test")));
+        assertThat(new Anything<>(), is(satisfiedBy(1)));
+        assertThat(new Anything<>(), is(satisfiedBy(true)));
+        assertThat(new Anything<>(), is(satisfiedBy(new Object())));
     }
 
 }

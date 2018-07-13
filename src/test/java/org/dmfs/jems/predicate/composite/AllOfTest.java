@@ -23,54 +23,50 @@ import org.dmfs.jems.predicate.Predicate;
 import org.dmfs.jems.predicate.elementary.Equals;
 import org.junit.Test;
 
+import static org.dmfs.jems.hamcrest.matchers.predicate.PredicateMatcher.satisfiedBy;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 
 
 /**
- * @author marten
+ * Test {@link AllOf}.
+ *
+ * @author Marten Gajda
  */
 public class AllOfTest
 {
     @Test
-    public void testSatisfiedBy() throws Exception
+    public void testSatisfiedBy()
     {
         // trivial predicate
-        assertThat(new AllOf<>().satisfiedBy(new Object()), is(true));
-        assertThat(new AllOf<>(EmptyIterable.<Predicate<Object>>instance()).satisfiedBy(new Object()), is(true));
+        assertThat(new AllOf<>(), is(satisfiedBy(new Object())));
+        assertThat(new AllOf<>(EmptyIterable.<Predicate<Object>>instance()), is(satisfiedBy(new Object())));
 
         // test matching predicates
-        assertThat(new AllOf<>(new Equals<>("test"), new Equals<>("test"), new Equals<>("test")).satisfiedBy("test"), is(true));
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("test"))).satisfiedBy("test"), is(true));
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("test"), new Equals<>("test"))).satisfiedBy("test"), is(true));
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("test"), new Equals<>("test"), new Equals<>("test"))).satisfiedBy("test"),
-                is(true));
+        assertThat(new AllOf<>(new Equals<>("test"), new Equals<>("test"), new Equals<>("test")), is(satisfiedBy("test")));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("test"))), is(satisfiedBy("test")));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("test"), new Equals<>("test"))), is(satisfiedBy("test")));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("test"), new Equals<>("test"), new Equals<>("test"))), is(satisfiedBy("test")));
 
         // mismatched predicates
 
         // one delegate
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("fail"))).satisfiedBy("test"), is(false));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("fail"))), is(not(satisfiedBy("test"))));
 
         // two delegates
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("test"), new Equals<>("fail"))).satisfiedBy("test"), is(false));
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("fail"), new Equals<>("test"))).satisfiedBy("test"), is(false));
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("fail"), new Equals<>("fail"))).satisfiedBy("test"), is(false));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("test"), new Equals<>("fail"))), is(not(satisfiedBy("test"))));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("fail"), new Equals<>("test"))), is(not(satisfiedBy("test"))));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("fail"), new Equals<>("fail"))), is(not(satisfiedBy("test"))));
 
         // three delegates
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("test"), new Equals<>("test"), new Equals<>("fail"))).satisfiedBy("test"),
-                is(false));
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("test"), new Equals<>("fail"), new Equals<>("test"))).satisfiedBy("test"),
-                is(false));
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("fail"), new Equals<>("test"), new Equals<>("test"))).satisfiedBy("test"),
-                is(false));
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("fail"), new Equals<>("test"), new Equals<>("fail"))).satisfiedBy("test"),
-                is(false));
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("fail"), new Equals<>("fail"), new Equals<>("test"))).satisfiedBy("test"),
-                is(false));
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("test"), new Equals<>("fail"), new Equals<>("fail"))).satisfiedBy("test"),
-                is(false));
-        assertThat(new AllOf<>(new Seq<Predicate<String>>(new Equals<>("fail"), new Equals<>("fail"), new Equals<>("fail"))).satisfiedBy("test"),
-                is(false));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("test"), new Equals<>("test"), new Equals<>("fail"))), is(not(satisfiedBy("test"))));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("test"), new Equals<>("fail"), new Equals<>("test"))), is(not(satisfiedBy("test"))));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("fail"), new Equals<>("test"), new Equals<>("test"))), is(not(satisfiedBy("test"))));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("fail"), new Equals<>("test"), new Equals<>("fail"))), is(not(satisfiedBy("test"))));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("fail"), new Equals<>("fail"), new Equals<>("test"))), is(not(satisfiedBy("test"))));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("test"), new Equals<>("fail"), new Equals<>("fail"))), is(not(satisfiedBy("test"))));
+        assertThat(new AllOf<>(new Seq<>(new Equals<>("fail"), new Equals<>("fail"), new Equals<>("fail"))), is(not(satisfiedBy("test"))));
     }
 
 }
