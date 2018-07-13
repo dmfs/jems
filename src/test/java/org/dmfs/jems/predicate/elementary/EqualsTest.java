@@ -19,20 +19,24 @@ package org.dmfs.jems.predicate.elementary;
 
 import org.junit.Test;
 
+import static org.dmfs.jems.hamcrest.matchers.predicate.PredicateMatcher.satisfiedBy;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 
 
 /**
- * @author marten
+ * Test {@link Equals}.
+ *
+ * @author Marten Gajda
  */
 public class EqualsTest
 {
     @Test
-    public void testSatisfiedBy() throws Exception
+    public void testSatisfiedBy()
     {
-        assertThat(new Equals<>(new String("test")).satisfiedBy(new String("test")), is(true));
-        assertThat(new Equals<>("test").satisfiedBy("fail"), is(false));
+        assertThat(new Equals<>(new String("test")), is(satisfiedBy(new String("test"))));
+        assertThat(new Equals<>("test"), is(not(satisfiedBy("fail"))));
     }
 
 }

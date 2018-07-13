@@ -20,29 +20,33 @@ package org.dmfs.jems.predicate.elementary;
 import org.dmfs.jems.predicate.Predicate;
 import org.junit.Test;
 
+import static org.dmfs.jems.hamcrest.matchers.predicate.PredicateMatcher.satisfiedBy;
 import static org.dmfs.jems.mockito.doubles.TestDoubles.dummy;
 import static org.dmfs.jems.mockito.doubles.TestDoubles.failingMock;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
 
 /**
- * @author marten
+ * Test {@link DelegatingPredicate}.
+ *
+ * @author Marten Gajda
  */
 public class DelegatingPredicateTest
 {
     @Test
-    public void testSatisfiedBy() throws Exception
+    public void testSatisfiedBy()
     {
         Object testDummy = dummy(Object.class);
         Predicate<Object> mockPredicate = failingMock(Predicate.class);
         doReturn(false).when(mockPredicate).satisfiedBy(any());
         doReturn(true).when(mockPredicate).satisfiedBy(testDummy);
 
-        assertThat(new TestPredicate<>(mockPredicate).satisfiedBy(new Object()), is(false));
-        assertThat(new TestPredicate<>(mockPredicate).satisfiedBy(testDummy), is(true));
+        assertThat(new TestPredicate<>(mockPredicate), is(not(satisfiedBy(new Object()))));
+        assertThat(new TestPredicate<>(mockPredicate), is(satisfiedBy(testDummy)));
     }
 
 

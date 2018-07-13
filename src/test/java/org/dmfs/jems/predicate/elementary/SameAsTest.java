@@ -19,21 +19,25 @@ package org.dmfs.jems.predicate.elementary;
 
 import org.junit.Test;
 
+import static org.dmfs.jems.hamcrest.matchers.predicate.PredicateMatcher.satisfiedBy;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 
 
 /**
- * @author marten
+ * Test {@link SameAs}.
+ *
+ * @author Marten Gajda
  */
 public class SameAsTest
 {
     @Test
-    public void testSatisfiedBy() throws Exception
+    public void testSatisfiedBy()
     {
         Object mockObject = new Object();
-        assertThat(new SameAs<>(mockObject).satisfiedBy(mockObject), is(true));
-        assertThat(new SameAs<>(new Integer(1)).satisfiedBy(new Integer(1)), is(false));
+        assertThat(new SameAs<>(mockObject), is(satisfiedBy(mockObject)));
+        assertThat(new SameAs<>(new Integer(1)), is(not(satisfiedBy(new Integer(1)))));
     }
 
 }

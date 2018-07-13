@@ -21,21 +21,25 @@ import org.dmfs.jems.pair.elementary.ValuePair;
 import org.dmfs.jems.predicate.elementary.SameAs;
 import org.junit.Test;
 
+import static org.dmfs.jems.hamcrest.matchers.predicate.PredicateMatcher.satisfiedBy;
 import static org.dmfs.jems.mockito.doubles.TestDoubles.dummy;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 
 
 /**
+ * Test {@link RightWith}.
+ *
  * @author Marten Gajda
  */
 public class RightWithTest
 {
     @Test
-    public void testSatisfiedBy() throws Exception
+    public void testSatisfiedBy()
     {
         Object rightDummy = dummy(Object.class);
-        assertThat(new RightWith<>(new SameAs<>(rightDummy)).satisfiedBy(new ValuePair<>(dummy(Object.class), rightDummy)), is(true));
-        assertThat(new RightWith<>(new SameAs<>(rightDummy)).satisfiedBy(new ValuePair<>(dummy(Object.class), dummy(Object.class))), is(false));
+        assertThat(new RightWith<>(new SameAs<>(rightDummy)), is(satisfiedBy(new ValuePair<>(dummy(Object.class), rightDummy))));
+        assertThat(new RightWith<>(new SameAs<>(rightDummy)), is(not(satisfiedBy(new ValuePair<>(dummy(Object.class), dummy(Object.class))))));
     }
 }
