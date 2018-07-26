@@ -18,10 +18,10 @@
 package org.dmfs.jems.optional.adapters;
 
 import org.dmfs.jems.optional.Optional;
-import org.dmfs.jems.optional.elementary.Present;
 import org.dmfs.jems.predicate.Predicate;
 import org.dmfs.jems.single.Single;
 import org.dmfs.jems.single.elementary.ValueSingle;
+import org.dmfs.optional.Present;
 
 import java.util.NoSuchElementException;
 
@@ -33,7 +33,7 @@ import static org.dmfs.optional.Absent.absent;
  *
  * @author Gabor Keszthelyi
  */
-public final class Conditional<T> implements Optional<T>
+public final class Conditional<T> implements org.dmfs.optional.Optional<T>
 {
     private final Predicate<T> mPredicate;
     private final Single<T> mTargetSingle;
@@ -58,6 +58,13 @@ public final class Conditional<T> implements Optional<T>
     public boolean isPresent()
     {
         return cachedDelegate().isPresent();
+    }
+
+
+    @Override
+    public T value(T defaultValue)
+    {
+        return isPresent() ? value() : defaultValue;
     }
 
 

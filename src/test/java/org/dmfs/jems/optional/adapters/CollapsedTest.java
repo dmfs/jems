@@ -17,13 +17,12 @@
 
 package org.dmfs.jems.optional.adapters;
 
-import org.dmfs.jems.optional.elementary.Absent;
-import org.dmfs.jems.optional.elementary.Present;
+import org.dmfs.optional.Absent;
+import org.dmfs.optional.Present;
 import org.junit.Test;
 
-import static org.dmfs.jems.hamcrest.matchers.optional.AbsentMatcher.absent;
-import static org.dmfs.jems.hamcrest.matchers.optional.PresentMatcher.present;
-import static org.hamcrest.CoreMatchers.is;
+import static org.dmfs.jems.hamcrest.matchers.AbsentMatcher.isAbsent;
+import static org.dmfs.jems.hamcrest.matchers.PresentMatcher.isPresent;
 import static org.junit.Assert.assertThat;
 
 
@@ -38,9 +37,9 @@ public final class CollapsedTest
     @Test
     public void test()
     {
-        assertThat(new Collapsed<>(new Absent<>()), is(absent()));
-        assertThat(new Collapsed<>(new Present<>(new Absent<>())), is(absent()));
-        assertThat(new Collapsed<>(new Present<>(new Present<>("a"))), is(present("a")));
+        assertThat(new Collapsed<>(new Absent<>()), isAbsent());
+        assertThat(new Collapsed<>(new Present<>(new Absent<>())), isAbsent());
+        assertThat(new Collapsed<>(new Present<>(new Present<>("a"))), isPresent("a"));
     }
 
 }

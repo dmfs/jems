@@ -17,13 +17,12 @@
 
 package org.dmfs.jems.optional.decorators;
 
-import org.dmfs.jems.optional.elementary.Absent;
-import org.dmfs.jems.optional.elementary.Present;
+import org.dmfs.optional.Present;
 import org.junit.Test;
 
-import static org.dmfs.jems.hamcrest.matchers.optional.AbsentMatcher.absent;
-import static org.dmfs.jems.hamcrest.matchers.optional.PresentMatcher.present;
-import static org.hamcrest.CoreMatchers.is;
+import static org.dmfs.jems.hamcrest.matchers.AbsentMatcher.isAbsent;
+import static org.dmfs.jems.hamcrest.matchers.PresentMatcher.isPresent;
+import static org.dmfs.optional.Absent.absent;
 import static org.junit.Assert.assertThat;
 
 
@@ -38,13 +37,13 @@ public final class MapCollapsedTest
     @Test
     public void test()
     {
-        assertThat(new MapCollapsed<>(i -> new Present<>(String.valueOf(i)), new Present<>(3)), is(present("3")));
+        assertThat(new MapCollapsed<>(i -> new Present<>(String.valueOf(i)), new Present<>(3)), isPresent("3"));
 
-        assertThat(new MapCollapsed<>(i -> new Present<>(String.valueOf(i)), new Absent<>()), is(absent()));
+        assertThat(new MapCollapsed<>(i -> new Present<>(String.valueOf(i)), absent()), isAbsent());
 
-        assertThat(new MapCollapsed<>(i -> new Absent<>(), new Present<>(3)), is(absent()));
+        assertThat(new MapCollapsed<>(i -> absent(), new Present<>(3)), isAbsent());
 
-        assertThat(new MapCollapsed<>(i -> new Absent<>(), new Absent<>()), is(absent()));
+        assertThat(new MapCollapsed<>(i -> absent(), absent()), isAbsent());
     }
 
 }
