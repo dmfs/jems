@@ -21,9 +21,8 @@ import org.dmfs.jems.optional.elementary.Absent;
 import org.dmfs.jems.optional.elementary.Present;
 import org.junit.Test;
 
-import static org.dmfs.jems.hamcrest.matchers.optional.AbsentMatcher.absent;
-import static org.dmfs.jems.hamcrest.matchers.optional.PresentMatcher.present;
-import static org.hamcrest.CoreMatchers.is;
+import static org.dmfs.jems.hamcrest.matchers.AbsentMatcher.isAbsent;
+import static org.dmfs.jems.hamcrest.matchers.PresentMatcher.isPresent;
 import static org.junit.Assert.assertThat;
 
 
@@ -38,8 +37,8 @@ public final class MappedTest
     @Test
     public void test()
     {
-        assertThat(new Mapped<>(v -> v * 10, new Absent<Integer>()), is(absent()));
-        assertThat(new Mapped<>(v -> v * 10, new Present<>(10)), is(present(100)));
+        assertThat(new Mapped<>(v -> v * 10, new Absent<Integer>()), isAbsent());
+        assertThat(new Mapped<>(v -> v * 10, new Present<>(10)), isPresent(100));
     }
 
 }
