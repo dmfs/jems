@@ -28,7 +28,7 @@ import java.util.NoSuchElementException;
  * @author Marten Gajda
  * @author Gabor Keszthelyi
  */
-public final class Collapsed<T> implements Optional<T>
+public final class Collapsed<T> implements org.dmfs.optional.Optional<T>
 {
     private final Optional<Optional<T>> mDelegate;
 
@@ -50,5 +50,12 @@ public final class Collapsed<T> implements Optional<T>
     public T value() throws NoSuchElementException
     {
         return mDelegate.value().value();
+    }
+
+
+    @Override
+    public T value(T defaultValue)
+    {
+        return isPresent() ? value() : defaultValue;
     }
 }

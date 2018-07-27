@@ -20,6 +20,7 @@ package org.dmfs.jems.optional.decorators;
 import org.dmfs.jems.function.Function;
 import org.dmfs.jems.optional.Optional;
 import org.dmfs.jems.optional.adapters.Collapsed;
+import org.dmfs.optional.decorators.DelegatingOptional;
 
 
 /**

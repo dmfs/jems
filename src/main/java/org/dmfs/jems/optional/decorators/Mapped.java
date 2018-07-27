@@ -28,7 +28,7 @@ import java.util.NoSuchElementException;
  *
  * @author Gabor Keszthelyi
  */
-public final class Mapped<From, To> implements Optional<To>
+public final class Mapped<From, To> implements org.dmfs.optional.Optional<To>
 {
     private final Optional<From> mFromValue;
     private final Function<From, To> mConversion;
@@ -52,5 +52,12 @@ public final class Mapped<From, To> implements Optional<To>
     public To value() throws NoSuchElementException
     {
         return mConversion.value(mFromValue.value());
+    }
+
+
+    @Override
+    public To value(To defaultValue)
+    {
+        return isPresent() ? value() : defaultValue;
     }
 }

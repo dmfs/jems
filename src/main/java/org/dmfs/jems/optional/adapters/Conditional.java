@@ -33,7 +33,7 @@ import static org.dmfs.optional.Absent.absent;
  *
  * @author Gabor Keszthelyi
  */
-public final class Conditional<T> implements Optional<T>
+public final class Conditional<T> implements org.dmfs.optional.Optional<T>
 {
     private final Predicate<T> mPredicate;
     private final Single<T> mTargetSingle;
@@ -76,5 +76,12 @@ public final class Conditional<T> implements Optional<T>
             mCachedDelegate = mPredicate.satisfiedBy(targetValue) ? new Present<>(targetValue) : absent();
         }
         return mCachedDelegate;
+    }
+
+
+    @Override
+    public T value(T defaultValue)
+    {
+        return isPresent() ? value() : defaultValue;
     }
 }
