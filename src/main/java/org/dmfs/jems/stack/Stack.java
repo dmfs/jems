@@ -17,7 +17,7 @@
 
 package org.dmfs.jems.stack;
 
-import org.dmfs.optional.Optional;
+import org.dmfs.jems.optional.Optional;
 
 
 /**

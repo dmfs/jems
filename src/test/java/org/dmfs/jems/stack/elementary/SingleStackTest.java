@@ -17,12 +17,12 @@
 
 package org.dmfs.jems.stack.elementary;
 
-import org.dmfs.jems.hamcrest.matchers.StackMatcher;
 import org.dmfs.jems.single.elementary.ValueSingle;
 import org.junit.Test;
 
-import static org.dmfs.jems.hamcrest.matchers.PresentMatcher.isPresent;
+import static org.dmfs.jems.hamcrest.matchers.StackMatcher.emptyStack;
 import static org.dmfs.jems.hamcrest.matchers.StackTopMatcher.stackTop;
+import static org.dmfs.jems.hamcrest.matchers.optional.PresentMatcher.present;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -37,15 +37,15 @@ public class SingleStackTest
     {
         assertThat(
                 new SingleStack<>("1").top(),
-                isPresent(
+                is(present(
                         stackTop(
                                 is("1"),
-                                StackMatcher.<String>emptyStack())));
+                                emptyStack()))));
         assertThat(
                 new SingleStack<>(new ValueSingle<>("1")).top(),
-                isPresent(
+                is(present(
                         stackTop(
                                 is("1"),
-                                StackMatcher.<String>emptyStack())));
+                                emptyStack()))));
     }
 }

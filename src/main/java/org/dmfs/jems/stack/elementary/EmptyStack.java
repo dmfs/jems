@@ -17,10 +17,10 @@
 
 package org.dmfs.jems.stack.elementary;
 
+import org.dmfs.jems.optional.Optional;
 import org.dmfs.jems.stack.Stack;
-import org.dmfs.optional.Optional;
 
-import static org.dmfs.optional.Absent.absent;
+import static org.dmfs.jems.optional.elementary.Absent.absent;
 
 
 /**

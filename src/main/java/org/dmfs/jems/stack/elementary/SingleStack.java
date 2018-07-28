@@ -1,9 +1,9 @@
 package org.dmfs.jems.stack.elementary;
 
+import org.dmfs.jems.optional.Optional;
 import org.dmfs.jems.single.Single;
 import org.dmfs.jems.single.elementary.ValueSingle;
 import org.dmfs.jems.stack.Stack;
-import org.dmfs.optional.Optional;
 
 import java.util.NoSuchElementException;
 
@@ -61,13 +61,6 @@ public final class SingleStack<Element> implements Stack<Element>
         public boolean isPresent()
         {
             return true;
-        }
-
-
-        @Override
-        public StackTop<Element> value(StackTop<Element> defaultValue)
-        {
-            return this;
         }
 
 

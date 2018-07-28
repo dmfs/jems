@@ -17,8 +17,8 @@
 
 package org.dmfs.jems.hamcrest.matchers;
 
+import org.dmfs.jems.optional.elementary.Present;
 import org.dmfs.jems.stack.Stack;
-import org.dmfs.optional.Present;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
@@ -28,7 +28,7 @@ import org.junit.Test;
 import static org.dmfs.jems.hamcrest.matchers.StackMatcher.emptyStack;
 import static org.dmfs.jems.hamcrest.matchers.StackMatcher.stacked;
 import static org.dmfs.jems.mockito.doubles.TestDoubles.failingMock;
-import static org.dmfs.optional.Absent.absent;
+import static org.dmfs.jems.optional.elementary.Absent.absent;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;

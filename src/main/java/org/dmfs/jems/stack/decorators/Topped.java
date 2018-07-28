@@ -17,8 +17,8 @@
 
 package org.dmfs.jems.stack.decorators;
 
+import org.dmfs.jems.optional.Optional;
 import org.dmfs.jems.stack.Stack;
-import org.dmfs.optional.Optional;
 
 import java.util.NoSuchElementException;
 
@@ -107,13 +107,6 @@ public final class Topped<Element> implements Stack<Element>
         public boolean isPresent()
         {
             return true;
-        }
-
-
-        @Override
-        public StackTop<T> value(StackTop<T> defaultValue)
-        {
-            return this;
         }
 
 
