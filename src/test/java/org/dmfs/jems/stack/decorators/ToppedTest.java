@@ -20,8 +20,8 @@ package org.dmfs.jems.stack.decorators;
 import org.dmfs.jems.stack.Stack;
 import org.junit.Test;
 
-import static org.dmfs.jems.hamcrest.matchers.PresentMatcher.isPresent;
 import static org.dmfs.jems.hamcrest.matchers.StackTopMatcher.stackTop;
+import static org.dmfs.jems.hamcrest.matchers.optional.PresentMatcher.present;
 import static org.dmfs.jems.mockito.doubles.TestDoubles.dummy;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
@@ -38,6 +38,6 @@ public class ToppedTest
     public void test() throws Exception
     {
         Stack<String> dummyStack = dummy(Stack.class);
-        assertThat(new Topped<>("1", dummyStack).top(), isPresent(stackTop(is("1"), sameInstance(dummyStack))));
+        assertThat(new Topped<>("1", dummyStack).top(), is(present(stackTop(is("1"), sameInstance(dummyStack)))));
     }
 }

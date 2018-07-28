@@ -21,11 +21,12 @@ import org.dmfs.iterables.decorators.Mapped;
 import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.iterators.Function;
 import org.dmfs.jems.iterable.elementary.StackIterable;
+import org.dmfs.jems.optional.Optional;
 import org.dmfs.jems.stack.Stack;
-import org.dmfs.optional.Optional;
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
 
+import static org.dmfs.jems.hamcrest.matchers.optional.AbsentMatcher.absent;
 import static org.hamcrest.Matchers.is;
 
 
@@ -39,7 +40,7 @@ public final class StackMatcher<T> extends FeatureMatcher<Stack<T>, Iterable<T>>
 
     public static <E> Matcher<Stack<E>> emptyStack()
     {
-        return new FeatureMatcher<Stack<E>, Optional<Stack.StackTop<E>>>(AbsentMatcher.<Stack.StackTop<E>>isAbsent(), "StackTop", "StackTop")
+        return new FeatureMatcher<Stack<E>, Optional<Stack.StackTop<E>>>(absent(), "StackTop", "StackTop")
         {
             @Override
             protected Optional<Stack.StackTop<E>> featureValueOf(Stack<E> actual)
