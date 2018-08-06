@@ -30,37 +30,37 @@ import static org.hamcrest.Matchers.any;
  */
 public final class MatcherMatcher
 {
-    public static <Value, MatcherType extends Matcher<Value>> Matcher<MatcherType> matches(Value value)
+    public static <V> Matcher<Matcher<V>> matches(V value)
     {
         return new MatchMatcher<>(value);
     }
 
 
-    public static <V, T extends Matcher<V>> Matcher<T> describesAs(String description)
+    public static <V> Matcher<Matcher<V>> describesAs(String description)
     {
         return describesAs(is(description));
     }
 
 
-    public static <V, T extends Matcher<V>> Matcher<T> describesAs(Matcher<? extends CharSequence> descriptionMatcher)
+    public static <V> Matcher<Matcher<V>> describesAs(Matcher<? extends CharSequence> descriptionMatcher)
     {
         return new DescriptionMatcher<>(descriptionMatcher);
     }
 
 
-    public static <V, T extends Matcher<V>> Matcher<T> mismatches(V value)
+    public static <V> Matcher<Matcher<V>> mismatches(V value)
     {
         return new MismatchMatcher<>(value, any(String.class));
     }
 
 
-    public static <V, T extends Matcher<V>> Matcher<T> mismatches(V value, String mismatchDescription)
+    public static <V> Matcher<Matcher<V>> mismatches(V value, String mismatchDescription)
     {
         return new MismatchMatcher<>(value, is(mismatchDescription));
     }
 
 
-    public static <V, T extends Matcher<V>> Matcher<T> mismatches(V value, Matcher<? extends CharSequence> mismatchDescriptionMatcher)
+    public static <V> Matcher<Matcher<V>> mismatches(V value, Matcher<? extends CharSequence> mismatchDescriptionMatcher)
     {
         return new MismatchMatcher<>(value, mismatchDescriptionMatcher);
     }
