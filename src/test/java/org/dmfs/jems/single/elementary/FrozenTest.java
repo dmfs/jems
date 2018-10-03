@@ -20,6 +20,7 @@ package org.dmfs.jems.single.elementary;
 import org.dmfs.jems.single.Single;
 import org.junit.Test;
 
+import static org.dmfs.jems.hamcrest.matchers.SingleMatcher.hasValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
@@ -36,11 +37,11 @@ public final class FrozenTest
     {
         Object firstValue = new Object();
 
-        Single<Object> frozen = new Frozen(new ChangingValueSingle(firstValue));
+        Single<Object> frozen = new Frozen<>(new ChangingValueSingle(firstValue));
 
-        assertThat(frozen.value(), sameInstance(firstValue));
-        assertThat(frozen.value(), sameInstance(firstValue));
-        assertThat(frozen.value(), sameInstance(firstValue));
+        assertThat(frozen, hasValue(sameInstance(firstValue)));
+        assertThat(frozen, hasValue(sameInstance(firstValue)));
+        assertThat(frozen, hasValue(sameInstance(firstValue)));
     }
 
 
