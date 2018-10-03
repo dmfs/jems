@@ -17,12 +17,18 @@
 
 package org.dmfs.jems.generator;
 
+import org.dmfs.jems.single.Single;
+
 import java.util.Iterator;
 
 
 /**
  * A Generator is able to generate an infinite sequence of values. It's similar to {@link Iterator} with the difference that a generator always has a next
  * element, hence there is no {@code hasNext()} method.
+ * <p>
+ * A Generator also serves as an equivalent to {@link Single} for mutable values. A {@link Single} should not be used with mutable values because mutation of
+ * the value would affect all other uses of the {@link Single} because other callers might receive the mutated value. A {@link Generator} on the other hand is
+ * expected to return (generate) a new instance on each call if the results are mutable.
  *
  * @author Marten Gajda
  */

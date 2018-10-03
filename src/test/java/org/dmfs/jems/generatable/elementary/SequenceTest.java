@@ -17,6 +17,10 @@
 
 package org.dmfs.jems.generatable.elementary;
 
+import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.generatable.Generatable;
+import org.dmfs.jems.iterable.decorators.Mapped;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import static org.dmfs.jems.hamcrest.matchers.GeneratableMatcher.startsWith;
@@ -36,5 +40,10 @@ public final class SequenceTest
         assertThat(new Sequence<>(1, a -> a + 1), startsWith(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
         assertThat(new Sequence<>(1, a -> a), startsWith(1, 1, 1, 1, 1, 1, 1, 1, 1, 1));
         assertThat(new Sequence<>("a", a -> a + "a"), startsWith("a", "aa", "aaa", "aaaa"));
+
+        Generatable<StringBuilder> testee = new Sequence<StringBuilder>(StringBuilder::new, v -> v.append("a"));
+        // the Generatable should always start with an empty StringBuilder and the sequence should always look the same
+        assertThat(testee, startsWith(new Mapped<>(Matchers::hasToString, new Seq<>("", "a", "aa", "aaa", "aaaa", "aaaaa"))));
+        assertThat(testee, startsWith(new Mapped<>(Matchers::hasToString, new Seq<>("", "a", "aa", "aaa", "aaaa", "aaaaa"))));
     }
 }

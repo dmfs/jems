@@ -29,20 +29,26 @@ import org.dmfs.jems.generator.Generator;
  */
 public final class Sequence<T> implements Generatable<T>
 {
-    private T mFirst;
+    private final Generator<T> mInitialValues;
     private final Function<T, T> mFunction;
 
 
-    public Sequence(T first, Function<T, T> function)
+    public Sequence(Generator<T> initialValues, Function<T, T> function)
     {
-        mFirst = first;
+        mInitialValues = initialValues;
         mFunction = function;
+    }
+
+
+    public Sequence(T initialValue, Function<T, T> function)
+    {
+        this(() -> initialValue, function);
     }
 
 
     @Override
     public Generator<T> generator()
     {
-        return new org.dmfs.jems.generator.elementary.Sequence<>(mFirst, mFunction);
+        return new org.dmfs.jems.generator.elementary.Sequence<>(mInitialValues.next(), mFunction);
     }
 }
