@@ -23,28 +23,26 @@ import org.dmfs.jems.single.Single;
 /**
  * {@link Single} decorator that queries the delegate only once and returns the same value instance ever after.
  *
- * @author Gabor Keszthelyi
+ * @author Marten Gajda
  */
 public final class Frozen<T> implements Single<T>
 {
-    private final Single<T> mDelegate;
-
-    private T mFrozenValue;
+    private Single<T> mDelegate;
 
 
     public Frozen(Single<T> delegate)
     {
-        mDelegate = delegate;
+        mDelegate = () -> {
+            T result = delegate.value();
+            mDelegate = () -> result;
+            return result;
+        };
     }
 
 
     @Override
     public T value()
     {
-        if (mFrozenValue == null)
-        {
-            mFrozenValue = mDelegate.value();
-        }
-        return mFrozenValue;
+        return mDelegate.value();
     }
 }
