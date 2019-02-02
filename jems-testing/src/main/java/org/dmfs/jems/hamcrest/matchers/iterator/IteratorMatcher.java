@@ -36,34 +36,34 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
-public final class IteratorMatcher<T> extends TypeSafeDiagnosingMatcher<Generator<? extends Iterator<T>>>
+public final class IteratorMatcher<T> extends TypeSafeDiagnosingMatcher<Generator<? extends Iterator<? extends T>>>
 {
     public static final int HAS_NEXT_TEST_COUNT = 100;
     public static final int EXCEPTION_TEST_COUNT = 100;
     private final Iterable<Matcher<T>> mElementMatchers;
 
 
-    public static <T> Matcher<Generator<? extends Iterator<T>>> emptyIterator()
+    public static <T> Matcher<Generator<? extends Iterator<? extends T>>> emptyIterator()
     {
         return new IteratorMatcher<>(new EmptyIterable<>());
     }
 
 
     @SafeVarargs
-    public static <T> Matcher<Generator<? extends Iterator<T>>> iteratorOf(T... elements)
+    public static <T> Matcher<Generator<? extends Iterator<? extends T>>> iteratorOf(T... elements)
     {
         return new IteratorMatcher<>(new Mapped<>(Matchers::equalTo, new Seq<>(elements)));
     }
 
 
-    public static <T> Matcher<Generator<? extends Iterator<T>>> iteratorOf(Iterable<Matcher<T>> elementMatchers)
+    public static <T> Matcher<Generator<? extends Iterator<? extends T>>> iteratorOf(Iterable<Matcher<T>> elementMatchers)
     {
         return new IteratorMatcher<>(elementMatchers);
     }
 
 
     @SafeVarargs
-    public static <T> Matcher<Generator<? extends Iterator<T>>> iteratorOf(Matcher<T>... elementMatchers)
+    public static <T> Matcher<Generator<? extends Iterator<? extends T>>> iteratorOf(Matcher<T>... elementMatchers)
     {
         return new IteratorMatcher<>(new Seq<>(elementMatchers));
     }
@@ -76,10 +76,10 @@ public final class IteratorMatcher<T> extends TypeSafeDiagnosingMatcher<Generato
 
 
     @Override
-    protected boolean matchesSafely(Generator<? extends Iterator<T>> item, Description mismatchDescription)
+    protected boolean matchesSafely(Generator<? extends Iterator<? extends T>> item, Description mismatchDescription)
     {
         Iterator<Matcher<T>> matcherIterator = mElementMatchers.iterator();
-        Iterator<T> testee = item.next();
+        Iterator<? extends T> testee = item.next();
         int index = 0;
         while (testee.hasNext() && matcherIterator.hasNext())
         {
