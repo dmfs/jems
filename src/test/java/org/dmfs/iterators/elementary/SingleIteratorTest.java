@@ -20,12 +20,11 @@ package org.dmfs.iterators.elementary;
 import org.dmfs.jems.single.elementary.ValueSingle;
 import org.junit.Test;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
-import static org.hamcrest.core.Is.is;
+import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.iteratorOf;
+import static org.dmfs.jems.mockito.doubles.TestDoubles.dummy;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 
 /**
@@ -34,33 +33,10 @@ import static org.junit.Assert.fail;
 public class SingleIteratorTest
 {
     @Test
-    public void testHasNext() throws Exception
+    public void test()
     {
-        Iterator<Object> iterator = new SingleIterator<>(new ValueSingle<>(new Object()));
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.hasNext(), is(true));
-        iterator.next();
-        assertThat(iterator.hasNext(), is(false));
-        assertThat(iterator.hasNext(), is(false));
-    }
-
-
-    @Test
-    public void testNext() throws Exception
-    {
-        Object dummyObject = new Object();
-        Iterator<Object> iterator = new SingleIterator<>(new ValueSingle<>(dummyObject));
-        assertThat(iterator.next(), is(dummyObject));
-
-        try
-        {
-            iterator.next();
-            fail();
-        }
-        catch (NoSuchElementException e)
-        {
-            // test passed
-        }
+        Number dummy = dummy(Number.class);
+        assertThat(() -> new SingleIterator<>(new ValueSingle<>(dummy)), is(iteratorOf(sameInstance(dummy))));
     }
 
 }

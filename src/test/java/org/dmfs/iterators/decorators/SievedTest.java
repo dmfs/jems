@@ -24,12 +24,10 @@ import org.dmfs.jems.predicate.elementary.Equals;
 import org.dmfs.jems.predicate.elementary.Nothing;
 import org.junit.Test;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
+import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.emptyIterator;
+import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.iteratorOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 
 /**
@@ -38,142 +36,12 @@ import static org.junit.Assert.fail;
 public class SievedTest
 {
     @Test
-    public void testEmptyDelegate()
+    public void test()
     {
-        Iterator<String> testIterator = new Sieved<>(new Equals<>("x"), EmptyIterator.<String>instance());
+        assertThat(() -> new Sieved<>(new Equals<>("x"), new EmptyIterator<>()), is(emptyIterator()));
+        assertThat(() -> new Sieved<>(new Nothing<>(), new Seq<>("1", "2", "3", "4")), is(emptyIterator()));
 
-        assertThat(testIterator.hasNext(), is(false));
-
-        try
-        {
-            testIterator.next();
-            fail("Did not throw");
-        }
-        catch (NoSuchElementException e)
-        {
-            // pass
-        }
-    }
-
-
-    @Test
-    public void testEmptyResults()
-    {
-        Iterator<String> testIterator = new Sieved<>(new Nothing<String>(), new Seq<>("1", "2", "3", "4"));
-
-        assertThat(testIterator.hasNext(), is(false));
-
-        try
-        {
-            testIterator.next();
-            fail("Did not throw");
-        }
-        catch (NoSuchElementException e)
-        {
-            // pass
-        }
-    }
-
-
-    @Test
-    public void testNormalUsage()
-    {
-        Iterator<String> testIterator = new Sieved<>(new Equals<>("x"), new Seq<>("x", "y", "x", "y"));
-
-        // test normal usage
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.next(), is("x"));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.next(), is("x"));
-        assertThat(testIterator.hasNext(), is(false));
-
-        try
-        {
-            testIterator.next();
-            fail("Did not throw");
-        }
-        catch (NoSuchElementException e)
-        {
-            // pass
-        }
-    }
-
-
-    @Test
-    public void testAllMatch()
-    {
-        Iterator<String> testIterator = new Sieved<>(new Anything<String>(), new Seq<>("x", "y", "x", "y"));
-
-        // test normal usage
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.next(), is("x"));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.next(), is("y"));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.next(), is("x"));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.next(), is("y"));
-        assertThat(testIterator.hasNext(), is(false));
-
-        try
-        {
-            testIterator.next();
-            fail("Did not throw");
-        }
-        catch (NoSuchElementException e)
-        {
-            // pass
-        }
-    }
-
-
-    @Test
-    public void testNoHasNext()
-    {
-        Iterator<String> testIterator = new Sieved<>(new Equals<>("x"), new Seq<>("x", "y", "x", "y"));
-
-        // test behavior if hasNext is not called
-        assertThat(testIterator.next(), is("x"));
-        assertThat(testIterator.next(), is("x"));
-
-        try
-        {
-            testIterator.next();
-            fail("Did not throw");
-        }
-        catch (NoSuchElementException e)
-        {
-            // pass
-        }
-    }
-
-
-    @Test
-    public void testMultipleHasNext()
-    {
-        Iterator<String> testIterator = new Sieved<>(new Equals<>("x"), new Seq<>("x", "y", "x", "y"));
-
-        // call has next a few times to ensure it doesn't proceed to the next elements each time
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.next(), is("x"));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.next(), is("x"));
-        assertThat(testIterator.hasNext(), is(false));
-        assertThat(testIterator.hasNext(), is(false));
-        assertThat(testIterator.hasNext(), is(false));
-
-        try
-        {
-            testIterator.next();
-            fail("Did not throw");
-        }
-        catch (NoSuchElementException e)
-        {
-            // pass
-        }
+        assertThat(() -> new Sieved<>(new Equals<>("x"), new Seq<>("x", "y", "x", "y")), is(iteratorOf("x", "x")));
+        assertThat(() -> new Sieved<>(new Anything<>(), new Seq<>("x", "y", "x", "y")), is(iteratorOf("x", "y", "x", "y")));
     }
 }

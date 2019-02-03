@@ -18,123 +18,52 @@
 package org.dmfs.iterators.elementary;
 
 import org.dmfs.iterators.EmptyIterator;
-import org.dmfs.iterators.SingletonIterator;
 import org.dmfs.jems.optional.elementary.Absent;
-import org.dmfs.jems.optional.Optional;
 import org.dmfs.jems.optional.elementary.Present;
 import org.junit.Test;
 
-import java.util.Iterator;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.emptyIterator;
+import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.iteratorOf;
+import static org.dmfs.jems.optional.elementary.Absent.absent;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 
 /**
  * Unit test for {@link PresentValues}.
  *
- * @author Gabor Keszthelyi
+ * @author Marten Gajda
  */
 public final class PresentValuesTest
 {
 
-    private static final Absent<String> ABSENT = Absent.absent();
+    private static final Absent<String> ABSENT = absent();
 
 
     @Test
-    public void test_whenEmptyInput_noElement()
+    public void test()
     {
-        assertFalse(new PresentValues<>(EmptyIterator.<Optional<String>>instance()).hasNext());
+        assertThat(() -> new PresentValues<>(new EmptyIterator<>()), is(emptyIterator()));
+        assertThat(() -> new PresentValues<>(new Seq<>(absent())), is(emptyIterator()));
+        assertThat(() -> new PresentValues<>(new Seq<>(absent(), absent(), absent())), is(emptyIterator()));
+
+        assertThat(() -> new PresentValues<>(new Seq<>(new Present<>("hello"))), is(iteratorOf("hello")));
+        assertThat(() -> new PresentValues<>(
+                        new Seq<>(new Present<>("hello"), absent(), absent(), new Present<>("foo"), new Present<>("bar"))),
+                is(iteratorOf("hello", "foo", "bar")));
+        assertThat(() -> new PresentValues<>(
+                        new Seq<>(absent(), absent(), new Present<>("hello"), absent(), new Present<>("foo"), new Present<>("bar"), absent())),
+                is(iteratorOf("hello", "foo", "bar")));
+
+        // run same test with vararg ctor
+        assertThat(PresentValues::new, is(emptyIterator()));
+        assertThat(() -> new PresentValues<>(absent()), is(emptyIterator()));
+        assertThat(() -> new PresentValues<>(absent(), absent(), absent()), is(emptyIterator()));
+
+        assertThat(() -> new PresentValues<>(new Present<>("hello")), is(iteratorOf("hello")));
+        assertThat(() -> new PresentValues<>(new Present<>("hello"), absent(), absent(), new Present<>("foo"), new Present<>("bar")),
+                is(iteratorOf("hello", "foo", "bar")));
+        assertThat(() -> new PresentValues<>(absent(), absent(), new Present<>("hello"), absent(), new Present<>("foo"), new Present<>("bar"), absent()),
+                is(iteratorOf("hello", "foo", "bar")));
     }
-
-
-    @Test
-    public void test_whenOnePresentValue()
-    {
-        Iterator<Optional<String>> iterator = new SingletonIterator<Optional<String>>(new Present<>("hello"));
-
-        PresentValues<String> result = new PresentValues<>(iterator);
-
-        assertTrue(result.hasNext());
-        assertEquals("hello", result.next());
-        assertFalse(result.hasNext());
-    }
-
-
-    @Test
-    public void test_whenOneAbsentValue()
-    {
-        Iterator<Optional<String>> iterator = new SingletonIterator<Optional<String>>(Absent.<String>absent());
-
-        PresentValues<String> result = new PresentValues<>(iterator);
-
-        assertFalse(result.hasNext());
-    }
-
-
-    @Test
-    public void test_various()
-    {
-        Iterator<Optional<String>> iterator = new Seq<>(
-                new Present<>("1"),
-                ABSENT,
-                ABSENT,
-                new Present<>("2"),
-                new Present<>("3"),
-                ABSENT
-        );
-
-        PresentValues<String> result = new PresentValues<>(iterator);
-
-        assertTrue(result.hasNext());
-        assertEquals("1", result.next());
-        assertTrue(result.hasNext());
-        assertEquals("2", result.next());
-        assertTrue(result.hasNext());
-        assertEquals("3", result.next());
-
-        assertFalse(result.hasNext());
-    }
-
-
-    public void test_Ctors()
-    {
-        assertFalse(new PresentValues<>().hasNext());
-        assertFalse(new PresentValues<>(Absent.absent()).hasNext());
-        assertFalse(new PresentValues<>(Absent.absent(), Absent.absent()).hasNext());
-    }
-
-
-    @Test
-    public void test_whenOnePresentValue_ctors()
-    {
-        PresentValues<String> result = new PresentValues<>(new Present<>("hello"));
-
-        assertTrue(result.hasNext());
-        assertEquals("hello", result.next());
-        assertFalse(result.hasNext());
-    }
-
-
-    @Test
-    public void test_various_Ctors()
-    {
-        PresentValues<String> result = new PresentValues<>(new Present<>("1"),
-                ABSENT,
-                ABSENT,
-                new Present<>("2"),
-                new Present<>("3"),
-                ABSENT);
-
-        assertTrue(result.hasNext());
-        assertEquals("1", result.next());
-        assertTrue(result.hasNext());
-        assertEquals("2", result.next());
-        assertTrue(result.hasNext());
-        assertEquals("3", result.next());
-
-        assertFalse(result.hasNext());
-    }
-
 }

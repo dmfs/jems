@@ -18,54 +18,27 @@
 package org.dmfs.jems.iterator.decorators;
 
 import org.dmfs.iterators.EmptyIterator;
+import org.dmfs.iterators.elementary.Seq;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.emptyIterator;
+import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.iteratorOf;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 
 /**
  * Unit test for {@link Mapped}.
+ *
+ * @author Marten Gajda
  */
 public final class MappedTest
 {
-
     @Test
     public void test()
     {
-        List<String> emptyList = Collections.emptyList();
-        List<String> list1 = Arrays.asList("1", "2", "3", "4", "3", "2", "1");
-
-        org.dmfs.jems.function.Function<String, Integer> function = new org.dmfs.jems.function.Function<String, Integer>()
-        {
-            @Override
-            public Integer value(String argument)
-            {
-                return Integer.parseInt(argument);
-            }
-        };
-
-        assertIterateSame(EmptyIterator.<Integer>instance(), new Mapped<>(function, emptyList.iterator()));
-        assertIterateSame(Arrays.asList(1, 2, 3, 4, 3, 2, 1).iterator(), new Mapped<>(function, list1.iterator()));
+        assertThat(() -> new Mapped<>(Integer::parseInt, new EmptyIterator<String>()), is(emptyIterator()));
+        assertThat(() -> new Mapped<>(Integer::parseInt, new Seq<>("9")), is(iteratorOf(9)));
+        assertThat(() -> new Mapped<>(Integer::parseInt, new Seq<>("1", "2", "3", "4", "3", "2", "9")), is(iteratorOf(1, 2, 3, 4, 3, 2, 9)));
     }
-
-
-    /**
-     * Assert that two iterators return equal results.
-     */
-    private <E> void assertIterateSame(Iterator<E> iterator1, Iterator<E> iterator2)
-    {
-        while (iterator1.hasNext())
-        {
-            assertEquals(iterator1.next(), iterator2.next());
-        }
-
-        assertFalse(iterator2.hasNext());
-    }
-
 }

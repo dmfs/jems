@@ -27,6 +27,7 @@ import org.dmfs.optional.Next;
 import org.dmfs.optional.Optional;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 
 /**
@@ -65,6 +66,10 @@ public final class Diff<Left, Right> extends AbstractBaseIterator<Pair<Optional<
     @Override
     public Pair<Optional<Left>, Optional<Right>> next()
     {
+        if (!hasNext())
+        {
+            throw new NoSuchElementException("No more elements to iterate");
+        }
         // TODO: can we make this any more "declarative"?
         if (!mNextLeft.isPresent())
         {
