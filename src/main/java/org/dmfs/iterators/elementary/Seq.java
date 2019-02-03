@@ -20,6 +20,7 @@ package org.dmfs.iterators.elementary;
 import org.dmfs.iterators.AbstractBaseIterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 
 /**
@@ -32,7 +33,7 @@ import java.util.Iterator;
  */
 public final class Seq<E> extends AbstractBaseIterator<E>
 {
-    private final E[] mValue;
+    private final E[] mValues;
     private int mNext;
 
 
@@ -45,20 +46,27 @@ public final class Seq<E> extends AbstractBaseIterator<E>
     @SafeVarargs
     public Seq(E... array)
     {
-        mValue = array;
+        mValues = array;
     }
 
 
     @Override
     public boolean hasNext()
     {
-        return mNext < mValue.length;
+        return mNext < mValues.length;
     }
 
 
     @Override
     public E next()
     {
-        return mValue[mNext++];
+        E[] values = mValues;
+        int next = mNext;
+        if (next >= values.length)
+        {
+            throw new NoSuchElementException("No more elements to iterate");
+        }
+        mNext = next + 1;
+        return values[next];
     }
 }

@@ -19,16 +19,16 @@ package org.dmfs.iterators.elementary;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.emptyIterator;
+import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.iteratorOf;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 
 /**
- * @author marten
+ * Unit test for {@link Seq}.
+ *
+ * @author Marten Gajda
  */
 public class SeqTest
 {
@@ -36,35 +36,9 @@ public class SeqTest
     @Test
     public void test()
     {
-        List<String> emptyList = Arrays.asList(new String[] {});
-        List<String> list1 = Arrays.asList("1");
-        List<String> list2 = Arrays.asList("a", "1", "3");
-        List<String> list3 = Arrays.asList("a", "1", null, "3");
-
-        assertIterateSame(emptyList.iterator(), new Seq<String>());
-        assertIterateSame(list1.iterator(), new Seq<>("1"));
-        assertIterateSame(list2.iterator(), new Seq<>("a", "1", "3"));
-        assertIterateSame(list3.iterator(), new Seq<>("a", "1", null, "3"));
-
-        assertIterateSame(list1.iterator(), new Seq<>("1"));
-        assertIterateSame(list2.iterator(), new Seq<>("a", "1", "3"));
-        assertIterateSame(list3.iterator(), new Seq<>("a", "1", null, "3"));
-    }
-
-
-    /**
-     * Assert that two iterators return equal results.
-     *
-     * @param iterator1
-     * @param iterator2
-     */
-    private <E> void assertIterateSame(Iterator<E> iterator1, Iterator<E> iterator2)
-    {
-        while (iterator1.hasNext())
-        {
-            assertEquals(iterator1.next(), iterator2.next());
-        }
-
-        assertFalse(iterator2.hasNext());
+        assertThat(Seq::new, is(emptyIterator()));
+        assertThat(() -> new Seq<>("1"), is(iteratorOf("1")));
+        assertThat(() -> new Seq<>("a", "1"), is(iteratorOf("a", "1")));
+        assertThat(() -> new Seq<>("a", "1", null, "3"), is(iteratorOf("a", "1", null, "3")));
     }
 }

@@ -22,12 +22,10 @@ import org.dmfs.jems.stack.elementary.EmptyStack;
 import org.dmfs.jems.stack.elementary.SingleStack;
 import org.junit.Test;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
+import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.emptyIterator;
+import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.iteratorOf;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 
 /**
@@ -39,70 +37,8 @@ public class StackIteratorTest
     @Test
     public void testEmpty()
     {
-        Iterator<String> testIterator = new StackIterator<>(new SingleStack<>("1"));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.hasNext(), is(true));
-        try
-        {
-            new StackIterator<>(new EmptyStack<>()).next();
-            fail("did not throw");
-        }
-        catch (NoSuchElementException e)
-        {
-            // pass
-        }
-    }
-
-
-    @Test
-    public void testNonEmpty1()
-    {
-        Iterator<String> testIterator = new StackIterator<>(new SingleStack<>("1"));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.next(), is("1"));
-        assertThat(testIterator.hasNext(), is(false));
-        assertThat(testIterator.hasNext(), is(false));
-        assertThat(testIterator.hasNext(), is(false));
-
-        try
-        {
-            new StackIterator<>(new EmptyStack<>()).next();
-            fail("did not throw");
-        }
-        catch (NoSuchElementException e)
-        {
-            // pass
-        }
-    }
-
-
-    @Test
-    public void testNonEmpty2()
-    {
-        Iterator<String> testIterator = new StackIterator<>(new Topped<>("1", new SingleStack<>("2")));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.next(), is("1"));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.hasNext(), is(true));
-        assertThat(testIterator.next(), is("2"));
-        assertThat(testIterator.hasNext(), is(false));
-        assertThat(testIterator.hasNext(), is(false));
-        assertThat(testIterator.hasNext(), is(false));
-
-        try
-        {
-            new StackIterator<>(new EmptyStack<>()).next();
-            fail("did not throw");
-        }
-        catch (NoSuchElementException e)
-        {
-            // pass
-        }
+        assertThat(() -> new StackIterator<>(new EmptyStack<>()), is(emptyIterator()));
+        assertThat(() -> new StackIterator<>(new SingleStack<>("1")), is(iteratorOf("1")));
+        assertThat(() -> new StackIterator<>(new Topped<>("1", new SingleStack<>("2"))), is(iteratorOf("1", "2")));
     }
 }
