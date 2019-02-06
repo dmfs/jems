@@ -18,15 +18,12 @@
 package org.dmfs.iterables.decorators;
 
 import org.dmfs.iterables.EmptyIterable;
-import org.dmfs.iterables.FluentIterable;
-import org.dmfs.iterators.Filter;
+import org.dmfs.iterables.elementary.Seq;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static org.hamcrest.Matchers.contains;
-import static org.junit.Assert.assertFalse;
+import static org.dmfs.jems.hamcrest.matchers.IterableMatcher.iteratesTo;
+import static org.hamcrest.Matchers.emptyIterable;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 
@@ -34,84 +31,48 @@ import static org.junit.Assert.assertThat;
  * Unit test for {@link Fluent}.
  *
  * @author Gabor Keszthelyi
+ * @author Marten Gajda
  */
 public class FluentIterableTest
 {
 
     @Test
-    public void filtered_empty_iterable() throws Exception
+    public void filtered_empty_iterable()
     {
-
-        FluentIterable<String> empty = new Fluent<>(
-                EmptyIterable.<String>instance()).filtered(
-                new Filter<String>()
-                {
-                    @Override
-                    public boolean iterate(String element)
-                    {
-                        return true;
-                    }
-                });
-        assertFalse(empty.iterator().hasNext());
+        assertThat(new Fluent<>(new EmptyIterable<>()).filtered(e -> true),
+                is(emptyIterable()));
     }
 
 
     @Test
-    public void filtered_none_pass() throws Exception
+    public void filtered_none_pass()
     {
-        List<String> testList = Arrays.asList("1", "2", "3", "10", "20", "30", "100", "200", "300");
-
-        FluentIterable<String> none = new Fluent<>(testList)
-                .filtered(new Filter<String>()
-                {
-                    @Override
-                    public boolean iterate(String argument)
-                    {
-                        return false;
-                    }
-                });
-
-        assertFalse(none.iterator().hasNext());
-
+        assertThat(new Fluent<>(new Seq<>("1", "2", "3", "10", "20", "30", "100", "200", "300")).filtered(e -> false),
+                is(emptyIterable()));
     }
 
 
     @Test
-    public void filtered_some_pass() throws Exception
+    public void filtered_some_pass()
     {
-        List<String> testList = Arrays.asList("1", "2", "3", "10", "20", "30", "100", "200", "300");
-
-        FluentIterable<String> fluent = new Fluent<>(testList)
-                .filtered(new Filter<String>()
-                {
-                    @Override
-                    public boolean iterate(String element)
-                    {
-                        return element.length() != 2;
-                    }
-                });
-
-        assertThat(fluent, contains("1", "2", "3", "100", "200", "300"));
+        assertThat(new Fluent<>(new Seq<>("1", "2", "3", "10", "20", "30", "100", "200", "300")).filtered(e -> e.length() != 2),
+                iteratesTo("1", "2", "3", "100", "200", "300"));
     }
 
 
     @Test
-    public void filtered_all_pass() throws Exception
+    public void filtered_all_pass()
     {
-        List<String> testList = Arrays.asList("1", "2", "3", "10", "20", "30", "100", "200", "300");
+        assertThat(new Fluent<>(new Seq<>("1", "2", "3", "10", "20", "30", "100", "200", "300")).filtered(e -> true),
+                iteratesTo("1", "2", "3", "10", "20", "30", "100", "200", "300"));
+    }
 
-        FluentIterable<String> fluent = new Fluent<>(testList)
-                .filtered(
-                        new Filter<String>()
-                        {
-                            @Override
-                            public boolean iterate(String element)
-                            {
-                                return true;
-                            }
-                        });
 
-        assertThat(fluent, contains("1", "2", "3", "10", "20", "30", "100", "200", "300"));
+    @Test
+    public void mapped()
+    {
+        assertThat(new Fluent<>(new Seq<>("1", "2", "3", "10", "20", "30", "100", "200", "300")).mapped(Integer::parseInt),
+                iteratesTo(1, 2, 3, 10, 20, 30, 100, 200, 300));
     }
 
 }

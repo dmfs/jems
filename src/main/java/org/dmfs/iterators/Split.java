@@ -22,8 +22,7 @@ import java.util.NoSuchElementException;
 
 
 /**
- * An {@link Iterator} that iterates the elements of a CharSequence of a comma (or other character) separated value list
- * .
+ * An {@link Iterator} that iterates the elements of a CharSequence of a comma (or other character) separated value list .
  * <p>
  * Example:
  * <p>
@@ -91,13 +90,9 @@ public final class Split extends AbstractBaseIterator<CharSequence>
     @Override
     public CharSequence next()
     {
-        if (mLastSeparatorPos >= mValue.length())
+        if (!hasNext())
         {
             throw new NoSuchElementException("Last element has already been iterated.");
-        }
-        if (mNextSeparatorPos == -1)
-        {
-            findNextSeparator();
         }
         CharSequence result = mValue.subSequence(mLastSeparatorPos + 1, mNextSeparatorPos);
         findNextSeparator();
@@ -106,8 +101,8 @@ public final class Split extends AbstractBaseIterator<CharSequence>
 
 
     /**
-     * Move {@link #mNextSeparatorPos} to the next (unquoted) separator (or the end of the {@link CharSequence} if no
-     * other separator exists in {@link #mValue}).
+     * Move {@link #mNextSeparatorPos} to the next (unquoted) separator (or the end of the {@link CharSequence} if no other separator exists in {@link
+     * #mValue}).
      */
     private void findNextSeparator()
     {

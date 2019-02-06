@@ -22,8 +22,7 @@ import java.util.NoSuchElementException;
 
 
 /**
- * An abstract {@link Iterator} that iterates the elements of another {@link Iterator}, if a {@link Filter} permits
- * it.
+ * An abstract {@link Iterator} that iterates the elements of another {@link Iterator}, if a {@link Filter} permits it.
  *
  * @param <E>
  *         The type of the iterated values.
@@ -44,17 +43,9 @@ public abstract class AbstractFilteredIterator<E> extends AbstractBaseIterator<E
      * @deprecated in favor of {@link Filter}
      */
     @Deprecated
-    public interface IteratorFilter<E>
+    // kept for backwards compatibility
+    public interface IteratorFilter<E> extends Filter<E>
     {
-        /**
-         * Determines whether the given element should be iterated by a filtered Iterator or not.
-         *
-         * @param element
-         *         The element to check.
-         *
-         * @return <code>true</code> to return the element as a result of the Iterator, <code>false</code> to omit this element.
-         */
-        boolean iterate(E element);
     }
 
 
@@ -66,8 +57,7 @@ public abstract class AbstractFilteredIterator<E> extends AbstractBaseIterator<E
 
 
     /**
-     * Creates a filtered {@link Iterator} that iterates the elements of the given {@link Iterator} if the given {@link
-     * Filter} permits it.
+     * Creates a filtered {@link Iterator} that iterates the elements of the given {@link Iterator} if the given {@link Filter} permits it.
      *
      * @param iterator
      *         The {@link Iterator} to be filtered.
@@ -83,8 +73,7 @@ public abstract class AbstractFilteredIterator<E> extends AbstractBaseIterator<E
 
 
     /**
-     * Creates a filtered {@link Iterator} that iterates the elements of the given {@link Iterator} if the given {@link
-     * IteratorFilter} permits it.
+     * Creates a filtered {@link Iterator} that iterates the elements of the given {@link Iterator} if the given {@link IteratorFilter} permits it.
      *
      * @param iterator
      *         The {@link Iterator} to be filtered.

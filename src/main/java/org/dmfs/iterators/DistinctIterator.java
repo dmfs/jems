@@ -18,15 +18,13 @@
 package org.dmfs.iterators;
 
 import org.dmfs.iterators.filters.Distinct;
-import org.dmfs.iterators.utils.SlimSet;
 
 import java.util.Iterator;
-import java.util.Set;
 
 
 /**
- * An {@link Iterator} that returns the elements of another Iterator exactly once, not matter how often they are
- * iterated by the decorated {@link Iterator}. Only the first occurrence of each element will be iterated.
+ * An {@link Iterator} that returns the elements of another Iterator exactly once, not matter how often they are iterated by the decorated {@link Iterator}.
+ * Only the first occurrence of each element will be iterated.
  *
  * @param <E>
  *         The type of the iterated values.
@@ -45,17 +43,6 @@ public final class DistinctIterator<E> extends AbstractFilteredIterator<E>
      */
     public DistinctIterator(final Iterator<E> iterator)
     {
-        super(iterator, new IteratorFilter<E>()
-        {
-            private final Set<E> mIteratedElements = new SlimSet<E>(32);
-
-
-            @Override
-            public boolean iterate(E element)
-            {
-                // iterate the element only if it hasn't been added before
-                return mIteratedElements.add(element);
-            }
-        });
+        super(iterator, new Distinct<>());
     }
 }

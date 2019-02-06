@@ -70,7 +70,7 @@ import java.util.NoSuchElementException;
  * @deprecated in favor of {@link UnquotedSplit}, to be removed in version 2.0
  */
 @Deprecated
-public final class CsvIterator implements Iterator<String>
+public final class CsvIterator extends AbstractBaseIterator<String>
 {
     private final String mValue;
     private final char mSeparator;
@@ -109,13 +109,9 @@ public final class CsvIterator implements Iterator<String>
     @Override
     public String next()
     {
-        if (mLastSeparatorPos >= mValue.length())
+        if (!hasNext())
         {
             throw new NoSuchElementException("Last element has already been iterated.");
-        }
-        if (mNextSeparatorPos == -1)
-        {
-            findNextSeparator();
         }
         String result = mValue.substring(mLastSeparatorPos + 1, mNextSeparatorPos);
         findNextSeparator();
@@ -123,16 +119,8 @@ public final class CsvIterator implements Iterator<String>
     }
 
 
-    @Override
-    public void remove()
-    {
-        throw new UnsupportedOperationException("Remove not supported by this iterator");
-    }
-
-
     /**
-     * Move {@link #mNextSeparatorPos} to the next (unquoted) separator (or the end of the {@link String} if no other
-     * separator exists in {@link #mValue}).
+     * Move {@link #mNextSeparatorPos} to the next (unquoted) separator (or the end of the {@link String} if no other separator exists in {@link #mValue}).
      */
     private void findNextSeparator()
     {
