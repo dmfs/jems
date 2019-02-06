@@ -18,8 +18,8 @@
 package org.dmfs.iterators.filters;
 
 import org.dmfs.iterators.Filter;
-import org.dmfs.iterators.utils.SlimSet;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -35,7 +35,7 @@ import java.util.Set;
  */
 public final class Distinct<E> implements Filter<E>
 {
-    private final Set<E> mIteratedElements = new SlimSet<E>(32);
+    private final Set<E> mIteratedElements = new HashSet<>(32);
 
 
     @Override

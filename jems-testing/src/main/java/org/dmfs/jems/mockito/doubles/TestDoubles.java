@@ -26,7 +26,7 @@ import org.mockito.Mockito;
  *
  * @author Gabor Keszthelyi
  */
-public final class TestDoubles
+public abstract class TestDoubles
 {
 
     /**
@@ -45,10 +45,4 @@ public final class TestDoubles
     {
         return Mockito.mock(clazz, FailAnswer.INSTANCE);
     }
-
-
-    private TestDoubles()
-    {
-    }
-
 }

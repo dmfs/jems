@@ -18,16 +18,13 @@
 package org.dmfs.iterators.decorators;
 
 import org.dmfs.iterators.EmptyIterator;
-import org.dmfs.iterators.Filter;
-import org.dmfs.iterators.FluentIterator;
+import org.dmfs.iterators.elementary.Seq;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.emptyIterator;
+import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.iteratorOf;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 
 /**
@@ -36,109 +33,40 @@ import static org.junit.Assert.assertTrue;
 public class FluentTest
 {
     @Test
-    public void filtered_empty_iterator() throws Exception
+    public void filtered_empty_iterator()
     {
-
-        FluentIterator<String> empty = new Fluent<>(
-                EmptyIterator.<String>instance()).filtered(
-                new Filter<String>()
-                {
-                    @Override
-                    public boolean iterate(String element)
-                    {
-                        return true;
-                    }
-                });
-        assertFalse(empty.hasNext());
+        assertThat(() -> new Fluent<>(new EmptyIterator<>()).filtered((e) -> true), is(emptyIterator()));
     }
 
 
     @Test
-    public void filtered_none_pass() throws Exception
+    public void filtered_none_pass()
     {
-        List<String> testList = Arrays.asList("1", "2", "3", "10", "20", "30", "100", "200", "300");
-
-        FluentIterator<String> none = new Fluent<>(
-                testList.iterator()).filtered(new Filter<String>()
-        {
-            @Override
-            public boolean iterate(String argument)
-            {
-                return false;
-            }
-        });
-
-        assertFalse(none.hasNext());
-
+        assertThat(() -> new Fluent<>(new Seq<>("1", "2", "3", "10", "20", "30", "100", "200", "300")).filtered((e) -> false), is(emptyIterator()));
     }
 
 
     @Test
-    public void filtered_some_pass() throws Exception
+    public void filtered_some_pass()
     {
-        List<String> testList = Arrays.asList("1", "2", "3", "10", "20", "30", "100", "200", "300");
-
-        FluentIterator<String> some = new Fluent<>(
-                testList.iterator()).filtered(
-                new Filter<String>()
-                {
-                    @Override
-                    public boolean iterate(String element)
-                    {
-                        return element.length() != 2;
-                    }
-                });
-
-        assertTrue(some.hasNext());
-        assertEquals("1", some.next());
-        assertTrue(some.hasNext());
-        assertEquals("2", some.next());
-        assertTrue(some.hasNext());
-        assertEquals("3", some.next());
-        assertTrue(some.hasNext());
-        assertEquals("100", some.next());
-        assertTrue(some.hasNext());
-        assertEquals("200", some.next());
-        assertTrue(some.hasNext());
-        assertEquals("300", some.next());
-        assertFalse(some.hasNext());
+        assertThat(() -> new Fluent<>(new Seq<>("1", "2", "3", "10", "20", "30", "100", "200", "300")).filtered((e) -> e.length() != 2),
+                is(iteratorOf("1", "2", "3", "100", "200", "300")));
     }
 
 
     @Test
     public void filtered_all_pass() throws Exception
     {
-        List<String> testList = Arrays.asList("1", "2", "3", "10", "20", "30", "100", "200", "300");
-
-        FluentIterator<String> all = new Fluent<>(
-                testList.iterator()).filtered(
-                new Filter<String>()
-                {
-                    @Override
-                    public boolean iterate(String element)
-                    {
-                        return true;
-                    }
-                });
-
-        assertTrue(all.hasNext());
-        assertEquals("1", all.next());
-        assertTrue(all.hasNext());
-        assertEquals("2", all.next());
-        assertTrue(all.hasNext());
-        assertEquals("3", all.next());
-        assertTrue(all.hasNext());
-        assertEquals("10", all.next());
-        assertTrue(all.hasNext());
-        assertEquals("20", all.next());
-        assertTrue(all.hasNext());
-        assertEquals("30", all.next());
-        assertTrue(all.hasNext());
-        assertEquals("100", all.next());
-        assertTrue(all.hasNext());
-        assertEquals("200", all.next());
-        assertTrue(all.hasNext());
-        assertEquals("300", all.next());
-        assertFalse(all.hasNext());
+        assertThat(() -> new Fluent<>(new Seq<>("1", "2", "3", "10", "20", "30", "100", "200", "300")).filtered((e) -> true),
+                is(iteratorOf("1", "2", "3", "10", "20", "30", "100", "200", "300")));
     }
+
+
+    @Test
+    public void mapped() throws Exception
+    {
+        assertThat(() -> new Fluent<>(new Seq<>("1", "2", "3", "10", "20", "30", "100", "200", "300")).mapped(Integer::parseInt),
+                is(iteratorOf(1, 2, 3, 10, 20, 30, 100, 200, 300)));
+    }
+
 }
