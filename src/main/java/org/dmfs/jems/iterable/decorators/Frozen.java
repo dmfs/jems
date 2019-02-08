@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 dmfs GmbH
+ * Copyright 2019 dmfs GmbH
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,69 +15,104 @@
  * limitations under the License.
  */
 
-package org.dmfs.iterables;
+package org.dmfs.jems.iterable.decorators;
 
 import org.dmfs.iterators.AbstractBaseIterator;
-import org.dmfs.jems.iterable.decorators.Frozen;
+import org.dmfs.jems.generator.Generator;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 /**
- * An {@link Iterable} which iterates the elements of the given {@link Iterator}.
+ * An {@link Iterable} stores the elements of the given {@link Iterator} or {@link Iterable} in order to allow re-iterating them.
  * <p>
  * This is meant to speed up repeated access to slow iterators.
  * <p>
- * Note that {@link Repeatable} needs to synchronize access to the original iterator (and an internal list), which
- * causes some overhead. So only use this if reiterating the original source is impossible or expensive (compared to the
- * number of times you need to reiterate).
+ * Note that {@link Frozen} needs to synchronize access to the original iterator (and an internal list), which causes some overhead. So only use this if
+ * reiterating the original source is impossible or expensive (compared to the number of times you need to reiterate).
  *
  * @param <T>
  *         The type of the iterated elements.
  *
  * @author Marten Gajda
- *
- * @deprecated in favour of {@link Frozen}.
  */
-@Deprecated
-public final class Repeatable<T> implements Iterable<T>
+public final class Frozen<T> implements Iterable<T>
 {
-    private final List<T> mCache;
-    private final Iterator<T> mSourceIterator;
-    private boolean mComplete;
+
+    private Generator<Iterator<T>> mIteratorGenerator;
 
 
-    public Repeatable(Iterator<T> iterator)
+    public Frozen(Iterator<T> delegate)
     {
-        mCache = new ArrayList<T>(64);
-        mSourceIterator = iterator;
+        this(() -> delegate);
+    }
+
+
+    public Frozen(Iterable<T> delegate)
+    {
+        mIteratorGenerator = new Generator<Iterator<T>>()
+        {
+            private final List<T> mCache = new ArrayList<>(64);
+            private final Iterator<T> mIterator = delegate.iterator();
+
+
+            @Override
+            public Iterator<T> next()
+            {
+                synchronized (mIterator)
+                {
+                    if (mIterator.hasNext())
+                    {
+                        // we're still in the process of populating the cache
+                        return new SynchronizedCachingIterator<T>(mIterator, mCache, mCache.size());
+                    }
+                    // store that the iterator was completely iterated, so we don't need to check next time
+                    mIteratorGenerator = () -> new ListIterator<>(mCache);
+                }
+                return new ListIterator<>(mCache);
+            }
+        };
     }
 
 
     @Override
     public Iterator<T> iterator()
     {
-        // check if we can skip to synchronize because we already know that the cache is populated
-        if (!mComplete)
-        {
-            synchronized (mSourceIterator)
-            {
-                if (mSourceIterator.hasNext())
-                {
-                    // we're still in the process of populating the cache
-                    return new SynchronizedCachingIterator<T>(mSourceIterator, mCache, mCache.size());
-                }
+        return mIteratorGenerator.next();
+    }
 
-                // store that the iterator was completely iterated, so we don't need to check next time
-                mComplete = true;
-            }
+
+    private final static class ListIterator<T> extends AbstractBaseIterator<T>
+    {
+        private final List<T> mList;
+        private int mPos;
+
+
+        private ListIterator(List<T> list)
+        {
+            mList = list;
         }
-        // The cache is completely populated. That means we don't need the synchronized iterator anymore.
-        // Just return an iterator on the cache. Make sure the consumer can't modify our cache.
-        return Collections.unmodifiableList(mCache).iterator();
+
+
+        @Override
+        public boolean hasNext()
+        {
+            return mPos < mList.size();
+        }
+
+
+        @Override
+        public T next()
+        {
+            if (!hasNext())
+            {
+                throw new NoSuchElementException("no more elements to iterate");
+            }
+            return mList.get(mPos++);
+        }
     }
 
 
@@ -91,7 +126,7 @@ public final class Repeatable<T> implements Iterable<T>
     {
         private final Iterator<T> mOriginalIterator;
         private final List<T> mCache;
-        private final int mSafeElements;
+        private int mSafeElements;
         private int mPos;
 
 
@@ -114,8 +149,8 @@ public final class Repeatable<T> implements Iterable<T>
 
             synchronized (mOriginalIterator)
             {
-                // TODO: does it make sense to update mSafeElements in here?
-                return mPos < mCache.size() || mOriginalIterator.hasNext();
+                mSafeElements = mCache.size();
+                return mPos < mSafeElements || mOriginalIterator.hasNext();
             }
         }
 
