@@ -17,6 +17,8 @@
 
 package org.dmfs.iterables;
 
+import org.dmfs.jems.iterable.decorators.Frozen;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -35,7 +37,7 @@ import java.util.List;
  *         The type of the iterated elements.
  *
  * @author Marten Gajda
- * @deprecated in favor of {@link Repeatable}, to be removed in version 2.0.
+ * @deprecated in favor of {@link Frozen}, to be removed in version 2.0.
  */
 @Deprecated
 public final class CachingIterable<T> implements Iterable<T>
