@@ -91,6 +91,21 @@ public final class IteratorMatcher<T> extends TypeSafeDiagnosingMatcher<Generato
                     mismatchDescription.appendText(String.format(Locale.ENGLISH, "hasNext() flipped at index %d", index));
                     return false;
                 }
+                try
+                {
+                    testee.remove();
+                    mismatchDescription.appendText(String.format(Locale.ENGLISH, "remove() did not throw at index %d", index));
+                    return false;
+                }
+                catch (UnsupportedOperationException e)
+                {
+                    // pass
+                }
+                catch (Exception e)
+                {
+                    mismatchDescription.appendText(String.format(Locale.ENGLISH, "remove() threw wrong exception at index %d", index));
+                    return false;
+                }
             }
             T next = testee.next();
             Matcher<T> nextMatcher = matcherIterator.next();
@@ -113,6 +128,21 @@ public final class IteratorMatcher<T> extends TypeSafeDiagnosingMatcher<Generato
             if (testee.hasNext())
             {
                 mismatchDescription.appendText("hasNext() flipped after the last element");
+                return false;
+            }
+            try
+            {
+                testee.remove();
+                mismatchDescription.appendText("remove() did not throw after last element");
+                return false;
+            }
+            catch (UnsupportedOperationException e)
+            {
+                // pass
+            }
+            catch (Exception e)
+            {
+                mismatchDescription.appendText("remove() threw wrong exception after last element");
                 return false;
             }
         }
