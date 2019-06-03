@@ -19,8 +19,8 @@ package org.dmfs.jems.pair.elementary;
 
 import org.junit.Test;
 
-import static org.dmfs.jems.hamcrest.matchers.AbsentMatcher.isAbsent;
 import static org.dmfs.jems.hamcrest.matchers.PairMatcher.pair;
+import static org.dmfs.jems.hamcrest.matchers.optional.AbsentMatcher.absent;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -34,6 +34,6 @@ public class LeftSidedPairTest
     public void test()
     {
         Object dummy = Object.class;
-        assertThat(new LeftSidedPair<>(dummy), pair(is(dummy), isAbsent()));
+        assertThat(new LeftSidedPair<>(dummy), pair(is(dummy), is(absent())));
     }
 }

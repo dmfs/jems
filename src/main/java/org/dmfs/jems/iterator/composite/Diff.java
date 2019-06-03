@@ -19,12 +19,12 @@ package org.dmfs.jems.iterator.composite;
 
 import org.dmfs.iterators.AbstractBaseIterator;
 import org.dmfs.jems.function.BiFunction;
+import org.dmfs.jems.optional.Optional;
+import org.dmfs.jems.optional.adapters.Next;
 import org.dmfs.jems.pair.Pair;
 import org.dmfs.jems.pair.elementary.LeftSidedPair;
 import org.dmfs.jems.pair.elementary.RightSidedPair;
 import org.dmfs.jems.pair.elementary.ValuePair;
-import org.dmfs.optional.Next;
-import org.dmfs.optional.Optional;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -87,7 +87,7 @@ public final class Diff<Left, Right> extends AbstractBaseIterator<Pair<Optional<
         }
 
         int result = mComparatorFunction.value(mNextLeft.value(), mNextRight.value());
-        if (result > 0)
+        if (result < 0)
         {
             // return the smaller result, the left one in this case
             Optional<Left> nextLeft = mNextLeft;
@@ -95,7 +95,7 @@ public final class Diff<Left, Right> extends AbstractBaseIterator<Pair<Optional<
             mNextLeft = new Next<>(mLefts);
             return new LeftSidedPair<>(nextLeft);
         }
-        if (result < 0)
+        if (result > 0)
         {
             // return the smaller result, the right one in this case
             Optional<Right> nextRight = mNextRight;

@@ -17,8 +17,8 @@
 
 package org.dmfs.jems.pair.elementary;
 
+import org.dmfs.jems.optional.Optional;
 import org.dmfs.jems.pair.Pair;
-import org.dmfs.optional.Optional;
 
 import static org.dmfs.optional.Absent.absent;
 
