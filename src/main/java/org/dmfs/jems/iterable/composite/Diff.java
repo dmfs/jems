@@ -18,8 +18,8 @@
 package org.dmfs.jems.iterable.composite;
 
 import org.dmfs.jems.function.BiFunction;
+import org.dmfs.jems.optional.Optional;
 import org.dmfs.jems.pair.Pair;
-import org.dmfs.optional.Optional;
 
 import java.util.Iterator;
 

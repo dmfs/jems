@@ -20,14 +20,14 @@ package org.dmfs.jems.iterator.composite;
 import org.dmfs.iterators.EmptyIterator;
 import org.dmfs.iterators.elementary.Seq;
 import org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher;
+import org.dmfs.jems.optional.Optional;
 import org.dmfs.jems.pair.Pair;
-import org.dmfs.optional.Optional;
 import org.junit.Test;
 
-import static org.dmfs.jems.hamcrest.matchers.AbsentMatcher.isAbsent;
 import static org.dmfs.jems.hamcrest.matchers.PairMatcher.pair;
-import static org.dmfs.jems.hamcrest.matchers.PresentMatcher.isPresent;
 import static org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher.iteratorOf;
+import static org.dmfs.jems.hamcrest.matchers.optional.AbsentMatcher.absent;
+import static org.dmfs.jems.hamcrest.matchers.optional.PresentMatcher.present;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -45,49 +45,49 @@ public class DiffTest
         assertThat(() -> new Diff<>(new EmptyIterator<>(), new EmptyIterator<>(), (l, r) -> 0),
                 is(IteratorMatcher.<Pair<Optional<Object>, Optional<Object>>>emptyIterator()));
 
-        assertThat(() -> new Diff<>(new Seq<>("a", "a", "b", "c"), new EmptyIterator<>(), (l, r) -> r.compareTo(l)),
+        assertThat(() -> new Diff<>(new Seq<>("a", "a", "b", "c"), new EmptyIterator<>(), (l, r) -> l.compareTo(r)),
                 is(IteratorMatcher.<Pair<Optional<String>, Optional<String>>>iteratorOf(
-                        pair(isPresent("a"), isAbsent()),
-                        pair(isPresent("a"), isAbsent()),
-                        pair(isPresent("b"), isAbsent()),
-                        pair(isPresent("c"), isAbsent()))));
+                        pair(is(present("a")), is(absent())),
+                        pair(is(present("a")), is(absent())),
+                        pair(is(present("b")), is(absent())),
+                        pair(is(present("c")), is(absent())))));
 
-        assertThat(() -> new Diff<>(new EmptyIterator<>(), new Seq<>("a", "a", "b", "c"), (l, r) -> r.compareTo(l)),
+        assertThat(() -> new Diff<>(new EmptyIterator<>(), new Seq<>("a", "a", "b", "c"), (l, r) -> l.compareTo(r)),
                 is(IteratorMatcher.<Pair<Optional<String>, Optional<String>>>iteratorOf(
-                        pair(isAbsent(), isPresent("a")),
-                        pair(isAbsent(), isPresent("a")),
-                        pair(isAbsent(), isPresent("b")),
-                        pair(isAbsent(), isPresent("c"))
+                        pair(is(absent()), is(present("a"))),
+                        pair(is(absent()), is(present("a"))),
+                        pair(is(absent()), is(present("b"))),
+                        pair(is(absent()), is(present("c")))
                 )));
 
-        assertThat(() -> new Diff<>(new Seq<>("1", "2", "3", "4"), new Seq<>("a", "a", "b", "c"), (l, r) -> r.compareTo(l)),
+        assertThat(() -> new Diff<>(new Seq<>("1", "2", "3", "4"), new Seq<>("a", "a", "b", "c"), (l, r) -> l.compareTo(r)),
                 is(iteratorOf(
-                        pair(isPresent("1"), isAbsent()),
-                        pair(isPresent("2"), isAbsent()),
-                        pair(isPresent("3"), isAbsent()),
-                        pair(isPresent("4"), isAbsent()),
-                        pair(isAbsent(), isPresent("a")),
-                        pair(isAbsent(), isPresent("a")),
-                        pair(isAbsent(), isPresent("b")),
-                        pair(isAbsent(), isPresent("c"))
+                        pair(is(present("1")), is(absent())),
+                        pair(is(present("2")), is(absent())),
+                        pair(is(present("3")), is(absent())),
+                        pair(is(present("4")), is(absent())),
+                        pair(is(absent()), is(present("a"))),
+                        pair(is(absent()), is(present("a"))),
+                        pair(is(absent()), is(present("b"))),
+                        pair(is(absent()), is(present("c")))
                 )));
 
-        assertThat(() -> new Diff<>(new Seq<>("a", "b", "b", "c"), new Seq<>("a", "a", "b", "c"), (l, r) -> r.compareTo(l)),
-                is(IteratorMatcher.<Pair<Optional<String>, Optional<String>>>iteratorOf(
-                        pair(isPresent("a"), isPresent("a")),
-                        pair(isAbsent(), isPresent("a")),
-                        pair(isPresent("b"), isPresent("b")),
-                        pair(isPresent("b"), isAbsent()),
-                        pair(isPresent("c"), isPresent("c"))
+        assertThat(() -> new Diff<>(new Seq<>("a", "b", "b", "c"), new Seq<>("a", "a", "b", "c"), (l, r) -> l.compareTo(r)),
+                is(iteratorOf(
+                        pair(is(present("a")), is(present("a"))),
+                        pair(is(absent()), is(present("a"))),
+                        pair(is(present("b")), is(present("b"))),
+                        pair(is(present("b")), is(absent())),
+                        pair(is(present("c")), is(present("c")))
                 )));
 
-        assertThat(() -> new Diff<>(new Seq<>("b", "b", "c"), new Seq<>("a", "a", "b"), (l, r) -> r.compareTo(l)),
-                is(IteratorMatcher.<Pair<Optional<String>, Optional<String>>>iteratorOf(
-                        pair(isAbsent(), isPresent("a")),
-                        pair(isAbsent(), isPresent("a")),
-                        pair(isPresent("b"), isPresent("b")),
-                        pair(isPresent("b"), isAbsent()),
-                        pair(isPresent("c"), isAbsent())
+        assertThat(() -> new Diff<>(new Seq<>("b", "b", "c"), new Seq<>("a", "a", "b"), (l, r) -> l.compareTo(r)),
+                is(iteratorOf(
+                        pair(is(absent()), is(present("a"))),
+                        pair(is(absent()), is(present("a"))),
+                        pair(is(present("b")), is(present("b"))),
+                        pair(is(present("b")), is(absent())),
+                        pair(is(present("c")), is(absent()))
                 )));
     }
 }
