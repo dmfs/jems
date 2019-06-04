@@ -1,4 +1,4 @@
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply from: '../jacoco.gradle'
 
 sourceCompatibility = 1.8
@@ -10,12 +10,13 @@ configurations {
 apply from: '../publish.gradle'
 
 dependencies {
-    compile rootProject
+    api rootProject
 
     // in this case, junit is not (only) a test dependency, but a build dependency
-    compile 'junit:junit:' + JUNIT
-    compile 'org.hamcrest:hamcrest-all:' + HAMCREST
-    compile 'org.mockito:mockito-core:' + MOCKITO
+    api 'junit:junit:' + JUNIT
+    api 'org.mockito:mockito-core:' + MOCKITO
 
-    testImplementation 'org.hamcrest:hamcrest-all:' + HAMCREST
+    implementation 'org.hamcrest:hamcrest-library:' + HAMCREST
+
+    testImplementation 'org.hamcrest:hamcrest-library:' + HAMCREST
 }

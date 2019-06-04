@@ -1,4 +1,4 @@
-apply plugin: 'java'
+apply plugin: 'java-library'
 
 sourceCompatibility = 1.8
 
@@ -29,6 +29,6 @@ apply from: 'jacoco.gradle'
 
 dependencies {
     testImplementation 'junit:junit:' + JUNIT
-    testImplementation 'org.hamcrest:hamcrest-all:' + HAMCREST
+    testImplementation 'org.hamcrest:hamcrest-library:' + HAMCREST
     testImplementation project(":jems-testing")
 }
