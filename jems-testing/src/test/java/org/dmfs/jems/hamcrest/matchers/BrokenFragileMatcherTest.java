@@ -25,6 +25,13 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.dmfs.jems.hamcrest.matchers.BrokenFragileMatcher.isBroken;
+import static org.dmfs.jems.hamcrest.matchers.BrokenFragileMatcher.throwing;
+import static org.dmfs.jems.hamcrest.matchers.matcher.MatcherMatcher.describesAs;
+import static org.dmfs.jems.hamcrest.matchers.matcher.MatcherMatcher.matches;
+import static org.dmfs.jems.hamcrest.matchers.matcher.MatcherMatcher.mismatches;
+import static org.dmfs.jems.hamcrest.matchers.throwable.ThrowableMatcher.throwable;
+import static org.dmfs.jems.hamcrest.matchers.throwable.ThrowableMatcher.withMessage;
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -36,6 +43,51 @@ import static org.junit.Assert.assertThat;
  */
 public class BrokenFragileMatcherTest
 {
+
+    @Test
+    public void test()
+    {
+        assertThat(throwing(RuntimeException.class), matches(() -> {
+            throw new RuntimeException();
+        }));
+        assertThat(throwing(RuntimeException.class), matches(() -> {
+            throw new IllegalArgumentException();
+        }));
+        assertThat(throwing(instanceOf(RuntimeException.class)), matches(() -> {
+            throw new RuntimeException();
+        }));
+        assertThat(throwing(instanceOf(RuntimeException.class)), matches(() -> {
+            throw new IllegalArgumentException();
+        }));
+
+        assertThat(throwing(throwable(RuntimeException.class, withMessage("message"))), matches(() -> {
+            throw new RuntimeException("message");
+        }));
+        assertThat(throwing(throwable(RuntimeException.class, withMessage("message"))), matches(() -> {
+            throw new IllegalArgumentException("message");
+        }));
+        assertThat(throwing(throwable(RuntimeException.class)), matches(() -> {
+            throw new RuntimeException();
+        }));
+        assertThat(throwing(throwable(RuntimeException.class)), matches(() -> {
+            throw new IllegalArgumentException();
+        }));
+
+        assertThat(throwing(IllegalStateException.class), mismatches(() -> {
+            throw new IllegalArgumentException();
+        }, "broken Fragile threw <java.lang.IllegalArgumentException> is a java.lang.IllegalArgumentException"));
+        assertThat(throwing(instanceOf(IllegalStateException.class)), mismatches(() -> {
+            throw new IllegalArgumentException();
+        }, "broken Fragile threw <java.lang.IllegalArgumentException> is a java.lang.IllegalArgumentException"));
+        assertThat(throwing(RuntimeException.class), mismatches(() -> "x", "Fragile was not broken"));
+        assertThat(throwing(throwable(RuntimeException.class)), mismatches(() -> "x", "Fragile was not broken"));
+
+        assertThat(throwing(RuntimeException.class), describesAs("broken Fragile throwing an instance of java.lang.RuntimeException"));
+        assertThat(throwing(throwable(RuntimeException.class)), describesAs("broken Fragile throwing an instance of java.lang.RuntimeException"));
+    }
+
+    // deprecated tests below, we keep them as log as week keep the isBroken method
+
 
     @Test
     public void testBrokenIntactDescribeMismatch() throws Exception
@@ -54,7 +106,7 @@ public class BrokenFragileMatcherTest
         isBroken(RuntimeException.class).describeMismatch((Fragile) () -> {
             throw new Exception();
         }, description);
-        assertThat(description.toString(), is("broken Fragile threw java.lang.Exception"));
+        assertThat(description.toString(), is("broken Fragile threw <java.lang.Exception> is a java.lang.Exception"));
     }
 
 
@@ -63,7 +115,7 @@ public class BrokenFragileMatcherTest
     {
         Description description = new StringDescription();
         isBroken(RuntimeException.class).describeTo(description);
-        assertThat(description.toString(), is("broken Fragile throwing java.lang.RuntimeException"));
+        assertThat(description.toString(), is("broken Fragile throwing an instance of java.lang.RuntimeException"));
     }
 
 

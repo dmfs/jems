@@ -111,6 +111,6 @@ public class MismatchMatcherTest
     @Test
     public void testDescribeTo() throws Exception
     {
-        assertThat(new MismatchMatcher<>("test", is("description")), describesAs("mismatch description is \"description\""));
+        assertThat(new MismatchMatcher<>("test", is("description")), describesAs("mismatches with description is \"description\""));
     }
 }
