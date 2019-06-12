@@ -64,7 +64,7 @@ public final class MismatchMatcher<V, T extends Matcher<V>> extends TypeSafeDiag
     @Override
     public void describeTo(Description description)
     {
-        description.appendText("mismatch description ");
+        description.appendText("mismatches with description ");
         mDescriptionMatcher.describeTo(description);
     }
 }

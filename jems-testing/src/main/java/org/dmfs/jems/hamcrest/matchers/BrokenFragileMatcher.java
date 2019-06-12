@@ -22,6 +22,8 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
 
 /**
  * A {@link Matcher} for {@link Fragile}s which are expected to be broken.
@@ -30,18 +32,34 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
  */
 public final class BrokenFragileMatcher<E extends Throwable> extends TypeSafeDiagnosingMatcher<Fragile<?, E>>
 {
-    private final Class<E> mExceptionClass;
+    private final Matcher<E> mExceptionMatcher;
 
 
-    public static <E extends Throwable> Matcher<Fragile<?, E>> isBroken(Class<E> exceptionClass)
+    public static <E extends Throwable> Matcher<Fragile<?, E>> throwing(Matcher<E> exceptionMatcher)
     {
-        return new BrokenFragileMatcher<>(exceptionClass);
+        return new BrokenFragileMatcher<>(exceptionMatcher);
     }
 
 
-    public BrokenFragileMatcher(Class<E> mExceptionClass)
+    public static <E extends Throwable> Matcher<Fragile<?, E>> throwing(Class<E> exceptionClass)
     {
-        this.mExceptionClass = mExceptionClass;
+        return new BrokenFragileMatcher<>(instanceOf(exceptionClass));
+    }
+
+
+    /**
+     * @deprecated in favour of {@link #throwing(Class)} (for the better name).
+     */
+    @Deprecated
+    public static <E extends Throwable> Matcher<Fragile<?, E>> isBroken(Class<E> exceptionClass)
+    {
+        return new BrokenFragileMatcher<>(instanceOf(exceptionClass));
+    }
+
+
+    public BrokenFragileMatcher(Matcher<E> mExceptionMatcher)
+    {
+        this.mExceptionMatcher = mExceptionMatcher;
     }
 
 
@@ -56,9 +74,10 @@ public final class BrokenFragileMatcher<E extends Throwable> extends TypeSafeDia
         }
         catch (Throwable throwable)
         {
-            if (!mExceptionClass.isAssignableFrom(throwable.getClass()))
+            if (!mExceptionMatcher.matches(throwable))
             {
-                mismatchDescription.appendText(String.format("broken Fragile threw %s", throwable.getClass().getName()));
+                mismatchDescription.appendText("broken Fragile threw ");
+                mExceptionMatcher.describeMismatch(throwable, mismatchDescription);
                 return false;
             }
             return true;
@@ -69,6 +88,7 @@ public final class BrokenFragileMatcher<E extends Throwable> extends TypeSafeDia
     @Override
     public void describeTo(Description description)
     {
-        description.appendText(String.format("broken Fragile throwing %s", mExceptionClass.getName()));
+        description.appendText("broken Fragile throwing ");
+        description.appendDescriptionOf(mExceptionMatcher);
     }
 }
