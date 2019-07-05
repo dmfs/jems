@@ -48,15 +48,42 @@ public class ThrowableMatcherTest
                         matches(new RuntimeException()),
                         matches(new IllegalStateException())));
 
+        assertThat(throwable(anything(), anything()),
+                allOf(
+                        matches(new RuntimeException()),
+                        matches(new IllegalStateException())));
+
+        assertThat(throwable(anything(), not(anything())),
+                allOf(
+                        mismatches(new RuntimeException()),
+                        mismatches(new IllegalStateException())));
+
+        assertThat(throwable(not(anything()), not(anything())),
+                allOf(
+                        mismatches(new RuntimeException()),
+                        mismatches(new IllegalStateException())));
+
         assertThat(throwable(RuntimeException.class),
                 allOf(
                         matches(new RuntimeException()),
                         matches(new IllegalStateException())));
         assertThat(throwable(RuntimeException.class, anything()), matches(new RuntimeException()));
-        assertThat(throwable(RuntimeException.class, new Seq<>(anything())), matches(new RuntimeException()));
+        assertThat(throwable(RuntimeException.class, anything(), anything()), matches(new RuntimeException()));
+        assertThat(throwable(RuntimeException.class, new Seq<>(anything(), anything())), matches(new RuntimeException()));
+        assertThat(throwable(RuntimeException.class, new Seq<>(anything(), anything())), matches(new RuntimeException()));
 
         assertThat(throwable(not(anything())),
-                mismatches(new IllegalStateException(), "was <java.lang.IllegalStateException>"));
+                mismatches(new IllegalStateException(), "not ANYTHING was <java.lang.IllegalStateException>"));
+        assertThat(throwable(IllegalStateException.class), mismatches(new Exception(), "<java.lang.Exception> is a java.lang.Exception"));
+        assertThat(throwable(IllegalStateException.class, anything()),
+                mismatches(new Exception(), "an instance of java.lang.IllegalStateException <java.lang.Exception> is a java.lang.Exception"));
+        assertThat(throwable(IllegalStateException.class, not(anything())),
+                mismatches(new IllegalStateException(), "(not ANYTHING) not ANYTHING was <java.lang.IllegalStateException>"));
+        assertThat(throwable(IllegalStateException.class, new Seq<>(not(anything()))),
+                mismatches(new IllegalStateException(), "(not ANYTHING) not ANYTHING was <java.lang.IllegalStateException>"));
+
+        assertThat(throwable(not(anything())),
+                mismatches(new IllegalStateException(), "not ANYTHING was <java.lang.IllegalStateException>"));
         assertThat(throwable(IllegalStateException.class), mismatches(new Exception(), "<java.lang.Exception> is a java.lang.Exception"));
         assertThat(throwable(IllegalStateException.class, anything()),
                 mismatches(new Exception(), "an instance of java.lang.IllegalStateException <java.lang.Exception> is a java.lang.Exception"));

@@ -21,7 +21,6 @@ import org.hamcrest.Matcher;
 
 import static org.dmfs.jems.hamcrest.matchers.LambdaMatcher.having;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
@@ -38,7 +37,7 @@ public final class ThrowableMatcher
     @SafeVarargs
     public static Matcher<Throwable> throwable(Matcher<? super Throwable>... features)
     {
-        return anyOf(features);
+        return allOf(features);
     }
 
 
