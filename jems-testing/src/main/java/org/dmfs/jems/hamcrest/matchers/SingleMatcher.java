@@ -28,7 +28,7 @@ import org.hamcrest.Matcher;
  *
  * @author Gabor Keszthelyi
  */
-public final class SingleMatcher<T> extends FeatureMatcher<Single<T>, T>
+public final class SingleMatcher<T> extends FeatureMatcher<Single<? extends T>, T>
 {
     public SingleMatcher(Matcher<? super T> valueMatcher)
     {
@@ -37,19 +37,19 @@ public final class SingleMatcher<T> extends FeatureMatcher<Single<T>, T>
 
 
     @Override
-    protected T featureValueOf(Single<T> actual)
+    protected T featureValueOf(Single<? extends T> actual)
     {
         return actual.value();
     }
 
 
-    public static <T> Matcher<Single<T>> hasValue(Matcher<T> valueMatcher)
+    public static <T> Matcher<Single<? extends T>> hasValue(Matcher<T> valueMatcher)
     {
         return new SingleMatcher<>(valueMatcher);
     }
 
 
-    public static <T> Matcher<Single<T>> hasValue(T expectedValue)
+    public static <T> Matcher<Single<? extends T>> hasValue(T expectedValue)
     {
         return new SingleMatcher<>(CoreMatchers.equalTo(expectedValue));
     }
