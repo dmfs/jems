@@ -42,9 +42,9 @@ public class ZippedTest
     public void test() throws Exception
     {
         assertThat(new Zipped<>(new Present<>("val1"), new Present<>("val2"), stringBiFunction("val1", "val2", "result")), is(present("result")));
-        assertThat(new Zipped<>(new Present<>("val1"), absent(), failingMock(BiFunction.class)), is(AbsentMatcher.absent()));
-        assertThat(new Zipped<>(absent(), new Present<>("val2"), failingMock(BiFunction.class)), is(AbsentMatcher.absent()));
-        assertThat(new Zipped<>(absent(), absent(), failingMock(BiFunction.class)), is(AbsentMatcher.absent()));
+        assertThat(new Zipped<Object,Object,Object>(new Present<>("val1"), absent(), failingMock(BiFunction.class)), is(AbsentMatcher.absent()));
+        assertThat(new Zipped<Object,Object,Object>(absent(), new Present<>("val2"), failingMock(BiFunction.class)), is(AbsentMatcher.absent()));
+        assertThat(new Zipped<Object,Object,Object>(absent(), absent(), failingMock(BiFunction.class)), is(AbsentMatcher.absent()));
     }
 
 

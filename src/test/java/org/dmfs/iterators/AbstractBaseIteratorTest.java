@@ -18,7 +18,6 @@
 package org.dmfs.iterators;
 
 import org.junit.Test;
-import org.omg.CORBA.Object;
 
 
 /**
