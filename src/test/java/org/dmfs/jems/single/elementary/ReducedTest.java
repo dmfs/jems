@@ -23,8 +23,8 @@ import org.dmfs.iterables.elementary.Seq;
 import org.dmfs.jems.function.BiFunction;
 import org.junit.Test;
 
+import static org.dmfs.jems.hamcrest.matchers.SingleMatcher.hasValue;
 import static org.dmfs.jems.mockito.doubles.TestDoubles.failingMock;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
@@ -35,40 +35,58 @@ import static org.junit.Assert.assertThat;
 public class ReducedTest
 {
     @Test
-    public void testEmptyIterable() throws Exception
+    public void testEmptyIterable()
     {
         Object dummy = new Object();
-        assertThat(new Reduced(dummy, failingMock(BiFunction.class), EmptyIterable.instance()).value(), sameInstance(dummy));
+        assertThat(
+                new Reduced<Object, Object>(dummy, failingMock(BiFunction.class), EmptyIterable.instance()),
+                hasValue(sameInstance(dummy)));
     }
 
 
     @Test
-    public void testSingletonIterable() throws Exception
+    public void testSingletonIterable()
     {
-        assertThat(new Reduced<>("0", new BiFunction<String, String, String>()
-        {
-            @Override
-            public String value(String s, String s2)
-            {
-                // append new element to reduced ones
-                return s + s2;
-            }
-        }, new SingletonIterable<String>("1")).value(), is("01"));
+        assertThat(
+                new Reduced<>("0", (s, s2) -> s + s2, new SingletonIterable<>("1")),
+                hasValue("01"));
     }
 
 
     @Test
-    public void testSeqIterable() throws Exception
+    public void testSeqIterable()
     {
-        assertThat(new Reduced<>("0", new BiFunction<String, String, String>()
-        {
-            @Override
-            public String value(String s, String s2)
-            {
-                // append new element to reduced ones
-                return s + s2;
-            }
-        }, new Seq<>("1", "2", "3", "4")).value(), is("01234"));
+        assertThat(
+                new Reduced<>("0", (s, s2) -> s + s2, new Seq<>("1", "2", "3", "4")),
+                hasValue("01234"));
+    }
+
+
+    @Test
+    public void testGeneratorEmptyIterable()
+    {
+        Object dummy = new Object();
+        assertThat(
+                new Reduced<Object, Object>(() -> dummy, failingMock(BiFunction.class), EmptyIterable.instance()),
+                hasValue(sameInstance(dummy)));
+    }
+
+
+    @Test
+    public void testGeneratorSingletonIterable()
+    {
+        assertThat(
+                new Reduced<String, String>(() -> "0", (s, s2) -> s + s2, new SingletonIterable<>("1")),
+                hasValue("01"));
+    }
+
+
+    @Test
+    public void testGeneratorSeqIterable()
+    {
+        assertThat(
+                new Reduced<String, String>(() -> "0", (s, s2) -> s + s2, new Seq<>("1", "2", "3", "4")),
+                hasValue("01234"));
     }
 
 }
