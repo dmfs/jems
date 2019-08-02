@@ -90,7 +90,7 @@ public final class Digest implements Single<byte[]>
     @Override
     public byte[] value()
     {
-        return new Reduced<>(mMessageDigestFactory.newInstance(), new DigestFunction(), mParts).value().digest();
+        return new Reduced<Single<byte[]>, MessageDigest>(mMessageDigestFactory::newInstance, new DigestFunction(), mParts).value().digest();
     }
 
 

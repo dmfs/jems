@@ -18,6 +18,7 @@
 package org.dmfs.jems.single.elementary;
 
 import org.dmfs.jems.function.BiFunction;
+import org.dmfs.jems.generator.Generator;
 import org.dmfs.jems.single.Single;
 
 
@@ -30,14 +31,24 @@ import org.dmfs.jems.single.Single;
  */
 public final class Reduced<Value, Result> implements Single<Result>
 {
-    private final Result mInitialValue;
+    private final Generator<Result> mInitialValue;
     private final Iterable<Value> mIterable;
     private final BiFunction<Result, Value, Result> mFunction;
 
 
+    /**
+     * @deprecated in favor of {@link Reduced#Reduced(Generator, BiFunction, Iterable)}.
+     */
+    @Deprecated
     public Reduced(Result initialValue, BiFunction<Result, Value, Result> accumulatorFunction, Iterable<Value> iterable)
     {
-        mInitialValue = initialValue;
+        this(() -> initialValue, accumulatorFunction, iterable);
+    }
+
+
+    public Reduced(Generator<Result> initialValueGenerator, BiFunction<Result, Value, Result> accumulatorFunction, Iterable<Value> iterable)
+    {
+        mInitialValue = initialValueGenerator;
         mIterable = iterable;
         mFunction = accumulatorFunction;
     }
@@ -46,7 +57,7 @@ public final class Reduced<Value, Result> implements Single<Result>
     @Override
     public Result value()
     {
-        Result result = mInitialValue;
+        Result result = mInitialValue.next();
         for (Value value : mIterable)
         {
             result = mFunction.value(result, value);
