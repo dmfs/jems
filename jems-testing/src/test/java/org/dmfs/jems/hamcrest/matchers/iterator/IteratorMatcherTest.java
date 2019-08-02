@@ -22,6 +22,7 @@ import org.dmfs.iterators.AbstractBaseIterator;
 import org.dmfs.iterators.EmptyIterator;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -67,7 +68,7 @@ public class IteratorMatcherTest
         assertThat(iteratorOf("a"), mismatches(() -> new Flipping<>(singleton("a").iterator(), 120), "hasNext() flipped after the last element"));
         assertThat(iteratorOf("a"), mismatches(() -> singleton("b").iterator(), "was \"b\" at index 0"));
         assertThat(iteratorOf("a"), mismatches(() -> new Unremovable<>(asList("a", "b").iterator()), "had more than 1 elements"));
-        assertThat(iteratorOf("a"), mismatches(() -> asList("a", "b").iterator(), "remove() threw wrong exception at index 0"));
+        assertThat(iteratorOf("a"), mismatches(() -> new ArrayList<>(asList("a", "b")).iterator(), "remove() threw wrong exception at index 0"));
         assertThat(iteratorOf("a"), mismatches(() -> new NonThrowing<>(singleton("a").iterator()), "next() did not throw after hasNext() returned false"));
         assertThat(iteratorOf("a"), mismatches(() -> new ReThrowing<>(singleton("a").iterator(), new IllegalStateException()),
                 "next() threw wrong exception after hasNext() returned false"));
@@ -84,7 +85,7 @@ public class IteratorMatcherTest
         assertThat(iteratorOf("a", "b", "c"), mismatches(() -> new Flipping<>(asList("a", "b", "c").iterator(), 220), "hasNext() flipped at index 2"));
         assertThat(iteratorOf("a", "b", "c"),
                 mismatches(() -> new Flipping<>(asList("a", "b", "c").iterator(), 320), "hasNext() flipped after the last element"));
-        assertThat(iteratorOf("a", "b", "c"), mismatches(() -> asList("a", "b").iterator(), "remove() threw wrong exception at index 0"));
+        assertThat(iteratorOf("a", "b", "c"), mismatches(() -> new ArrayList<>(asList("a", "b")).iterator(), "remove() threw wrong exception at index 0"));
         assertThat(iteratorOf("a", "b", "c"), mismatches(() -> new UnremovableFirst<>(asList("a", "b").iterator()), "remove() did not throw at index 0"));
         assertThat(iteratorOf("a", "b", "c"), mismatches(() -> new RemovableLast<>(asList("a", "b").iterator()), "remove() did not throw after last element"));
         assertThat(iteratorOf("a", "b", "c"), mismatches(() -> new Unremovable<>(asList("a", "b").iterator()), "had only 2 elements"));
