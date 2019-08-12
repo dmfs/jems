@@ -17,7 +17,7 @@
 
 package org.dmfs.jems.iterable.composite;
 
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 
 import java.util.Iterator;
 

@@ -18,6 +18,7 @@
 package org.dmfs.iterators.elementary;
 
 import org.dmfs.iterators.EmptyIterator;
+import org.dmfs.jems.iterator.elementary.Seq;
 import org.dmfs.jems.optional.elementary.Absent;
 import org.dmfs.jems.optional.elementary.Present;
 import org.junit.Test;

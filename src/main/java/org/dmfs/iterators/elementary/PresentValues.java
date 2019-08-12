@@ -20,6 +20,7 @@ package org.dmfs.iterators.elementary;
 import org.dmfs.iterators.AbstractBaseIterator;
 import org.dmfs.iterators.SingletonIterator;
 import org.dmfs.iterators.decorators.Filtered;
+import org.dmfs.jems.iterator.elementary.Seq;
 import org.dmfs.jems.optional.Optional;
 
 import java.util.Iterator;

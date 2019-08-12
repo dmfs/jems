@@ -27,7 +27,9 @@ import java.util.Iterator;
  *         The type of the iterated elements.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link org.dmfs.jems.iterable.elementary.Seq}
  */
+@Deprecated
 public final class Seq<T> implements Iterable<T>
 {
     private final T[] mArray;

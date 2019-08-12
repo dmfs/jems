@@ -17,6 +17,7 @@
 
 package org.dmfs.iterables.elementary;
 
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.optional.elementary.Present;
 import org.hamcrest.Matchers;
 import org.junit.Test;

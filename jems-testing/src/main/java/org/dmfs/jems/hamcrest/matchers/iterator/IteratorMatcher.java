@@ -18,7 +18,7 @@
 package org.dmfs.jems.hamcrest.matchers.iterator;
 
 import org.dmfs.iterables.EmptyIterable;
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.generator.Generator;
 import org.dmfs.jems.iterable.decorators.Mapped;
 import org.hamcrest.Description;
