@@ -20,7 +20,7 @@ package org.dmfs.jems.mocks;
 import org.dmfs.iterables.SingletonIterable;
 import org.dmfs.iterables.composite.PairZipped;
 import org.dmfs.iterables.decorators.Filtered;
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.iterators.Filter;
 import org.dmfs.iterators.Function;
 import org.dmfs.jems.pair.Pair;

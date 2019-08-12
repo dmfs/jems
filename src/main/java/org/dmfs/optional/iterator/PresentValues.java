@@ -21,7 +21,7 @@ import org.dmfs.iterators.AbstractBaseIterator;
 import org.dmfs.iterators.Filter;
 import org.dmfs.iterators.SingletonIterator;
 import org.dmfs.iterators.decorators.Filtered;
-import org.dmfs.iterators.elementary.Seq;
+import org.dmfs.jems.iterator.elementary.Seq;
 import org.dmfs.optional.Optional;
 
 import java.util.Iterator;

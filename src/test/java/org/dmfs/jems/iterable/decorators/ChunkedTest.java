@@ -17,7 +17,7 @@
 
 package org.dmfs.jems.iterable.decorators;
 
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.junit.Test;
 
 import static org.dmfs.jems.hamcrest.matchers.BrokenFragileMatcher.isBroken;

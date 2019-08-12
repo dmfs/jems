@@ -19,7 +19,7 @@ package org.dmfs.optional.iterator;
 
 import org.dmfs.iterators.EmptyIterator;
 import org.dmfs.iterators.SingletonIterator;
-import org.dmfs.iterators.elementary.Seq;
+import org.dmfs.jems.iterator.elementary.Seq;
 import org.dmfs.optional.Absent;
 import org.dmfs.optional.Optional;
 import org.dmfs.optional.Present;

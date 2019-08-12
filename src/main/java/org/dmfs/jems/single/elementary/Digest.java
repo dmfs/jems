@@ -18,7 +18,7 @@
 package org.dmfs.jems.single.elementary;
 
 import org.dmfs.iterables.decorators.Mapped;
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.iterators.Function;
 import org.dmfs.jems.function.BiFunction;
 import org.dmfs.jems.function.elementary.SingleFunction;

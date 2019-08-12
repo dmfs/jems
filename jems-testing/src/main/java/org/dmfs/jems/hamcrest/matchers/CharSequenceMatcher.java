@@ -17,7 +17,7 @@
 
 package org.dmfs.jems.hamcrest.matchers;
 
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.AllOf;
 

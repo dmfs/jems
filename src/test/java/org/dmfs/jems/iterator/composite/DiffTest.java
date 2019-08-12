@@ -18,7 +18,7 @@
 package org.dmfs.jems.iterator.composite;
 
 import org.dmfs.iterators.EmptyIterator;
-import org.dmfs.iterators.elementary.Seq;
+import org.dmfs.jems.iterator.elementary.Seq;
 import org.dmfs.jems.hamcrest.matchers.iterator.IteratorMatcher;
 import org.dmfs.jems.optional.Optional;
 import org.dmfs.jems.pair.Pair;

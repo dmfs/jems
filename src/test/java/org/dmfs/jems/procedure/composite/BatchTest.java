@@ -19,7 +19,7 @@ package org.dmfs.jems.procedure.composite;
 
 import org.dmfs.iterables.EmptyIterable;
 import org.dmfs.iterables.SingletonIterable;
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.procedure.Procedure;
 import org.junit.Test;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 dmfs GmbH
+ * Copyright 2019 dmfs GmbH
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.dmfs.iterators.elementary;
+package org.dmfs.jems.iterator.elementary;
 
 import org.dmfs.iterators.AbstractBaseIterator;
 
@@ -27,48 +27,62 @@ import java.util.NoSuchElementException;
  * An {@link Iterator} of a sequence of values.
  *
  * @param <E>
- *         The type of the values in the array.
+ *         The type of the iterated values.
  *
  * @author Marten Gajda
- * @deprecated in favour of {@link org.dmfs.jems.iterator.elementary.Seq}
  */
-@Deprecated
 public final class Seq<E> extends AbstractBaseIterator<E>
 {
     private final E[] mValues;
+    private final int mCount;
     private int mNext;
 
 
     /**
-     * Creates an {@link Iterator} which iterates all values in the given array.
-     *
-     * @param array
-     *         The array.
+     * Creates an {@link Iterator} of the given elements.
      */
     @SafeVarargs
-    public Seq(E... array)
+    public Seq(E... values)
     {
-        mValues = array;
+        this(values.length, values);
+    }
+
+
+    /**
+     * Creates an {@link Iterator} of the first {@code count} elements of the given array.
+     */
+    public Seq(int count, E[] values)
+    {
+        if (count < 0)
+        {
+            throw new ArrayIndexOutOfBoundsException(String.format("Count must not be less than 0, was %d", count));
+        }
+        if (count > values.length)
+        {
+            throw new ArrayIndexOutOfBoundsException(
+                    String.format("Count must not be higher than the number of values (%d), was %d", values.length, count));
+        }
+        mCount = count;
+        mValues = values;
     }
 
 
     @Override
     public boolean hasNext()
     {
-        return mNext < mValues.length;
+        return mNext < mCount;
     }
 
 
     @Override
     public E next()
     {
-        E[] values = mValues;
         int next = mNext;
-        if (next >= values.length)
+        if (next >= mCount)
         {
             throw new NoSuchElementException("No more elements to iterate");
         }
         mNext = next + 1;
-        return values[next];
+        return mValues[next];
     }
 }

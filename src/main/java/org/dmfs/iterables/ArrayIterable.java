@@ -17,7 +17,7 @@
 
 package org.dmfs.iterables;
 
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.iterators.ArrayIterator;
 
 import java.util.Iterator;

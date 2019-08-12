@@ -19,7 +19,7 @@ package org.dmfs.iterators.decorators;
 
 import org.dmfs.iterators.AbstractBaseIterator;
 import org.dmfs.iterators.EmptyIterator;
-import org.dmfs.iterators.elementary.Seq;
+import org.dmfs.jems.iterator.elementary.Seq;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

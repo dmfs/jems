@@ -18,7 +18,7 @@
 package org.dmfs.iterables.composite;
 
 import org.dmfs.iterables.EmptyIterable;
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.pair.Pair;
 import org.dmfs.jems.pair.elementary.ValuePair;
 import org.hamcrest.Description;

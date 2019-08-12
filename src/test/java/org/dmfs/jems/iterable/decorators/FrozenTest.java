@@ -18,7 +18,7 @@
 package org.dmfs.jems.iterable.decorators;
 
 import org.dmfs.iterators.AbstractBaseIterator;
-import org.dmfs.iterators.elementary.Seq;
+import org.dmfs.jems.iterator.elementary.Seq;
 import org.junit.Test;
 
 import java.util.Iterator;

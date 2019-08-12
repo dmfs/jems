@@ -17,7 +17,7 @@
 
 package org.dmfs.jems.generatable.elementary;
 
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.generatable.Generatable;
 import org.dmfs.jems.iterable.decorators.Mapped;
 import org.hamcrest.Matchers;

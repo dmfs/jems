@@ -17,7 +17,7 @@
 
 package org.dmfs.jems.predicate.composite;
 
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.predicate.Predicate;
 import org.dmfs.jems.predicate.elementary.DelegatingPredicate;
 

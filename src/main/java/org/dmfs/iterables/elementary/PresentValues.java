@@ -18,6 +18,7 @@
 package org.dmfs.iterables.elementary;
 
 import org.dmfs.iterables.SingletonIterable;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.optional.Optional;
 
 import java.util.Iterator;

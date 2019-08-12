@@ -18,7 +18,7 @@
 package org.dmfs.jems.optional.adapters;
 
 import org.dmfs.iterables.EmptyIterable;
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.iterators.Filter;
 import org.dmfs.jems.predicate.Predicate;
 import org.junit.Test;

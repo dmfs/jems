@@ -18,7 +18,7 @@
 package org.dmfs.iterators.decorators;
 
 import org.dmfs.iterators.EmptyIterator;
-import org.dmfs.iterators.elementary.Seq;
+import org.dmfs.jems.iterator.elementary.Seq;
 import org.dmfs.jems.predicate.elementary.Anything;
 import org.dmfs.jems.predicate.elementary.Equals;
 import org.dmfs.jems.predicate.elementary.Nothing;

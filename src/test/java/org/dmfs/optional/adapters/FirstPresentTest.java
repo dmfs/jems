@@ -17,7 +17,7 @@
 
 package org.dmfs.optional.adapters;
 
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.hamcrest.matchers.AbsentMatcher;
 import org.dmfs.optional.Absent;
 import org.dmfs.optional.Optional;

@@ -17,7 +17,7 @@
 
 package org.dmfs.jems.single.elementary;
 
-import org.dmfs.iterables.elementary.Seq;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.messagedigest.elementary.Md5;
 import org.dmfs.jems.single.Single;
 import org.junit.Test;
