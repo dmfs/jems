@@ -43,7 +43,7 @@ import org.dmfs.jems.pair.Pair;
  *
  * @author Marten Gajda
  */
-public final class DiffMap<Left, Right, Result> implements Function<Pair<Optional<? extends Left>, Optional<? extends Right>>, Result>
+public final class DiffMap<Left, Right, Result> implements Function<Pair<? extends Optional<? extends Left>, ? extends Optional<? extends Right>>, Result>
 {
     private final BiFunction<? super Left, ? super Right, ? extends Result> mLeftRightFunction;
     private final Function<? super Left, ? extends Result> mLeftFunction;
@@ -62,7 +62,7 @@ public final class DiffMap<Left, Right, Result> implements Function<Pair<Optiona
 
 
     @Override
-    public Result value(Pair<Optional<? extends Left>, Optional<? extends Right>> pair)
+    public Result value(Pair<? extends Optional<? extends Left>, ? extends Optional<? extends Right>> pair)
     {
         if (pair.left().isPresent() && pair.right().isPresent())
         {
