@@ -37,9 +37,9 @@ import java.util.NoSuchElementException;
  */
 public final class Flattened<E> extends AbstractBaseIterator<E>
 {
-    private final Iterator<Iterable<E>> mIterables;
+    private final Iterator<? extends Iterable<? extends E>> mIterables;
 
-    private Iterator<E> mCurrentIterator;
+    private Iterator<? extends E> mCurrentIterator;
 
 
     /**
@@ -49,7 +49,7 @@ public final class Flattened<E> extends AbstractBaseIterator<E>
      *         An array of {@link Iterable}s.
      */
     @SafeVarargs
-    public Flattened(final Iterable<E>... iterables)
+    public Flattened(final Iterable<? extends E>... iterables)
     {
         this(new Seq<>(iterables));
     }
@@ -61,7 +61,7 @@ public final class Flattened<E> extends AbstractBaseIterator<E>
      * @param iterableIterator
      *         An {@link Iterator} that iterates {@link Iterable}s of type &lt;E;gt;.
      */
-    public Flattened(final Iterator<Iterable<E>> iterableIterator)
+    public Flattened(final Iterator<? extends Iterable<? extends E>> iterableIterator)
     {
         mIterables = iterableIterator;
         mCurrentIterator = EmptyIterator.instance();
