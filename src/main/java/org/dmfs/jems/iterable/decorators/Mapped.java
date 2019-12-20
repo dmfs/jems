@@ -23,17 +23,17 @@ import java.util.Iterator;
 
 
 /**
- * {@link Iterable} decorator that applies {@link org.dmfs.iterators.decorators.Mapped} to the returned {@link Iterator}.
+ * {@link Iterable} decorator maps the results of the delegate {@link Iterable} using a given {@link Function}.
  *
  * @author Gabor Keszthelyi
  */
 public final class Mapped<OriginalType, ResultType> implements Iterable<ResultType>
 {
-    private final Iterable<OriginalType> mOriginal;
-    private final Function<OriginalType, ResultType> mMapFunction;
+    private final Iterable<? extends OriginalType> mOriginal;
+    private final Function<? super OriginalType, ? extends ResultType> mMapFunction;
 
 
-    public Mapped(Function<OriginalType, ResultType> mapFunction, Iterable<OriginalType> original)
+    public Mapped(Function<? super OriginalType, ? extends ResultType> mapFunction, Iterable<? extends OriginalType> original)
     {
         mOriginal = original;
         mMapFunction = mapFunction;
