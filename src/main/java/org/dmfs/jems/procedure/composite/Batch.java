@@ -25,19 +25,19 @@ import org.dmfs.jems.procedure.Procedure;
  *
  * @author Marten Gajda
  */
-public final class Batch<T> implements Procedure<Iterable<T>>
+public final class Batch<T> implements Procedure<Iterable<? extends T>>
 {
-    private final Procedure<T> mDelegate;
+    private final Procedure<? super T> mDelegate;
 
 
-    public Batch(Procedure<T> delegate)
+    public Batch(Procedure<? super T> delegate)
     {
         mDelegate = delegate;
     }
 
 
     @Override
-    public void process(Iterable<T> argument)
+    public void process(Iterable<? extends T> argument)
     {
         for (T value : argument)
         {
