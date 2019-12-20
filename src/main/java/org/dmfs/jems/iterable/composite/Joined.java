@@ -42,17 +42,17 @@ import java.util.Iterator;
  */
 public final class Joined<T> implements Iterable<T>
 {
-    private final Iterable<Iterable<T>> mIterables;
+    private final Iterable<? extends Iterable<? extends T>> mIterables;
 
 
     @SafeVarargs
-    public Joined(Iterable<T>... iterables)
+    public Joined(Iterable<? extends T>... iterables)
     {
         this(new Seq<>(iterables));
     }
 
 
-    public Joined(Iterable<Iterable<T>> iterables)
+    public Joined(Iterable<? extends Iterable<? extends T>> iterables)
     {
         mIterables = iterables;
     }

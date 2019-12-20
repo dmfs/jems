@@ -18,8 +18,8 @@
 package org.dmfs.jems.iterable.decorators;
 
 import org.dmfs.iterables.EmptyIterable;
-import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.function.Function;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
@@ -40,14 +40,7 @@ public class ExpandedTest
         Function<Object, Iterable<Object>> dummyFunction = dummy(Function.class);
         assertThat(new Expanded<>(dummyFunction, EmptyIterable.instance()), Matchers.emptyIterable());
         assertThat(new Expanded<>(
-                        new Function<String, Iterable<String>>()
-                        {
-                            @Override
-                            public Iterable<String> value(String s)
-                            {
-                                return new Seq<>(s + "1", s + "2", s + "3");
-                            }
-                        },
+                        s -> new Seq<>(s + "1", s + "2", s + "3"),
                         new Seq<>("a", "b", "c")
                 ),
                 contains("a1", "a2", "a3", "b1", "b2", "b3", "c1", "c2", "c3"));

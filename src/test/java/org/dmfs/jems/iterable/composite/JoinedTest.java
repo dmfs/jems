@@ -35,22 +35,22 @@ public class JoinedTest
     @Test
     public void testTrivial() throws Exception
     {
-        assertThat(new Joined<>(EmptyIterable.<Iterable<String>>instance()), emptyIterableOf(String.class));
-        assertThat(new Joined<>(new Seq<Iterable<String>>(EmptyIterable.<String>instance())), emptyIterableOf(String.class));
+        assertThat(new Joined<>(EmptyIterable.instance()), emptyIterableOf(String.class));
+        assertThat(new Joined<>(new Seq<>(EmptyIterable.instance())), emptyIterableOf(String.class));
     }
 
 
     @Test
     public void testSingle() throws Exception
     {
-        assertThat(new Joined<>(new Seq<Iterable<String>>(new SingletonIterable<>("1"))), contains("1"));
+        assertThat(new Joined<>(new Seq<>(new SingletonIterable<>("1"))), contains("1"));
     }
 
 
     @Test
     public void testMultiSingle() throws Exception
     {
-        assertThat(new Joined<>(new Seq<Iterable<String>>(new SingletonIterable<>("1"), new SingletonIterable<>("2"), new SingletonIterable<>("3"))),
+        assertThat(new Joined<>(new Seq<>(new SingletonIterable<>("1"), new SingletonIterable<>("2"), new SingletonIterable<>("3"))),
                 contains("1", "2", "3"));
     }
 
@@ -58,9 +58,9 @@ public class JoinedTest
     @Test
     public void testMulti() throws Exception
     {
-        assertThat(new Joined<>(new Seq<Iterable<String>>(new Seq<>("1", "2", "3"))), contains("1", "2", "3"));
-        assertThat(new Joined<>(new Seq<>(new Seq<>("1", "2", "3"), EmptyIterable.<String>instance())), contains("1", "2", "3"));
-        assertThat(new Joined<>(new Seq<>(EmptyIterable.<String>instance(), new Seq<>("1", "2", "3"), EmptyIterable.<String>instance())),
+        assertThat(new Joined<>(new Seq<>(new Seq<>("1", "2", "3"))), contains("1", "2", "3"));
+        assertThat(new Joined<>(new Seq<>(new Seq<>("1", "2", "3"), EmptyIterable.instance())), contains("1", "2", "3"));
+        assertThat(new Joined<>(new Seq<>(EmptyIterable.instance(), new Seq<>("1", "2", "3"), EmptyIterable.instance())),
                 contains("1", "2", "3"));
     }
 
@@ -69,7 +69,7 @@ public class JoinedTest
     public void testMultiMulti() throws Exception
     {
         assertThat(new Joined<>(
-                        new Seq<Iterable<String>>(
+                        new Seq<>(
                                 new Seq<>("1", "2", "3"),
                                 new Seq<>("a", "b", "c"),
                                 new Seq<>("z", "zz", "zzz")
@@ -78,7 +78,7 @@ public class JoinedTest
 
         assertThat(new Joined<>(
                         new Seq<>(
-                                EmptyIterable.<String>instance(),
+                                EmptyIterable.instance(),
                                 new Seq<>("1", "2", "3"),
                                 new Seq<>("a", "b", "c"),
                                 new Seq<>("z", "zz", "zzz")
@@ -90,7 +90,7 @@ public class JoinedTest
                                 new Seq<>("1", "2", "3"),
                                 new Seq<>("a", "b", "c"),
                                 new Seq<>("z", "zz", "zzz"),
-                                EmptyIterable.<String>instance()
+                                EmptyIterable.instance()
                         )),
                 contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
     }
@@ -107,7 +107,7 @@ public class JoinedTest
                 contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
 
         assertThat(new Joined<>(
-                        EmptyIterable.<String>instance(),
+                        EmptyIterable.instance(),
                         new Seq<>("1", "2", "3"),
                         new Seq<>("a", "b", "c"),
                         new Seq<>("z", "zz", "zzz")
@@ -118,7 +118,7 @@ public class JoinedTest
                         new Seq<>("1", "2", "3"),
                         new Seq<>("a", "b", "c"),
                         new Seq<>("z", "zz", "zzz"),
-                        EmptyIterable.<String>instance()
+                        EmptyIterable.instance()
                 ),
                 contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
     }
