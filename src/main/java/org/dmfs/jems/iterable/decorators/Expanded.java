@@ -31,7 +31,7 @@ import org.dmfs.jems.iterable.composite.Joined;
  */
 public final class Expanded<T> extends DelegatingIterable<T>
 {
-    public <V> Expanded(Function<V, Iterable<T>> function, Iterable<V> delegate)
+    public <V> Expanded(Function<? super V, Iterable<T>> function, Iterable<? extends V> delegate)
     {
         super(new Joined<>(new Mapped<>(function, delegate)));
     }

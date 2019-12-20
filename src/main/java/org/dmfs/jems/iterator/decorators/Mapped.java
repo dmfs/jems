@@ -24,8 +24,7 @@ import java.util.Iterator;
 
 
 /**
- * An {@link Iterator} that maps the elements of another {@link Iterator} using a {@link Function} before iterating
- * them.
+ * An {@link Iterator} that maps the elements of another {@link Iterator} using a {@link Function} before iterating them.
  *
  * @param <OriginalType>
  *         The original type of the values iterated by the decorated {@link Iterator}.
@@ -37,20 +36,19 @@ import java.util.Iterator;
  */
 public final class Mapped<OriginalType, ResultType> extends AbstractBaseIterator<ResultType>
 {
-    private final Iterator<OriginalType> mOriginal;
-    private final Function<OriginalType, ResultType> mFunction;
+    private final Iterator<? extends OriginalType> mOriginal;
+    private final Function<? super OriginalType, ? extends ResultType> mFunction;
 
 
     /**
-     * Creates a {@link Mapped} {@link Iterator} that iterates the elements of the given {@link Iterator} after mapping
-     * them using the given {@link Function}.
+     * Creates a {@link Mapped} {@link Iterator} that iterates the elements of the given {@link Iterator} after mapping them using the given {@link Function}.
      *
      * @param mapFunction
      *         The {@link Function} to apply to all elements.
      * @param original
      *         The {@link Iterator} to be mapped.
      */
-    public Mapped(Function<OriginalType, ResultType> mapFunction, Iterator<OriginalType> original)
+    public Mapped(Function<? super OriginalType, ? extends ResultType> mapFunction, Iterator<? extends OriginalType> original)
     {
         mOriginal = original;
         mFunction = mapFunction;
