@@ -27,10 +27,10 @@ import org.dmfs.jems.predicate.Predicate;
  */
 public final class Not<T> implements Predicate<T>
 {
-    private final Predicate<T> mDelegate;
+    private final Predicate<? super T> mDelegate;
 
 
-    public Not(Predicate<T> delegate)
+    public Not(Predicate<? super T> delegate)
     {
         mDelegate = delegate;
     }

@@ -48,9 +48,9 @@ public final class First<T> implements Optional<T>
      * @param predicate
      *         The {@link Predicate}
      */
-    public First(Iterable<T> iterable, Predicate<T> predicate)
+    public First(Iterable<T> iterable, Predicate<? super T> predicate)
     {
-        this(new Sieved<T>(predicate, iterable));
+        this(new Sieved<>(predicate, iterable));
     }
 
 

@@ -26,12 +26,12 @@ import org.dmfs.jems.single.Single;
  *
  * @author Marten Gajda
  */
-public final class SingleWith<V, T extends Single<V>> implements Predicate<T>
+public final class SingleWith<V, T extends Single<? extends V>> implements Predicate<T>
 {
-    private final Predicate<V> mDelegate;
+    private final Predicate<? super V> mDelegate;
 
 
-    public SingleWith(Predicate<V> delegate)
+    public SingleWith(Predicate<? super V> delegate)
     {
         mDelegate = delegate;
     }

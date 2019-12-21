@@ -28,17 +28,17 @@ import org.dmfs.jems.predicate.Predicate;
  */
 public final class AllOf<T> implements Predicate<T>
 {
-    private final Iterable<Predicate<T>> mDelegates;
+    private final Iterable<? extends Predicate<? super T>> mDelegates;
 
 
     @SafeVarargs
-    public AllOf(Predicate<T>... delegates)
+    public AllOf(Predicate<? super T>... delegates)
     {
         this(new Seq<>(delegates));
     }
 
 
-    public AllOf(Iterable<Predicate<T>> delegates)
+    public AllOf(Iterable<? extends Predicate<? super T>> delegates)
     {
         mDelegates = delegates;
     }
@@ -47,7 +47,7 @@ public final class AllOf<T> implements Predicate<T>
     @Override
     public boolean satisfiedBy(T testedInstance)
     {
-        for (Predicate<T> predicate : mDelegates)
+        for (Predicate<? super T> predicate : mDelegates)
         {
             if (!predicate.satisfiedBy(testedInstance))
             {

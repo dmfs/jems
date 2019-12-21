@@ -32,11 +32,11 @@ import java.util.NoSuchElementException;
 @Deprecated
 public final class Sieved<T> implements Optional<T>
 {
-    private final Predicate<T> mPredicate;
+    private final Predicate<? super T> mPredicate;
     private final Optional<T> mDelegate;
 
 
-    public Sieved(Predicate<T> predicate, Optional<T> delegate)
+    public Sieved(Predicate<? super T> predicate, Optional<T> delegate)
     {
         mPredicate = predicate;
         mDelegate = delegate;

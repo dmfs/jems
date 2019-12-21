@@ -35,13 +35,13 @@ import static org.dmfs.optional.Absent.absent;
  */
 public final class Conditional<T> implements org.dmfs.optional.Optional<T>
 {
-    private final Predicate<T> mPredicate;
+    private final Predicate<? super T> mPredicate;
     private final Single<T> mTargetSingle;
 
     private Optional<T> mCachedDelegate;
 
 
-    public Conditional(Predicate<T> predicate, Single<T> targetSingle)
+    public Conditional(Predicate<? super T> predicate, Single<T> targetSingle)
     {
         mPredicate = predicate;
         mTargetSingle = targetSingle;

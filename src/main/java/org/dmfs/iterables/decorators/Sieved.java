@@ -29,11 +29,11 @@ import java.util.Iterator;
  */
 public final class Sieved<E> implements Iterable<E>
 {
-    private final Predicate<E> mPredicate;
+    private final Predicate<? super E> mPredicate;
     private Iterable<E> mDelegate;
 
 
-    public Sieved(Predicate<E> predicate, Iterable<E> delegate)
+    public Sieved(Predicate<? super E> predicate, Iterable<E> delegate)
     {
         mDelegate = delegate;
         mPredicate = predicate;
