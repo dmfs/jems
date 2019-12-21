@@ -31,13 +31,13 @@ public final class NoneOf<T> extends DelegatingPredicate<T>
 {
 
     @SafeVarargs
-    public NoneOf(Predicate<T>... delegates)
+    public NoneOf(Predicate<? super T>... delegates)
     {
         this(new Seq<>(delegates));
     }
 
 
-    public NoneOf(Iterable<Predicate<T>> delegate)
+    public NoneOf(Iterable<? extends Predicate<? super T>> delegate)
     {
         super(new Not<>(new AnyOf<>(delegate)));
     }

@@ -35,7 +35,7 @@ import java.util.NoSuchElementException;
 public final class Sieved<E> extends AbstractBaseIterator<E>
 {
     private final Iterator<E> mDelagate;
-    private final Predicate<E> mPredicate;
+    private final Predicate<? super E> mPredicate;
 
     private E mNext;
     private boolean mHasNext;
@@ -49,7 +49,7 @@ public final class Sieved<E> extends AbstractBaseIterator<E>
      * @param delegate
      *         The {@link Iterator} to be sieved.
      */
-    public Sieved(final Predicate<E> predicate, final Iterator<E> delegate)
+    public Sieved(final Predicate<? super E> predicate, final Iterator<E> delegate)
     {
         mDelagate = delegate;
         mPredicate = predicate;

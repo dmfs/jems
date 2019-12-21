@@ -28,10 +28,10 @@ import org.dmfs.jems.set.Set;
  */
 public final class PredicateSet<T> implements Set<T>
 {
-    private final Predicate<T> mPredicate;
+    private final Predicate<? super T> mPredicate;
 
 
-    public PredicateSet(Predicate<T> predicate)
+    public PredicateSet(Predicate<? super T> predicate)
     {
         mPredicate = predicate;
     }
