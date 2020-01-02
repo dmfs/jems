@@ -29,20 +29,20 @@ import org.dmfs.jems.single.elementary.ValueSingle;
  */
 public final class Backed<T> implements Single<T>
 {
-    private final Optional<T> mOptional;
-    private final Single<T> mBackUp;
+    private final Optional<? extends T> mOptional;
+    private final Single<? extends T> mBackUp;
 
 
-    public Backed(Optional<T> optional, Single<T> backUp)
+    public Backed(Optional<? extends T> optional, Single<? extends T> backUp)
     {
         mOptional = optional;
         mBackUp = backUp;
     }
 
 
-    public Backed(Optional<T> optional, T backUp)
+    public Backed(Optional<? extends T> optional, T backUp)
     {
-        this(optional, new ValueSingle<T>(backUp));
+        this(optional, new ValueSingle<>(backUp));
     }
 
 
