@@ -70,4 +70,14 @@ public class NoneOfTest
         assertThat(new NoneOf<>(new Seq<>(new Equals<>("test"), new Equals<>("fail"), new Equals<>("fail"))), is(not(satisfiedBy("test"))));
     }
 
+
+    @Test
+    public void testEqualsCtor()
+    {
+        assertThat(new NoneOf<>("a"), is(satisfiedBy("b")));
+        assertThat(new NoneOf<>("a", "b", "c"), is(satisfiedBy("d")));
+
+        assertThat(new NoneOf<>("a"), is(not(satisfiedBy("a"))));
+        assertThat(new NoneOf<>("a", "b", "c"), is(not(satisfiedBy("b"))));
+    }
 }

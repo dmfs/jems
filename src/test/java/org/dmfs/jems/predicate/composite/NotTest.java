@@ -28,4 +28,13 @@ public class NotTest
         assertThat(new Not<>(mockPredicate), is(not(satisfiedBy("match"))));
         assertThat(new Not<>(mockPredicate), is(satisfiedBy("mismatch")));
     }
+
+
+    @Test
+    public void testEqualsCtor()
+    {
+        assertThat(new Not<>("a"), is(not(satisfiedBy("a"))));
+        assertThat(new Not<>("a"), is(satisfiedBy("b")));
+    }
+
 }

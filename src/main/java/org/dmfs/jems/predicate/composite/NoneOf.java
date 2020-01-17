@@ -17,9 +17,11 @@
 
 package org.dmfs.jems.predicate.composite;
 
+import org.dmfs.jems.iterable.decorators.Mapped;
 import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.predicate.Predicate;
 import org.dmfs.jems.predicate.elementary.DelegatingPredicate;
+import org.dmfs.jems.predicate.elementary.Equals;
 
 
 /**
@@ -29,6 +31,13 @@ import org.dmfs.jems.predicate.elementary.DelegatingPredicate;
  */
 public final class NoneOf<T> extends DelegatingPredicate<T>
 {
+
+    @SafeVarargs
+    public NoneOf(T... delegates)
+    {
+        this(new Mapped<>(Equals::new, new Seq<>(delegates)));
+    }
+
 
     @SafeVarargs
     public NoneOf(Predicate<? super T>... delegates)

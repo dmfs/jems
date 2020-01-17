@@ -18,6 +18,7 @@
 package org.dmfs.jems.predicate.composite;
 
 import org.dmfs.jems.predicate.Predicate;
+import org.dmfs.jems.predicate.elementary.Equals;
 
 
 /**
@@ -28,6 +29,12 @@ import org.dmfs.jems.predicate.Predicate;
 public final class Not<T> implements Predicate<T>
 {
     private final Predicate<? super T> mDelegate;
+
+
+    public Not(T delegate)
+    {
+        this(new Equals<>(delegate));
+    }
 
 
     public Not(Predicate<? super T> delegate)
