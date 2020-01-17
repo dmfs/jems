@@ -70,4 +70,15 @@ public class AnyOfTest
         assertThat(new AnyOf<>(new Seq<>(new Equals<>("fail"), new Equals<>("fail"), new Equals<>("fail"))), is(not(satisfiedBy("test"))));
     }
 
+
+    @Test
+    public void testEqualsCtor()
+    {
+        assertThat(new AnyOf<>("a"), is(satisfiedBy("a")));
+        assertThat(new AnyOf<>("a", "b", "c"), is(satisfiedBy("b")));
+
+        assertThat(new AnyOf<>("a"), is(not(satisfiedBy("b"))));
+        assertThat(new AnyOf<>("a", "b", "c"), is(not(satisfiedBy("d"))));
+    }
+
 }

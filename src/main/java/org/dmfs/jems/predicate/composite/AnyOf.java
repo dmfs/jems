@@ -17,8 +17,10 @@
 
 package org.dmfs.jems.predicate.composite;
 
+import org.dmfs.jems.iterable.decorators.Mapped;
 import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.predicate.Predicate;
+import org.dmfs.jems.predicate.elementary.Equals;
 
 
 /**
@@ -29,6 +31,13 @@ import org.dmfs.jems.predicate.Predicate;
 public final class AnyOf<T> implements Predicate<T>
 {
     private final Iterable<? extends Predicate<? super T>> mDelegates;
+
+
+    @SafeVarargs
+    public AnyOf(T... delegates)
+    {
+        this(new Mapped<>(Equals::new, new Seq<>(delegates)));
+    }
 
 
     @SafeVarargs
