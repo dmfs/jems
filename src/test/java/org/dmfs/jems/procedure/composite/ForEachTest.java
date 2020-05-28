@@ -18,80 +18,74 @@
 package org.dmfs.jems.procedure.composite;
 
 import org.dmfs.iterables.EmptyIterable;
-import org.dmfs.iterables.SingletonIterable;
 import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.optional.elementary.Absent;
 import org.dmfs.jems.optional.elementary.Present;
+import org.dmfs.jems.procedure.Procedure;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.dmfs.jems.hamcrest.matchers.IterableMatcher.iteratesTo;
-import static org.hamcrest.Matchers.emptyIterable;
+import static org.dmfs.jems.hamcrest.matchers.mockito.MockInteractionMatcher.calledInOrder;
+import static org.dmfs.jems.hamcrest.matchers.mockito.MockInteractionMatcher.notCalled;
+import static org.dmfs.jems.hamcrest.matchers.procedure.ProcedureMatcher.processes;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 
 
 /**
  * Unit test for {@link ForEach}.
  *
  * @author Marten Gajda
- * <p>
- * // TODO can we write that using a Matcher?
  */
 public class ForEachTest
 {
     @Test
-    public void testEmptyIterable()
+    public void testIterables()
     {
-        List<String> args = new ArrayList<>();
-        new ForEach<>(new EmptyIterable<String>()).process(args::add);
-        assertThat(args, is(emptyIterable()));
+        assertThat(
+                new ForEach<>(EmptyIterable.instance()),
+                processes(
+                        () -> (Procedure<? super Object>) mock(Procedure.class),
+                        is(notCalled())));
+        assertThat(
+                new ForEach<>(new Seq<>("x")),
+                processes(
+                        () -> (Procedure<? super String>) mock(Procedure.class),
+                        calledInOrder(p -> p.process("x"))));
+        assertThat(
+                new ForEach<>(new Seq<>("x", "y", "z")),
+                processes(
+                        () -> (Procedure<? super String>) mock(Procedure.class),
+                        calledInOrder(
+                                p -> p.process("x"),
+                                p -> p.process("y"),
+                                p -> p.process("z"))));
     }
 
 
     @Test
-    public void testSingletonIterable()
+    public void testOptional()
     {
-        List<String> args = new ArrayList<>();
-        new ForEach<>(new SingletonIterable<>("a")).process(args::add);
-        assertThat(args, iteratesTo("a"));
-    }
-
-
-    @Test
-    public void testIterable()
-    {
-        List<String> args = new ArrayList<>();
-        new ForEach<>(new Seq<>("a", "b", "c")).process(args::add);
-        assertThat(args, iteratesTo("a", "b", "c"));
-    }
-
-
-    @Test
-    public void testAbsentOptional()
-    {
-        List<String> args = new ArrayList<>();
-        new ForEach<>(new Absent<String>()).process(args::add);
-        assertThat(args, is(emptyIterable()));
-    }
-
-
-    @Test
-    public void testPresentOptional()
-    {
-        List<String> args = new ArrayList<>();
-        new ForEach<>(new Present<>("a")).process(args::add);
-        assertThat(args, iteratesTo("a"));
+        assertThat(
+                new ForEach<>(new Absent<>()),
+                processes(
+                        () -> (Procedure<? super Object>) mock(Procedure.class),
+                        is(notCalled())));
+        assertThat(
+                new ForEach<>(new Present<>("x")),
+                processes(
+                        () -> (Procedure<? super String>) mock(Procedure.class),
+                        calledInOrder(p -> p.process("x"))));
     }
 
 
     @Test
     public void testSingle()
     {
-        List<String> args = new ArrayList<>();
-        new ForEach<>(() -> "a").process(args::add);
-        assertThat(args, iteratesTo("a"));
+        assertThat(
+                new ForEach<>(() -> "x"),
+                processes(
+                        () -> (Procedure<? super String>) mock(Procedure.class),
+                        calledInOrder(p -> p.process("x"))));
     }
 }

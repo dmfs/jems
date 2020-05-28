@@ -18,15 +18,16 @@
 package org.dmfs.jems.procedure.composite;
 
 import org.dmfs.iterables.EmptyIterable;
-import org.dmfs.iterables.SingletonIterable;
 import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.procedure.Procedure;
 import org.junit.Test;
 
+import static org.dmfs.jems.hamcrest.matchers.mockito.MockInteractionMatcher.calledInOrder;
+import static org.dmfs.jems.hamcrest.matchers.mockito.MockInteractionMatcher.notCalled;
+import static org.dmfs.jems.hamcrest.matchers.procedure.ProcedureMatcher2.processes;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.verifyZeroInteractions;
 
 
 /**
@@ -36,38 +37,31 @@ import static org.mockito.Mockito.verifyZeroInteractions;
  */
 public class BatchTest
 {
-    @Test
-    public void testEmpty()
-    {
-        Procedure<Object> mock = mock(Procedure.class);
-        new Batch<>(mock).process(EmptyIterable.instance());
-        verifyZeroInteractions(mock);
-    }
-
 
     @Test
-    public void testSingle()
+    public void test()
     {
-        Procedure<Object> mock = mock(Procedure.class);
-        Object contentMock = new Object();
-        new Batch<>(mock).process(new SingletonIterable<>(contentMock));
-        verify(mock).process(contentMock);
-        verifyNoMoreInteractions(mock);
+        assertThat(Batch::new,
+                processes(
+                        () -> mock(Procedure.class),
+                        new EmptyIterable<>(),
+                        is(notCalled())
+                ));
+
+        assertThat(Batch::new,
+                processes(
+                        () -> mock(Procedure.class),
+                        new Seq<>("x"),
+                        is(calledInOrder(
+                                p -> p.process("x")))));
+
+        assertThat(Batch::new,
+                processes(
+                        () -> mock(Procedure.class),
+                        new Seq<>("x", "y", "z"),
+                        is(calledInOrder(
+                                p -> p.process("x"),
+                                p -> p.process("y"),
+                                p -> p.process("z")))));
     }
-
-
-    @Test
-    public void testMultiple()
-    {
-        Procedure<Object> mock = mock(Procedure.class);
-        Object contentMock1 = new Object();
-        Object contentMock2 = new Object();
-        Object contentMock3 = new Object();
-        new Batch<>(mock).process(new Seq<>(contentMock1, contentMock2, contentMock3));
-        verify(mock).process(contentMock1);
-        verify(mock).process(contentMock2);
-        verify(mock).process(contentMock3);
-        verifyNoMoreInteractions(mock);
-    }
-
 }
