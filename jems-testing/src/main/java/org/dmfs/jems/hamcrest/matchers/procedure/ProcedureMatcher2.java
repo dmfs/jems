@@ -29,7 +29,7 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
  * Usage like
  * <pre><code>
  *     // Procedure with single mocked ctor argument
- *     assertThat(param -> new Testee(param, "x"), processes(()-> param, arg, equalTo(...)));
+ *     assertThat(param -&gt; new Testee(param, "x"), processes(()-&gt; param, arg, equalTo(...)));
  * </code></pre>
  */
 public final class ProcedureMatcher2<Param, Argument>

@@ -27,8 +27,8 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
 /**
  * A {@link Matcher} to test simple {@link Procedure}s.
  * <pre><code>
- * // simple case -> no mocked Ctor arguments
- * assertThat(new Testee("1"), processes(()->arg, equalTo(...)));
+ * // simple case &gt; no mocked Ctor arguments
+ * assertThat(new Testee("1"), processes(()-&gt;arg, equalTo(...)));
  * </code></pre>
  */
 public final class ProcedureMatcher<Argument> extends TypeSafeDiagnosingMatcher<Procedure<? super Argument>>
