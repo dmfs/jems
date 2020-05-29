@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/dmfs/jems.svg?branch=master)](https://travis-ci.org/dmfs/jems)
 [![codecov](https://codecov.io/gh/dmfs/jems/branch/master/graph/badge.svg)](https://codecov.io/gh/dmfs/jems)
+[![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/dmfs/jems.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dmfs/jems/context:java)
 
 # Jems
 
@@ -8,7 +9,7 @@ __Java gems, a collection of Java utilities.__
 
 ## License
 
-Copyright 2017 dmfs GmbH
+Copyright 2020 dmfs GmbH
 
 
 Licensed under the Apache License, Version 2.0 (the "License");
