@@ -30,10 +30,10 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
  */
 public final class DescriptionMatcher<V, T extends Matcher<V>> extends TypeSafeDiagnosingMatcher<T>
 {
-    private final Matcher<? extends CharSequence> mDescriptionMatcher;
+    private final Matcher<? super String> mDescriptionMatcher;
 
 
-    public DescriptionMatcher(Matcher<? extends CharSequence> descriptionMatcher)
+    public DescriptionMatcher(Matcher<? super String> descriptionMatcher)
     {
         mDescriptionMatcher = descriptionMatcher;
     }

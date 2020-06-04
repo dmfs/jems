@@ -28,13 +28,13 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
  *
  * @author Marten Gajda
  */
-public final class MismatchMatcher<V, T extends Matcher<V>> extends TypeSafeDiagnosingMatcher<T>
+public final class MismatchMatcher<V, T extends Matcher<? super V>> extends TypeSafeDiagnosingMatcher<T>
 {
     private final V mMismatchItem;
-    private final Matcher<? extends CharSequence> mDescriptionMatcher;
+    private final Matcher<? super String> mDescriptionMatcher;
 
 
-    public MismatchMatcher(V mismatchItem, Matcher<? extends CharSequence> descriptionMatcher)
+    public MismatchMatcher(V mismatchItem, Matcher<? super String> descriptionMatcher)
     {
         mMismatchItem = mismatchItem;
         mDescriptionMatcher = descriptionMatcher;

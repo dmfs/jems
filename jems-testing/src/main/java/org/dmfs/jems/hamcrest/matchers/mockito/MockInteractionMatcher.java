@@ -18,14 +18,15 @@
 package org.dmfs.jems.hamcrest.matchers.mockito;
 
 import org.dmfs.iterables.EmptyIterable;
+import org.dmfs.jems.function.Function;
 import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.procedure.Procedure;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 import org.mockito.InOrder;
-
-import static org.mockito.Mockito.inOrder;
+import org.mockito.Mockito;
+import org.mockito.verification.VerificationMode;
 
 
 /**
@@ -35,32 +36,44 @@ import static org.mockito.Mockito.inOrder;
  */
 public final class MockInteractionMatcher<T> extends TypeSafeDiagnosingMatcher<T>
 {
+
+    private final Function<T, InOrder> mOrderFactory;
     private final Iterable<? extends Procedure<? super T>> mTestProcedures;
+    private final String mDescription;
 
 
     public static <T> Matcher<T> notCalled()
     {
-        return new MockInteractionMatcher<>(new EmptyIterable<>());
+        return new MockInteractionMatcher<>(Mockito::inOrder, new EmptyIterable<>(), "mock is not called");
+    }
+
+
+    @SafeVarargs
+    public static <T> Matcher<T> called(Procedure<? super T>... verifications)
+    {
+        return new MockInteractionMatcher<T>(NoOrder::new, new Seq<>(verifications), "mock is called in any order");
     }
 
 
     @SafeVarargs
     public static <T> Matcher<T> calledInOrder(Procedure<? super T>... verifications)
     {
-        return new MockInteractionMatcher<T>(new Seq<>(verifications));
+        return new MockInteractionMatcher<T>(Mockito::inOrder, new Seq<>(verifications), "mock is called in order");
     }
 
 
-    public MockInteractionMatcher(Iterable<? extends Procedure<? super T>> mTestProcedures)
+    public MockInteractionMatcher(Function<T, InOrder> mOrderFactory, Iterable<? extends Procedure<? super T>> mTestProcedures, String mDescription)
     {
+        this.mOrderFactory = mOrderFactory;
         this.mTestProcedures = mTestProcedures;
+        this.mDescription = mDescription;
     }
 
 
     @Override
     protected boolean matchesSafely(T item, Description mismatchDescription)
     {
-        InOrder inOrder = inOrder(item);
+        InOrder inOrder = mOrderFactory.value(item);
         try
         {
             for (Procedure<? super T> verification : mTestProcedures)
@@ -81,6 +94,43 @@ public final class MockInteractionMatcher<T> extends TypeSafeDiagnosingMatcher<T
     @Override
     public void describeTo(Description description)
     {
-        description.appendText("mock is called in order");
+        description.appendText(mDescription);
+    }
+
+
+    /**
+     * A simple implementation of {@link InOrder} which doesn't care about the order of calls of a single mock.
+     */
+    private final static class NoOrder<T> implements InOrder
+    {
+
+        private final T mMock;
+
+
+        private NoOrder(T mock)
+        {
+            mMock = mock;
+        }
+
+
+        @Override
+        public <T> T verify(T mock)
+        {
+            return Mockito.verify(mock);
+        }
+
+
+        @Override
+        public <T> T verify(T mock, VerificationMode mode)
+        {
+            return Mockito.verify(mock, mode);
+        }
+
+
+        @Override
+        public void verifyNoMoreInteractions()
+        {
+            Mockito.verifyNoMoreInteractions(mMock);
+        }
     }
 }
