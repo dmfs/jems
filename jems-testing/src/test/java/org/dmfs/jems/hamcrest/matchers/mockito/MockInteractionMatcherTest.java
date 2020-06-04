@@ -24,7 +24,9 @@ import java.util.List;
 import static org.dmfs.jems.hamcrest.matchers.matcher.MatcherMatcher.describesAs;
 import static org.dmfs.jems.hamcrest.matchers.matcher.MatcherMatcher.matches;
 import static org.dmfs.jems.hamcrest.matchers.matcher.MatcherMatcher.mismatches;
+import static org.dmfs.jems.hamcrest.matchers.mockito.MockInteractionMatcher.called;
 import static org.dmfs.jems.hamcrest.matchers.mockito.MockInteractionMatcher.calledInOrder;
+import static org.dmfs.jems.hamcrest.matchers.mockito.MockInteractionMatcher.notCalled;
 import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
@@ -36,19 +38,89 @@ import static org.mockito.Mockito.mock;
 public class MockInteractionMatcherTest
 {
     @Test
-    public void test()
+    public void testOrdered()
     {
-        List<?> mockList1 = mock(List.class);
-        mockList1.isEmpty();
-        List<?> mockList2 = mock(List.class);
+        List<String> mockListCorrect = mock(List.class);
+        mockListCorrect.isEmpty();
+        mockListCorrect.size();
+        List<String> mockListWrongOrder = mock(List.class);
+        mockListWrongOrder.size();
+        mockListWrongOrder.isEmpty();
+        List<String> mockListTooMany = mock(List.class);
+        mockListTooMany.isEmpty();
+        mockListTooMany.size();
+        mockListTooMany.isEmpty();
+        List<String> mockListTooFew1 = mock(List.class);
+        mockListTooFew1.size();
+        List<String> mockListTooFew2 = mock(List.class);
+        mockListTooFew2.isEmpty();
+        List<String> mockListNone = mock(List.class);
 
-        assertThat(calledInOrder(List::isEmpty),
+        assertThat(calledInOrder(List::isEmpty, List::size),
                 allOf(
-                        matches(mockList1),
-                        mismatches(mockList2)
-                ));
+                        matches(mockListCorrect),
+                        mismatches(mockListWrongOrder),
+                        mismatches(mockListTooMany),
+                        mismatches(mockListTooFew1),
+                        mismatches(mockListTooFew2),
+                        mismatches(mockListNone)));
 
         assertThat(calledInOrder(Object::toString),
                 describesAs("mock is called in order"));
     }
+
+
+    @Test
+    public void testUnOrdered()
+    {
+        List<String> mockListCorrect1 = mock(List.class);
+        mockListCorrect1.isEmpty();
+        mockListCorrect1.size();
+        List<String> mockListCorrect2 = mock(List.class);
+        mockListCorrect2.size();
+        mockListCorrect2.isEmpty();
+        List<String> mockListTooMany = mock(List.class);
+        mockListTooMany.isEmpty();
+        mockListTooMany.size();
+        mockListTooMany.isEmpty();
+        List<String> mockListTooFew1 = mock(List.class);
+        mockListTooFew1.size();
+        List<String> mockListTooFew2 = mock(List.class);
+        mockListTooFew2.isEmpty();
+        List<String> mockListNone = mock(List.class);
+
+        assertThat(called(List::isEmpty, List::size),
+                allOf(
+                        matches(mockListCorrect1),
+                        matches(mockListCorrect2),
+                        mismatches(mockListTooMany),
+                        mismatches(mockListTooFew1),
+                        mismatches(mockListTooFew2),
+                        mismatches(mockListNone)));
+
+        assertThat(called(Object::toString),
+                describesAs("mock is called in any order"));
+    }
+
+
+    @Test
+    public void testNoInteractions()
+    {
+        List<String> mockList1 = mock(List.class);
+        mockList1.isEmpty();
+        List<String> mockList2 = mock(List.class);
+        mockList2.isEmpty();
+        mockList2.size();
+        List<String> mockListNone = mock(List.class);
+
+        assertThat(notCalled(),
+                allOf(
+                        mismatches(mockList1),
+                        mismatches(mockList2),
+                        matches(mockListNone)));
+
+        assertThat(notCalled(),
+                describesAs("mock is not called"));
+    }
+
 }

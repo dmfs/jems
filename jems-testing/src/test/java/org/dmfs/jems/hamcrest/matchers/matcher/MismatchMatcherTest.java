@@ -46,7 +46,7 @@ public class MismatchMatcherTest
     public void testMatches() throws Exception
     {
         String dummy = "dummy";
-        Matcher mockMatcher = failingMock(Matcher.class);
+        Matcher<String> mockMatcher = failingMock(Matcher.class);
         doReturn(false).when(mockMatcher).matches(dummy);
         doAnswer(invocation -> {
             Description description = invocation.getArgument(1);

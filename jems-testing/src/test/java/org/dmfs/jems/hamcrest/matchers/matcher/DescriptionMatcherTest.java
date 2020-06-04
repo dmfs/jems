@@ -43,7 +43,7 @@ public class DescriptionMatcherTest
     @Test
     public void testMatches() throws Exception
     {
-        Matcher mockMatcher = failingMock(Matcher.class);
+        Matcher<String> mockMatcher = failingMock(Matcher.class);
         doAnswer(invocation -> {
             Description description = invocation.getArgument(0);
             description.appendText("description");
@@ -57,7 +57,7 @@ public class DescriptionMatcherTest
     @Test
     public void testMismatches() throws Exception
     {
-        Matcher mockMatcher = failingMock(Matcher.class);
+        Matcher<String> mockMatcher = failingMock(Matcher.class);
         doAnswer(invocation -> {
             Description description = invocation.getArgument(0);
             description.appendText("text");
