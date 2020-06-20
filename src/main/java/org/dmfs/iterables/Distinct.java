@@ -23,14 +23,15 @@ import java.util.Iterator;
 
 
 /**
- * {@link Iterable} decorator that removes any duplicates from another {@link Iterable}, keeping only the first
- * occurrence of each iterated value.
+ * {@link Iterable} decorator that removes any duplicates from another {@link Iterable}, keeping only the first occurrence of each iterated value.
  *
  * @param <T>
- *         The type of the iterated elements.
+ *     The type of the iterated elements.
  *
  * @author Marten Gajda
+ * @deprecated In favour of {@link org.dmfs.jems.iterable.decorators.Distinct}.
  */
+@Deprecated
 public final class Distinct<T> implements Iterable<T>
 {
 
@@ -41,7 +42,7 @@ public final class Distinct<T> implements Iterable<T>
      * Creates an {@link Iterable} which iterates each value of the given {@link Iterable} exactly once.
      *
      * @param delegate
-     *         Another {@link Iterable}.
+     *     Another {@link Iterable}.
      */
     public Distinct(Iterable<T> delegate)
     {
