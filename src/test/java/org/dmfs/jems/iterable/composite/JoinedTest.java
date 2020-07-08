@@ -20,10 +20,15 @@ package org.dmfs.jems.iterable.composite;
 import org.dmfs.iterables.EmptyIterable;
 import org.dmfs.iterables.SingletonIterable;
 import org.dmfs.jems.iterable.elementary.Seq;
+import org.dmfs.jems.optional.elementary.Absent;
+import org.dmfs.jems.optional.elementary.Present;
 import org.junit.Test;
 
+import static org.dmfs.jems.hamcrest.matchers.IterableMatcher.iteratesTo;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.emptyIterable;
 import static org.hamcrest.Matchers.emptyIterableOf;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 
@@ -51,7 +56,7 @@ public class JoinedTest
     public void testMultiSingle() throws Exception
     {
         assertThat(new Joined<>(new Seq<>(new SingletonIterable<>("1"), new SingletonIterable<>("2"), new SingletonIterable<>("3"))),
-                contains("1", "2", "3"));
+            contains("1", "2", "3"));
     }
 
 
@@ -61,7 +66,7 @@ public class JoinedTest
         assertThat(new Joined<>(new Seq<>(new Seq<>("1", "2", "3"))), contains("1", "2", "3"));
         assertThat(new Joined<>(new Seq<>(new Seq<>("1", "2", "3"), EmptyIterable.instance())), contains("1", "2", "3"));
         assertThat(new Joined<>(new Seq<>(EmptyIterable.instance(), new Seq<>("1", "2", "3"), EmptyIterable.instance())),
-                contains("1", "2", "3"));
+            contains("1", "2", "3"));
     }
 
 
@@ -69,30 +74,30 @@ public class JoinedTest
     public void testMultiMulti() throws Exception
     {
         assertThat(new Joined<>(
-                        new Seq<>(
-                                new Seq<>("1", "2", "3"),
-                                new Seq<>("a", "b", "c"),
-                                new Seq<>("z", "zz", "zzz")
-                        )),
-                contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
+                new Seq<>(
+                    new Seq<>("1", "2", "3"),
+                    new Seq<>("a", "b", "c"),
+                    new Seq<>("z", "zz", "zzz")
+                )),
+            contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
 
         assertThat(new Joined<>(
-                        new Seq<>(
-                                EmptyIterable.instance(),
-                                new Seq<>("1", "2", "3"),
-                                new Seq<>("a", "b", "c"),
-                                new Seq<>("z", "zz", "zzz")
-                        )),
-                contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
+                new Seq<>(
+                    EmptyIterable.instance(),
+                    new Seq<>("1", "2", "3"),
+                    new Seq<>("a", "b", "c"),
+                    new Seq<>("z", "zz", "zzz")
+                )),
+            contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
 
         assertThat(new Joined<>(
-                        new Seq<>(
-                                new Seq<>("1", "2", "3"),
-                                new Seq<>("a", "b", "c"),
-                                new Seq<>("z", "zz", "zzz"),
-                                EmptyIterable.instance()
-                        )),
-                contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
+                new Seq<>(
+                    new Seq<>("1", "2", "3"),
+                    new Seq<>("a", "b", "c"),
+                    new Seq<>("z", "zz", "zzz"),
+                    EmptyIterable.instance()
+                )),
+            contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
     }
 
 
@@ -100,26 +105,81 @@ public class JoinedTest
     public void testVarArgCtor() throws Exception
     {
         assertThat(new Joined<>(
-                        new Seq<>("1", "2", "3"),
-                        new Seq<>("a", "b", "c"),
-                        new Seq<>("z", "zz", "zzz")
-                ),
-                contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
+                new Seq<>("1", "2", "3"),
+                new Seq<>("a", "b", "c"),
+                new Seq<>("z", "zz", "zzz")
+            ),
+            contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
 
         assertThat(new Joined<>(
-                        EmptyIterable.instance(),
-                        new Seq<>("1", "2", "3"),
-                        new Seq<>("a", "b", "c"),
-                        new Seq<>("z", "zz", "zzz")
-                ),
-                contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
+                EmptyIterable.instance(),
+                new Seq<>("1", "2", "3"),
+                new Seq<>("a", "b", "c"),
+                new Seq<>("z", "zz", "zzz")
+            ),
+            contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
 
         assertThat(new Joined<>(
-                        new Seq<>("1", "2", "3"),
-                        new Seq<>("a", "b", "c"),
-                        new Seq<>("z", "zz", "zzz"),
-                        EmptyIterable.instance()
-                ),
-                contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
+                new Seq<>("1", "2", "3"),
+                new Seq<>("a", "b", "c"),
+                new Seq<>("z", "zz", "zzz"),
+                EmptyIterable.instance()
+            ),
+            contains("1", "2", "3", "a", "b", "c", "z", "zz", "zzz"));
+    }
+
+
+    @Test
+    public void testVarArgOptionalCtor() throws Exception
+    {
+        assertThat(new Joined<>(
+                new Absent<>()
+            ),
+            is(emptyIterable()));
+
+        assertThat(new Joined<>(
+                new Absent<>(),
+                new Absent<>(),
+                new Absent<>()
+            ),
+            is(emptyIterable()));
+
+        assertThat(new Joined<>(
+                new Present<>(new EmptyIterable<>())
+            ),
+            is(emptyIterable()));
+
+        assertThat(new Joined<>(
+                new Present<>(new EmptyIterable<>()),
+                new Present<>(new EmptyIterable<>()),
+                new Present<>(new EmptyIterable<>())
+            ),
+            is(emptyIterable()));
+
+        assertThat(new Joined<>(
+                new Present<>(new EmptyIterable<>()),
+                new Absent<>(),
+                new Present<>(new EmptyIterable<>())
+            ),
+            is(emptyIterable()));
+
+        assertThat(new Joined<>(
+                new Present<>(new Seq<>(1, 2, 3))
+            ),
+            iteratesTo(1, 2, 3));
+
+        assertThat(new Joined<>(
+                new Present<>(new Seq<>(1, 2, 3)),
+                new Present<>(new Seq<>(4, 5, 6)),
+                new Present<>(new Seq<>(7, 8, 9))
+            ),
+            iteratesTo(1, 2, 3, 4, 5, 6, 7, 8, 9));
+
+        assertThat(new Joined<>(
+                new Absent<>(),
+                new Present<>(new Seq<>(4, 5, 6)),
+                new Present<>(new Seq<>(7, 8, 9))
+            ),
+            iteratesTo(4, 5, 6, 7, 8, 9));
     }
 }
