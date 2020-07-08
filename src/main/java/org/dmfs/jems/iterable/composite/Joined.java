@@ -17,7 +17,9 @@
 
 package org.dmfs.jems.iterable.composite;
 
+import org.dmfs.jems.iterable.adapters.PresentValues;
 import org.dmfs.jems.iterable.elementary.Seq;
+import org.dmfs.jems.optional.Optional;
 
 import java.util.Iterator;
 
@@ -36,13 +38,20 @@ import java.util.Iterator;
  * </code></pre>
  *
  * @param <T>
- *         The type of the iterated elements.
+ *     The type of the iterated elements.
  *
  * @author Marten Gajda
  */
 public final class Joined<T> implements Iterable<T>
 {
     private final Iterable<? extends Iterable<? extends T>> mIterables;
+
+
+    @SafeVarargs
+    public Joined(Optional<? extends Iterable<? extends T>>... iterables)
+    {
+        this(new PresentValues<>(iterables));
+    }
 
 
     @SafeVarargs
