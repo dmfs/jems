@@ -33,10 +33,10 @@ import java.util.Set;
  * Examples
  *
  * <pre>
- * Distinct([1, 2, 2, 1, 2, 3, 3]) ->
+ * Distinct([1, 2, 2, 1, 2, 3, 3]) -&gt;
  * [1, 2, 3]
  *
- * Distinct(String::length, ["abc", "xyz", "42", "21"]) ->
+ * Distinct(String::length, ["abc", "xyz", "42", "21"]) -&gt;
  * ["abc", "42"]
  * </pre>
  */
