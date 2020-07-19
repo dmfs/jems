@@ -17,6 +17,8 @@
 
 package org.dmfs.jems.messagedigest;
 
+import org.dmfs.jems.generator.Generator;
+
 import java.security.MessageDigest;
 import java.security.Provider;
 
@@ -25,7 +27,9 @@ import java.security.Provider;
  * A factory for new and unused {@link MessageDigest} instances.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link Generator} of {@link MessageDigest}.
  */
+@Deprecated
 public interface MessageDigestFactory
 {
     /**
@@ -34,7 +38,7 @@ public interface MessageDigestFactory
      * @return An unused {@link MessageDigest}.
      *
      * @throws RuntimeException
-     *         if no {@link Provider} supports the algorithm.
+     *     if no {@link Provider} supports the algorithm.
      */
     MessageDigest newInstance() throws RuntimeException;
 }

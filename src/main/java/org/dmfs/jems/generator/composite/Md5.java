@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 dmfs GmbH
+ * Copyright 2020 dmfs GmbH
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,32 +15,22 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.messagedigest.elementary;
+package org.dmfs.jems.generator.composite;
 
-import org.dmfs.jems.messagedigest.MessageDigestFactory;
+import org.dmfs.jems.generator.Generator;
+import org.dmfs.jems.generator.elementary.DelegatingGenerator;
+import org.dmfs.jems.generator.elementary.DigestGenerator;
+
+import java.security.MessageDigest;
 
 
 /**
- * An {@code MD5} {@link java.security.MessageDigest} factory.
- *
- * @author Marten Gajda
- * @deprecated in favour of {@link org.dmfs.jems.generator.composite.Md5}.
+ * An {@code MD5} {@link MessageDigest} {@link Generator}.
  */
-@Deprecated
-public final class Md5 implements MessageDigestFactory
+public final class Md5 extends DelegatingGenerator<MessageDigest>
 {
-    private final MessageDigestFactory mDelegate;
-
-
     public Md5()
     {
-        mDelegate = new DigestFactory("MD5");
-    }
-
-
-    @Override
-    public java.security.MessageDigest newInstance()
-    {
-        return mDelegate.newInstance();
+        super(new DigestGenerator("MD5"));
     }
 }

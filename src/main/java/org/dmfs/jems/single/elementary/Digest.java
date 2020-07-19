@@ -17,11 +17,10 @@
 
 package org.dmfs.jems.single.elementary;
 
-import org.dmfs.iterables.decorators.Mapped;
-import org.dmfs.jems.iterable.elementary.Seq;
-import org.dmfs.iterators.Function;
 import org.dmfs.jems.function.BiFunction;
-import org.dmfs.jems.function.elementary.SingleFunction;
+import org.dmfs.jems.generator.Generator;
+import org.dmfs.jems.iterable.decorators.Mapped;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.messagedigest.MessageDigestFactory;
 import org.dmfs.jems.single.Single;
 
@@ -37,52 +36,116 @@ import java.util.Locale;
  */
 public final class Digest implements Single<byte[]>
 {
-    private final MessageDigestFactory mMessageDigestFactory;
+    private final Generator<MessageDigest> mMessageDigestGenerator;
     private final Iterable<Single<byte[]>> mParts;
 
 
-    public Digest(MessageDigestFactory messageDigestFactory, byte[]... parts)
+    public Digest(
+        MessageDigestFactory messageDigestFactory,
+        byte[]... parts)
     {
-        this(messageDigestFactory, new Mapped<>(new Seq<>(parts), new SingleFunction<byte[]>()));
+        this(messageDigestFactory, new Mapped<>(part -> () -> part, new Seq<>(parts)));
     }
 
 
-    public Digest(MessageDigestFactory messageDigestFactory, CharSequence... parts)
+    public Digest(
+        MessageDigestFactory messageDigestFactory,
+        CharSequence... parts)
     {
         this(messageDigestFactory, "UTF-8", parts);
     }
 
 
-    public Digest(MessageDigestFactory messageDigestFactory, final String encoding, CharSequence... parts)
+    public Digest(
+        MessageDigestFactory messageDigestFactory,
+        final String encoding, CharSequence... parts)
     {
-        this(messageDigestFactory, new Mapped<>(new Seq<>(parts), new Function<CharSequence, Single<byte[]>>()
-        {
-            @Override
-            public Single<byte[]> apply(CharSequence bytes)
-            {
-                try
-                {
-                    return new ValueSingle<>(bytes.toString().getBytes(encoding));
-                }
-                catch (UnsupportedEncodingException e)
-                {
-                    throw new RuntimeException(String.format(Locale.ENGLISH, "%s encoding not supported by runtime", encoding), e);
-                }
-            }
-        }));
+        this(
+            messageDigestFactory,
+            new Mapped<>(
+                bytes -> {
+                    try
+                    {
+                        return new ValueSingle<>(bytes.toString().getBytes(encoding));
+                    }
+                    catch (UnsupportedEncodingException e)
+                    {
+                        throw new RuntimeException(String.format(Locale.ENGLISH, "%s encoding not supported by runtime", encoding), e);
+                    }
+                },
+                new Seq<>(parts)));
     }
 
 
     @SafeVarargs
-    public Digest(MessageDigestFactory messageDigestFactory, Single<byte[]>... parts)
+    public Digest(
+        MessageDigestFactory messageDigestFactory,
+        Single<byte[]>... parts)
     {
         this(messageDigestFactory, new Seq<>(parts));
     }
 
 
-    public Digest(MessageDigestFactory messageDigestFactory, Iterable<Single<byte[]>> parts)
+    public Digest(
+        MessageDigestFactory messageDigestFactory,
+        Iterable<Single<byte[]>> parts)
     {
-        mMessageDigestFactory = messageDigestFactory;
+        this((Generator<MessageDigest>) messageDigestFactory::newInstance, parts);
+    }
+
+
+    public Digest(
+        Generator<MessageDigest> messageDigestGenerator,
+        byte[]... parts)
+    {
+        this(messageDigestGenerator, new Mapped<>(part -> () -> part, new Seq<>(parts)));
+    }
+
+
+    public Digest(
+        Generator<MessageDigest> messageDigestGenerator,
+        CharSequence... parts)
+    {
+        this(messageDigestGenerator, "UTF-8", parts);
+    }
+
+
+    public Digest(
+        Generator<MessageDigest> messageDigestGenerator,
+        final String encoding,
+        CharSequence... parts)
+    {
+        this(
+            messageDigestGenerator,
+            new Mapped<>(
+                bytes -> {
+                    try
+                    {
+                        return new ValueSingle<>(bytes.toString().getBytes(encoding));
+                    }
+                    catch (UnsupportedEncodingException e)
+                    {
+                        throw new RuntimeException(String.format(Locale.ENGLISH, "%s encoding not supported by runtime", encoding), e);
+                    }
+                },
+                new Seq<>(parts)));
+    }
+
+
+    @SafeVarargs
+    public Digest(
+        Generator<MessageDigest> messageDigestGenerator,
+        Single<byte[]>... parts)
+    {
+        this(messageDigestGenerator, new Seq<>(parts));
+    }
+
+
+    public Digest(
+        Generator<MessageDigest> messageDigestGenerator,
+        Iterable<Single<byte[]>> parts)
+    {
+        mMessageDigestGenerator = messageDigestGenerator;
         mParts = parts;
     }
 
@@ -90,7 +153,7 @@ public final class Digest implements Single<byte[]>
     @Override
     public byte[] value()
     {
-        return new Reduced<Single<byte[]>, MessageDigest>(mMessageDigestFactory::newInstance, new DigestFunction(), mParts).value().digest();
+        return new Reduced<>(mMessageDigestGenerator, new DigestFunction(), mParts).value().digest();
     }
 
 
