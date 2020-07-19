@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 dmfs GmbH
+ * Copyright 2020 dmfs GmbH
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,32 +15,25 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems.messagedigest.elementary;
+package org.dmfs.jems.generator.elementary;
 
-import org.dmfs.jems.messagedigest.MessageDigestFactory;
+import org.dmfs.jems.generator.Generator;
 
 
 /**
- * An {@code SHA-256} {@link java.security.MessageDigest} factory.
- *
- * @author Marten Gajda
- * @deprecated in favour of {@link org.dmfs.jems.generator.composite.Sha256}.
+ * An abstract {@link Generator} which delegates to another {@link Generator}.
  */
-@Deprecated
-public final class Sha256 implements MessageDigestFactory
+public abstract class DelegatingGenerator<Type> implements Generator<Type>
 {
-    private final MessageDigestFactory mDelegate;
+    private final Generator<Type> mDelegate;
 
 
-    public Sha256()
-    {
-        mDelegate = new DigestFactory("SHA-256");
-    }
+    public DelegatingGenerator(Generator<Type> mDelegate) {this.mDelegate = mDelegate;}
 
 
     @Override
-    public java.security.MessageDigest newInstance()
+    public final Type next()
     {
-        return mDelegate.newInstance();
+        return mDelegate.next();
     }
 }

@@ -17,6 +17,7 @@
 
 package org.dmfs.jems.messagedigest.elementary;
 
+import org.dmfs.jems.generator.elementary.DigestGenerator;
 import org.dmfs.jems.messagedigest.MessageDigestFactory;
 
 import java.security.NoSuchAlgorithmException;
@@ -27,7 +28,9 @@ import java.util.Locale;
  * A factory for {@link java.security.MessageDigest} instances of a specific digest algorithm.
  *
  * @author Marten Gajda
+ * @deprecated in favour of {@link DigestGenerator}.
  */
+@Deprecated
 public final class DigestFactory implements MessageDigestFactory
 {
     private final String mAlgorithm;
