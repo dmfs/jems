@@ -18,21 +18,21 @@
 package org.dmfs.jems.fragile.decorators;
 
 import org.dmfs.jems.fragile.Fragile;
-import org.dmfs.jems.function.Function;
+import org.dmfs.jems.function.FragileFunction;
 
 
 /**
- * A {@link Fragile} decorator which maps the value using a given {@link Function}.
- *
- * @author Marten Gajda
+ * A {@link Fragile} decorator which maps the value using a given {@link FragileFunction}.
  */
 public final class Mapped<From, To, E extends Throwable> implements Fragile<To, E>
 {
-    private final Function<From, To> mMapFunction;
-    private final Fragile<From, E> mDelegate;
+    private final FragileFunction<? super From, ? extends To, ? extends E> mMapFunction;
+    private final Fragile<? extends From, ? extends E> mDelegate;
 
 
-    public Mapped(Function<From, To> mapFunction, Fragile<From, E> delegate)
+    public Mapped(
+        FragileFunction<? super From, ? extends To, ? extends E> mapFunction,
+        Fragile<? extends From, ? extends E> delegate)
     {
         mMapFunction = mapFunction;
         mDelegate = delegate;

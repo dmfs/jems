@@ -29,7 +29,9 @@ import static org.hamcrest.Matchers.is;
  * A {@link Matcher} to test {@link Function}s.
  *
  * @author Marten Gajda
+ * @deprecated in favor of {@link FragileFunctionMatcher}
  */
+@Deprecated
 public final class FunctionMatcher<Argument, Result> extends TypeSafeDiagnosingMatcher<Function<? super Argument, ? extends Result>>
 {
     private final Argument mArgument;
@@ -38,7 +40,10 @@ public final class FunctionMatcher<Argument, Result> extends TypeSafeDiagnosingM
 
     /**
      * Returns a {@link Matcher} which verifies that the tested {@link Function} associates the given result to the given argument.
+     *
+     * @deprecated in favor of {@link FragileFunctionMatcher#associates(Object, Object)}
      */
+    @Deprecated
     public static <Argument, Result> Matcher<Function<? super Argument, ? extends Result>> associates(Argument argument, Result result)
     {
         return new FunctionMatcher<>(argument, is(result));
@@ -48,7 +53,10 @@ public final class FunctionMatcher<Argument, Result> extends TypeSafeDiagnosingM
     /**
      * Returns a {@link Matcher} which verifies that the tested {@link Function} associates a result satisfying the given {@link Matcher} to the given
      * argument.
+     *
+     * @deprecated in favor of {@link FragileFunctionMatcher#associates(Object, Matcher)}.
      */
+    @Deprecated
     public static <Argument, Result> Matcher<Function<? super Argument, ? extends Result>> associates(Argument argument, Matcher<? super Result> resultMatcher)
     {
         return new FunctionMatcher<>(argument, resultMatcher);
@@ -80,8 +88,8 @@ public final class FunctionMatcher<Argument, Result> extends TypeSafeDiagnosingM
     public void describeTo(Description description)
     {
         description
-                .appendText(String.format("result for argument %s ", mArgument))
-                .appendDescriptionOf(mResultMatcher);
+            .appendText(String.format("result for argument %s ", mArgument))
+            .appendDescriptionOf(mResultMatcher);
     }
 
 }
