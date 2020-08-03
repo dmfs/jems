@@ -32,7 +32,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
  */
 public final class BrokenFragileMatcher<E extends Throwable> extends TypeSafeDiagnosingMatcher<Fragile<?, E>>
 {
-    private final Matcher<E> mExceptionMatcher;
+    private final Matcher<? super E> mExceptionMatcher;
 
 
     public static <E extends Throwable> Matcher<Fragile<?, E>> throwing(Matcher<E> exceptionMatcher)
@@ -57,9 +57,9 @@ public final class BrokenFragileMatcher<E extends Throwable> extends TypeSafeDia
     }
 
 
-    public BrokenFragileMatcher(Matcher<E> mExceptionMatcher)
+    public BrokenFragileMatcher(Matcher<? super E> exceptionMatcher)
     {
-        this.mExceptionMatcher = mExceptionMatcher;
+        mExceptionMatcher = exceptionMatcher;
     }
 
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 dmfs GmbH
+ * Copyright 2020 dmfs GmbH
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,8 +18,18 @@
 package org.dmfs.jems.function;
 
 /**
- * An unary function than can't throw checked Exceptions.
+ * An unary function that can throw a checked {@link Exception}.
  */
-public interface Function<Argument, Value> extends FragileFunction<Argument, Value, RuntimeException>
+public interface FragileFunction<Argument, Value, Error extends Throwable>
 {
+    /**
+     * Returns the value of this function at the given argument.
+     *
+     * @param argument
+     *     The argument of the function.
+     *
+     * @return The value of the function.
+     */
+    Value value(Argument argument) throws Error;
+
 }

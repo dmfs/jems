@@ -22,9 +22,11 @@ import org.dmfs.jems.fragile.elementary.Intact;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
-import static org.dmfs.jems.hamcrest.matchers.BrokenFragileMatcher.isBroken;
+import static org.dmfs.jems.hamcrest.matchers.BrokenFragileMatcher.throwing;
 import static org.dmfs.jems.hamcrest.matchers.IntactFragileMatcher.isIntact;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 
@@ -36,10 +38,15 @@ import static org.junit.Assert.assertThat;
 public class MappedTest
 {
     @Test
-    public void testValue() throws Exception
+    public void testValue()
     {
         assertThat(new Mapped<>(String::length, new Intact<>("abcde")), isIntact(5));
-        assertThat(new Mapped<>(String::length, new Broken<>(new FileNotFoundException())), isBroken(FileNotFoundException.class));
+        assertThat(new Mapped<>(String::length, new Broken<>(new FileNotFoundException())), is(throwing(FileNotFoundException.class)));
+        assertThat(new Mapped<>(s -> {throw new FileNotFoundException();}, new Intact<>("abcde")), is(throwing(FileNotFoundException.class)));
+        assertThat(new Mapped<>(
+                s -> {throw new IOException();},
+                new Broken<>(new FileNotFoundException())),
+            is(throwing(IOException.class)));
     }
 
 }
