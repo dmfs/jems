@@ -37,14 +37,15 @@ public final class IterableMatcher
      * {@link Matcher} that matches when the provided matchers match with the actual {@link Iterable}s elements in the same order.
      */
     @Factory
-    public static <E> Matcher<Iterable<? extends E>> iteratesTo(Iterable<Matcher<E>> itemMatchers)
+    public static <E> Matcher<Iterable<? extends E>> iteratesTo(Iterable<? extends Matcher<? super E>> itemMatchers)
     {
+
         List<Matcher<? super E>> matchers = new ArrayList<>();
-        for (Matcher<E> itemMatcher : itemMatchers)
+        for (Matcher<? super E> itemMatcher : itemMatchers)
         {
             matchers.add(itemMatcher);
         }
-        return new IsIterableContainingInOrder<E>(matchers);
+        return new IsIterableContainingInOrder<>(matchers);
     }
 
 
@@ -64,7 +65,7 @@ public final class IterableMatcher
      */
     @SafeVarargs
     @Factory
-    public static <E> Matcher<Iterable<? extends E>> iteratesTo(Matcher<E>... itemMatchers)
+    public static <E> Matcher<Iterable<? extends E>> iteratesTo(Matcher<? super E>... itemMatchers)
     {
         return IsIterableContainingInOrder.contains(itemMatchers);
     }

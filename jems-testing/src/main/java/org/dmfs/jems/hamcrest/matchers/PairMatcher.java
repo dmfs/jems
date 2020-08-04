@@ -30,13 +30,13 @@ import static org.hamcrest.CoreMatchers.equalTo;
  *
  * @author Gabor Keszthelyi
  */
-public final class PairMatcher<L, R> extends TypeSafeDiagnosingMatcher<Pair<L,R>>
+public final class PairMatcher<L, R> extends TypeSafeDiagnosingMatcher<Pair<? extends L, ? extends R>>
 {
-    private final Matcher<L> mLeftValueMatcher;
-    private final Matcher<R> mRightValueMatcher;
+    private final Matcher<? super L> mLeftValueMatcher;
+    private final Matcher<? super R> mRightValueMatcher;
 
 
-    public PairMatcher(Matcher<L> leftValueMatcher, Matcher<R> rightValueMatcher)
+    public PairMatcher(Matcher<? super L> leftValueMatcher, Matcher<? super R> rightValueMatcher)
     {
         mLeftValueMatcher = leftValueMatcher;
         mRightValueMatcher = rightValueMatcher;
@@ -44,7 +44,7 @@ public final class PairMatcher<L, R> extends TypeSafeDiagnosingMatcher<Pair<L,R>
 
 
     @Override
-    protected boolean matchesSafely(Pair actualPair, Description mismatchDescription)
+    protected boolean matchesSafely(Pair<? extends L, ? extends R> actualPair, Description mismatchDescription)
     {
         if (!mLeftValueMatcher.matches(actualPair.left()))
         {
@@ -75,7 +75,7 @@ public final class PairMatcher<L, R> extends TypeSafeDiagnosingMatcher<Pair<L,R>
     /**
      * Matcher that matches when the provided left and right value equals() to actual {@link Pair}s left and right value.
      */
-    public static <L, R> Matcher<Pair<L, R>> pair(L leftValue, R rightValue)
+    public static <L, R> Matcher<Pair<? extends L, ? extends R>> pair(L leftValue, R rightValue)
     {
         return new PairMatcher<>(equalTo(leftValue), equalTo(rightValue));
     }
@@ -84,7 +84,7 @@ public final class PairMatcher<L, R> extends TypeSafeDiagnosingMatcher<Pair<L,R>
     /**
      * Matcher that matches when the provided {@link Matcher}s for the left and right value match with the {@link Pair}s left and right value.
      */
-    public static <L, R> Matcher<Pair<L, R>> pair(Matcher<L> leftValueMatcher, Matcher<R> rightValueMatcher)
+    public static <L, R> Matcher<Pair<? extends L, ? extends R>> pair(Matcher<? super L> leftValueMatcher, Matcher<? super R> rightValueMatcher)
     {
         return new PairMatcher<>(leftValueMatcher, rightValueMatcher);
     }

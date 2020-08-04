@@ -32,12 +32,15 @@ import java.util.Iterator;
  */
 public final class Zipped<Left, Right, Result> extends AbstractBaseIterator<Result>
 {
-    private final Iterator<Left> mLeft;
-    private final Iterator<Right> mRight;
-    private final BiFunction<Left, Right, Result> mFunction;
+    private final Iterator<? extends Left> mLeft;
+    private final Iterator<? extends Right> mRight;
+    private final BiFunction<? super Left, ? super Right, ? extends Result> mFunction;
 
 
-    public Zipped(Iterator<Left> left, Iterator<Right> right, BiFunction<Left, Right, Result> function)
+    public Zipped(
+        Iterator<? extends Left> left,
+        Iterator<? extends Right> right,
+        BiFunction<? super Left, ? super Right, ? extends Result> function)
     {
         mLeft = left;
         mRight = right;

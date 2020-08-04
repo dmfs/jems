@@ -30,19 +30,19 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
-public final class AbsentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<T>>
+public final class AbsentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<? extends T>>
 {
     /**
      * Creates a matcher that matches when the tested value is absent.
      */
     public static <T> AbsentMatcher<T> absent()
     {
-        return new AbsentMatcher<T>();
+        return new AbsentMatcher<>();
     }
 
 
     @Override
-    protected boolean matchesSafely(Optional<T> item, Description mismatchDescription)
+    protected boolean matchesSafely(Optional<? extends T> item, Description mismatchDescription)
     {
         if (item.isPresent())
         {

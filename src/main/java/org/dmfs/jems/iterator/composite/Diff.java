@@ -36,17 +36,19 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
-public final class Diff<Left, Right> extends AbstractBaseIterator<Pair<Optional<Left>, Optional<Right>>>
+public final class Diff<Left, Right> extends AbstractBaseIterator<Pair<? extends Optional<? extends Left>, ? extends Optional<? extends Right>>>
 {
-    private final Iterator<Left> mLefts;
-    private final Iterator<Right> mRights;
-    private final BiFunction<Left, Right, Integer> mComparatorFunction;
+    private final Iterator<? extends Left> mLefts;
+    private final Iterator<? extends Right> mRights;
+    private final BiFunction<? super Left, ? super Right, Integer> mComparatorFunction;
 
-    private Optional<Left> mNextLeft;
-    private Optional<Right> mNextRight;
+    private Optional<? extends Left> mNextLeft;
+    private Optional<? extends Right> mNextRight;
 
 
-    public Diff(Iterator<Left> leftIterator, Iterator<Right> rightIterator, BiFunction<Left, Right, Integer> comparatorFunction)
+    public Diff(Iterator<? extends Left> leftIterator,
+                Iterator<? extends Right> rightIterator,
+                BiFunction<? super Left, ? super Right, Integer> comparatorFunction)
     {
         mLefts = leftIterator;
         mRights = rightIterator;
@@ -64,7 +66,7 @@ public final class Diff<Left, Right> extends AbstractBaseIterator<Pair<Optional<
 
 
     @Override
-    public Pair<Optional<Left>, Optional<Right>> next()
+    public Pair<? extends Optional<? extends Left>, ? extends Optional<? extends Right>> next()
     {
         if (!hasNext())
         {
@@ -74,14 +76,14 @@ public final class Diff<Left, Right> extends AbstractBaseIterator<Pair<Optional<
         if (!mNextLeft.isPresent())
         {
             // no further elements on the left, advance the right side
-            Optional<Right> right = mNextRight;
+            Optional<? extends Right> right = mNextRight;
             mNextRight = new Next<>(mRights);
             return new RightSidedPair<>(right);
         }
         if (!mNextRight.isPresent())
         {
             // no further elements on the right, advance the left side
-            Optional<Left> left = mNextLeft;
+            Optional<? extends Left> left = mNextLeft;
             mNextLeft = new Next<>(mLefts);
             return new LeftSidedPair<>(left);
         }
@@ -90,7 +92,7 @@ public final class Diff<Left, Right> extends AbstractBaseIterator<Pair<Optional<
         if (result < 0)
         {
             // return the smaller result, the left one in this case
-            Optional<Left> nextLeft = mNextLeft;
+            Optional<? extends Left> nextLeft = mNextLeft;
             // advance left
             mNextLeft = new Next<>(mLefts);
             return new LeftSidedPair<>(nextLeft);
@@ -98,15 +100,15 @@ public final class Diff<Left, Right> extends AbstractBaseIterator<Pair<Optional<
         if (result > 0)
         {
             // return the smaller result, the right one in this case
-            Optional<Right> nextRight = mNextRight;
+            Optional<? extends Right> nextRight = mNextRight;
             // advance right
             mNextRight = new Next<>(mRights);
             return new RightSidedPair<>(nextRight);
         }
 
         // both sides are equal
-        Optional<Left> nextLeft = mNextLeft;
-        Optional<Right> nextRight = mNextRight;
+        Optional<? extends Left> nextLeft = mNextLeft;
+        Optional<? extends Right> nextRight = mNextRight;
         // advance both
         mNextLeft = new Next<>(mLefts);
         mNextRight = new Next<>(mRights);

@@ -40,7 +40,7 @@ public final class IteratorMatcher<T> extends TypeSafeDiagnosingMatcher<Generato
 {
     public static final int HAS_NEXT_TEST_COUNT = 100;
     public static final int EXCEPTION_TEST_COUNT = 100;
-    private final Iterable<Matcher<T>> mElementMatchers;
+    private final Iterable<Matcher<? super T>> mElementMatchers;
 
 
     public static <T> Matcher<Generator<? extends Iterator<? extends T>>> emptyIterator()
@@ -56,20 +56,20 @@ public final class IteratorMatcher<T> extends TypeSafeDiagnosingMatcher<Generato
     }
 
 
-    public static <T> Matcher<Generator<? extends Iterator<? extends T>>> iteratorOf(Iterable<Matcher<T>> elementMatchers)
+    public static <T> Matcher<Generator<? extends Iterator<? extends T>>> iteratorOf(Iterable<Matcher<? super T>> elementMatchers)
     {
         return new IteratorMatcher<>(elementMatchers);
     }
 
 
     @SafeVarargs
-    public static <T> Matcher<Generator<? extends Iterator<? extends T>>> iteratorOf(Matcher<T>... elementMatchers)
+    public static <T> Matcher<Generator<? extends Iterator<? extends T>>> iteratorOf(Matcher<? super T>... elementMatchers)
     {
-        return new IteratorMatcher<>(new Seq<>(elementMatchers));
+        return new IteratorMatcher<T>(new Seq<>(elementMatchers));
     }
 
 
-    public IteratorMatcher(Iterable<Matcher<T>> mElementMatchers)
+    public IteratorMatcher(Iterable<Matcher<? super T>> mElementMatchers)
     {
         this.mElementMatchers = mElementMatchers;
     }
@@ -78,7 +78,7 @@ public final class IteratorMatcher<T> extends TypeSafeDiagnosingMatcher<Generato
     @Override
     protected boolean matchesSafely(Generator<? extends Iterator<? extends T>> item, Description mismatchDescription)
     {
-        Iterator<Matcher<T>> matcherIterator = mElementMatchers.iterator();
+        Iterator<Matcher<? super T>> matcherIterator = mElementMatchers.iterator();
         Iterator<? extends T> testee = item.next();
         int index = 0;
         while (testee.hasNext() && matcherIterator.hasNext())
@@ -108,7 +108,7 @@ public final class IteratorMatcher<T> extends TypeSafeDiagnosingMatcher<Generato
                 }
             }
             T next = testee.next();
-            Matcher<T> nextMatcher = matcherIterator.next();
+            Matcher<? super T> nextMatcher = matcherIterator.next();
             if (!nextMatcher.matches(next))
             {
                 nextMatcher.describeMismatch(next, mismatchDescription);
