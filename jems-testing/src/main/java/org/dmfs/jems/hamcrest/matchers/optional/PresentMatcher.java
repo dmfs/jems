@@ -24,15 +24,17 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
 import org.hamcrest.core.IsAnything;
 import org.hamcrest.core.IsEqual;
 
+import static org.hamcrest.Matchers.equalTo;
+
 
 /**
  * A {@link Matcher} to match the presence and value of an {@link Optional}.
  *
  * @author Marten Gajda
  */
-public final class PresentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<T>>
+public final class PresentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<? extends T>>
 {
-    private final Matcher<T> mDelegate;
+    private final Matcher<? super T> mDelegate;
 
 
     public PresentMatcher()
@@ -47,7 +49,7 @@ public final class PresentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<
     }
 
 
-    public PresentMatcher(Matcher<T> delegate)
+    public PresentMatcher(Matcher<? super T> delegate)
     {
         mDelegate = delegate;
     }
@@ -61,18 +63,18 @@ public final class PresentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<
 
     public static <T> PresentMatcher<T> present(T expectedValue)
     {
-        return new PresentMatcher<>(expectedValue);
+        return new PresentMatcher<>(equalTo(expectedValue));
     }
 
 
-    public static <T> PresentMatcher<T> present(Matcher<T> delegate)
+    public static <T> PresentMatcher<T> present(Matcher<? super T> delegate)
     {
         return new PresentMatcher<>(delegate);
     }
 
 
     @Override
-    protected boolean matchesSafely(Optional<T> item, Description mismatchDescription)
+    protected boolean matchesSafely(Optional<? extends T> item, Description mismatchDescription)
     {
         if (!item.isPresent())
         {

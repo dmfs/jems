@@ -34,9 +34,9 @@ import java.util.Iterator;
 public final class PairZipped<Left, Right> extends DelegatingIterator<Pair<Left, Right>>
 {
 
-    public PairZipped(Iterator<Left> leftIterator, Iterator<Right> rightIterator)
+    public PairZipped(Iterator<? extends Left> leftIterator, Iterator<? extends Right> rightIterator)
     {
-        super(new Zipped<>(leftIterator, rightIterator, PairingFunction.<Left, Right>instance()));
+        super(new Zipped<>(leftIterator, rightIterator, PairingFunction.instance()));
     }
 
 }

@@ -18,8 +18,9 @@
 package org.dmfs.jems.iterable.composite;
 
 import org.dmfs.iterables.EmptyIterable;
-import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.function.BiFunction;
+import org.dmfs.jems.hamcrest.matchers.optional.AbsentMatcher;
+import org.dmfs.jems.iterable.elementary.Seq;
 import org.junit.Test;
 
 import static org.dmfs.jems.hamcrest.matchers.IterableMatcher.iteratesTo;
@@ -41,86 +42,86 @@ public class DiffTest
     {
         // empty Iterables result in an empty Diff
         assertThat(new Diff<>(EmptyIterable.<String>instance(), EmptyIterable.<String>instance(), new TestFunction()),
-                emptyIterable());
+            emptyIterable());
 
         // one empty side, means this side is always absent in the result
         assertThat(new Diff<>(new Seq<>("a"), EmptyIterable.<String>instance(), new TestFunction()),
-                iteratesTo(
-                        pair(is(present("a")), is(absent()))));
+            iteratesTo(
+                pair(is(present("a")), is(absent()))));
         assertThat(new Diff<>(new Seq<>("a", "b"), EmptyIterable.<String>instance(), new TestFunction()),
-                iteratesTo(
-                        pair(is(present("a")), is(absent())),
-                        pair(is(present("b")), is(absent()))));
+            iteratesTo(
+                pair(is(present("a")), is(absent())),
+                pair(is(present("b")), is(absent()))));
         assertThat(new Diff<>(new Seq<>("a", "b", "c"), EmptyIterable.<String>instance(), new TestFunction()),
-                iteratesTo(
-                        pair(is(present("a")), is(absent())),
-                        pair(is(present("b")), is(absent())),
-                        pair(is(present("c")), is(absent()))));
+            iteratesTo(
+                pair(is(present("a")), is(absent())),
+                pair(is(present("b")), is(absent())),
+                pair(is(present("c")), is(absent()))));
 
         assertThat(new Diff<>(EmptyIterable.<String>instance(), new Seq<>("a"), new TestFunction()),
-                iteratesTo(
-                        pair(is(absent()), is(present("a")))));
+            iteratesTo(
+                pair(is(absent()), is(present("a")))));
         assertThat(new Diff<>(EmptyIterable.<String>instance(), new Seq<>("a", "b"), new TestFunction()),
-                iteratesTo(
-                        pair(is(absent()), is(present("a"))),
-                        pair(is(absent()), is(present("b")))));
+            iteratesTo(
+                pair(is(absent()), is(present("a"))),
+                pair(is(absent()), is(present("b")))));
         assertThat(new Diff<>(EmptyIterable.<String>instance(), new Seq<>("a", "b", "c"), new TestFunction()),
-                iteratesTo(
-                        pair(is(absent()), is(present("a"))),
-                        pair(is(absent()), is(present("b"))),
-                        pair(is(absent()), is(present("c")))));
+            iteratesTo(
+                pair(is(absent()), is(present("a"))),
+                pair(is(absent()), is(present("b"))),
+                pair(is(absent()), is(present("c")))));
 
         // equals Iterables result in pairs with both sides present
         assertThat(new Diff<>(new Seq<>("a"), new Seq<>("a"), new TestFunction()),
-                iteratesTo(
-                        pair(is(present("a")), is(present("a")))));
+            iteratesTo(
+                pair(is(present("a")), is(present("a")))));
         assertThat(new Diff<>(new Seq<>("a", "b"), new Seq<>("a", "b"), new TestFunction()),
-                iteratesTo(
-                        pair(is(present("a")), is(present("a"))),
-                        pair(is(present("b")), is(present("b")))));
+            iteratesTo(
+                pair(is(present("a")), is(present("a"))),
+                pair(is(present("b")), is(present("b")))));
         assertThat(new Diff<>(new Seq<>("a", "b", "c"), new Seq<>("a", "b", "c"), new TestFunction()),
-                iteratesTo(
-                        pair(is(present("a")), is(present("a"))),
-                        pair(is(present("b")), is(present("b"))),
-                        pair(is(present("c")), is(present("c")))));
+            iteratesTo(
+                pair(is(present("a")), is(present("a"))),
+                pair(is(present("b")), is(present("b"))),
+                pair(is(present("c")), is(present("c")))));
 
         // various different Iterables
         assertThat(new Diff<>(new Seq<>("a"), new Seq<>("b"), new TestFunction()),
-                iteratesTo(
-                        pair(is(present("a")), is(absent())),
-                        pair(is(absent()), is(present("b")))));
+            iteratesTo(
+                pair(is(present("a")), is(AbsentMatcher.<String>absent())),
+                pair(is(absent()), is(present("b")))));
         assertThat(new Diff<>(new Seq<>("a"), new Seq<>("a", "b"), new TestFunction()),
-                iteratesTo(
-                        pair(is(present("a")), is(present("a"))),
-                        pair(is(absent()), is(present("b")))));
+            iteratesTo(
+                pair(is(present("a")), is(present("a"))),
+                pair(is(absent()), is(present("b")))));
         assertThat(new Diff<>(new Seq<>("a", "b"), new Seq<>("b"), new TestFunction()),
-                iteratesTo(
-                        pair(is(present("a")), is(absent())),
-                        pair(is(present("b")), is(present("b")))));
+            iteratesTo(
+                pair(is(present("a")), is(absent())),
+                pair(is(present("b")), is(present("b")))));
 
         assertThat(new Diff<>(new Seq<>("a", "c"), new Seq<>("a", "b", "c"), new TestFunction()),
-                iteratesTo(
-                        pair(is(present("a")), is(present("a"))),
-                        pair(is(absent()), is(present("b"))),
-                        pair(is(present("c")), is(present("c")))));
+            iteratesTo(
+                pair(is(present("a")), is(present("a"))),
+                pair(is(absent()), is(present("b"))),
+                pair(is(present("c")), is(present("c")))));
 
         assertThat(new Diff<>(new Seq<>("a", "b", "c"), new Seq<>("a", "c"), new TestFunction()),
-                iteratesTo(
-                        pair(is(present("a")), is(present("a"))),
-                        pair(is(present("b")), is(absent())),
-                        pair(is(present("c")), is(present("c")))));
+            iteratesTo(
+                pair(is(present("a")), is(present("a"))),
+                pair(is(present("b")), is(absent())),
+                pair(is(present("c")), is(present("c")))));
 
         assertThat(new Diff<>(new Seq<>("b"), new Seq<>("a", "b", "c"), new TestFunction()),
-                iteratesTo(
-                        pair(is(absent()), is(present("a"))),
-                        pair(is(present("b")), is(present("b"))),
-                        pair(is(absent()), is(present("c")))));
+            iteratesTo(
+                pair(is(absent()), is(present("a"))),
+                pair(is(present("b")), is(present("b"))),
+                pair(is(absent()), is(present("c")))));
 
         assertThat(new Diff<>(new Seq<>("a", "b", "c"), new Seq<>("b"), new TestFunction()),
-                iteratesTo(
-                        pair(is(present("a")), is(absent())),
-                        pair(is(present("b")), is(present("b"))),
-                        pair(is(present("c")), is(absent()))));
+            iteratesTo(
+                pair(is(present("a")), is(absent())),
+                pair(is(present("b")), is(present("b"))),
+                pair(is(present("c")), is(absent()))));
     }
 
 
