@@ -5,10 +5,13 @@ sourceCompatibility = 1.8
 def gitVersion = { ->
     def stdout = new ByteArrayOutputStream()
     exec {
-        commandLine 'git', 'describe', '--tags'
+        commandLine 'git', 'describe', '--tags', '--long'
         standardOutput = stdout
     }
-    return stdout.toString().trim()
+    def version = stdout.toString().trim()
+    // TODO: a SNAPSHOT should have the minor number increased by one (and the patch number reset to 0) https://github.com/dmfs/jems/issues/295
+    // TODO: the git version format is not fully compliant to semantic versioning 2.0.0 https://github.com/dmfs/jems/issues/295
+    return version.contains('-') ? version + '-SNAPSHOT' : version
 }
 
 allprojects {
