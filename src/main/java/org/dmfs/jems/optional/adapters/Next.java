@@ -32,12 +32,12 @@ import java.util.NoSuchElementException;
  */
 public final class Next<E> implements Optional<E>
 {
-    private final Iterator<E> mIterator;
+    private final Iterator<? extends E> mIterator;
 
     private Optional<E> mDelegate;
 
 
-    public Next(Iterator<E> iterator)
+    public Next(Iterator<? extends E> iterator)
     {
         mIterator = iterator;
     }
@@ -61,7 +61,7 @@ public final class Next<E> implements Optional<E>
     {
         if (mDelegate == null)
         {
-            mDelegate = mIterator.hasNext() ? new Present<E>(mIterator.next()) : Absent.<E>absent();
+            mDelegate = mIterator.hasNext() ? new Present<>(mIterator.next()) : Absent.absent();
         }
         return mDelegate;
     }
