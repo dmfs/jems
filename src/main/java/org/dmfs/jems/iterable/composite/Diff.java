@@ -29,7 +29,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
-public final class Diff<Left, Right> implements Iterable<Pair<? extends Optional<? extends Left>, ? extends Optional<? extends Right>>>
+public final class Diff<Left, Right> implements Iterable<Pair<Optional<Left>, Optional<Right>>>
 {
     private final Iterable<? extends Left> mLefts;
     private final Iterable<? extends Right> mRights;
@@ -48,7 +48,7 @@ public final class Diff<Left, Right> implements Iterable<Pair<? extends Optional
 
 
     @Override
-    public Iterator<Pair<? extends Optional<? extends Left>, ? extends Optional<? extends Right>>> iterator()
+    public Iterator<Pair<Optional<Left>, Optional< Right>>> iterator()
     {
         return new org.dmfs.jems.iterator.composite.Diff<>(mLefts.iterator(), mRights.iterator(), mComparatorFunction);
     }

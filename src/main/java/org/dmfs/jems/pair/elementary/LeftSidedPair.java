@@ -28,7 +28,7 @@ import static org.dmfs.optional.Absent.absent;
  *
  * @author Marten Gajda
  */
-public final class LeftSidedPair<Left, Right> implements Pair<Left, Optional<? extends Right>>
+public final class LeftSidedPair<Left, Right> implements Pair<Left, Optional<Right>>
 {
     private final Left mLeft;
 
@@ -47,7 +47,7 @@ public final class LeftSidedPair<Left, Right> implements Pair<Left, Optional<? e
 
 
     @Override
-    public Optional<? extends Right> right()
+    public Optional<Right> right()
     {
         return absent();
     }
