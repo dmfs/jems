@@ -17,14 +17,15 @@
 
 package org.dmfs.jems.single;
 
+import org.dmfs.jems.fragile.Fragile;
+
+
 /**
  * A 1-tuple.
  * <p>
- * A Single represents a tuple with exactly one value.
- *
- * @author Marten Gajda
+ * A Single is a tuple with exactly one value.
  */
-public interface Single<T>
+public interface Single<T> extends Fragile<T, RuntimeException>
 {
     /**
      * Returns the sole value of this 1-tuple.

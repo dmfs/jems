@@ -26,27 +26,27 @@ import org.dmfs.jems.single.Single;
  * The {@link Single} value of a reduced {@link Iterable}.
  * <p>
  * Note, this is the single threaded version of a "reduce" operation.
- *
- * @author Marten Gajda
  */
 public final class Reduced<Value, Result> implements Single<Result>
 {
-    private final Generator<Result> mInitialValue;
-    private final Iterable<Value> mIterable;
-    private final BiFunction<Result, Value, Result> mFunction;
+    private final Generator<? extends Result> mInitialValue;
+    private final Iterable<? extends Value> mIterable;
+    private final BiFunction<? super Result, ? super Value, ? extends Result> mFunction;
 
 
     /**
      * @deprecated in favor of {@link Reduced#Reduced(Generator, BiFunction, Iterable)}.
      */
     @Deprecated
-    public Reduced(Result initialValue, BiFunction<Result, Value, Result> accumulatorFunction, Iterable<Value> iterable)
+    public Reduced(Result initialValue, BiFunction<? super Result, ? super Value, ? extends Result> accumulatorFunction, Iterable<? extends Value> iterable)
     {
         this(() -> initialValue, accumulatorFunction, iterable);
     }
 
 
-    public Reduced(Generator<Result> initialValueGenerator, BiFunction<Result, Value, Result> accumulatorFunction, Iterable<Value> iterable)
+    public Reduced(Generator<? extends Result> initialValueGenerator,
+                   BiFunction<? super Result, ? super Value, ? extends Result> accumulatorFunction,
+                   Iterable<? extends Value> iterable)
     {
         mInitialValue = initialValueGenerator;
         mIterable = iterable;
