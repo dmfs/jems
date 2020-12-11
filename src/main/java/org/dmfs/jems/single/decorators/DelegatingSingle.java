@@ -17,20 +17,19 @@
 
 package org.dmfs.jems.single.decorators;
 
+import org.dmfs.jems.fragile.Fragile;
 import org.dmfs.jems.single.Single;
 
 
 /**
  * A {@link Single} which delegates all calls to another {@link Single}.
- *
- * @author Marten Gajda
  */
 public abstract class DelegatingSingle<T> implements Single<T>
 {
-    private final Single<T> mDelegate;
+    private final Fragile<T, ? extends RuntimeException> mDelegate;
 
 
-    protected DelegatingSingle(Single<T> delegate)
+    protected DelegatingSingle(Fragile<T, ? extends RuntimeException> delegate)
     {
         mDelegate = delegate;
     }

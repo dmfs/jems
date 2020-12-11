@@ -17,20 +17,19 @@
 
 package org.dmfs.jems.single.elementary;
 
+import org.dmfs.jems.fragile.Fragile;
 import org.dmfs.jems.single.Single;
 
 
 /**
  * The {@link Single} of a hexadecimal representation of a {@link Single} array of bytes.
- *
- * @author Marten Gajda
  */
 public final class Hex implements Single<CharSequence>
 {
-    private final Single<byte[]> mDelegate;
+    private final Fragile<byte[], ? extends RuntimeException> mDelegate;
 
 
-    public Hex(Single<byte[]> delegate)
+    public Hex(Fragile<byte[], ? extends RuntimeException> delegate)
     {
         mDelegate = delegate;
     }

@@ -22,8 +22,6 @@ import org.dmfs.jems.single.Single;
 
 /**
  * The most simple {@link Single} there is. It takes a value and returns exactly the same value on request.
- *
- * @author Marten Gajda
  */
 public final class ValueSingle<T> implements Single<T>
 {

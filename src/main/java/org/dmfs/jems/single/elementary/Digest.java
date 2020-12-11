@@ -17,6 +17,7 @@
 
 package org.dmfs.jems.single.elementary;
 
+import org.dmfs.jems.fragile.Fragile;
 import org.dmfs.jems.function.BiFunction;
 import org.dmfs.jems.generator.Generator;
 import org.dmfs.jems.iterable.decorators.Mapped;
@@ -31,13 +32,11 @@ import java.util.Locale;
 
 /**
  * A {@link Single} of a byte array which represents the digested value of the given input data.
- *
- * @author Marten Gajda
  */
 public final class Digest implements Single<byte[]>
 {
     private final Generator<MessageDigest> mMessageDigestGenerator;
-    private final Iterable<Single<byte[]>> mParts;
+    private final Iterable<? extends Fragile<byte[], ? extends RuntimeException>> mParts;
 
 
     public Digest(
@@ -80,7 +79,7 @@ public final class Digest implements Single<byte[]>
     @SafeVarargs
     public Digest(
         MessageDigestFactory messageDigestFactory,
-        Single<byte[]>... parts)
+        Fragile<byte[], ? extends RuntimeException>... parts)
     {
         this(messageDigestFactory, new Seq<>(parts));
     }
@@ -88,7 +87,7 @@ public final class Digest implements Single<byte[]>
 
     public Digest(
         MessageDigestFactory messageDigestFactory,
-        Iterable<Single<byte[]>> parts)
+        Iterable<? extends Fragile<byte[], ? extends RuntimeException>> parts)
     {
         this((Generator<MessageDigest>) messageDigestFactory::newInstance, parts);
     }
@@ -135,7 +134,7 @@ public final class Digest implements Single<byte[]>
     @SafeVarargs
     public Digest(
         Generator<MessageDigest> messageDigestGenerator,
-        Single<byte[]>... parts)
+        Fragile<byte[], ? extends RuntimeException>... parts)
     {
         this(messageDigestGenerator, new Seq<>(parts));
     }
@@ -143,7 +142,7 @@ public final class Digest implements Single<byte[]>
 
     public Digest(
         Generator<MessageDigest> messageDigestGenerator,
-        Iterable<Single<byte[]>> parts)
+        Iterable<? extends Fragile<byte[], ? extends RuntimeException>> parts)
     {
         mMessageDigestGenerator = messageDigestGenerator;
         mParts = parts;
@@ -157,10 +156,10 @@ public final class Digest implements Single<byte[]>
     }
 
 
-    private final static class DigestFunction implements BiFunction<MessageDigest, Single<byte[]>, MessageDigest>
+    private final static class DigestFunction implements BiFunction<MessageDigest, Fragile<byte[], ? extends RuntimeException>, MessageDigest>
     {
         @Override
-        public MessageDigest value(MessageDigest messageDigest, Single<byte[]> bytes)
+        public MessageDigest value(MessageDigest messageDigest, Fragile<byte[], ? extends RuntimeException> bytes)
         {
             messageDigest.update(bytes.value());
             return messageDigest;

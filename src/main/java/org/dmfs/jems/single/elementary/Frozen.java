@@ -17,20 +17,19 @@
 
 package org.dmfs.jems.single.elementary;
 
+import org.dmfs.jems.fragile.Fragile;
 import org.dmfs.jems.single.Single;
 
 
 /**
  * {@link Single} decorator that queries the delegate only once and returns the same value instance ever after.
- *
- * @author Marten Gajda
  */
 public final class Frozen<T> implements Single<T>
 {
-    private Single<T> mDelegate;
+    private Fragile<T, ? extends RuntimeException> mDelegate;
 
 
-    public Frozen(Single<T> delegate)
+    public Frozen(Fragile<T, ? extends RuntimeException> delegate)
     {
         mDelegate = () -> {
             T result = delegate.value();

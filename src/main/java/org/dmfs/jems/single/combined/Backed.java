@@ -17,6 +17,7 @@
 
 package org.dmfs.jems.single.combined;
 
+import org.dmfs.jems.fragile.Fragile;
 import org.dmfs.jems.optional.Optional;
 import org.dmfs.jems.single.Single;
 import org.dmfs.jems.single.elementary.ValueSingle;
@@ -24,16 +25,14 @@ import org.dmfs.jems.single.elementary.ValueSingle;
 
 /**
  * {@link Single} that delegates to the given {@link Optional} if that is present, otherwise falls back to the provided back-up {@link Single}.
- *
- * @author Gabor Keszthelyi
  */
 public final class Backed<T> implements Single<T>
 {
     private final Optional<? extends T> mOptional;
-    private final Single<? extends T> mBackUp;
+    private final Fragile<? extends T, ? extends RuntimeException> mBackUp;
 
 
-    public Backed(Optional<? extends T> optional, Single<? extends T> backUp)
+    public Backed(Optional<? extends T> optional, Fragile<? extends T, ? extends RuntimeException> backUp)
     {
         mOptional = optional;
         mBackUp = backUp;

@@ -18,44 +18,36 @@
 package org.dmfs.jems.hamcrest.matchers;
 
 import org.dmfs.jems.single.elementary.ValueSingle;
-import org.hamcrest.Description;
-import org.hamcrest.StringDescription;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
-import static org.hamcrest.object.HasToString.hasToString;
-import static org.junit.Assert.assertFalse;
+import static org.dmfs.jems.hamcrest.matchers.SingleMatcher.hasValue;
+import static org.dmfs.jems.hamcrest.matchers.matcher.MatcherMatcher.describesAs;
+import static org.dmfs.jems.hamcrest.matchers.matcher.MatcherMatcher.matches;
+import static org.dmfs.jems.hamcrest.matchers.matcher.MatcherMatcher.mismatches;
+import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 
 /**
  * Unit test for {@link SingleMatcher}.
- *
- * @author Gabor Keszthelyi
  */
 public class SingleMatcherTest
 {
 
     @Test
-    public void testMatches()
+    public void test()
     {
-        assertFalse(new SingleMatcher<>(new IsEqual<>("a")).matches(new ValueSingle<>("b")));
-        assertFalse(SingleMatcher.hasValue(new IsEqual<>("a")).matches(new ValueSingle<>("b")));
-        assertFalse(SingleMatcher.hasValue("a").matches(new ValueSingle<>("b")));
+        assertThat(hasValue(new IsEqual<>("a")),
+            allOf(
+                matches(new ValueSingle<>("a")),
+                mismatches(new ValueSingle<>("b"), "value was \"b\""),
+                describesAs("value \"a\"")));
 
-        assertTrue(new SingleMatcher<>(new IsEqual<>("a")).matches(new ValueSingle<>("a")));
-        assertTrue(SingleMatcher.hasValue(new IsEqual<>("a")).matches(new ValueSingle<>("a")));
-        assertTrue(SingleMatcher.hasValue("a").matches(new ValueSingle<>("a")));
+        assertThat(hasValue("a"),
+            allOf(
+                matches(new ValueSingle<>("a")),
+                mismatches(new ValueSingle<>("b"), "value was \"b\""),
+                describesAs("value \"a\"")));
     }
-
-
-    @Test
-    public void testDescribeTo()
-    {
-        Description mismatchMsg = new StringDescription();
-        new SingleMatcher<>(new IsEqual<>("a")).describeTo(mismatchMsg);
-        assertThat(mismatchMsg, hasToString("Single with value() \"a\""));
-    }
-
 }

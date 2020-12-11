@@ -17,40 +17,30 @@
 
 package org.dmfs.jems.hamcrest.matchers;
 
+import org.dmfs.jems.fragile.Fragile;
 import org.dmfs.jems.single.Single;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
+
+import static org.dmfs.jems.hamcrest.matchers.LambdaMatcher.having;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 
 /**
  * {@link Matcher} for {@link Single}.
- *
- * @author Gabor Keszthelyi
  */
-public final class SingleMatcher<T> extends FeatureMatcher<Single<? extends T>, T>
+public final class SingleMatcher
 {
-    public SingleMatcher(Matcher<? super T> valueMatcher)
+    private SingleMatcher() {}
+
+
+    public static <T> Matcher<Fragile<? extends T, ? extends RuntimeException>> hasValue(Matcher<T> valueMatcher)
     {
-        super(valueMatcher, "Single with value()", "Single with value()");
+        return having("value", Fragile::value, valueMatcher);
     }
 
 
-    @Override
-    protected T featureValueOf(Single<? extends T> actual)
+    public static <T> Matcher<Fragile<? extends T, ? extends RuntimeException>> hasValue(T expectedValue)
     {
-        return actual.value();
-    }
-
-
-    public static <T> Matcher<Single<? extends T>> hasValue(Matcher<T> valueMatcher)
-    {
-        return new SingleMatcher<>(valueMatcher);
-    }
-
-
-    public static <T> Matcher<Single<? extends T>> hasValue(T expectedValue)
-    {
-        return new SingleMatcher<>(CoreMatchers.equalTo(expectedValue));
+        return hasValue(equalTo(expectedValue));
     }
 }
