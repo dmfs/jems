@@ -22,10 +22,8 @@ import org.dmfs.jems.fragile.Fragile;
 
 /**
  * A {@link Fragile} which is broken and always throws an Exception.
- *
- * @author Marten Gajda
  */
-public final class Broken<T, E extends Throwable> implements Fragile<T, E>
+public final class Broken<T, E extends Exception> implements Fragile<T, E>
 {
     private final E mException;
 
