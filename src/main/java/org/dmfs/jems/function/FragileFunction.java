@@ -20,7 +20,7 @@ package org.dmfs.jems.function;
 /**
  * An unary function that can throw a checked {@link Exception}.
  */
-public interface FragileFunction<Argument, Value, Error extends Throwable>
+public interface FragileFunction<Argument, Value, Error extends Exception>
 {
     /**
      * Returns the value of this function at the given argument.

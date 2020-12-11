@@ -26,7 +26,7 @@ import org.dmfs.jems.function.BiFunction;
  *
  * @author Marten Gajda
  */
-public final class Zipped<Left, Right, Result, E extends Throwable> implements Fragile<Result, E>
+public final class Zipped<Left, Right, Result, E extends Exception> implements Fragile<Result, E>
 {
     private final BiFunction<Left, Right, Result> mZipFunction;
     private final Fragile<Left, ? extends E> mLeft;

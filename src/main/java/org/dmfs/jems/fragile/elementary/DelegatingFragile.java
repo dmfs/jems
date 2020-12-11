@@ -22,10 +22,8 @@ import org.dmfs.jems.fragile.Fragile;
 
 /**
  * An abstract {@link Fragile} which delegates all calls to another {@link Fragile}.
- *
- * @author Marten Gajda
  */
-public abstract class DelegatingFragile<T, E extends Throwable> implements Fragile<T, E>
+public abstract class DelegatingFragile<T, E extends Exception> implements Fragile<T, E>
 {
     private final Fragile<T, E> mDelegate;
 

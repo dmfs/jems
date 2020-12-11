@@ -24,10 +24,8 @@ import org.dmfs.jems.single.elementary.ValueSingle;
 
 /**
  * A {@link Fragile} which is not broken.
- *
- * @author Marten Gajda
  */
-public final class Intact<T, E extends Throwable> implements Fragile<T, E>
+public final class Intact<T, E extends Exception> implements Fragile<T, E>
 {
     private final Single<T> mValue;
 

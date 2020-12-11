@@ -30,18 +30,18 @@ import static org.hamcrest.CoreMatchers.instanceOf;
  *
  * @author Marten Gajda
  */
-public final class BrokenFragileMatcher<E extends Throwable> extends TypeSafeDiagnosingMatcher<Fragile<?, E>>
+public final class BrokenFragileMatcher<E extends Throwable> extends TypeSafeDiagnosingMatcher<Fragile<?, ?>>
 {
     private final Matcher<? super E> mExceptionMatcher;
 
 
-    public static <E extends Throwable> Matcher<Fragile<?, E>> throwing(Matcher<E> exceptionMatcher)
+    public static <E extends Throwable> Matcher<Fragile<?, ?>> throwing(Matcher<E> exceptionMatcher)
     {
         return new BrokenFragileMatcher<>(exceptionMatcher);
     }
 
 
-    public static <E extends Throwable> Matcher<Fragile<?, E>> throwing(Class<E> exceptionClass)
+    public static <E extends Throwable> Matcher<Fragile<?, ?>> throwing(Class<E> exceptionClass)
     {
         return new BrokenFragileMatcher<>(instanceOf(exceptionClass));
     }
@@ -51,7 +51,7 @@ public final class BrokenFragileMatcher<E extends Throwable> extends TypeSafeDia
      * @deprecated in favour of {@link #throwing(Class)} (for the better name).
      */
     @Deprecated
-    public static <E extends Throwable> Matcher<Fragile<?, E>> isBroken(Class<E> exceptionClass)
+    public static <E extends Throwable> Matcher<Fragile<?, ?>> isBroken(Class<E> exceptionClass)
     {
         return new BrokenFragileMatcher<>(instanceOf(exceptionClass));
     }
@@ -64,7 +64,7 @@ public final class BrokenFragileMatcher<E extends Throwable> extends TypeSafeDia
 
 
     @Override
-    protected boolean matchesSafely(Fragile<?, E> item, Description mismatchDescription)
+    protected boolean matchesSafely(Fragile<?, ?> item, Description mismatchDescription)
     {
         try
         {
