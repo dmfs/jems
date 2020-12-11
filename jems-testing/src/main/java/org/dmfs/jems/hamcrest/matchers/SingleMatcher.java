@@ -30,6 +30,9 @@ import static org.hamcrest.CoreMatchers.equalTo;
  */
 public final class SingleMatcher
 {
+    private SingleMatcher() {}
+
+
     public static <T> Matcher<Fragile<? extends T, ? extends RuntimeException>> hasValue(Matcher<T> valueMatcher)
     {
         return having("value", Fragile::value, valueMatcher);
