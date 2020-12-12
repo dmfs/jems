@@ -17,6 +17,7 @@
 
 package org.dmfs.jems.iterable.composite;
 
+import org.dmfs.iterables.SingletonIterable;
 import org.dmfs.jems.iterable.adapters.PresentValues;
 import org.dmfs.jems.iterable.elementary.Seq;
 import org.dmfs.jems.optional.Optional;
@@ -45,6 +46,19 @@ import java.util.Iterator;
 public final class Joined<T> implements Iterable<T>
 {
     private final Iterable<? extends Iterable<? extends T>> mIterables;
+
+
+    public Joined(Iterable<? extends T> iterable, T appendedValue)
+    {
+        this(iterable, new SingletonIterable<>(appendedValue));
+    }
+
+
+    @SafeVarargs
+    public Joined(Iterable<? extends T> iterable, T... appendedValues)
+    {
+        this(iterable, new Seq<>(appendedValues));
+    }
 
 
     @SafeVarargs

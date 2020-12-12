@@ -182,4 +182,44 @@ public class JoinedTest
             ),
             iteratesTo(4, 5, 6, 7, 8, 9));
     }
+
+    @Test
+    public void testConvenienceCtors()
+    {
+        assertThat(
+            new Joined<>(new EmptyIterable<>(), new String[0]),
+            is(emptyIterable()));
+
+        assertThat(
+            new Joined<>(new EmptyIterable<>(), "a"),
+            iteratesTo("a"));
+
+        assertThat(
+            new Joined<>(new EmptyIterable<>(), "a", "b", "c"),
+            iteratesTo("a", "b", "c"));
+
+        assertThat(
+            new Joined<>(new Seq<>("1"), new String[0]),
+            is(iteratesTo("1")));
+
+        assertThat(
+            new Joined<>(new Seq<>("1"), "a"),
+            iteratesTo("1","a"));
+
+        assertThat(
+            new Joined<>(new Seq<>("1"), "a", "b", "c"),
+            iteratesTo("1","a", "b", "c"));
+
+        assertThat(
+            new Joined<>(new Seq<>("1", "2", "3"), new String[0]),
+            is(iteratesTo("1", "2", "3")));
+
+        assertThat(
+            new Joined<>(new Seq<>("1", "2", "3"), "a"),
+            iteratesTo("1", "2", "3","a"));
+
+        assertThat(
+            new Joined<>(new Seq<>("1", "2", "3"), "a", "b", "c"),
+            iteratesTo("1", "2", "3","a", "b", "c"));
+    }
 }
