@@ -35,7 +35,7 @@ import java.util.Locale;
  */
 public final class Digest implements Single<byte[]>
 {
-    private final Generator<MessageDigest> mMessageDigestGenerator;
+    private final Generator<? extends MessageDigest> mMessageDigestGenerator;
     private final Iterable<? extends Fragile<byte[], ? extends RuntimeException>> mParts;
 
 
@@ -94,7 +94,7 @@ public final class Digest implements Single<byte[]>
 
 
     public Digest(
-        Generator<MessageDigest> messageDigestGenerator,
+        Generator<? extends MessageDigest> messageDigestGenerator,
         byte[]... parts)
     {
         this(messageDigestGenerator, new Mapped<>(part -> () -> part, new Seq<>(parts)));
@@ -102,7 +102,7 @@ public final class Digest implements Single<byte[]>
 
 
     public Digest(
-        Generator<MessageDigest> messageDigestGenerator,
+        Generator<? extends MessageDigest> messageDigestGenerator,
         CharSequence... parts)
     {
         this(messageDigestGenerator, "UTF-8", parts);
@@ -110,7 +110,7 @@ public final class Digest implements Single<byte[]>
 
 
     public Digest(
-        Generator<MessageDigest> messageDigestGenerator,
+        Generator<? extends MessageDigest> messageDigestGenerator,
         final String encoding,
         CharSequence... parts)
     {
@@ -133,7 +133,7 @@ public final class Digest implements Single<byte[]>
 
     @SafeVarargs
     public Digest(
-        Generator<MessageDigest> messageDigestGenerator,
+        Generator<? extends MessageDigest> messageDigestGenerator,
         Fragile<byte[], ? extends RuntimeException>... parts)
     {
         this(messageDigestGenerator, new Seq<>(parts));
@@ -141,7 +141,7 @@ public final class Digest implements Single<byte[]>
 
 
     public Digest(
-        Generator<MessageDigest> messageDigestGenerator,
+        Generator<? extends MessageDigest> messageDigestGenerator,
         Iterable<? extends Fragile<byte[], ? extends RuntimeException>> parts)
     {
         mMessageDigestGenerator = messageDigestGenerator;

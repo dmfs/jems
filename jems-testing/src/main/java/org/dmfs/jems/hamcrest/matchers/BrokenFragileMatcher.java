@@ -30,20 +30,20 @@ import static org.hamcrest.CoreMatchers.instanceOf;
  *
  * @author Marten Gajda
  */
-public final class BrokenFragileMatcher<E extends Throwable> extends TypeSafeDiagnosingMatcher<Fragile<?, ?>>
+public final class BrokenFragileMatcher extends TypeSafeDiagnosingMatcher<Fragile<?, ?>>
 {
-    private final Matcher<? super E> mExceptionMatcher;
+    private final Matcher<? super Throwable> mExceptionMatcher;
 
 
-    public static <E extends Throwable> Matcher<Fragile<?, ?>> throwing(Matcher<E> exceptionMatcher)
+    public static Matcher<Fragile<?, ?>> throwing(Matcher<? super Throwable> exceptionMatcher)
     {
-        return new BrokenFragileMatcher<>(exceptionMatcher);
+        return new BrokenFragileMatcher(exceptionMatcher);
     }
 
 
-    public static <E extends Throwable> Matcher<Fragile<?, ?>> throwing(Class<E> exceptionClass)
+    public static Matcher<Fragile<?, ?>> throwing(Class<? extends Throwable> exceptionClass)
     {
-        return new BrokenFragileMatcher<>(instanceOf(exceptionClass));
+        return new BrokenFragileMatcher(instanceOf(exceptionClass));
     }
 
 
@@ -51,13 +51,13 @@ public final class BrokenFragileMatcher<E extends Throwable> extends TypeSafeDia
      * @deprecated in favour of {@link #throwing(Class)} (for the better name).
      */
     @Deprecated
-    public static <E extends Throwable> Matcher<Fragile<?, ?>> isBroken(Class<E> exceptionClass)
+    public static Matcher<Fragile<?, ?>> isBroken(Class<? extends Throwable> exceptionClass)
     {
-        return new BrokenFragileMatcher<>(instanceOf(exceptionClass));
+        return new BrokenFragileMatcher(instanceOf(exceptionClass));
     }
 
 
-    public BrokenFragileMatcher(Matcher<? super E> exceptionMatcher)
+    public BrokenFragileMatcher(Matcher<? super Throwable> exceptionMatcher)
     {
         mExceptionMatcher = exceptionMatcher;
     }
