@@ -38,7 +38,9 @@ public final class Reduced<Value, Result> implements Single<Result>
      * @deprecated in favor of {@link Reduced#Reduced(Generator, BiFunction, Iterable)}.
      */
     @Deprecated
-    public Reduced(Result initialValue, BiFunction<? super Result, ? super Value, ? extends Result> accumulatorFunction, Iterable<? extends Value> iterable)
+    public Reduced(Result initialValue,
+                   BiFunction<? super Result, ? super Value, ? extends Result> accumulatorFunction,
+                   Iterable<? extends Value> iterable)
     {
         this(() -> initialValue, accumulatorFunction, iterable);
     }

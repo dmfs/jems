@@ -17,7 +17,7 @@
 
 package org.dmfs.jems.iterable.decorators;
 
-import org.dmfs.jems.single.elementary.Reduced;
+import org.dmfs.jems.single.elementary.Collected;
 
 import java.util.Comparator;
 import java.util.Iterator;
@@ -32,10 +32,10 @@ import java.util.TreeSet;
 public final class Sorted<T> implements Iterable<T>
 {
     private final Iterable<T> mDelegate;
-    private final Comparator<T> mComparator;
+    private final Comparator<? super T> mComparator;
 
 
-    public Sorted(Comparator<T> comparator, Iterable<T> delegate)
+    public Sorted(Comparator<? super T> comparator, Iterable<T> delegate)
     {
         mDelegate = delegate;
         mComparator = comparator;
@@ -45,9 +45,6 @@ public final class Sorted<T> implements Iterable<T>
     @Override
     public Iterator<T> iterator()
     {
-        return new Reduced<>(new TreeSet<>(mComparator), (r, v) -> {
-            r.add(v);
-            return r;
-        }, mDelegate).value().iterator();
+        return new Collected<>(() -> new TreeSet<>(mComparator), mDelegate).value().iterator();
     }
 }

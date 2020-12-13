@@ -30,7 +30,7 @@ import static org.hamcrest.Matchers.is;
 /**
  * A {@link Matcher} to test {@link FragileFunction}s.
  */
-public final class FragileFunctionMatcher<Argument, Result, E extends Throwable> extends TypeSafeDiagnosingMatcher<FragileFunction<? super Argument, ? extends Result, ?>>
+public final class FragileFunctionMatcher<Argument, Result> extends TypeSafeDiagnosingMatcher<FragileFunction<? super Argument, ? extends Result, ?>>
 {
     private final Argument mArgument;
     private final Matcher<? super Result> mResultMatcher;
@@ -39,9 +39,9 @@ public final class FragileFunctionMatcher<Argument, Result, E extends Throwable>
     /**
      * Returns a {@link Matcher} which verifies that the tested {@link FragileFunction} throws the given throwable to the given argument.
      */
-    public static <Argument, Result, E extends Throwable> Matcher<FragileFunction<? super Argument, ? extends Result, ?>> throwing(
+    public static <Argument, Result> Matcher<FragileFunction<? super Argument, ? extends Result, ?>> throwing(
         Argument argument,
-        Matcher<E> throwableMatcher)
+        Matcher<? super Throwable> throwableMatcher)
     {
         return having("value Fragile", testee -> () -> testee.value(argument), is(BrokenFragileMatcher.throwing(throwableMatcher)));
     }
@@ -50,7 +50,7 @@ public final class FragileFunctionMatcher<Argument, Result, E extends Throwable>
     /**
      * Returns a {@link Matcher} which verifies that the tested {@link FragileFunction} associates the given result to the given argument.
      */
-    public static <Argument, Result, E extends Throwable> Matcher<FragileFunction<? super Argument, ? extends Result, ?>> associates(Argument argument,
+    public static <Argument, Result> Matcher<FragileFunction<? super Argument, ? extends Result, ?>> associates(Argument argument,
                                                                                                                                      Result result)
     {
         return new FragileFunctionMatcher<>(argument, is(result));
@@ -61,7 +61,7 @@ public final class FragileFunctionMatcher<Argument, Result, E extends Throwable>
      * Returns a {@link Matcher} which verifies that the tested {@link FragileFunction} associates a result satisfying the given {@link Matcher} to the given
      * argument.
      */
-    public static <Argument, Result, E extends Throwable> Matcher<FragileFunction<? super Argument, ? extends Result, ?>> associates(Argument argument,
+    public static <Argument, Result> Matcher<FragileFunction<? super Argument, ? extends Result, ?>> associates(Argument argument,
                                                                                                                                      Matcher<? super Result> resultMatcher)
     {
         return new FragileFunctionMatcher<>(argument, resultMatcher);

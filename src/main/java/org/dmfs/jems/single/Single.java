@@ -32,5 +32,6 @@ public interface Single<T> extends Fragile<T, RuntimeException>
      *
      * @return The value.
      */
+    @Override
     T value();
 }
