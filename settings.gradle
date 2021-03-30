@@ -1,2 +1,2 @@
-rootProject.name = 'jems'
-include 'jems-testing'
+rootProject.name = 'jems2'
+include 'jems2-testing'

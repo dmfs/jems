@@ -1,0 +1,22 @@
+apply plugin: 'java-library'
+apply from: '../jacoco.gradle'
+
+sourceCompatibility = 1.8
+
+configurations {
+    pom
+}
+
+apply from: '../publish.gradle'
+
+dependencies {
+    api rootProject
+
+    // in this case, junit is not (only) a test dependency, but a build dependency
+    api 'junit:junit:' + JUNIT
+    api 'org.mockito:mockito-core:' + MOCKITO
+
+    implementation 'org.hamcrest:hamcrest:' + HAMCREST
+
+    testImplementation 'org.hamcrest:hamcrest:' + HAMCREST
+}

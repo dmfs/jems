@@ -32,6 +32,6 @@ apply from: 'jacoco.gradle'
 
 dependencies {
     testImplementation 'junit:junit:' + JUNIT
-    testImplementation 'org.hamcrest:hamcrest-library:' + HAMCREST
-    testImplementation project(":jems-testing")
+    testImplementation 'org.hamcrest:hamcrest:' + HAMCREST
+    testImplementation project(":jems2-testing")
 }
