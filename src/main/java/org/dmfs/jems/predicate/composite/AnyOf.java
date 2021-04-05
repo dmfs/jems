@@ -28,6 +28,7 @@ import org.dmfs.jems.predicate.elementary.Equals;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class AnyOf<T> implements Predicate<T>
 {
     private final Iterable<? extends Predicate<? super T>> mDelegates;

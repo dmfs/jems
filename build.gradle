@@ -31,6 +31,7 @@ apply from: 'publish.gradle'
 apply from: 'jacoco.gradle'
 
 dependencies {
+    api "org.dmfs:jems2:2.0.0"
     testImplementation 'junit:junit:' + JUNIT
     testImplementation 'org.hamcrest:hamcrest-library:' + HAMCREST
     testImplementation project(":jems-testing")

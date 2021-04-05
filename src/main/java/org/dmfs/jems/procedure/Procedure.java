@@ -22,10 +22,12 @@ package org.dmfs.jems.procedure;
  *
  * @author Gabor Keszthelyi
  */
-public interface Procedure<T>
+@Deprecated
+public interface Procedure<T> extends org.dmfs.jems2.Procedure<T>
 {
     /**
      * Executes the procedure with the given argument.
      */
+    @Override
     void process(T arg);
 }

@@ -36,6 +36,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class IteratorMatcher<T> extends TypeSafeDiagnosingMatcher<Generator<? extends Iterator<? extends T>>>
 {
     public static final int HAS_NEXT_TEST_COUNT = 100;

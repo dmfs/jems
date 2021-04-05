@@ -25,6 +25,7 @@ import org.dmfs.jems.pair.Pair;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class ValuePair<Left, Right> implements Pair<Left, Right>
 {
     private final Left mLeft;

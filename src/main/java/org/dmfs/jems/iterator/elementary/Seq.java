@@ -31,6 +31,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Seq<E> extends AbstractBaseIterator<E>
 {
     private final E[] mValues;

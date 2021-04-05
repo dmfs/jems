@@ -28,6 +28,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class OptionalIterable<T> implements Iterable<T>
 {
     private final Optional<? extends Iterable<T>> mDelegate;

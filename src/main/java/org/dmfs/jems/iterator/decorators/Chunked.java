@@ -30,6 +30,7 @@ import java.util.Locale;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Chunked<T> extends AbstractBaseIterator<Iterable<T>>
 {
     private final int mChunkSize;

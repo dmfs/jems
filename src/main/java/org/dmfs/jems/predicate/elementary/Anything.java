@@ -25,6 +25,7 @@ import org.dmfs.jems.predicate.Predicate;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Anything<T> implements Predicate<T>
 {
     @Override

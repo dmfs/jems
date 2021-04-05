@@ -30,6 +30,7 @@ import java.util.List;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class IterableMatcher
 {
 

@@ -28,6 +28,7 @@ import org.dmfs.optional.decorators.DelegatingOptional;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class MapCollapsed<From, To> extends DelegatingOptional<To>
 {
     public MapCollapsed(Function<From, Optional<To>> mapFunction, Optional<From> original)

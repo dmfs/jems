@@ -28,6 +28,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Zipped<Left, Right, Result> implements Optional<Result>
 {
     private final Optional<Left> mLeft;

@@ -27,6 +27,7 @@ import java.util.Iterator;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class EmptyIterable<E> implements Iterable<E>
 {
 

@@ -28,6 +28,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Seq<T> implements Iterable<T>
 {
     private final T[] mValues;

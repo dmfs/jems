@@ -28,6 +28,7 @@ import static org.hamcrest.Matchers.any;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class MatcherMatcher
 {
     public static <V> Matcher<Matcher<? super V>> matches(V value)

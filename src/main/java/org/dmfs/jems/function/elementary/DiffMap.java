@@ -43,6 +43,7 @@ import org.dmfs.jems.pair.Pair;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class DiffMap<Left, Right, Result> implements Function<Pair<? extends Optional<? extends Left>, ? extends Optional<? extends Right>>, Result>
 {
     private final BiFunction<? super Left, ? super Right, ? extends Result> mLeftRightFunction;

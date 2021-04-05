@@ -30,6 +30,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class BrokenFragileMatcher extends TypeSafeDiagnosingMatcher<Fragile<?, ?>>
 {
     private final Matcher<? super Throwable> mExceptionMatcher;

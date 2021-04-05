@@ -27,6 +27,7 @@ import org.dmfs.jems.single.elementary.ValueSingle;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class SingleFunction<T> implements Function<T, Single<T>>
 {
     @Override

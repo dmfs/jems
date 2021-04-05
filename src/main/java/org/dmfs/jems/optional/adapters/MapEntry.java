@@ -28,6 +28,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class MapEntry<K, V> implements Optional<V>
 {
     private final Map<K, V> mMap;

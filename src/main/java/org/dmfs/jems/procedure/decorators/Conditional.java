@@ -26,6 +26,7 @@ import org.dmfs.jems.procedure.Procedure;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Conditional<T> implements Procedure<T>
 {
     private final Predicate<? super T> mPredicate;

@@ -27,6 +27,7 @@ import java.security.MessageDigest;
 /**
  * An {@code MD5} {@link MessageDigest} {@link Generator}.
  */
+@Deprecated
 public final class Md5 extends DelegatingGenerator<MessageDigest>
 {
     public Md5()

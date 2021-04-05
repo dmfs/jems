@@ -24,15 +24,15 @@ package org.dmfs.jems.predicate;
  *
  * @author Marten Gajda
  */
-public interface Predicate<T>
+@Deprecated
+public interface Predicate<T> extends org.dmfs.jems2.Predicate<T>
 {
     /**
      * Returns whether the given instance satisfies this predicate.
      *
      * @param testedInstance
-     *         The instance to test.
-     *
-     * @return
+     *     The instance to test.
      */
+    @Override
     boolean satisfiedBy(T testedInstance);
 }

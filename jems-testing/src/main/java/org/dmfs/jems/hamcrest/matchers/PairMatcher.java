@@ -30,6 +30,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class PairMatcher<L, R> extends TypeSafeDiagnosingMatcher<Pair<? extends L, ? extends R>>
 {
     private final Matcher<? super L> mLeftValueMatcher;

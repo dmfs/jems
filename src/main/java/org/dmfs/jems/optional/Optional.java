@@ -24,17 +24,19 @@ import java.util.NoSuchElementException;
  * An optional value. In contrast to Java's {@code Optional} this an interface, so custom implementations can be developed.
  *
  * @param <T>
- *         the type of the value.
+ *     the type of the value.
  *
  * @author Marten Gajda
  */
-public interface Optional<T>
+@Deprecated
+public interface Optional<T> extends org.dmfs.jems2.Optional<T>
 {
     /**
      * Returns whether the optional value is present.
      *
      * @return {@code true} if the value is present, {@code false} otherwise.
      */
+    @Override
     boolean isPresent();
 
     /**
@@ -43,7 +45,8 @@ public interface Optional<T>
      * @return The value.
      *
      * @throws NoSuchElementException
-     *         if the optional value is not present.
+     *     if the optional value is not present.
      */
+    @Override
     T value() throws NoSuchElementException;
 }

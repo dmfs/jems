@@ -26,6 +26,7 @@ import org.mockito.exceptions.base.MockitoException;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class DummySingle<T> implements Single<T>
 {
     private final Class<T> mClass;

@@ -29,6 +29,7 @@ import org.dmfs.jems.predicate.elementary.Equals;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class NoneOf<T> extends DelegatingPredicate<T>
 {
 

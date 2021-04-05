@@ -30,6 +30,7 @@ import java.util.LinkedList;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Reverse<T> implements Iterable<T>
 {
 

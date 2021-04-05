@@ -25,6 +25,7 @@ import org.dmfs.jems.function.Function;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class IdentityFunction<Argument> implements Function<Argument, Argument>
 {
     @Override

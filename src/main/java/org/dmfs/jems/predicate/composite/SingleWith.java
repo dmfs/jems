@@ -26,6 +26,7 @@ import org.dmfs.jems.single.Single;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class SingleWith<V, T extends Single<? extends V>> implements Predicate<T>
 {
     private final Predicate<? super V> mDelegate;

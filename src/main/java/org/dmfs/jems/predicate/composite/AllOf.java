@@ -26,6 +26,7 @@ import org.dmfs.jems.predicate.Predicate;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class AllOf<T> implements Predicate<T>
 {
     private final Iterable<? extends Predicate<? super T>> mDelegates;

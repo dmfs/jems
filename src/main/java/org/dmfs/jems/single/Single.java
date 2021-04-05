@@ -25,6 +25,7 @@ import org.dmfs.jems.fragile.Fragile;
  * <p>
  * A Single is a tuple with exactly one value.
  */
+@Deprecated
 public interface Single<T> extends Fragile<T, RuntimeException>
 {
     /**

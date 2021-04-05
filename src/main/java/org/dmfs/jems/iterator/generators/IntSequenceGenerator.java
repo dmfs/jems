@@ -30,6 +30,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class IntSequenceGenerator extends AbstractBaseIterator<Integer>
 {
     private long mNext;

@@ -27,6 +27,7 @@ import java.util.Comparator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class By<T> implements Comparator<T>
 {
     private final Comparator<? super T> mDelegate;

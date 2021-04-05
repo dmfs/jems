@@ -28,6 +28,7 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class DescriptionMatcher<V, T extends Matcher<V>> extends TypeSafeDiagnosingMatcher<T>
 {
     private final Matcher<? super String> mDescriptionMatcher;

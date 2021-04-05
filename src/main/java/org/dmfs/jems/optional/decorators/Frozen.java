@@ -32,6 +32,7 @@ import static org.dmfs.jems.optional.elementary.Absent.absent;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Frozen<T> implements Optional<T>
 {
     private final Single<Optional<T>> mDelegate;

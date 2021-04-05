@@ -28,6 +28,7 @@ import java.util.NoSuchElementException;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class Filtered<T> implements Optional<T>
 {
     private final Filter<T> mFilter;

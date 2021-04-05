@@ -30,6 +30,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class AbsentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<? extends T>>
 {
     /**

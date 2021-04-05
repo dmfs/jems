@@ -32,6 +32,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class SingleIterator<E> extends AbstractBaseIterator<E>
 {
     private boolean mHasNext = true;

@@ -29,6 +29,7 @@ import org.dmfs.jems.pair.Pair;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class PairZipped<Left, Right> extends DelegatingIterable<Pair<Left, Right>>
 {
 

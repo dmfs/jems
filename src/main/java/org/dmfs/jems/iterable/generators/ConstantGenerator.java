@@ -28,6 +28,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class ConstantGenerator<E> implements Iterable<E>
 {
     private final Single<E> mValue;

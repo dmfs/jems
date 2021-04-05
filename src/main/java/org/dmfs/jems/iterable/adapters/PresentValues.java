@@ -30,6 +30,7 @@ import org.dmfs.jems.optional.Optional;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class PresentValues<E> extends DelegatingIterable<E>
 {
     public PresentValues(Optional<? extends E> optional)

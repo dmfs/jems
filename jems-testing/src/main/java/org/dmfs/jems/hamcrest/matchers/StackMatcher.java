@@ -35,6 +35,7 @@ import static org.hamcrest.Matchers.is;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class StackMatcher<T> extends FeatureMatcher<Stack<T>, Iterable<T>>
 {
 

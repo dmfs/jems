@@ -22,10 +22,12 @@ package org.dmfs.jems.procedure;
  *
  * @author Gabor Keszthelyi
  */
-public interface BiProcedure<T, U>
+@Deprecated
+public interface BiProcedure<T, U> extends org.dmfs.jems2.BiProcedure<T, U>
 {
     /**
      * Executes the procedure with the given arguments.
      */
+    @Override
     void process(T t, U u);
 }

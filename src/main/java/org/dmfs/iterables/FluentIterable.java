@@ -26,6 +26,7 @@ import org.dmfs.iterators.Function;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public interface FluentIterable<E> extends Iterable<E>
 {
 

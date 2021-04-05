@@ -29,6 +29,7 @@ import java.util.TreeSet;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Sorted<T> implements Iterable<T>
 {
     private final Iterable<T> mDelegate;

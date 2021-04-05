@@ -27,6 +27,7 @@ import java.util.Iterator;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class SingletonIterable<E> implements Iterable<E>
 {
     private final E mElement;

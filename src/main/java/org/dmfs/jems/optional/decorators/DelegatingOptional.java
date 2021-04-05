@@ -30,6 +30,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public abstract class DelegatingOptional<T> implements Optional<T>
 {
     private final Optional<T> mDelegate;

@@ -46,6 +46,7 @@ import static org.dmfs.jems.optional.elementary.Absent.absent;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Clustered<T> implements Iterator<Iterable<T>>
 {
     private final Iterator<T> mDelegate;

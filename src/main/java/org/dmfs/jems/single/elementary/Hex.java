@@ -24,6 +24,7 @@ import org.dmfs.jems.single.Single;
 /**
  * The {@link Single} of a hexadecimal representation of a {@link Single} array of bytes.
  */
+@Deprecated
 public final class Hex implements Single<CharSequence>
 {
     private final Fragile<byte[], ? extends RuntimeException> mDelegate;

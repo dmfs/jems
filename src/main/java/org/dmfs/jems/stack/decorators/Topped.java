@@ -31,6 +31,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Topped<Element> implements Stack<Element>
 {
     private final Optional<StackTop<Element>> mTop;

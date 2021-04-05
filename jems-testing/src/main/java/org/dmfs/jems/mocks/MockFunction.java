@@ -42,6 +42,7 @@ import static org.hamcrest.CoreMatchers.sameInstance;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class MockFunction<Argument, Value> implements Function<Argument, Value>
 {
     private final Iterable<Pair<Matcher<Argument>, Value>> mPairs;

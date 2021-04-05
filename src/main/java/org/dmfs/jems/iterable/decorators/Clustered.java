@@ -38,6 +38,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Clustered<T> implements Iterable<Iterable<T>>
 {
     private final Iterable<T> mDelegate;

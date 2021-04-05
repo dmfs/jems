@@ -34,6 +34,7 @@ import org.mockito.verification.VerificationMode;
  * <p>
  * Note that, by design this matcher mutates the mock.
  */
+@Deprecated
 public final class MockInteractionMatcher<T> extends TypeSafeDiagnosingMatcher<T>
 {
 

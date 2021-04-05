@@ -30,6 +30,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Zipped<Left, Right, Result> extends AbstractBaseIterator<Result>
 {
     private final Iterator<? extends Left> mLeft;

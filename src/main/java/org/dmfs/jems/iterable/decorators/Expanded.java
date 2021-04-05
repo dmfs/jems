@@ -29,6 +29,7 @@ import org.dmfs.jems.iterable.composite.Joined;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Expanded<T> extends DelegatingIterable<T>
 {
     public <V> Expanded(Function<? super V, ? extends Iterable<? extends T>> function, Iterable<? extends V> delegate)

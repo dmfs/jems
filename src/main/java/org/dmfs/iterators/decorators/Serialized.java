@@ -34,6 +34,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Serialized<E> extends AbstractBaseIterator<E>
 {
     private final Iterator<Iterator<E>> mIterators;

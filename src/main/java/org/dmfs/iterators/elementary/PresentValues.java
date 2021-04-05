@@ -31,6 +31,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class PresentValues<E> extends AbstractBaseIterator<E>
 {
     private final Iterator<Optional<E>> mDelegate;

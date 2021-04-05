@@ -30,6 +30,7 @@ import java.util.NoSuchElementException;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class Next<E> implements Optional<E>
 {
     private final Iterator<? extends E> mIterator;

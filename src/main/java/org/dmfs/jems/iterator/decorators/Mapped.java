@@ -34,6 +34,7 @@ import java.util.Iterator;
  * @author Marten Gajda
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class Mapped<OriginalType, ResultType> extends AbstractBaseIterator<ResultType>
 {
     private final Iterator<? extends OriginalType> mOriginal;

@@ -24,6 +24,7 @@ import org.dmfs.jems.single.Single;
 /**
  * {@link Single} decorator that queries the delegate only once and returns the same value instance ever after.
  */
+@Deprecated
 public final class Frozen<T> implements Single<T>
 {
     private Fragile<T, ? extends RuntimeException> mDelegate;

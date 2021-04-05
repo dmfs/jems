@@ -29,6 +29,7 @@ import org.dmfs.jems.predicate.Predicate;
  * new Sieved<>(new Having<>(String::length, new Equals<>(5)), strings);
  * }</pre>
  */
+@Deprecated
 public final class Having<Original, Derived> implements Predicate<Original>
 {
     private final Function<? super Original, ? extends Derived> mConversion;

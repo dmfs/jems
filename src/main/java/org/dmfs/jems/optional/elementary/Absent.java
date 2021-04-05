@@ -27,6 +27,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Absent<T> implements Optional<T>
 {
     private final static Optional<?> INSTANCE = new Absent<Void>();

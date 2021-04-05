@@ -68,6 +68,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Split implements Iterable<CharSequence>
 {
     private CharSequence mValue;

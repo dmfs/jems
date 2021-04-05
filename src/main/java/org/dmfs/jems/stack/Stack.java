@@ -28,6 +28,7 @@ import org.dmfs.jems.optional.Optional;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public interface Stack<Element>
 {
     /**

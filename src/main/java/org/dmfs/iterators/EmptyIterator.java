@@ -31,6 +31,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class EmptyIterator<E> extends AbstractBaseIterator<E>
 {
     private final static EmptyIterator<?> INSTANCE = new EmptyIterator<>();

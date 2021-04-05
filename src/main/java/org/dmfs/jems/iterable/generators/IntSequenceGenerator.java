@@ -27,6 +27,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class IntSequenceGenerator implements Iterable<Integer>
 {
     private final int mStart;

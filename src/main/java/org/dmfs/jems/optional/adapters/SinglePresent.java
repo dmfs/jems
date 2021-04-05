@@ -28,6 +28,7 @@ import java.util.NoSuchElementException;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class SinglePresent<T> implements Optional<T>
 {
     private final Single<T> mSingle;

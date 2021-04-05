@@ -28,6 +28,7 @@ import org.dmfs.iterators.Filter;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class NonNull<T> implements Filter<T>
 {
     private final static Filter<Object> INSTANCE = new NonNull<Object>();

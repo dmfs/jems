@@ -31,6 +31,7 @@ import static org.dmfs.jems.optional.elementary.Absent.absent;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class EmptyStack<Element> implements Stack<Element>
 {
     @Override

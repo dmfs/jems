@@ -27,6 +27,7 @@ import org.dmfs.jems.generator.Generator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Sequence<T> implements Generatable<T>
 {
     private final Generator<T> mInitialValues;

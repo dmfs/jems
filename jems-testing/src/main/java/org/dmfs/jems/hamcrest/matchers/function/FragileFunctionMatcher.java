@@ -30,6 +30,7 @@ import static org.hamcrest.Matchers.is;
 /**
  * A {@link Matcher} to test {@link FragileFunction}s.
  */
+@Deprecated
 public final class FragileFunctionMatcher<Argument, Result> extends TypeSafeDiagnosingMatcher<FragileFunction<? super Argument, ? extends Result, ?>>
 {
     private final Argument mArgument;

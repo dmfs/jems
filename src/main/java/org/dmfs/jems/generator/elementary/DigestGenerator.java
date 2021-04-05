@@ -28,6 +28,7 @@ import java.util.Locale;
 /**
  * A {@link Generator} for {@link java.security.MessageDigest} instances of a specific digest algorithm.
  */
+@Deprecated
 public final class DigestGenerator implements Generator<MessageDigest>
 {
     private final Single<String> mAlgorithm;

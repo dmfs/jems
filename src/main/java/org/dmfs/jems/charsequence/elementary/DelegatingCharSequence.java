@@ -22,6 +22,7 @@ package org.dmfs.jems.charsequence.elementary;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public abstract class DelegatingCharSequence implements CharSequence
 {
     private final CharSequence mDelegate;

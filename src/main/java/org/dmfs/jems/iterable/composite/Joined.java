@@ -43,6 +43,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Joined<T> implements Iterable<T>
 {
     private final Iterable<? extends Iterable<? extends T>> mIterables;

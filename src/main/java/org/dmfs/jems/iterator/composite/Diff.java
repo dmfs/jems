@@ -36,6 +36,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Diff<Left, Right> extends AbstractBaseIterator<Pair<Optional<Left>, Optional<Right>>>
 {
     private final Iterator<? extends Left> mLefts;

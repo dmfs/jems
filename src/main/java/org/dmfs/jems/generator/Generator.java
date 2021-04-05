@@ -32,12 +32,14 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
-public interface Generator<T>
+@Deprecated
+public interface Generator<T> extends org.dmfs.jems2.Generator<T>
 {
     /**
      * Generates and returns another value.
      *
      * @return Another generated value.
      */
+    @Override
     T next();
 }

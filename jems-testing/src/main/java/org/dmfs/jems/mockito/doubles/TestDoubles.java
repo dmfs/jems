@@ -26,6 +26,7 @@ import org.mockito.Mockito;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public abstract class TestDoubles
 {
 

@@ -16,6 +16,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class SingleStack<Element> implements Stack<Element>
 {
     private final Optional<StackTop<Element>> mStackTop;

@@ -29,6 +29,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Zipped<Left, Right, Result> implements Iterable<Result>
 {
     private final Iterable<Left> mLeft;

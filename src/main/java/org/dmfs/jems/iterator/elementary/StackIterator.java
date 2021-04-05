@@ -31,6 +31,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class StackIterator<Element> extends AbstractBaseIterator<Element>
 {
     private Stack<Element> mStack;

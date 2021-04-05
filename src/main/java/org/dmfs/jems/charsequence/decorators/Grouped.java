@@ -31,6 +31,7 @@ import org.dmfs.jems.single.elementary.Frozen;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Grouped implements CharSequence
 {
     private final CharSequence mDelegate;

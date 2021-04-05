@@ -29,6 +29,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Diff<Left, Right> implements Iterable<Pair<Optional<Left>, Optional<Right>>>
 {
     private final Iterable<? extends Left> mLefts;

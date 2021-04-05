@@ -33,6 +33,7 @@ import java.util.Locale;
 /**
  * A {@link Single} of a byte array which represents the digested value of the given input data.
  */
+@Deprecated
 public final class Digest implements Single<byte[]>
 {
     private final Generator<? extends MessageDigest> mMessageDigestGenerator;

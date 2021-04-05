@@ -31,6 +31,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class StackIterable<Element> implements Iterable<Element>
 {
     private final Stack<Element> mStack;

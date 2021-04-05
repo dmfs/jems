@@ -25,6 +25,7 @@ import org.dmfs.jems.predicate.Predicate;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public abstract class DelegatingPredicate<T> implements Predicate<T>
 {
     private final Predicate<T> mDelegate;

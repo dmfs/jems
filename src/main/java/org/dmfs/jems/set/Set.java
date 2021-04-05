@@ -24,6 +24,7 @@ package org.dmfs.jems.set;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public interface Set<T>
 {
     /**

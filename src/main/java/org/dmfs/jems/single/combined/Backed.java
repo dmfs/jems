@@ -26,6 +26,7 @@ import org.dmfs.jems.single.elementary.ValueSingle;
 /**
  * {@link Single} that delegates to the given {@link Optional} if that is present, otherwise falls back to the provided back-up {@link Single}.
  */
+@Deprecated
 public final class Backed<T> implements Single<T>
 {
     private final Optional<? extends T> mOptional;

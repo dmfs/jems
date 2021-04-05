@@ -27,6 +27,7 @@ import org.hamcrest.Matcher;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class LambdaMatcher<Testee, Feature> extends FeatureMatcher<Testee, Feature>
 {
     private final Function<Testee, Feature> mFunction;

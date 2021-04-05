@@ -28,6 +28,7 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class StackTopMatcher<E> extends TypeSafeDiagnosingMatcher<Stack.StackTop<E>>
 {
     private final Matcher<E> mElementMatcher;

@@ -26,6 +26,7 @@ import org.dmfs.jems.set.Set;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class PredicateSet<T> implements Set<T>
 {
     private final Predicate<? super T> mPredicate;

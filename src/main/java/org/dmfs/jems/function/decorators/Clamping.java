@@ -26,6 +26,7 @@ import org.dmfs.jems.function.elementary.IdentityFunction;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class Clamping<T extends Comparable<T>> implements Function<T, T>
 {
     private final T mMinValue;

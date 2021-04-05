@@ -34,6 +34,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class First<T> implements Optional<T>
 {
     private final Iterable<T> mIterable;

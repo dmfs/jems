@@ -20,6 +20,9 @@ package org.dmfs.jems.function;
 /**
  * An unary function than can't throw checked Exceptions.
  */
+@Deprecated
 public interface Function<Argument, Value> extends FragileFunction<Argument, Value, RuntimeException>
 {
+    @Override
+    Value value(Argument argument);
 }

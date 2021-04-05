@@ -33,6 +33,7 @@ import org.dmfs.jems.single.decorators.DelegatingSingle;
  * Set<String> valueSet  = new Collected<>(HashSet::new, values).value();
  * }</pre>
  */
+@Deprecated
 public final class Collected<Value, Collection extends java.util.Collection<Value>> extends DelegatingSingle<Collection>
 {
     public Collected(Generator<? extends Collection> collectionGenerator, Iterable<? extends Value> values)

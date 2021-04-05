@@ -24,6 +24,7 @@ import org.dmfs.jems.function.FragileFunction;
 /**
  * A {@link Fragile} decorator which maps the value using a given {@link FragileFunction}.
  */
+@Deprecated
 public final class Mapped<From, To, E extends Exception> implements Fragile<To, E>
 {
     private final FragileFunction<? super From, ? extends To, ? extends E> mMapFunction;

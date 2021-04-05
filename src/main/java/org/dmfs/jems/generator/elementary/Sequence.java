@@ -26,6 +26,7 @@ import org.dmfs.jems.generator.Generator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Sequence<T> implements Generator<T>
 {
     private T mNext;

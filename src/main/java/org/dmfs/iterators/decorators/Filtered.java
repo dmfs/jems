@@ -33,6 +33,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Filtered<E> extends AbstractBaseIterator<E>
 {
     private final Iterator<E> mDelagate;

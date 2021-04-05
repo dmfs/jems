@@ -32,6 +32,7 @@ import static org.hamcrest.Matchers.equalTo;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class PresentMatcher<T> extends TypeSafeDiagnosingMatcher<Optional<? extends T>>
 {
     private final Matcher<? super T> mDelegate;

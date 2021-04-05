@@ -29,6 +29,7 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class SetLacksMatcher<T> extends TypeSafeDiagnosingMatcher<Set<? super T>>
 {
 

@@ -40,6 +40,7 @@ import java.util.Set;
  * ["abc", "42"]
  * </pre>
  */
+@Deprecated
 public final class Distinct<T> extends DelegatingIterator<T>
 {
     public <V> Distinct(Iterator<T> delegate)

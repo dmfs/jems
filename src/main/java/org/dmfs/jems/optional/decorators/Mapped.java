@@ -28,6 +28,7 @@ import java.util.NoSuchElementException;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class Mapped<From, To> implements org.dmfs.optional.Optional<To>
 {
     private final Optional<From> mFromValue;

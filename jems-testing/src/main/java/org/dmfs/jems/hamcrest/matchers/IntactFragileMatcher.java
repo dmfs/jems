@@ -29,6 +29,7 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class IntactFragileMatcher<T> extends TypeSafeDiagnosingMatcher<Fragile<T, ?>>
 {
     private final Matcher<? super T> mDelegate;

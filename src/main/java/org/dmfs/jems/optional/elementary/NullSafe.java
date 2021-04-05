@@ -27,6 +27,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class NullSafe<T> implements Optional<T>
 {
     private final T mValue;

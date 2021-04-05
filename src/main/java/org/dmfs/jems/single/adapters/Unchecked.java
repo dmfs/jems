@@ -27,6 +27,7 @@ import org.dmfs.jems.single.Single;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Unchecked<T, E extends Exception> implements Single<T>
 {
     private final Fragile<T, E> mDelegate;

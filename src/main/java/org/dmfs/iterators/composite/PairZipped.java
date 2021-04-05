@@ -31,6 +31,7 @@ import java.util.Iterator;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class PairZipped<Left, Right> extends DelegatingIterator<Pair<Left, Right>>
 {
 

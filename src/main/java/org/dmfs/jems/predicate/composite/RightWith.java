@@ -26,6 +26,7 @@ import org.dmfs.jems.predicate.Predicate;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class RightWith<Right> implements Predicate<Pair<?, ? extends Right>>
 {
     private final Predicate<? super Right> mDelegate;

@@ -36,6 +36,7 @@ import java.util.Iterator;
  * ["abc", "42"]
  * </pre>
  */
+@Deprecated
 public final class Distinct<T> extends DelegatingIterable<T>
 {
     public <V> Distinct(Iterable<T> delegate)

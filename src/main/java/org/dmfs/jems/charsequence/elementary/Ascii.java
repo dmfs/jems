@@ -28,6 +28,7 @@ import java.util.Locale;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Ascii implements CharSequence
 {
     private final byte[] mData;

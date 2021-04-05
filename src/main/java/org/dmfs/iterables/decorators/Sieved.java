@@ -27,6 +27,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Sieved<E> implements Iterable<E>
 {
     private final Predicate<? super E> mPredicate;

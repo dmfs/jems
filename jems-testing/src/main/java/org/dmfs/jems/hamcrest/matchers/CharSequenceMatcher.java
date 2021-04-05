@@ -30,6 +30,7 @@ import static org.hamcrest.Matchers.hasToString;
 /**
  * @author Marten Gajda
  */
+@Deprecated
 public final class CharSequenceMatcher
 {
 

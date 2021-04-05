@@ -28,6 +28,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class SingleIterable<T> implements Iterable<T>
 {
     private final Single<T> mSingle;

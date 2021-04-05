@@ -24,6 +24,7 @@ import org.dmfs.jems.single.Single;
 /**
  * A {@link Single} which delegates all calls to another {@link Single}.
  */
+@Deprecated
 public abstract class DelegatingSingle<T> implements Single<T>
 {
     private final Fragile<T, ? extends RuntimeException> mDelegate;

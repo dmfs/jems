@@ -33,6 +33,7 @@ import static org.dmfs.optional.Absent.absent;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class Conditional<T> implements org.dmfs.optional.Optional<T>
 {
     private final Predicate<? super T> mPredicate;

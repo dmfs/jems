@@ -27,6 +27,7 @@ import org.dmfs.jems.pair.elementary.ValuePair;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class PairingFunction<Left, Right> implements BiFunction<Left, Right, Pair<Left, Right>>
 {
     private final static BiFunction<?, ?, ?> INSTANCE = new PairingFunction<>();

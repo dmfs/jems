@@ -25,6 +25,7 @@ import org.dmfs.iterables.decorators.DelegatingIterable;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Ascending<T extends Comparable<? super T>> extends DelegatingIterable<T>
 {
     public Ascending(Iterable<T> delegate)

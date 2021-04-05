@@ -22,7 +22,8 @@ package org.dmfs.jems.function;
  *
  * @author Marten Gajda
  */
-public interface BiFunction<Argument1, Argument2, Value>
+@Deprecated
+public interface BiFunction<Argument1, Argument2, Value> extends org.dmfs.jems2.BiFunction<Argument1, Argument2, Value>
 {
     /**
      * Returns the value of this function at the given arguments.
@@ -34,5 +35,6 @@ public interface BiFunction<Argument1, Argument2, Value>
      *
      * @return The value of the function.
      */
+    @Override
     Value value(Argument1 argument1, Argument2 argument2);
 }

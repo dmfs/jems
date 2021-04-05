@@ -30,6 +30,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Fluent<E> extends AbstractBaseIterator<E> implements FluentIterator<E>
 {
     private final Iterator<E> mDelegate;

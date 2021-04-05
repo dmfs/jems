@@ -51,6 +51,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Split extends AbstractBaseIterator<CharSequence>
 {
     private final CharSequence mValue;

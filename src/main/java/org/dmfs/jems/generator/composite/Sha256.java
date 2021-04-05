@@ -27,6 +27,7 @@ import java.security.MessageDigest;
 /**
  * A {@code SHA-256} {@link MessageDigest} {@link Generator}.
  */
+@Deprecated
 public final class Sha256 extends DelegatingGenerator<MessageDigest>
 {
     public Sha256()

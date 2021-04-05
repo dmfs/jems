@@ -29,6 +29,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public abstract class AbstractBaseIterator<E> implements Iterator<E>
 {
 

@@ -39,6 +39,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Frozen<T> implements Iterable<T>
 {
 

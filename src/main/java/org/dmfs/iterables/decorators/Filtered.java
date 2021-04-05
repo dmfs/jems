@@ -27,6 +27,7 @@ import java.util.Iterator;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class Filtered<E> implements Iterable<E>
 {
     private final Filter<E> mFilter;

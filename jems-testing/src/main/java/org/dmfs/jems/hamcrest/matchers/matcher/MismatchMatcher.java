@@ -28,6 +28,7 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class MismatchMatcher<V, T extends Matcher<? super V>> extends TypeSafeDiagnosingMatcher<T>
 {
     private final V mMismatchItem;

@@ -27,6 +27,7 @@ import java.util.Iterator;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class Mapped<OriginalType, ResultType> implements Iterable<ResultType>
 {
     private final Iterable<? extends OriginalType> mOriginal;

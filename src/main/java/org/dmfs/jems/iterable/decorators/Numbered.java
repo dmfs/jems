@@ -44,6 +44,7 @@ import org.dmfs.jems.pair.Pair;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Numbered<T> extends DelegatingIterable<Pair<Integer, T>>
 {
     public Numbered(Iterable<T> delegate)

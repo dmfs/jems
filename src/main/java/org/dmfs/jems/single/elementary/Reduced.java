@@ -27,6 +27,7 @@ import org.dmfs.jems.single.Single;
  * <p>
  * Note, this is the single threaded version of a "reduce" operation.
  */
+@Deprecated
 public final class Reduced<Value, Result> implements Single<Result>
 {
     private final Generator<? extends Result> mInitialValue;

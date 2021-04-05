@@ -42,6 +42,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class ParallelMatcher<T> extends TypeSafeDiagnosingMatcher<T>
 {
     private final Matcher<T> mDelegate;

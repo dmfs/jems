@@ -33,6 +33,7 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class GeneratableMatcher<T> extends TypeSafeDiagnosingMatcher<Generatable<T>>
 {
     private final Iterable<Matcher<T>> mExpectedStartSequence;

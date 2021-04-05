@@ -26,6 +26,7 @@ import org.dmfs.jems.function.BiFunction;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Zipped<Left, Right, Result, E extends Exception> implements Fragile<Result, E>
 {
     private final BiFunction<Left, Right, Result> mZipFunction;

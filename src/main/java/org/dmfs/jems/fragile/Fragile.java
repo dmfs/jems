@@ -28,7 +28,9 @@ import java.util.Iterator;
  * It's primary use case is to allow deferring checked Exceptions if they can't be thrown right away. A common example is Iterating elements, {@link
  * Iterator#next()} doesn't allow checked Exceptions to be thrown. In this case a {@link Fragile} can be returned to defer any exception to evaluation time.
  */
-public interface Fragile<T, E extends Exception>
+@Deprecated
+public interface Fragile<T, E extends Exception> extends org.dmfs.jems2.Fragile<T, E>
 {
+    @Override
     T value() throws E;
 }

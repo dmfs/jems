@@ -28,6 +28,7 @@ import java.util.Locale;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class CharSequenceLengthMatcher extends TypeSafeDiagnosingMatcher<CharSequence>
 {
     private final int mExpectedValue;

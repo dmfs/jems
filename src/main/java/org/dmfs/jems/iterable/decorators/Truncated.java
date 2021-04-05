@@ -26,6 +26,7 @@ import org.dmfs.jems.generatable.Generatable;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Truncated<T> extends DelegatingIterable<T>
 {
     public Truncated(int limit, Generatable<T> delegate)

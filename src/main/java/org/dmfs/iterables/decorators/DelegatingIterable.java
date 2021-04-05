@@ -28,6 +28,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public abstract class DelegatingIterable<E> implements Iterable<E>
 {
     private Iterable<E> mDelegate;

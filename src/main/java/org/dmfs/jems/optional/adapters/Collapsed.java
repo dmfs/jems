@@ -28,6 +28,7 @@ import java.util.NoSuchElementException;
  * @author Marten Gajda
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class Collapsed<T> implements org.dmfs.optional.Optional<T>
 {
     private final Optional<Optional<T>> mDelegate;

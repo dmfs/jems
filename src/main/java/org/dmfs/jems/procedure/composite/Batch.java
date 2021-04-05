@@ -25,6 +25,7 @@ import org.dmfs.jems.procedure.Procedure;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Batch<T> implements Procedure<Iterable<? extends T>>
 {
     private final Procedure<? super T> mDelegate;

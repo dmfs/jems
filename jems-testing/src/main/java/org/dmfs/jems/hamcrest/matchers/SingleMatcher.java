@@ -28,6 +28,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 /**
  * {@link Matcher} for {@link Single}.
  */
+@Deprecated
 public final class SingleMatcher
 {
     private SingleMatcher() {}

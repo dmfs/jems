@@ -29,6 +29,7 @@ import java.util.Iterator;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class Fluent<E> implements FluentIterable<E>
 {
     private final Iterable<E> mDelegate;

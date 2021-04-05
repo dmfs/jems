@@ -26,6 +26,7 @@ import java.util.Locale;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Chunked<T> implements Iterable<Iterable<T>>
 {
     private final int mChunkSize;

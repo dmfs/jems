@@ -32,6 +32,7 @@ import static org.hamcrest.Matchers.is;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class ThrowableMatcher
 {
     @SafeVarargs

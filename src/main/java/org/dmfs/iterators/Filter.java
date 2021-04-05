@@ -27,6 +27,7 @@ package org.dmfs.iterators;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public interface Filter<E>
 {
     /**

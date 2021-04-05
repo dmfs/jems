@@ -69,6 +69,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class UnquotedSplit extends AbstractBaseIterator<CharSequence>
 {
     private final CharSequence mValue;

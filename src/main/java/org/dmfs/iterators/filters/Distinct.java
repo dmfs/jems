@@ -33,6 +33,7 @@ import java.util.Set;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Distinct<E> implements Filter<E>
 {
     private final Set<E> mIteratedElements = new HashSet<>(32);

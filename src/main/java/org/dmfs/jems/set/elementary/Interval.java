@@ -25,6 +25,7 @@ import org.dmfs.jems.set.Set;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Interval<T extends Comparable<T>> implements Set<T>
 {
     private final T mStart;

@@ -23,6 +23,7 @@ import org.dmfs.jems.generator.Generator;
 /**
  * An abstract {@link Generator} which delegates to another {@link Generator}.
  */
+@Deprecated
 public abstract class DelegatingGenerator<Type> implements Generator<Type>
 {
     private final Generator<Type> mDelegate;

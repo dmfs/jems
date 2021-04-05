@@ -31,6 +31,7 @@ import org.dmfs.jems.single.Single;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class ForEach<T> implements Procedure<Procedure<? super T>>
 {
     private final Iterable<T> mArguments;

@@ -29,6 +29,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Truncated<T> implements Iterator<T>
 {
     private int mRemaining;

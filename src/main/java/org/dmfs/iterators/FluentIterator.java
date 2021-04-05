@@ -25,6 +25,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public interface FluentIterator<E> extends Iterator<E>
 {
     /**

@@ -26,6 +26,7 @@ import org.dmfs.jems.procedure.Procedure;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Composite<T> implements Procedure<T>
 {
     private final Iterable<? extends Procedure<? super T>> mDelegates;

@@ -28,6 +28,7 @@ import org.dmfs.jems.optional.decorators.DelegatingOptional;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class FirstPresent<T> extends DelegatingOptional<T>
 {
     @SafeVarargs

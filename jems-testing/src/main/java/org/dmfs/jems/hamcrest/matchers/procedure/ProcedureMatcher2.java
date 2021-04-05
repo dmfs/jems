@@ -32,6 +32,7 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
  *     assertThat(param -&gt; new Testee(param, "x"), processes(()-&gt; param, arg, equalTo(...)));
  * </code></pre>
  */
+@Deprecated
 public final class ProcedureMatcher2<Param, Argument>
         extends TypeSafeDiagnosingMatcher<Function<? super Param, ? extends Procedure<? super Argument>>>
 {

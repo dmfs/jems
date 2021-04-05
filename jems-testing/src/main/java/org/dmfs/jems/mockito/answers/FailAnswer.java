@@ -26,6 +26,7 @@ import org.mockito.stubbing.Answer;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class FailAnswer implements Answer<Object>
 {
     public static final Answer<Object> INSTANCE = new FailAnswer();

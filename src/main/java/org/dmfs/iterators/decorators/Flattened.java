@@ -35,6 +35,7 @@ import java.util.NoSuchElementException;
  * @author Marten Gajda
  * @see Serialized
  */
+@Deprecated
 public final class Flattened<E> extends AbstractBaseIterator<E>
 {
     private final Iterator<? extends Iterable<? extends E>> mIterables;

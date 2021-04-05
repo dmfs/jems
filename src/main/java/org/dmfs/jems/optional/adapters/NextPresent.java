@@ -29,6 +29,7 @@ import java.util.Iterator;
  *
  * @author Gabor Keszthelyi
  */
+@Deprecated
 public final class NextPresent<T> extends DelegatingOptional<T>
 {
     public NextPresent(Iterator<Optional<T>> optionals)

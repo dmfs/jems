@@ -27,6 +27,7 @@ import org.dmfs.jems.predicate.elementary.DelegatingPredicate;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class PairWith<Left, Right> extends DelegatingPredicate<Pair<? extends Left, ? extends Right>>
 {
     public PairWith(Predicate<? super Left> leftDelegate, Predicate<? super Right> rightPredicate)

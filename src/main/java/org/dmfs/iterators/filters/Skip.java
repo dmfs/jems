@@ -29,6 +29,7 @@ import org.dmfs.iterators.Filter;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Skip<E> implements Filter<E>
 {
     private int mElementsToSkip;

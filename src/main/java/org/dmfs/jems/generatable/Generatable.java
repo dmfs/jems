@@ -30,7 +30,9 @@ import org.dmfs.jems.iterable.adapters.Infinite;
  *
  * @author Marten Gajda
  */
-public interface Generatable<T>
+@Deprecated
+public interface Generatable<T> extends org.dmfs.jems2.Generatable<T>
 {
+    @Override
     Generator<T> generator();
 }

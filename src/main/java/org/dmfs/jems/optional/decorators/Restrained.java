@@ -28,6 +28,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Restrained<T> implements Optional<T>
 {
     private final Single<Boolean> mCondition;

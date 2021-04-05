@@ -28,6 +28,7 @@ import static org.dmfs.optional.Absent.absent;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class LeftSidedPair<Left, Right> implements Pair<Left, Optional<Right>>
 {
     private final Left mLeft;

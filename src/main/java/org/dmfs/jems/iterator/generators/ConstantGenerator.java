@@ -27,6 +27,7 @@ import java.util.Iterator;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class ConstantGenerator<E> extends AbstractBaseIterator<E>
 {
     private final E mValue;

@@ -31,6 +31,7 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
  * assertThat(new Testee("1"), processes(()-&gt;arg, equalTo(...)));
  * </code></pre>
  */
+@Deprecated
 public final class ProcedureMatcher<Argument> extends TypeSafeDiagnosingMatcher<Procedure<? super Argument>>
 {
     private final Generator<? extends Argument> mArgumentGenerator;

@@ -26,6 +26,7 @@ import org.dmfs.jems.predicate.elementary.Equals;
  *
  * @author Marten Gajda
  */
+@Deprecated
 public final class Not<T> implements Predicate<T>
 {
     private final Predicate<? super T> mDelegate;

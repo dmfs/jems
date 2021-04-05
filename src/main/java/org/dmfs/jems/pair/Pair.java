@@ -22,17 +22,20 @@ package org.dmfs.jems.pair;
  *
  * @author Gabor Keszthelyi
  */
-public interface Pair<Left, Right>
+@Deprecated
+public interface Pair<Left, Right> extends org.dmfs.jems2.Pair<Left, Right>
 {
 
     /**
      * The left value of the pair, i.e. the 1st value in this 2-tuple.
      */
+    @Override
     Left left();
 
     /**
      * The right value of the pair, i.e. the 2nd value in this 2-tuple.
      */
+    @Override
     Right right();
 
 }
