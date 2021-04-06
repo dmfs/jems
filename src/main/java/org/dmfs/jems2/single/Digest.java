@@ -28,6 +28,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.util.Locale;
 
+import static org.dmfs.jems2.function.SingleFunction.toSingle;
+
 
 /**
  * A {@link Single} of a byte array which represents the digested value of the given input data.
@@ -42,7 +44,7 @@ public final class Digest implements Single<byte[]>
         Generator<? extends MessageDigest> messageDigestGenerator,
         byte[]... parts)
     {
-        this(messageDigestGenerator, new Mapped<>(part -> () -> part, new Seq<>(parts)));
+        this(messageDigestGenerator, new Mapped<>(toSingle(), new Seq<>(parts)));
     }
 
 
