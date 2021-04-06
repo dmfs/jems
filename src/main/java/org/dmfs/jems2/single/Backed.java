@@ -27,18 +27,18 @@ import org.dmfs.jems2.Single;
  */
 public final class Backed<T> implements Single<T>, Optional<T>
 {
-    private final Optional<T> mOptional;
+    private final Optional<? extends T> mOptional;
     private final Fragile<? extends T, ? extends RuntimeException> mBackUp;
 
 
-    public Backed(Optional<T> optional, Fragile<? extends T, ? extends RuntimeException> backUp)
+    public Backed(Optional<? extends T> optional, Fragile<? extends T, ? extends RuntimeException> backUp)
     {
         mOptional = optional;
         mBackUp = backUp;
     }
 
 
-    public Backed(Optional<T> optional, T backUp)
+    public Backed(Optional<? extends T> optional, T backUp)
     {
         this(optional, () -> backUp);
     }

@@ -36,7 +36,7 @@ public final class BackedTest
     @Test
     public void test()
     {
-        assertThat(new Backed<String>(new Present<>("test"), new Just<>("fallback")),
+        assertThat(new Backed<>(new Present<>("test"), new Just<>("fallback")),
             hasValue("test"));
         assertThat(new Backed<>(new Present<>("test"), "fallback"),
             hasValue("test"));
