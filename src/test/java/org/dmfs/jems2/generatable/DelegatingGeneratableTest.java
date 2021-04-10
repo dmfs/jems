@@ -15,35 +15,22 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems2.bifunction;
+package org.dmfs.jems2.generatable;
 
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.*;
+import static org.dmfs.jems2.hamcrest.matchers.generatable.GeneratableMatcher.startsWith;
 import static org.junit.Assert.assertThat;
 
 
-/**
- * Test {@link By}.
- */
-public class ByTest
+public class DelegatingGeneratableTest
 {
     @Test
     public void test()
     {
-        assertThat(
-            new By<>(String::length, String::length).value("123", "abcdef"),
-            is(lessThan(0))
-        );
-
-        assertThat(
-            new By<>(String::length, String::length, Integer::compareTo).value("12345", "abcde"),
-            is(equalTo(0))
-        );
-
-        assertThat(
-            new By<>(String::length, String::length, Integer::compareTo).value("12345", "abc"),
-            is(greaterThan(0))
-        );
+        assertThat(new DelegatingGeneratable<Integer>(new Sequence<Integer>(() -> 1, a -> a + 1))
+                   {
+                   },
+            startsWith(1, 2, 3, 4, 5, 6));
     }
 }
