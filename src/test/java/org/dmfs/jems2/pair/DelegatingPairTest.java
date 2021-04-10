@@ -15,35 +15,23 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems2.bifunction;
+package org.dmfs.jems2.pair;
 
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.*;
+import static org.dmfs.jems2.hamcrest.matchers.pair.PairMatcher.pair;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 
-/**
- * Test {@link By}.
- */
-public class ByTest
+public class DelegatingPairTest
 {
     @Test
     public void test()
     {
-        assertThat(
-            new By<>(String::length, String::length).value("123", "abcdef"),
-            is(lessThan(0))
-        );
-
-        assertThat(
-            new By<>(String::length, String::length, Integer::compareTo).value("12345", "abcde"),
-            is(equalTo(0))
-        );
-
-        assertThat(
-            new By<>(String::length, String::length, Integer::compareTo).value("12345", "abc"),
-            is(greaterThan(0))
-        );
+        assertThat(new DelegatingPair<String, Integer>(new ValuePair<>("123", 2))
+                   {
+                   },
+            is(pair("123", 2)));
     }
 }

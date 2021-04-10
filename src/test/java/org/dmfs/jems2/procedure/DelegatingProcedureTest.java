@@ -15,35 +15,30 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems2.bifunction;
+package org.dmfs.jems2.procedure;
 
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Collections.singletonList;
+import static org.dmfs.jems2.hamcrest.matchers.procedure.ProcedureMatcher.processes;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 
-/**
- * Test {@link By}.
- */
-public class ByTest
+public class DelegatingProcedureTest
 {
     @Test
     public void test()
     {
-        assertThat(
-            new By<>(String::length, String::length).value("123", "abcdef"),
-            is(lessThan(0))
-        );
-
-        assertThat(
-            new By<>(String::length, String::length, Integer::compareTo).value("12345", "abcde"),
-            is(equalTo(0))
-        );
-
-        assertThat(
-            new By<>(String::length, String::length, Integer::compareTo).value("12345", "abc"),
-            is(greaterThan(0))
-        );
+        assertThat(new DelegatingProcedure<List<String>>(l -> l.add("123"))
+                   {
+                   },
+            processes(
+                ArrayList::new,
+                equalTo(singletonList("123"))
+            ));
     }
 }

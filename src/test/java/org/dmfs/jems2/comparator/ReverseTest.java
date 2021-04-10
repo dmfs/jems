@@ -15,35 +15,27 @@
  * limitations under the License.
  */
 
-package org.dmfs.jems2.bifunction;
+package org.dmfs.jems2.comparator;
 
 import org.junit.Test;
 
+import java.util.Comparator;
+
+import static org.dmfs.jems2.hamcrest.matchers.LambdaMatcher.having;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 
 /**
- * Test {@link By}.
+ * Test {@link Reverse}.
  */
-public class ByTest
+public class ReverseTest
 {
     @Test
     public void test()
     {
-        assertThat(
-            new By<>(String::length, String::length).value("123", "abcdef"),
-            is(lessThan(0))
-        );
-
-        assertThat(
-            new By<>(String::length, String::length, Integer::compareTo).value("12345", "abcde"),
-            is(equalTo(0))
-        );
-
-        assertThat(
-            new By<>(String::length, String::length, Integer::compareTo).value("12345", "abc"),
-            is(greaterThan(0))
-        );
+        assertThat(new Reverse<String>(Comparator.reverseOrder()), having(b -> b.compare("50", "50"), equalTo(0)));
+        assertThat(new Reverse<String>(Comparator.reverseOrder()), having(b -> b.compare("9", "50"), greaterThan(0)));
+        assertThat(new Reverse<String>(Comparator.reverseOrder()), having(b -> b.compare("50", "9"), lessThan(0)));
     }
 }
