@@ -50,10 +50,10 @@ public final class Mock
      * when a non-mocked method is called.
      */
     @SafeVarargs
-    public static <T> T mock(Class<T> clazz, Procedure<? super T>... methods)
+    public static <T> T mock(Class<T> clazz, Procedure<? super T>... stubs)
     {
         T result = TestDoubles.failingMock(clazz);
-        new Composite<>(methods).process(result);
+        new Composite<>(stubs).process(result);
         return result;
     }
 
