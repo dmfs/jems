@@ -22,6 +22,7 @@ package org.dmfs.jems2;
  * <p>
  * Predicates must be immutable.
  */
+@FunctionalInterface
 public interface Predicate<T>
 {
     /**

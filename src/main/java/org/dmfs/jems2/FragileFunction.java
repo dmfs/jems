@@ -23,6 +23,7 @@ package org.dmfs.jems2;
  * @see FragileBiFunction
  * @see Function
  */
+@FunctionalInterface
 public interface FragileFunction<Argument, Result, E extends Exception>
 {
     /**

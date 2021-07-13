@@ -22,6 +22,7 @@ package org.dmfs.jems2;
  * <p>
  * Instances of this type must be immutable.
  */
+@FunctionalInterface
 public interface Generatable<T>
 {
     Generator<T> generator();

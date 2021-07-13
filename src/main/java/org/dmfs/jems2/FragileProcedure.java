@@ -23,6 +23,7 @@ package org.dmfs.jems2;
  * @see FragileProcedure
  * @see Procedure
  */
+@FunctionalInterface
 public interface FragileProcedure<Argument, Error extends Exception>
 {
     /**
