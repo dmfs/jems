@@ -20,6 +20,7 @@ package org.dmfs.jems2;
 /**
  * Functional interface for a void function taking two arguments that can throw a checked {@link Exception}.
  */
+@FunctionalInterface
 public interface FragileBiProcedure<Argument1, Argument2, E extends Exception>
 {
     /**

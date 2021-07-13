@@ -28,6 +28,7 @@ import java.util.Iterator;
  * the value would affect all other uses of the {@link Single} because other callers might receive the mutated value. A {@link Generator} on the other hand is
  * expected to return (generate) a new instance on each call if the results are mutable.
  */
+@FunctionalInterface
 public interface Generator<T>
 {
     /**

@@ -20,6 +20,7 @@ package org.dmfs.jems2;
 /**
  * Functional interface for a void function taking one argument.
  */
+@FunctionalInterface
 public interface Procedure<T> extends FragileProcedure<T, RuntimeException>
 {
     /**

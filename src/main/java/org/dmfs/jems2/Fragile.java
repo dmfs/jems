@@ -24,6 +24,7 @@ package org.dmfs.jems2;
  *
  * @see Single
  */
+@FunctionalInterface
 public interface Fragile<T, E extends Exception>
 {
     /**

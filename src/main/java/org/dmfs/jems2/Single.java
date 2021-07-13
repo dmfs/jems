@@ -22,6 +22,7 @@ package org.dmfs.jems2;
  * <p>
  * A Single is a tuple with exactly one value.
  */
+@FunctionalInterface
 public interface Single<T> extends Fragile<T, RuntimeException>
 {
     /**
