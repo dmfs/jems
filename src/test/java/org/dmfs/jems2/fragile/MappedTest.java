@@ -17,7 +17,7 @@
 
 package org.dmfs.jems2.fragile;
 
-import org.dmfs.jems2.FragileFunction;
+import org.dmfs.jems2.single.Just;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -37,14 +37,10 @@ public class MappedTest
     @Test
     public void testValue()
     {
-        assertThat(new Mapped<>((FragileFunction<? super String, Integer, ? extends Exception>) String::length, () -> "abcde"), hasValue(5));
+        assertThat(new Mapped<>(String::length, new Just<>("abcde")), hasValue(5));
         assertThat(new Mapped<>(String::length, new Broken<>(new FileNotFoundException())), is(throwing(FileNotFoundException.class)));
-        assertThat(new Mapped<>((FragileFunction<? super String, ?, ? extends Exception>) s -> {throw new FileNotFoundException();}, () -> "abcde"),
-            is(throwing(FileNotFoundException.class)));
-        assertThat(new Mapped<>((FragileFunction<? super String, ?, ? extends Exception>)
-                s -> {throw new IOException();},
-                new Broken<>(new FileNotFoundException())),
-            is(throwing(IOException.class)));
+        assertThat(new Mapped<>(s -> {throw new FileNotFoundException();}, () -> "abcde"), is(throwing(FileNotFoundException.class)));
+        assertThat(new Mapped<>(s -> {throw new IOException();}, new Broken<>(new FileNotFoundException())), is(throwing(FileNotFoundException.class)));
     }
 
 }
