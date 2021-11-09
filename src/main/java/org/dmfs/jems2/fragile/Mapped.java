@@ -19,8 +19,6 @@ package org.dmfs.jems2.fragile;
 
 import org.dmfs.jems2.Fragile;
 import org.dmfs.jems2.FragileFunction;
-import org.dmfs.jems2.Function;
-import org.dmfs.jems2.Single;
 
 
 /**
@@ -28,22 +26,6 @@ import org.dmfs.jems2.Single;
  */
 public final class Mapped<From, To, E extends Exception> extends DelegatingFragile<To, E>
 {
-    public Mapped(
-        Function<? super From, ? extends To> mapFunction,
-        Fragile<From, ? extends E> delegate)
-    {
-        this((FragileFunction<? super From, ? extends To, ? extends E>) mapFunction::value, delegate);
-    }
-
-
-    public Mapped(
-        FragileFunction<? super From, ? extends To, ? extends E> mapFunction,
-        Single<From> delegate)
-    {
-        this(mapFunction, (Fragile<From, ? extends E>) delegate::value);
-    }
-
-
     public Mapped(
         FragileFunction<? super From, ? extends To, ? extends E> mapFunction,
         Fragile<From, ? extends E> delegate)
