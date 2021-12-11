@@ -19,9 +19,10 @@ package org.dmfs.jems2.iterable;
 
 import org.dmfs.jems2.single.Collected;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.TreeSet;
+import java.util.List;
 
 
 /**
@@ -43,6 +44,8 @@ public final class Sorted<T> implements Iterable<T>
     @Override
     public Iterator<T> iterator()
     {
-        return new Collected<>(() -> new TreeSet<>(mComparator), mDelegate).value().iterator();
+        List<T> result = new Collected<>(ArrayList::new, mDelegate).value();
+        result.sort(mComparator);
+        return result.iterator();
     }
 }

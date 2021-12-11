@@ -36,5 +36,6 @@ public class AscendingTest
         assertThat(new Ascending<String>(new Seq<>()), is(emptyIterable()));
         assertThat(new Ascending<>(new Seq<>("z")), iteratesTo("z"));
         assertThat(new Ascending<>(new Seq<>("z", "x", "y")), iteratesTo("x", "y", "z"));
+        assertThat(new Ascending<>(new Seq<>("z", "x", "y", "z", "x", "y")), iteratesTo("x", "x", "y", "y", "z", "z"));
     }
 }

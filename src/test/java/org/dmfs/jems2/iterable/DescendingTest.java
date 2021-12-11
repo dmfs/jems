@@ -36,5 +36,6 @@ public class DescendingTest
         assertThat(new Descending<String>(new Seq<>()), is(emptyIterable()));
         assertThat(new Descending<>(new Seq<>("z")), iteratesTo("z"));
         assertThat(new Descending<>(new Seq<>("x", "y", "z")), iteratesTo("z", "y", "x"));
+        assertThat(new Descending<>(new Seq<>("x", "y", "z", "x", "y", "z")), iteratesTo("z", "z", "y", "y", "x", "x"));
     }
 }
