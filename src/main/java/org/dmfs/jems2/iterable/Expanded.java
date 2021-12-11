@@ -18,6 +18,7 @@
 package org.dmfs.jems2.iterable;
 
 import org.dmfs.jems2.Function;
+import org.dmfs.jems2.Optional;
 
 
 /**
@@ -27,6 +28,12 @@ import org.dmfs.jems2.Function;
  */
 public final class Expanded<T> extends DelegatingIterable<T>
 {
+    public <V> Expanded(Function<? super V, ? extends Iterable<? extends T>> function, Optional<V> delegate)
+    {
+        super(new Joined<>(new org.dmfs.jems2.optional.Mapped<>(function, delegate)));
+    }
+
+
     public <V> Expanded(Function<? super V, ? extends Iterable<? extends T>> function, Iterable<V> delegate)
     {
         super(new Joined<>(new Mapped<>(function, delegate)));
