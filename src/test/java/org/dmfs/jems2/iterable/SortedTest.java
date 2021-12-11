@@ -38,5 +38,7 @@ public class SortedTest
         assertThat(new Sorted<>(Comparator.naturalOrder(), new EmptyIterable<String>()), is(emptyIterable()));
         assertThat(new Sorted<>(Comparator.naturalOrder(), new Seq<>(7, 4, 1, 3, 6, 9)), iteratesTo(1, 3, 4, 6, 7, 9));
         assertThat(new Sorted<>(Comparator.reverseOrder(), new Seq<>(7, 4, 1, 3, 6, 9)), iteratesTo(9, 7, 6, 4, 3, 1));
+        assertThat(new Sorted<>(Comparator.naturalOrder(), new Seq<>(7, 1, 4, 1, 3, 6, 3, 9)), iteratesTo(1, 1, 3, 3, 4, 6, 7, 9));
+
     }
 }
