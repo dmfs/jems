@@ -31,7 +31,7 @@ import java.util.Comparator;
  * <p>
  * Absent values are always "smaller" than present values.
  */
-public final class OptionalComparator<V> implements Comparator<Optional<V>>
+public final class OptionalComparator<V> implements Comparator<Optional<? extends V>>
 {
     private final Comparator<? super V> mDelegate;
 
@@ -43,7 +43,7 @@ public final class OptionalComparator<V> implements Comparator<Optional<V>>
 
 
     @Override
-    public int compare(Optional<V> o1, Optional<V> o2)
+    public int compare(Optional<? extends V> o1, Optional<? extends V> o2)
     {
         return new Backed<Integer>(
             new Zipped<>(o1, o2, mDelegate::compare),
