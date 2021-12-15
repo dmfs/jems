@@ -29,7 +29,7 @@ import java.util.Comparator;
 /**
  * A {@link Comparator} for {@link Optional} values.
  * <p>
- * Absent values are always "smaller" than present values.
+ * Absent values are always "smaller" than present values. Decorate this with {@link GreaterAbsent} to reverse this behavior.
  */
 public final class OptionalComparator<V> implements Comparator<Optional<? extends V>>
 {
