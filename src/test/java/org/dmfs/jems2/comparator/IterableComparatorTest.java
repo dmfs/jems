@@ -22,6 +22,7 @@ import org.dmfs.jems2.iterable.Seq;
 import org.junit.Test;
 
 import static java.util.Comparator.naturalOrder;
+import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableOrderMatcher.imposesOrderOf;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
@@ -34,6 +35,18 @@ public class IterableComparatorTest
         assertThat(new IterableComparator<>((l, r) -> -1).compare(new EmptyIterable<>(), new EmptyIterable<>()), is(equalTo(0)));
     }
 
+
+    @Test
+    public void test()
+    {
+        assertThat(new IterableComparator<>(new OptionalComparator<>(naturalOrder())),
+            imposesOrderOf(
+                new EmptyIterable<>(),
+                new Seq<>(1),
+                new Seq<>(1,2),
+                new Seq<>(1,3),
+                new Seq<>(4)));
+    }
 
     @Test
     public void testOneEmpty()
