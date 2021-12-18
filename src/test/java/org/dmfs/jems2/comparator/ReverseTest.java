@@ -21,8 +21,7 @@ import org.junit.Test;
 
 import java.util.Comparator;
 
-import static org.dmfs.jems2.hamcrest.matchers.LambdaMatcher.having;
-import static org.hamcrest.Matchers.*;
+import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableOrderMatcher.imposesOrderOf;
 import static org.junit.Assert.assertThat;
 
 
@@ -34,8 +33,9 @@ public class ReverseTest
     @Test
     public void test()
     {
-        assertThat(new Reverse<String>(Comparator.reverseOrder()), having(b -> b.compare("50", "50"), equalTo(0)));
-        assertThat(new Reverse<String>(Comparator.reverseOrder()), having(b -> b.compare("9", "50"), greaterThan(0)));
-        assertThat(new Reverse<String>(Comparator.reverseOrder()), having(b -> b.compare("50", "9"), lessThan(0)));
+        assertThat(new Reverse<>(Comparator.naturalOrder()),
+            imposesOrderOf(5, 4, 3, 2, 1));
+        assertThat(new Reverse<>(Comparator.reverseOrder()),
+            imposesOrderOf(1, 2, 3, 4, 5));
     }
 }

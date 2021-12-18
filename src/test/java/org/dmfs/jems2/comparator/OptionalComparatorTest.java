@@ -23,47 +23,29 @@ import org.junit.Test;
 
 import java.util.Comparator;
 
-import static org.hamcrest.Matchers.*;
+import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableEqualsMatcher.considersEqual;
+import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableOrderMatcher.imposesOrderOf;
+import static org.dmfs.jems2.optional.Absent.absent;
+import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertThat;
 
 
 public class OptionalComparatorTest
 {
     @Test
-    public void testPresent()
+    public void testOrder()
     {
-        assertThat(new OptionalComparator<Integer>(Comparator.naturalOrder()).compare(
-            new Present<>(1),
-            new Present<>(2)),
-            is(lessThan(0)));
-
-        assertThat(new OptionalComparator<Integer>(Comparator.naturalOrder()).compare(
-            new Present<>(2),
-            new Present<>(2)),
-            is(0));
-
-        assertThat(new OptionalComparator<Integer>(Comparator.naturalOrder()).compare(
-            new Present<>(4),
-            new Present<>(2)),
-            is(greaterThan(0)));
+        assertThat(new OptionalComparator<>(Comparator.naturalOrder()),
+            imposesOrderOf(absent(), new Present<>(1), new Present<>(2)));
     }
 
+
     @Test
-    public void testWithAbsent()
+    public void testEqual()
     {
-        assertThat(new OptionalComparator<Integer>(Comparator.naturalOrder()).compare(
-            new Absent<>(),
-            new Present<>(2)),
-            is(lessThan(0)));
-
-        assertThat(new OptionalComparator<Integer>(Comparator.naturalOrder()).compare(
-            new Absent<>(),
-            new Absent<>()),
-            is(0));
-
-        assertThat(new OptionalComparator<Integer>(Comparator.naturalOrder()).compare(
-            new Present<>(2),
-            new Absent<>()),
-            is(greaterThan(0)));
+        assertThat(new OptionalComparator<>(new By<>(String::length)),
+            allOf(
+                considersEqual(new Present<>("---"), new Present<>("123"), new Present<>("abc")),
+                considersEqual(new Absent<>(), new Absent<>())));
     }
 }

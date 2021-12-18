@@ -22,20 +22,13 @@ import org.dmfs.jems2.iterable.Seq;
 import org.junit.Test;
 
 import static java.util.Comparator.naturalOrder;
+import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableEqualsMatcher.considersEqual;
 import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableOrderMatcher.imposesOrderOf;
-import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 
 public class IterableComparatorTest
 {
-    @Test
-    public void testBothEmpty()
-    {
-        assertThat(new IterableComparator<>((l, r) -> -1).compare(new EmptyIterable<>(), new EmptyIterable<>()), is(equalTo(0)));
-    }
-
-
     @Test
     public void test()
     {
@@ -43,73 +36,38 @@ public class IterableComparatorTest
             imposesOrderOf(
                 new EmptyIterable<>(),
                 new Seq<>(1),
-                new Seq<>(1,2),
-                new Seq<>(1,3),
+                new Seq<>(1, 2),
+                new Seq<>(1, 3),
+                new Seq<>(1, 3, 1),
+                new Seq<>(1, 3, 2),
+                new Seq<>(1, 4, 1),
                 new Seq<>(4)));
     }
 
+
     @Test
-    public void testOneEmpty()
+    public void testShorterIsLarger()
     {
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<>((l, r) -> -1)).compare(new Seq<>(1, 2, 3), new EmptyIterable<>()),
-            is(greaterThan(0)));
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<>((l, r) -> 1)).compare(new Seq<>(1, 2, 3), new EmptyIterable<>()),
-            is(greaterThan(0)));
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<>((l, r) -> -1)).compare(new EmptyIterable<>(), new Seq<>(1, 2, 3)),
-            is(lessThan(0)));
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<>((l, r) -> 1)).compare(new EmptyIterable<>(), new Seq<>(1, 2, 3)),
-            is(lessThan(0)));
+        assertThat(new IterableComparator<>(new GreaterAbsent<>(new OptionalComparator<>(naturalOrder()))),
+            imposesOrderOf(
+                new Seq<>(1, 2),
+                new Seq<>(1, 3, 1),
+                new Seq<>(1, 3, 2),
+                new Seq<>(1, 3),
+                new Seq<>(1, 4, 1),
+                new Seq<>(1),
+                new Seq<>(4),
+                new EmptyIterable<>()));
     }
 
 
     @Test
-    public void testSameLength()
+    public void testEqual()
     {
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<Integer>(naturalOrder())).compare(new Seq<>(1), new Seq<>(1)),
-            is(equalTo(0)));
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<Integer>(naturalOrder())).compare(new Seq<>(1, 2, 3), new Seq<>(1, 2, 3)),
-            is(equalTo(0)));
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<Integer>(naturalOrder())).compare(new Seq<>(1), new Seq<>(2)),
-            is(lessThan(0)));
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<Integer>(naturalOrder())).compare(new Seq<>(2), new Seq<>(1)),
-            is(greaterThan(0)));
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<Integer>(naturalOrder())).compare(new Seq<>(1, 2, 3), new Seq<>(1, 2, 4)),
-            is(lessThan(0)));
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<Integer>(naturalOrder())).compare(new Seq<>(1, 2, 4), new Seq<>(1, 2, 3)),
-            is(greaterThan(0)));
-    }
-
-
-    @Test
-    public void testDifferentLength()
-    {
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<Integer>(naturalOrder())).compare(new Seq<>(1), new Seq<>(1, 2, 3)),
-            is(lessThan(0)));
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<Integer>(naturalOrder())).compare(new Seq<>(1, 2, 3), new Seq<>(1)),
-            is(greaterThan(0)));
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<Integer>(naturalOrder())).compare(new Seq<>(1, 2), new Seq<>(1, 2, 3)),
-            is(lessThan(0)));
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<Integer>(naturalOrder())).compare(new Seq<>(1, 2, 3), new Seq<>(1, 2)),
-            is(greaterThan(0)));
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<Integer>(naturalOrder())).compare(new Seq<>(1, 3), new Seq<>(1, 2, 3)),
-            is(greaterThan(0)));
-        assertThat(
-            new IterableComparator<>(new OptionalComparator<Integer>(naturalOrder())).compare(new Seq<>(1, 2, 3), new Seq<>(1, 3)),
-            is(lessThan(0)));
+        assertThat(new IterableComparator<>(new GreaterAbsent<>(new OptionalComparator<>(new By<>(String::length)))),
+            considersEqual(
+                new Seq<>("12", "123", "1234"),
+                new Seq<>("ab", "abc", "abcd"),
+                new Seq<>("--", "---", "----")));
     }
 }

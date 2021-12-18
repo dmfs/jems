@@ -18,43 +18,35 @@
 
 package org.dmfs.jems2.comparator;
 
+import org.dmfs.jems2.optional.Absent;
 import org.dmfs.jems2.optional.Present;
 import org.junit.Test;
 
-import static java.util.Comparator.naturalOrder;
+import java.util.Comparator;
+
+import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableEqualsMatcher.considersEqual;
+import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableOrderMatcher.imposesOrderOf;
 import static org.dmfs.jems2.optional.Absent.absent;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertThat;
 
 
 public class GreaterAbsentTest
 {
     @Test
-    public void test()
+    public void testOrder()
     {
-        assertThat(
-            new GreaterAbsent<>(new OptionalComparator<>(naturalOrder())).compare(absent(), absent()),
-            is(equalTo(0)));
-
-        assertThat(
-            new GreaterAbsent<Integer>(new OptionalComparator<>(naturalOrder())).compare(new Present<>(1), absent()),
-            is(lessThan(0)));
-
-        assertThat(
-            new GreaterAbsent<Integer>(new OptionalComparator<>(naturalOrder())).compare(absent(), new Present<>(1)),
-            is(greaterThan(0)));
-
-        assertThat(
-            new GreaterAbsent<Integer>(new OptionalComparator<>(naturalOrder())).compare(new Present<>(1), new Present<>(1)),
-            is(equalTo(0)));
-
-        assertThat(
-            new GreaterAbsent<Integer>(new OptionalComparator<>(naturalOrder())).compare(new Present<>(1), new Present<>(2)),
-            is(lessThan(0)));
-
-        assertThat(
-            new GreaterAbsent<Integer>(new OptionalComparator<>(naturalOrder())).compare(new Present<>(2), new Present<>(1)),
-            is(greaterThan(0)));
+        assertThat(new GreaterAbsent<>(new OptionalComparator<>(Comparator.naturalOrder())),
+            imposesOrderOf(new Present<>(1), new Present<>(2), absent()));
     }
 
+
+    @Test
+    public void testEqual()
+    {
+        assertThat(new GreaterAbsent<>(new OptionalComparator<>(new By<>(String::length))),
+            allOf(
+                considersEqual(new Present<>("---"), new Present<>("123"), new Present<>("abc")),
+                considersEqual(new Absent<>(), new Absent<>())));
+    }
 }

@@ -19,10 +19,9 @@ package org.dmfs.jems2.comparator;
 
 import org.junit.Test;
 
-import java.util.Comparator;
-
-import static org.dmfs.jems2.hamcrest.matchers.LambdaMatcher.having;
-import static org.hamcrest.Matchers.*;
+import static java.util.Comparator.naturalOrder;
+import static java.util.Comparator.reverseOrder;
+import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableOrderMatcher.imposesOrderOf;
 import static org.junit.Assert.assertThat;
 
 
@@ -34,19 +33,13 @@ public class DelegatingComparatorTest
     @Test
     public void test()
     {
-        assertThat(new DelegatingComparator<Integer>(Comparator.naturalOrder())
+        assertThat(new DelegatingComparator<Integer>(naturalOrder())
                    {
                    },
-            having(c -> c.compare(1, 3), lessThan(0)));
-
-        assertThat(new DelegatingComparator<Integer>(Comparator.naturalOrder())
+            imposesOrderOf(1, 2, 3, 4, 5));
+        assertThat(new DelegatingComparator<Integer>(reverseOrder())
                    {
                    },
-            having(c -> c.compare(3, 3), equalTo(0)));
-
-        assertThat(new DelegatingComparator<Integer>(Comparator.naturalOrder())
-                   {
-                   },
-            having(c -> c.compare(3, 1), greaterThan(0)));
+            imposesOrderOf(5, 4, 3, 2, 1));
     }
 }

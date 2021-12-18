@@ -17,13 +17,13 @@
 
 package org.dmfs.jems2.comparator;
 
-import org.dmfs.jems2.iterable.EmptyIterable;
 import org.dmfs.jems2.iterable.Seq;
 import org.junit.Test;
 
-import java.util.Comparator;
-
-import static org.hamcrest.Matchers.*;
+import static java.util.Comparator.naturalOrder;
+import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableEqualsMatcher.considersEqual;
+import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableOrderMatcher.imposesOrderOf;
+import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertThat;
 
 
@@ -32,64 +32,34 @@ public class CompositeTest
     @Test
     public void testEmpty()
     {
-        assertThat(new Composite<>().compare(1, 2), is(equalTo(0)));
-        assertThat(new Composite<>().compare(2, 1), is(equalTo(0)));
-        assertThat(new Composite<>().compare(1, 1), is(equalTo(0)));
-
-        assertThat(new Composite<>(new EmptyIterable<>()).compare(1, 2), is(equalTo(0)));
-        assertThat(new Composite<>(new EmptyIterable<>()).compare(2, 1), is(equalTo(0)));
-        assertThat(new Composite<>(new EmptyIterable<>()).compare(1, 1), is(equalTo(0)));
+        assertThat(new Composite<>(), considersEqual(1, "", new Object(), false));
     }
 
 
     @Test
     public void testSingle()
     {
-        assertThat(new Composite<Integer>(Comparator.naturalOrder()).compare(1, 2), is(lessThan(0)));
-        assertThat(new Composite<Integer>(Comparator.naturalOrder()).compare(2, 1), is(greaterThan(0)));
-        assertThat(new Composite<Integer>(Comparator.naturalOrder()).compare(1, 1), is(equalTo(0)));
+        assertThat(new Composite<>(new By<>(String::length)),
+            allOf(
+                imposesOrderOf("", "1", "ab", "---"),
+                considersEqual("  ", "ab", "12")
+            ));
 
-        assertThat(new Composite<Integer>(new Seq<>(Comparator.naturalOrder())).compare(1, 2), is(lessThan(0)));
-        assertThat(new Composite<Integer>(new Seq<>(Comparator.naturalOrder())).compare(2, 1), is(greaterThan(0)));
-        assertThat(new Composite<Integer>(new Seq<>(Comparator.naturalOrder())).compare(1, 1), is(equalTo(0)));
+        assertThat(new Composite<>(new Seq<>(new By<>(String::length))),
+            allOf(
+                imposesOrderOf("", "1", "ab", "---"),
+                considersEqual("  ", "ab", "12")
+            ));
     }
 
 
     @Test
-    public void testMultipleEarlyDifference()
+    public void testMultiple()
     {
-        assertThat(new Composite<Integer>((l, r) -> -1, Comparator.naturalOrder()).compare(1, 2), is(lessThan(0)));
-        assertThat(new Composite<Integer>((l, r) -> -1, Comparator.reverseOrder()).compare(2, 1), is(lessThan(0)));
-        assertThat(new Composite<Integer>((l, r) -> -1, Comparator.reverseOrder()).compare(1, 1), is(lessThan(0)));
+        assertThat(new Composite<String>(new By<>(String::length), naturalOrder()),
+            imposesOrderOf("", "1", "2", "x", "ab", "bc", "abc", "bcd"));
 
-        assertThat(new Composite<Integer>(new Seq<>((l, r) -> -1, Comparator.naturalOrder())).compare(1, 2), is(lessThan(0)));
-        assertThat(new Composite<Integer>(new Seq<>((l, r) -> -1, Comparator.reverseOrder())).compare(2, 1), is(lessThan(0)));
-        assertThat(new Composite<Integer>(new Seq<>((l, r) -> -1, Comparator.reverseOrder())).compare(1, 1), is(lessThan(0)));
-    }
-
-
-    @Test
-    public void testMultipleLateDifference()
-    {
-        assertThat(new Composite<Integer>((l, r) -> 0, Comparator.naturalOrder()).compare(1, 2), is(lessThan(0)));
-        assertThat(new Composite<Integer>((l, r) -> 0, Comparator.naturalOrder()).compare(2, 1), is(greaterThan(0)));
-        assertThat(new Composite<Integer>((l, r) -> 0, Comparator.naturalOrder()).compare(1, 1), is(equalTo(0)));
-
-        assertThat(new Composite<Integer>(new Seq<>((l, r) -> 0, Comparator.naturalOrder())).compare(1, 2), is(lessThan(0)));
-        assertThat(new Composite<Integer>(new Seq<>((l, r) -> 0, Comparator.naturalOrder())).compare(2, 1), is(greaterThan(0)));
-        assertThat(new Composite<Integer>(new Seq<>((l, r) -> 0, Comparator.naturalOrder())).compare(1, 1), is(equalTo(0)));
-    }
-
-
-    @Test
-    public void testMultipleNoDifference()
-    {
-        assertThat(new Composite<Integer>((l, r) -> 0, (l, r) -> 0).compare(1, 2), is(equalTo(0)));
-        assertThat(new Composite<Integer>((l, r) -> 0, (l, r) -> 0).compare(2, 1), is(equalTo(0)));
-        assertThat(new Composite<Integer>((l, r) -> 0, (l, r) -> 0).compare(1, 1), is(equalTo(0)));
-
-        assertThat(new Composite<Integer>(new Seq<>((l, r) -> 0, (l, r) -> 0)).compare(1, 2), is(equalTo(0)));
-        assertThat(new Composite<Integer>(new Seq<>((l, r) -> 0, (l, r) -> 0)).compare(2, 1), is(equalTo(0)));
-        assertThat(new Composite<Integer>(new Seq<>((l, r) -> 0, (l, r) -> 0)).compare(1, 1), is(equalTo(0)));
+        assertThat(new Composite<String>(new Seq<>(new By<>(String::length), naturalOrder())),
+            imposesOrderOf("", "1", "2", "x", "ab", "bc", "abc", "bcd"));
     }
 }
