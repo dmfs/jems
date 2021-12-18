@@ -21,8 +21,9 @@ import org.junit.Test;
 
 import java.util.Comparator;
 
-import static org.dmfs.jems2.hamcrest.matchers.LambdaMatcher.having;
-import static org.hamcrest.Matchers.*;
+import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableEqualsMatcher.considersEqual;
+import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableOrderMatcher.imposesOrderOf;
+import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertThat;
 
 
@@ -32,14 +33,24 @@ import static org.junit.Assert.assertThat;
 public class ByTest
 {
     @Test
-    public void test()
+    public void testNaturalOrder()
     {
-        assertThat(new By<String>(Integer::parseInt), having(b -> b.compare("50", "50"), equalTo(0)));
-        assertThat(new By<String>(Integer::parseInt), having(b -> b.compare("9", "50"), lessThan(0)));
-        assertThat(new By<String>(Integer::parseInt), having(b -> b.compare("50", "9"), greaterThan(0)));
-
-        assertThat(new By<String>(Integer::parseInt, Comparator.reverseOrder()), having(b -> b.compare("50", "50"), equalTo(0)));
-        assertThat(new By<String>(Integer::parseInt, Comparator.reverseOrder()), having(b -> b.compare("9", "50"), greaterThan(0)));
-        assertThat(new By<String>(Integer::parseInt, Comparator.reverseOrder()), having(b -> b.compare("50", "9"), lessThan(0)));
+        assertThat(new By<>(String::length),
+            allOf(
+                imposesOrderOf("", "1", "ab", "---"),
+                considersEqual("12", "ab", "--", "xy", "  ")
+            ));
     }
+
+
+    @Test
+    public void testDelegateOrder()
+    {
+        assertThat(new By<>(String::length, Comparator.reverseOrder()),
+            allOf(
+                imposesOrderOf("---", "ab", "1", ""),
+                considersEqual("12", "ab", "--", "xy", "  ")
+            ));
+    }
+
 }
