@@ -113,7 +113,7 @@ public class MockTest
     public void testMockDoingNothing()
     {
         assertThat((Procedure<String>) mock(Procedure.class,
-            withVoid(p -> p.process("123"), doingNothing(), doingNothing(), throwing(new IllegalArgumentException()))),
+                withVoid(p -> p.process("123"), doingNothing(), doingNothing(), throwing(new IllegalArgumentException()))),
             allOf(
                 processes(() -> "123", is("123")),
                 processes(() -> "123", is("123")),
@@ -121,5 +121,24 @@ public class MockTest
                     p.process("123");
                     return null;
                 }, is(BrokenFragileMatcher.throwing(IllegalArgumentException.class)))));
+    }
+
+
+    @Test
+    public void testUpdateMock()
+    {
+        assertThat((Function<String, String>)
+                update(mock(Function.class,
+                        with(f -> f.value("1"), returning("one")),
+                        with(f -> f.value("2"), returning("two")),
+                        with(f -> f.value("3"), returning("three"))),
+                    with(f -> f.value("1"), returning("uno")),
+                    with(f -> f.value("4"), returning("cuatro"))),
+            allOf(
+                associates("1", "uno"),
+                associates("2", "two"),
+                associates("3", "three"),
+                associates("4", "cuatro")));
+
     }
 }

@@ -59,6 +59,26 @@ public final class Mock
 
 
     /**
+     * Updates a given mock. This takes a couple of {@link Procedure}s to update the mock in a single expression.
+     * <p>
+     * Example
+     *
+     * <pre>{@code
+     * update(foomock,
+     *     with(Foo::bar, returning("foobar")),
+     *     with(f->f.baz(123), returning("foobaz123")));
+     * }</pre>
+     * <p>
+     */
+    @SafeVarargs
+    public static <T> T update(T mock, Procedure<? super T>... methods)
+    {
+        new Composite<>(methods).process(mock);
+        return mock;
+    }
+
+
+    /**
      * Returns a {@link Procedure} which configures a mock by setting the expectation on a method call.
      * The result of this is supposed to be passed to {@link #mock(Class, Procedure[])}.
      */
