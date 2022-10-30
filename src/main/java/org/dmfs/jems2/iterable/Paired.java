@@ -26,7 +26,7 @@ import static org.dmfs.jems2.bifunction.PairingFunction.pairingFunction;
  * An {@link Iterable} combining the elements of two given {@link Iterable}s into an {@link Iterable} of {@link Pair}s.
  * <p>
  * This iterates as many elements as the shorter of both {@link Iterable}s.
- * <h3>Example</h3>
+ * <h2>Example</h2>
  * <pre>
  * Paired(["a", "b", "c"], ["u", "v", "w", "x"]) -&gt;
  * [

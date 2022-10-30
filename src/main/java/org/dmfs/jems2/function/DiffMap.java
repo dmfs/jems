@@ -27,7 +27,7 @@ import org.dmfs.jems2.iterable.Diff;
 /**
  * A {@link Function} to be used to map the result of {@link Diff} using three delegate functions.
  * <p>
- * <h3>Example</h3>
+ * <h2>Example</h2>
  *
  * <pre>{@code
  * new Mapped<>(

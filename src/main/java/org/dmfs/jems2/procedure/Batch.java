@@ -22,7 +22,7 @@ import org.dmfs.jems2.Procedure;
 
 /**
  * A {@link Procedure}, which processes the elements of an {@link Iterable} using another {@link Procedure}.
- * <h3>Example</h3>
+ * <h2>Example</h2>
  * <pre>{@code
  * new Batch(System.out::println).process(new Seq<>("one", "two", "three"));
  * }</pre>

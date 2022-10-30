@@ -19,7 +19,7 @@ package org.dmfs.jems2.iterable;
 
 /**
  * An {@link Iterable} decorator which returns the elements of the delegate in their natural ascending order.
- * <h3>Example</h3>
+ * <h2>Example</h2>
  * <pre>{@code
  * Ascending([8, 3, 2, 6, 2, 9]) -> [ 2, 2, 3, 6, 8, 9]
  * }</pre>

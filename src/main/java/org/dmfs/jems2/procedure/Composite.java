@@ -23,7 +23,7 @@ import org.dmfs.jems2.iterable.Seq;
 
 /**
  * A {@link Procedure} composed of other procedures.
- * <h3>Example</h3>
+ * <h2>Example</h2>
  * <pre>{@code
  * new Composite(System.out::println, Logger::info).process("log message");
  * }</pre>
