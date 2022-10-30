@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/dmfs/jems.svg?branch=master)](https://travis-ci.com/dmfs/jems)
+[![Build](https://github.com/dmfs/jems/actions/workflows/main.yml/badge.svg?label=main)](https://github.com/dmfs/jems/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/dmfs/jems/branch/master/graph/badge.svg)](https://codecov.io/gh/dmfs/jems)
 [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/dmfs/jems.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dmfs/jems/context:java)
 
