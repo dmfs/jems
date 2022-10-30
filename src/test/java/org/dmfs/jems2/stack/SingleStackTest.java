@@ -18,13 +18,13 @@
 package org.dmfs.jems2.stack;
 
 import org.dmfs.jems2.single.Just;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.optional.PresentMatcher.present;
 import static org.dmfs.jems2.hamcrest.matchers.stack.StackMatcher.emptyStack;
 import static org.dmfs.jems2.hamcrest.matchers.stack.StackTopMatcher.stackTop;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 
 /**

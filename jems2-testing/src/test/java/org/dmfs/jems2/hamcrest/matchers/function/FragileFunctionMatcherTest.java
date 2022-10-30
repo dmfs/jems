@@ -17,7 +17,7 @@
 
 package org.dmfs.jems2.hamcrest.matchers.function;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -25,8 +25,8 @@ import static org.dmfs.jems2.hamcrest.matchers.function.FragileFunctionMatcher.a
 import static org.dmfs.jems2.hamcrest.matchers.function.FragileFunctionMatcher.throwing;
 import static org.dmfs.jems2.hamcrest.matchers.matcher.MatcherMatcher.*;
 import static org.dmfs.jems2.hamcrest.matchers.throwable.ThrowableMatcher.throwable;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
 
 
 /**

@@ -20,11 +20,11 @@ package org.dmfs.jems2.iterable;
 import org.dmfs.jems2.stack.EmptyStack;
 import org.dmfs.jems2.stack.SingleStack;
 import org.dmfs.jems2.stack.Topped;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.iterable.IterableMatcher.iteratesTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.emptyIterable;
-import static org.junit.Assert.assertThat;
 
 
 /**

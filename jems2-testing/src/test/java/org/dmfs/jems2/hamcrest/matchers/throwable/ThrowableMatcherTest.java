@@ -18,12 +18,12 @@
 package org.dmfs.jems2.hamcrest.matchers.throwable;
 
 import org.dmfs.jems2.iterable.Seq;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.matcher.MatcherMatcher.*;
 import static org.dmfs.jems2.hamcrest.matchers.throwable.ThrowableMatcher.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
 
 
 /**

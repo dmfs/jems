@@ -23,12 +23,12 @@ import org.dmfs.jems2.iterable.Seq;
 import org.hamcrest.Description;
 import org.hamcrest.StringDescription;
 import org.hamcrest.core.IsEqual;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.generatable.GeneratableMatcher.startsWith;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.object.HasToString.hasToString;
-import static org.junit.Assert.assertThat;
 
 
 /**

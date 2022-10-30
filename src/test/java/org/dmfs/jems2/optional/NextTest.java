@@ -19,13 +19,13 @@ package org.dmfs.jems2.optional;
 
 import org.dmfs.jems2.Optional;
 import org.dmfs.jems2.iterator.EmptyIterator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**

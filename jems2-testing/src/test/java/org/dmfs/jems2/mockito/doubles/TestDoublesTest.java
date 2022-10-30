@@ -18,12 +18,12 @@
 package org.dmfs.jems2.mockito.doubles;
 
 import org.dmfs.jems2.Fragile;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.fragile.BrokenFragileMatcher.throwing;
 import static org.dmfs.jems2.mockito.doubles.TestDoubles.dummy;
 import static org.dmfs.jems2.mockito.doubles.TestDoubles.failingMock;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class TestDoublesTest

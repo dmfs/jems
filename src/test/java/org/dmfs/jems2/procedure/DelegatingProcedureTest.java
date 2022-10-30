@@ -17,15 +17,15 @@
 
 package org.dmfs.jems2.procedure;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
 import static org.dmfs.jems2.hamcrest.matchers.procedure.ProcedureMatcher.processes;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 
 public class DelegatingProcedureTest

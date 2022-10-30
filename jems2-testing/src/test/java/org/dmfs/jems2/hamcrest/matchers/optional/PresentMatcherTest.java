@@ -20,13 +20,13 @@ package org.dmfs.jems2.hamcrest.matchers.optional;
 import org.dmfs.jems2.optional.Present;
 import org.hamcrest.Description;
 import org.hamcrest.StringDescription;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.optional.PresentMatcher.present;
 import static org.dmfs.jems2.optional.Absent.absent;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.object.HasToString.hasToString;
-import static org.junit.Assert.assertThat;
 
 
 /**

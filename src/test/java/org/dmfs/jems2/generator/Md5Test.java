@@ -17,14 +17,14 @@
 
 package org.dmfs.jems2.generator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.security.MessageDigest;
 
 import static org.dmfs.jems2.hamcrest.matchers.LambdaMatcher.having;
 import static org.dmfs.jems2.hamcrest.matchers.generatable.GeneratableMatcher.startsWith;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 /**

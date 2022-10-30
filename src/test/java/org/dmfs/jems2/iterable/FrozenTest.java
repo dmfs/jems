@@ -17,15 +17,15 @@
 
 package org.dmfs.jems2.iterable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
 import static org.dmfs.jems2.hamcrest.matchers.ParallelMatcher.parallel;
 import static org.dmfs.jems2.hamcrest.matchers.iterable.IterableMatcher.iteratesTo;
 import static org.dmfs.jems2.hamcrest.matchers.iterator.IteratorMatcher.iteratorOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 
 /**

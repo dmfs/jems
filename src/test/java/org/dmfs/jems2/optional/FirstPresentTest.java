@@ -20,12 +20,12 @@ package org.dmfs.jems2.optional;
 import org.dmfs.jems2.Optional;
 import org.dmfs.jems2.hamcrest.matchers.optional.AbsentMatcher;
 import org.dmfs.jems2.iterable.Seq;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.optional.PresentMatcher.present;
 import static org.dmfs.jems2.optional.Absent.absent;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 /**

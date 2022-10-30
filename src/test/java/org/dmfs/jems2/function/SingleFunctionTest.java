@@ -17,12 +17,12 @@
 
 package org.dmfs.jems2.function;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.function.SingleFunction.toSingle;
 import static org.dmfs.jems2.hamcrest.matchers.function.FragileFunctionMatcher.associates;
 import static org.dmfs.jems2.hamcrest.matchers.single.SingleMatcher.hasValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 /**

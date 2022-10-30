@@ -19,12 +19,12 @@ package org.dmfs.jems2.iterator;
 
 import org.dmfs.jems2.predicate.Anything;
 import org.dmfs.jems2.predicate.Nothing;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.iterator.IteratorMatcher.emptyIterator;
 import static org.dmfs.jems2.hamcrest.matchers.iterator.IteratorMatcher.iteratorOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 
 public class SievedTest

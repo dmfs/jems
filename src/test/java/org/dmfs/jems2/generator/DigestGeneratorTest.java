@@ -17,7 +17,7 @@
 
 package org.dmfs.jems2.generator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -28,7 +28,7 @@ import static org.dmfs.jems2.hamcrest.matchers.generatable.GeneratableMatcher.st
 import static org.dmfs.jems2.hamcrest.matchers.throwable.ThrowableMatcher.causedBy;
 import static org.dmfs.jems2.hamcrest.matchers.throwable.ThrowableMatcher.throwable;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 /**

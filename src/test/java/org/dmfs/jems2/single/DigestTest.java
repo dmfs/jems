@@ -19,7 +19,7 @@ package org.dmfs.jems2.single;
 
 import org.dmfs.jems2.generator.Md5;
 import org.dmfs.jems2.iterable.Seq;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.UnsupportedEncodingException;
 
@@ -29,7 +29,7 @@ import static org.dmfs.jems2.hamcrest.matchers.single.SingleMatcher.hasValue;
 import static org.dmfs.jems2.hamcrest.matchers.throwable.ThrowableMatcher.causedBy;
 import static org.dmfs.jems2.hamcrest.matchers.throwable.ThrowableMatcher.throwable;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class DigestTest

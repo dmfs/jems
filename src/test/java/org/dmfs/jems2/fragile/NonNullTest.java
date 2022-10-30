@@ -17,7 +17,7 @@
 
 package org.dmfs.jems2.fragile;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -25,7 +25,7 @@ import static org.dmfs.jems2.hamcrest.matchers.fragile.BrokenFragileMatcher.thro
 import static org.dmfs.jems2.hamcrest.matchers.fragile.FragileMatcher.hasValue;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class NonNullTest

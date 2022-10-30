@@ -23,20 +23,21 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.StringDescription;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.stack.StackMatcher.emptyStack;
 import static org.dmfs.jems2.hamcrest.matchers.stack.StackMatcher.stacked;
 import static org.dmfs.jems2.mockito.doubles.TestDoubles.failingMock;
 import static org.dmfs.jems2.optional.Absent.absent;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 
 
 /**
+ *
  */
 public class StackMatcherTest
 {
