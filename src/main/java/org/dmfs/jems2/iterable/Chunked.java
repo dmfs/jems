@@ -24,7 +24,7 @@ import java.util.Locale;
 /**
  * An {@link Iterable} decorator which returns the elements of the decorated {@link Iterable} in chunks of a specific size.
  *
- * <h3>Example</h3>
+ * <h2>Example</h2>
  * <pre>{@code
  * Chunked(3, [2, 4, 6, 8, 10, 12, 14, 16]) ->
  * [

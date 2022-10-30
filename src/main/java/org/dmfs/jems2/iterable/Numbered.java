@@ -24,7 +24,7 @@ import org.dmfs.jems2.generatable.Sequence;
 /**
  * An {@link Iterable} decorator which pairs every value of another iterator with it's sequential ordinal number.
  * <p>
- * <h3>Example</h3>
+ * <h2>Example</h2>
  * <pre>
  * Numbered(["a", "b", "c"]) -&gt;
  * [

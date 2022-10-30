@@ -29,7 +29,7 @@ import java.util.Iterator;
  * <p>
  * Note, to get correct results, the {@link Iterable}s must be sorted by the comparison criterion.
  *
- * <h3>Example</h3>
+ * <h2>Example</h2>
  * <pre>{@code
  * Diff([1,3,5,7], [3,4,5], Integer::compareTo) ->
  * [
