@@ -19,12 +19,12 @@ package org.dmfs.jems2.single;
 
 import org.dmfs.jems2.optional.Absent;
 import org.dmfs.jems2.optional.Present;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.optional.PresentMatcher.present;
 import static org.dmfs.jems2.hamcrest.matchers.single.SingleMatcher.hasValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 
 /**

@@ -17,10 +17,10 @@
 
 package org.dmfs.jems2.generatable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.generatable.GeneratableMatcher.startsWith;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class DelegatingGeneratableTest

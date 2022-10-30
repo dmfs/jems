@@ -20,7 +20,7 @@ package org.dmfs.jems2.hamcrest.matchers.pair;
 import org.dmfs.jems2.Pair;
 import org.hamcrest.Description;
 import org.hamcrest.StringDescription;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.pair.PairMatcher.pair;
 import static org.dmfs.jems2.mockito.doubles.TestDoubles.failingMock;

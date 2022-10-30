@@ -19,7 +19,7 @@ package org.dmfs.jems2.iterable;
 
 import org.dmfs.jems2.predicate.Anything;
 import org.dmfs.jems2.predicate.Nothing;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.iterable.IterableMatcher.iteratesTo;
 import static org.hamcrest.MatcherAssert.assertThat;

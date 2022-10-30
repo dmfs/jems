@@ -17,11 +17,11 @@
 
 package org.dmfs.jems2.function;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.function.FragileFunctionMatcher.associates;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
-import static org.junit.Assert.assertThat;
 
 
 public class DelegatingFunctionTest

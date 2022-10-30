@@ -17,11 +17,11 @@
 
 package org.dmfs.jems2.fragile;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.fragile.BrokenFragileMatcher.throwing;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 
 /**

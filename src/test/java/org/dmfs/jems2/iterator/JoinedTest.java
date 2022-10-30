@@ -19,11 +19,11 @@ package org.dmfs.jems2.iterator;
 
 import org.dmfs.jems2.iterable.EmptyIterable;
 import org.dmfs.jems2.iterable.Just;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.iterable.IterableMatcher.iteratesTo;
 import static org.dmfs.jems2.hamcrest.matchers.iterator.IteratorMatcher.emptyIterator;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class JoinedTest

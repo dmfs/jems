@@ -17,7 +17,6 @@
 
 package org.dmfs.jems2.hamcrest.matchers.iterable;
 
-import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.collection.IsIterableContainingInOrder;
 
@@ -34,7 +33,6 @@ public final class IterableMatcher
     /**
      * {@link Matcher} that matches when the provided matchers match with the actual {@link Iterable}s elements in the same order.
      */
-    @Factory
     public static <E> Matcher<Iterable<? extends E>> iteratesTo(Iterable<? extends Matcher<? super E>> itemMatchers)
     {
 
@@ -51,7 +49,6 @@ public final class IterableMatcher
      * {@link Matcher} that matches when the actual {@link Iterable} has equal to elements in same order as the provided items.
      */
     @SafeVarargs
-    @Factory
     public static <E> Matcher<Iterable<? extends E>> iteratesTo(E... items)
     {
         return IsIterableContainingInOrder.contains(items);
@@ -62,7 +59,6 @@ public final class IterableMatcher
      * {@link Matcher} that matches when the provided item matchers match the actual {@link Iterable}s elements in the same order.
      */
     @SafeVarargs
-    @Factory
     public static <E> Matcher<Iterable<? extends E>> iteratesTo(Matcher<? super E>... itemMatchers)
     {
         return IsIterableContainingInOrder.contains(itemMatchers);

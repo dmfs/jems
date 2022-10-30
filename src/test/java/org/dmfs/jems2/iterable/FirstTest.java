@@ -18,7 +18,7 @@
 package org.dmfs.jems2.iterable;
 
 import org.dmfs.jems2.generatable.Sequence;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.iterable.IterableMatcher.iteratesTo;
 import static org.hamcrest.MatcherAssert.assertThat;

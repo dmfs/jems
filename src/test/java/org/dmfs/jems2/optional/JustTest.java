@@ -17,11 +17,11 @@
 
 package org.dmfs.jems2.optional;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.optional.PresentMatcher.present;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 
 /**

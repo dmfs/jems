@@ -18,7 +18,7 @@
 package org.dmfs.jems2.fragile;
 
 import org.dmfs.jems2.Fragile;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.UnsupportedEncodingException;
 

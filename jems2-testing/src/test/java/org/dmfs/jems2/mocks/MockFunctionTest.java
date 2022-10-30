@@ -22,12 +22,10 @@ import org.dmfs.jems2.Pair;
 import org.dmfs.jems2.iterable.Seq;
 import org.dmfs.jems2.pair.ValuePair;
 import org.hamcrest.Matcher;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.dmfs.jems2.hamcrest.matchers.fragile.BrokenFragileMatcher.throwing;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
@@ -40,9 +38,6 @@ public final class MockFunctionTest
     private static final Object RES_1 = new Object();
     private static final Object RES_2 = new Object();
     private static final Object RES_3 = new Object();
-
-    @Rule
-    public ExpectedException mException = ExpectedException.none();
 
 
     @Test
@@ -61,16 +56,17 @@ public final class MockFunctionTest
     }
 
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void test_priCtorIterablePairs_differentArg_fail()
     {
-        new MockFunction<>(
-            new Seq<Pair<Matcher<Integer>, Object>>(
-                new ValuePair<>(equalTo(arg(1)), RES_1),
-                new ValuePair<>(equalTo(arg(2)), RES_2),
-                new ValuePair<>(equalTo(arg(3)), RES_3)
-            ))
-            .value(arg(5));
+        assertThat(() ->
+            new MockFunction<>(
+                new Seq<Pair<Matcher<Integer>, Object>>(
+                    new ValuePair<>(equalTo(arg(1)), RES_1),
+                    new ValuePair<>(equalTo(arg(2)), RES_2),
+                    new ValuePair<>(equalTo(arg(3)), RES_3)
+                ))
+                .value(arg(5)), is(throwing(instanceOf(AssertionError.class))));
     }
 
 
@@ -102,13 +98,14 @@ public final class MockFunctionTest
     }
 
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void test_secCtorIterableIterable_differentArgs_fail()
     {
-        new MockFunction<>(
-            new Seq<>(equalTo(arg(1)), equalTo(arg(2)), equalTo(arg(3))),
-            new Seq<>(RES_1, RES_2, RES_3))
-            .value(arg(555));
+        assertThat(() ->
+            new MockFunction<>(
+                new Seq<>(equalTo(arg(1)), equalTo(arg(2)), equalTo(arg(3))),
+                new Seq<>(RES_1, RES_2, RES_3))
+                .value(arg(555)), is(throwing(instanceOf(AssertionError.class))));
     }
 
 
@@ -119,10 +116,12 @@ public final class MockFunctionTest
     }
 
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void test_ctorSingleMatcher_differentArg_fail()
     {
-        new MockFunction<>(equalTo(arg(1)), RES_1).value(arg(2));
+        assertThat(() ->
+                new MockFunction<>(equalTo(arg(1)), RES_1).value(arg(2)),
+            is(throwing(instanceOf(AssertionError.class))));
     }
 
 
@@ -134,20 +133,19 @@ public final class MockFunctionTest
     }
 
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void test_ctorSingle_equalInstanceArg_fail()
     {
-        new MockFunction<>(arg(1), RES_1).value(arg(1));
+        assertThat(() ->
+            new MockFunction<>(arg(1), RES_1).value(arg(1)), is(throwing(instanceOf(AssertionError.class))));
     }
 
 
     @Test
     public void test_exceptionMessage()
     {
-        mException.expect(AssertionError.class);
-        mException.expectMessage("unexpected argument");
-        mException.expectMessage(arg(555).toString());
-        new MockFunction<>(arg(1), RES_1).value(arg(555));
+        assertThat(() ->
+            new MockFunction<>(arg(1), RES_1).value(arg(555)), is(throwing(instanceOf(AssertionError.class))));
     }
 
 

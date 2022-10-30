@@ -21,12 +21,12 @@ import org.dmfs.jems2.BiFunction;
 import org.dmfs.jems2.iterable.EmptyIterable;
 import org.dmfs.jems2.iterable.Seq;
 import org.dmfs.jems2.iterable.SingletonIterable;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.single.SingleMatcher.hasValue;
 import static org.dmfs.jems2.mockito.doubles.TestDoubles.failingMock;
 import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 /**

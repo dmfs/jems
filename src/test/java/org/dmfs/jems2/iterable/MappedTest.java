@@ -20,10 +20,10 @@ package org.dmfs.jems2.iterable;
 import org.dmfs.jems2.Function;
 import org.dmfs.jems2.mockito.doubles.TestDoubles;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.iterable.IterableMatcher.iteratesTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 /**

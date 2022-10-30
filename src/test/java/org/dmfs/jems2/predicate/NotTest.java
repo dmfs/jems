@@ -18,13 +18,13 @@
 package org.dmfs.jems2.predicate;
 
 import org.dmfs.jems2.Predicate;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.predicate.PredicateMatcher.satisfiedBy;
 import static org.dmfs.jems2.mockito.doubles.TestDoubles.failingMock;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doReturn;
 
 

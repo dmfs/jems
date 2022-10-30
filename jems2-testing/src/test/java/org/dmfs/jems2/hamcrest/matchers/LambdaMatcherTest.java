@@ -17,12 +17,12 @@
 
 package org.dmfs.jems2.hamcrest.matchers;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.LambdaMatcher.having;
 import static org.dmfs.jems2.hamcrest.matchers.matcher.MatcherMatcher.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 
 /**

@@ -20,13 +20,13 @@ package org.dmfs.jems2.procedure;
 import org.dmfs.jems2.Generator;
 import org.dmfs.jems2.Procedure;
 import org.dmfs.jems2.iterable.Seq;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.iterable.IterableMatcher.iteratesTo;
 import static org.dmfs.jems2.hamcrest.matchers.mockito.MockInteractionMatcher.calledInOrder;
 import static org.dmfs.jems2.hamcrest.matchers.procedure.ProcedureMatcher2.processes;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 
 

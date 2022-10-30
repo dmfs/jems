@@ -19,13 +19,13 @@ package org.dmfs.jems2.hamcrest.matchers;
 
 import org.dmfs.jems2.Fragile;
 import org.dmfs.jems2.Single;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.ParallelMatcher.parallel;
 import static org.dmfs.jems2.hamcrest.matchers.matcher.MatcherMatcher.*;
 import static org.dmfs.jems2.hamcrest.matchers.single.SingleMatcher.hasValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 
 /**

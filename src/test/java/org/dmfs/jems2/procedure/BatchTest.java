@@ -20,7 +20,7 @@ package org.dmfs.jems2.procedure;
 import org.dmfs.jems2.Procedure;
 import org.dmfs.jems2.iterable.EmptyIterable;
 import org.dmfs.jems2.iterable.Seq;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.mockito.MockInteractionMatcher.calledInOrder;
 import static org.dmfs.jems2.hamcrest.matchers.mockito.MockInteractionMatcher.notCalled;

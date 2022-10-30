@@ -20,15 +20,15 @@ package org.dmfs.jems2.comparator;
 
 import org.dmfs.jems2.optional.Absent;
 import org.dmfs.jems2.optional.Present;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
 
 import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableEqualsMatcher.considersEqual;
 import static org.dmfs.jems2.hamcrest.matchers.comparable.ComparableOrderMatcher.imposesOrderOf;
 import static org.dmfs.jems2.optional.Absent.absent;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
-import static org.junit.Assert.assertThat;
 
 
 public class GreaterAbsentTest

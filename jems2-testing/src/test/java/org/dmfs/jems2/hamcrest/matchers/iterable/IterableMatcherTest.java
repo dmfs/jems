@@ -18,15 +18,15 @@
 package org.dmfs.jems2.hamcrest.matchers.iterable;
 
 import org.dmfs.jems2.iterable.Seq;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static java.util.Arrays.asList;
 import static org.dmfs.jems2.hamcrest.matchers.iterable.IterableMatcher.iteratesTo;
 import static org.dmfs.jems2.hamcrest.matchers.matcher.MatcherMatcher.matches;
 import static org.dmfs.jems2.hamcrest.matchers.matcher.MatcherMatcher.mismatches;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 
 public class IterableMatcherTest

@@ -18,7 +18,7 @@
 package org.dmfs.jems2.biprocedure;
 
 import org.dmfs.jems2.Procedure;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.mockito.MockInteractionMatcher.called;
 import static org.dmfs.jems2.hamcrest.matchers.procedure.ProcedureMatcher.processes;

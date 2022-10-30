@@ -17,7 +17,7 @@
 
 package org.dmfs.jems2.function;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.function.FragileFunctionMatcher.associates;
 import static org.hamcrest.CoreMatchers.is;

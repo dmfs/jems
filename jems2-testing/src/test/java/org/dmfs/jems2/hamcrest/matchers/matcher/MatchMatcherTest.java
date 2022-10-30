@@ -20,13 +20,13 @@ package org.dmfs.jems2.hamcrest.matchers.matcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.matcher.MatcherMatcher.describesAs;
 import static org.dmfs.jems2.hamcrest.matchers.matcher.MatcherMatcher.matches;
 import static org.dmfs.jems2.mockito.doubles.TestDoubles.failingMock;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doReturn;
 
 

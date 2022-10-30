@@ -19,16 +19,17 @@ package org.dmfs.jems2.hamcrest.matchers.stack;
 
 import org.dmfs.jems2.Stack;
 import org.hamcrest.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.stack.StackTopMatcher.stackTop;
 import static org.dmfs.jems2.mockito.doubles.TestDoubles.failingMock;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.*;
 
 
 /**
+ *
  */
 public class StackTopMatcherTest
 {

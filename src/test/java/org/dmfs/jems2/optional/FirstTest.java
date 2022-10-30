@@ -20,13 +20,13 @@ package org.dmfs.jems2.optional;
 import org.dmfs.jems2.Predicate;
 import org.dmfs.jems2.iterable.EmptyIterable;
 import org.dmfs.jems2.iterable.Seq;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.optional.AbsentMatcher.absent;
 import static org.dmfs.jems2.hamcrest.matchers.optional.PresentMatcher.present;
 import static org.dmfs.jems2.mockito.doubles.TestDoubles.failingMock;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 

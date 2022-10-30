@@ -20,13 +20,13 @@ package org.dmfs.jems2.function;
 import org.dmfs.jems2.optional.Absent;
 import org.dmfs.jems2.optional.Present;
 import org.dmfs.jems2.pair.ValuePair;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.LambdaMatcher.having;
 import static org.dmfs.jems2.hamcrest.matchers.fragile.BrokenFragileMatcher.throwing;
 import static org.dmfs.jems2.hamcrest.matchers.function.FragileFunctionMatcher.associates;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 
 /**

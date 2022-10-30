@@ -28,6 +28,7 @@ import static org.hamcrest.Matchers.hasToString;
 
 
 /**
+ *
  */
 public final class CharSequenceMatcher
 {

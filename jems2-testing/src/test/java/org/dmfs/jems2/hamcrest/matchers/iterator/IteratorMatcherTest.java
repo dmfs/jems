@@ -20,7 +20,7 @@ package org.dmfs.jems2.hamcrest.matchers.iterator;
 import org.dmfs.jems2.iterable.Seq;
 import org.dmfs.jems2.iterator.BaseIterator;
 import org.dmfs.jems2.iterator.EmptyIterator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,8 +32,8 @@ import static java.util.Collections.singleton;
 import static org.dmfs.jems2.hamcrest.matchers.iterator.IteratorMatcher.emptyIterator;
 import static org.dmfs.jems2.hamcrest.matchers.iterator.IteratorMatcher.iteratorOf;
 import static org.dmfs.jems2.hamcrest.matchers.matcher.MatcherMatcher.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 
 /**

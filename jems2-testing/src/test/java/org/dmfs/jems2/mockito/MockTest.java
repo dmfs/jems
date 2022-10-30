@@ -20,7 +20,7 @@ package org.dmfs.jems2.mockito;
 import org.dmfs.jems2.*;
 import org.dmfs.jems2.hamcrest.matchers.fragile.BrokenFragileMatcher;
 import org.dmfs.jems2.hamcrest.matchers.function.FragileFunctionMatcher;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -32,8 +32,8 @@ import static org.dmfs.jems2.hamcrest.matchers.procedure.ProcedureMatcher.proces
 import static org.dmfs.jems2.hamcrest.matchers.throwable.ThrowableMatcher.throwable;
 import static org.dmfs.jems2.mockito.Mock.*;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
-import static org.junit.Assert.assertThat;
 
 
 public class MockTest

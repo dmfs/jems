@@ -17,14 +17,14 @@
 
 package org.dmfs.jems2.hamcrest.matchers.fragile;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.dmfs.jems2.hamcrest.matchers.fragile.BrokenFragileMatcher.throwing;
 import static org.dmfs.jems2.hamcrest.matchers.matcher.MatcherMatcher.*;
 import static org.dmfs.jems2.hamcrest.matchers.throwable.ThrowableMatcher.throwable;
 import static org.dmfs.jems2.hamcrest.matchers.throwable.ThrowableMatcher.withMessage;
 import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 /**
