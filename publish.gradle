@@ -51,6 +51,7 @@ if (project.hasProperty('SONATYPE_USERNAME') && project.hasProperty('SONATYPE_PA
     }
 
     signing {
+        useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
         sign publishing.publications
     }
 }
