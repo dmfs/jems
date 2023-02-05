@@ -18,7 +18,7 @@
 package org.dmfs.jems2;
 
 /**
- * An unary function.
+ * A unary function.
  */
 @FunctionalInterface
 public interface Function<Argument, Value> extends FragileFunction<Argument, Value, RuntimeException>

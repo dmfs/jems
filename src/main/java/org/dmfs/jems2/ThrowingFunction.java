@@ -18,17 +18,17 @@
 package org.dmfs.jems2;
 
 /**
- * A unary function that can throw a checked {@link Exception}.
+ * A unary function that can throw a {@link Throwable}.
  *
- * @see FragileBiFunction
+ * @see FragileFunction
  * @see Function
  */
 @FunctionalInterface
-public interface FragileFunction<Argument, Result, E extends Exception> extends ThrowingFunction<Argument, Result>
+public interface ThrowingFunction<Argument, Result>
 {
     /**
      * Returns the value of this function at the given argument.
      */
-    Result value(Argument argument) throws E;
+    Result value(Argument argument) throws Throwable;
 
 }

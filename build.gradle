@@ -1,6 +1,6 @@
 plugins {
     id 'java-library'
-    id 'org.dmfs.gitversion' version '0.7.0'
+    id 'org.dmfs.gitversion' version '0.14.1'
     id 'io.github.gradle-nexus.publish-plugin' version '1.1.0' apply false
 }
 
@@ -15,23 +15,24 @@ gitVersion {
         }
     }
     changes {
-        are major when {
-            commitMessage contains("(?i)#major\\b")
+        are none when {
+            affects only(matches(~/.*\.md/))
         }
         are major when {
-            commitMessage contains("(?i)#break\\b")
+            commitMessage contains(~/(?i)#(major|break(ing)?)\b/)
         }
         are minor when {
-            commitMessage containsIssue { issue -> issue.labels?.every { it.name != "bug" } }
+            commitMessage contains(~/(?i)#(?<issue>\d+)\b/) {
+                where("issue") { isIssue { labeled "enhancement" } }
+            }
         }
         are patch when {
-            commitMessage containsIssue { issue -> issue.labels?.any { it.name == "bug" } }
+            commitMessage contains(~/(?i)#(?<issue>\d+)\b/) {
+                where("issue") { isIssue { labeled "bug" } }
+            }
         }
         are minor when {
-            commitMessage contains("(?i)\\b(implement(s|ed)?|close[sd]?) #\\d+\\b")
-        }
-        are patch when {
-            commitMessage contains("(?i)\\b(fix(e[sd])?|resolve[sd]?) #\\d+\\b")
+            commitMessage contains("#feature\\b")
         }
         otherwise patch
     }
