@@ -19,18 +19,19 @@ package org.dmfs.jems2.function;
 
 import org.dmfs.jems2.FragileFunction;
 import org.dmfs.jems2.Function;
+import org.dmfs.jems2.ThrowingFunction;
 
 
 /**
  * A {@link FragileFunction} to {@link Function} adapter which wraps any {@link Exception} into a {@link RuntimeException}.
  */
-public final class Unchecked<Argument, Result, E extends Exception> implements Function<Argument, Result>
+public final class Unchecked<Argument, Result, E extends Throwable> implements Function<Argument, Result>
 {
     private final Function<? super E, ? extends RuntimeException> mExceptionFunction;
-    private final FragileFunction<Argument, Result, E> mDelegate;
+    private final ThrowingFunction<Argument, Result> mDelegate;
 
 
-    public Unchecked(FragileFunction<Argument, Result, E> delegate)
+    public Unchecked(ThrowingFunction<Argument, Result> delegate)
     {
         this("Function call failed", delegate);
     }
@@ -38,7 +39,7 @@ public final class Unchecked<Argument, Result, E extends Exception> implements F
 
     public Unchecked(
         String message,
-        FragileFunction<Argument, Result, E> delegate)
+        ThrowingFunction<Argument, Result> delegate)
     {
         this(exception -> new RuntimeException(message, exception), delegate);
     }
@@ -46,7 +47,7 @@ public final class Unchecked<Argument, Result, E extends Exception> implements F
 
     public Unchecked(
         Function<? super E, ? extends RuntimeException> exceptionFunction,
-        FragileFunction<Argument, Result, E> delegate)
+        ThrowingFunction<Argument, Result> delegate)
     {
         mExceptionFunction = exceptionFunction;
         mDelegate = delegate;
@@ -61,7 +62,7 @@ public final class Unchecked<Argument, Result, E extends Exception> implements F
         {
             return mDelegate.value(argument);
         }
-        catch (Exception e)
+        catch (Throwable e)
         {
             throw mExceptionFunction.value((E) e);
         }

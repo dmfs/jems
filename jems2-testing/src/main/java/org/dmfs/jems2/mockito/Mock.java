@@ -84,7 +84,7 @@ public final class Mock
      */
     @SafeVarargs
     public static <T, V> Procedure<T> with(
-        FragileFunction<? super T, ? extends V, ? extends Throwable> methodCall,
+        ThrowingFunction<? super T, ? extends V> methodCall,
         StubGenerator<? extends V> stubGenerator,
         StubGenerator<? extends V>... stubGenerators)
     {
