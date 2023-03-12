@@ -21,6 +21,7 @@ import org.dmfs.jems2.*;
 import org.dmfs.jems2.hamcrest.matchers.fragile.BrokenFragileMatcher;
 import org.dmfs.jems2.hamcrest.matchers.function.FragileFunctionMatcher;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.io.IOException;
 
@@ -34,6 +35,7 @@ import static org.dmfs.jems2.mockito.Mock.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.hasToString;
 
 
 public class MockTest
@@ -76,7 +78,23 @@ public class MockTest
                 associates("1", "one"),
                 associates("2", "two"),
                 associates("3", "three")));
+    }
 
+
+    @Test
+    public void testNamedMock()
+    {
+
+        assertThat((Function<String, String>)
+                mock("My Function", Function.class,
+                    with(f -> f.value("1"), returning("one")),
+                    with(f -> f.value("2"), returning("two")),
+                    with(f -> f.value("3"), returning("three"))),
+            allOf(
+                associates("1", "one"),
+                associates("2", "two"),
+                associates("3", "three"),
+                hasToString("My Function")));
     }
 
 
