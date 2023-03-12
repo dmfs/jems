@@ -30,8 +30,12 @@ public final class FailAnswer implements Answer<Object>
 
 
     @Override
-    public Object answer(InvocationOnMock invocation)
+    public Object answer(InvocationOnMock invocation) throws NoSuchMethodException
     {
+        if (invocation.getMethod().equals(Object.class.getMethod("toString")))
+        {
+            return "Mock of " + invocation.getMock().getClass() + " (" + invocation.getMock().hashCode() + ")";
+        }
         throw new AssertionError("Unexpected invocation: " + invocation);
     }
 }

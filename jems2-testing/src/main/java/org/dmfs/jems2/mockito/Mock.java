@@ -47,7 +47,7 @@ public final class Mock
      * }</pre>
      * <p>
      * Note, in contrast to {@link Mockito#mock(Class)}, mocks returned by this method fail with an {@link AssertionError}
-     * when a non-mocked method is called.
+     * when a non-mocked method (other than {@link Object#hashCode()}, {@link Object#equals(Object)} and {@link Object#toString()}) is called.
      */
     @SafeVarargs
     public static <T> T mock(Class<T> clazz, Procedure<? super T>... methods)
@@ -55,6 +55,30 @@ public final class Mock
         T result = TestDoubles.failingMock(clazz);
         new Composite<>(methods).process(result);
         return result;
+    }
+
+
+    /**
+     * Return a named mock of the given class. The name is returned by the {@link Object#toString()} method of the resulting class.
+     * This takes a couple of {@link Procedure}s to set up the mock in a single expression.
+     * <p>
+     * Example
+     *
+     * <pre>{@code
+     * Foo fooMock = mock("My Foo", Foo.class,
+     *     with(Foo::bar, returning("foobar")),
+     *     with(f->f.baz(123), returning("foobaz123")));
+     * }</pre>
+     * <p>
+     * Note, in contrast to {@link Mockito#mock(Class)}, mocks returned by this method fail with an {@link AssertionError}
+     * when a non-mocked method (other than {@link Object#hashCode()}, {@link Object#equals(Object)} and {@link Object#toString()}) is called.
+     *
+     * @see #mock(Class, Procedure[])
+     */
+    @SafeVarargs
+    public static <T> T mock(String name, Class<T> clazz, Procedure<? super T>... methods)
+    {
+        return update(mock(clazz, with(Object::toString, returning(name))), methods);
     }
 
 

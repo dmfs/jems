@@ -32,9 +32,43 @@ import static org.mockito.Mockito.mock;
 public class FailAnswerTest
 {
     @Test
-    public void test()
+    public void testAnyMethod()
     {
-        assertThat(() -> new FailAnswer().answer(mock(InvocationOnMock.class, invocation -> {
+        assertThat(() -> {
+            try
+            {
+                return new FailAnswer().answer(mock(InvocationOnMock.class, invocation -> {
+                    if ("getMethod".equals(invocation.getMethod().getName()))
+                    {
+                        return Object.class.getMethod("equals", Object.class);
+                    }
+                    if ("toString".equals(invocation.getMethod().getName()))
+                    {
+                        return "invocationName";
+                    }
+                    throw new RuntimeException("Unexpected call on mock object");
+                }));
+            }
+            catch (NoSuchMethodException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }, is(throwing(AssertionError.class)));
+    }
+
+
+    @Test
+    public void testToString() throws Throwable
+    {
+        assertThat(new FailAnswer().answer(mock(InvocationOnMock.class, invocation -> {
+            if ("getMethod".equals(invocation.getMethod().getName()))
+            {
+                return Object.class.getMethod("toString");
+            }
+            if ("getMock".equals(invocation.getMethod().getName()))
+            {
+                return "123";
+            }
             if (!"toString".equals(invocation.getMethod().getName()))
             {
                 throw new RuntimeException("Unexpected call on mock object");
@@ -43,6 +77,7 @@ public class FailAnswerTest
             {
                 return "invocationName";
             }
-        })), is(throwing(AssertionError.class)));
+        })), is("Mock of class java.lang.String (48690)"));
     }
+
 }
