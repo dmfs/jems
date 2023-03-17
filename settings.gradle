@@ -1,2 +1,3 @@
 rootProject.name = 'jems2'
 include 'jems2-testing'
+include 'jems2-confidence'
