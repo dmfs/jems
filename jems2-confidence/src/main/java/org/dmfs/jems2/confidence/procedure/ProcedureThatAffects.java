@@ -24,13 +24,16 @@ import org.dmfs.srcless.annotations.staticfactory.StaticFactories;
 import org.saynotobugs.confidence.Assessment;
 import org.saynotobugs.confidence.Description;
 import org.saynotobugs.confidence.Quality;
-import org.saynotobugs.confidence.assessment.Fail;
-import org.saynotobugs.confidence.assessment.FailPrepended;
+import org.saynotobugs.confidence.assessment.AllPassed;
 import org.saynotobugs.confidence.description.Spaced;
-import org.saynotobugs.confidence.description.TextDescription;
-import org.saynotobugs.confidence.description.ValueDescription;
+import org.saynotobugs.confidence.description.Text;
+import org.saynotobugs.confidence.description.Value;
 import org.saynotobugs.confidence.quality.Core;
 import org.saynotobugs.confidence.quality.grammar.SoIt;
+import org.saynotobugs.confidence.quality.object.Throwing;
+
+import static org.saynotobugs.confidence.description.LiteralDescription.EMPTY;
+import static org.saynotobugs.confidence.description.LiteralDescription.SPACE;
 
 
 @StaticFactories(value = "Jems2", packageName = "org.dmfs.jems2.confidence")
@@ -39,7 +42,7 @@ public final class ProcedureThatAffects<T> implements Quality<FragileProcedure<T
     private final Description mValueDescription;
     private final Single<T> mValueSupplier;
     private final Quality<? super T> mValueQuality;
-
+    private final Quality<Throwing.Breakable> mCallQuality;
 
     /**
      * A {@link Quality} that describes the side effect of a {@link FragileProcedure} on its argument.
@@ -50,11 +53,23 @@ public final class ProcedureThatAffects<T> implements Quality<FragileProcedure<T
      */
     public ProcedureThatAffects(Description valueDescription, Single<T> valueSupplier, Quality<? super T> valueQuality)
     {
+        this(valueDescription, valueSupplier, valueQuality, new Runs(new Text("after successful execution")));
+    }
+
+    /**
+     * A {@link Quality} that describes the side effect of a {@link FragileProcedure} on its argument.
+     * <p>
+     * The argument is provided by the given {@link Single} and tested by the given {@link Quality} after passing it to the consumer.
+     * <p>
+     * For best results, decorate the value{@link Quality} with {@link SoIt} or {@link Core#soIt(Quality)}.
+     */
+    public ProcedureThatAffects(Description valueDescription, Single<T> valueSupplier, Quality<? super T> valueQuality, Quality<Throwing.Breakable> callQuality)
+    {
         mValueDescription = valueDescription;
         mValueSupplier = valueSupplier;
         mValueQuality = valueQuality;
+        mCallQuality = callQuality;
     }
-
 
     /**
      * A {@link Quality} that describes the side effect of a {@link FragileProcedure} on its argument.
@@ -65,7 +80,7 @@ public final class ProcedureThatAffects<T> implements Quality<FragileProcedure<T
      */
     public ProcedureThatAffects(Single<T> valueSupplier, Quality<? super T> valueQuality)
     {
-        this(new Spaced(new TextDescription("affects"), new ValueDescription(valueSupplier.value())), valueSupplier, valueQuality);
+        this(new Spaced(new Text("affects"), new Value(valueSupplier.value())), valueSupplier, valueQuality);
     }
 
 
@@ -73,26 +88,17 @@ public final class ProcedureThatAffects<T> implements Quality<FragileProcedure<T
     public Assessment assessmentOf(FragileProcedure<T, ?> candidate)
     {
         T value = mValueSupplier.value();
-        try
-        {
-            candidate.process(value);
-        }
-        catch (Exception e)
-        {
-            return new Fail(new Spaced(
-                new TextDescription("Procedure that threw"),
-                new ValueDescription(e),
-                new TextDescription("when called with"),
-                new ValueDescription(value)));
-        }
-        return new FailPrepended(new Spaced(new TextDescription("Procedure that"), mValueDescription),
-            mValueQuality.assessmentOf(value));
+
+        Assessment callAssessment = mCallQuality.assessmentOf(() -> candidate.process(value));
+        Assessment valueAssessment = mValueQuality.assessmentOf(value);
+
+        return new AllPassed(new Spaced(new Text("Procedure that"), mValueDescription, EMPTY), SPACE, valueAssessment, callAssessment);
     }
 
 
     @Override
     public Description description()
     {
-        return new Spaced(new TextDescription("Procedure that"), mValueDescription, mValueQuality.description());
+        return new Spaced(new Text("Procedure that"), mValueDescription, mValueQuality.description(), mCallQuality.description());
     }
 }
