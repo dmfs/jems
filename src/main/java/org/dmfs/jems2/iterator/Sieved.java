@@ -90,7 +90,6 @@ public final class Sieved<E> extends BaseIterator<E>
                 return true;
             }
         }
-        mHasNext = false;
         return false;
     }
 }

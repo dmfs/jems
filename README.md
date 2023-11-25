@@ -1,6 +1,6 @@
-[![Build](https://github.com/dmfs/jems/actions/workflows/main.yml/badge.svg?label=main)](https://github.com/dmfs/jems/actions/workflows/main.yml)
-[![codecov](https://codecov.io/gh/dmfs/jems/branch/master/graph/badge.svg)](https://codecov.io/gh/dmfs/jems)
-[![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/dmfs/jems.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dmfs/jems/context:java)
+[![Build](https://github.com/dmfs/jems/actions/workflows/main.yml/badge.svg?label=main)](https://github.com/dmfs/jems/actions/workflows/main.yml)  
+[![codecov](https://codecov.io/gh/dmfs/jems/branch/master/graph/badge.svg)](https://codecov.io/gh/dmfs/jems)  
+[![Confidence](https://img.shields.io/badge/Tested_with-Confidence-800000?labelColor=white)](https://saynotobugs.org/confidence)
 
 # Jems
 
@@ -9,7 +9,7 @@ __Java gems, a collection of Java utilities.__
 
 ## License
 
-Copyright 2020 dmfs GmbH
+Copyright 2023 dmfs GmbH
 
 
 Licensed under the Apache License, Version 2.0 (the "License");
