@@ -2,6 +2,8 @@ package org.dmfs.jems2.confidence.optional;
 
 import org.dmfs.jems2.Optional;
 import org.junit.jupiter.api.Test;
+import org.saynotobugs.confidence.description.Spaced;
+import org.saynotobugs.confidence.description.Text;
 import org.saynotobugs.confidence.quality.composite.AllOf;
 import org.saynotobugs.confidence.quality.object.EqualTo;
 import org.saynotobugs.confidence.test.quality.Fails;
@@ -126,6 +128,50 @@ class PresentTest
                         with(Optional::isPresent, returning(false)),
                         with(Optional::value, throwing(new RuntimeException()))), "absent"),
                 new HasDescription("present <123>")));
+    }
+
+
+    @Test
+    void testWithMatcherAndDescriptions()
+    {
+        assertThat(new Present<>(d -> new Spaced(d, new Text("is present")),
+                d -> new Spaced(d, new Text("was present")),
+                new Text("not present"),
+                new EqualTo<>(123)),
+            new AllOf<>(
+                new Passes<Optional<Integer>>(
+                    mock(Optional.class,
+                        with(Optional::isPresent, returning(true)),
+                        with(Optional::value, returning(123)))),
+                new Fails<Optional<Integer>>(
+                    mock(Optional.class,
+                        with(Optional::isPresent, returning(true)),
+                        with(Optional::value, returning(1234))), "<1234> was present"),
+                new Fails<Optional<Integer>>(
+                    mock(Optional.class,
+                        with(Optional::isPresent, returning(true)),
+                        with(Optional::value, throwing(new NoSuchElementException()))), "threw <java.util.NoSuchElementException>"),
+                new Fails<Optional<Integer>>(
+                    mock(Optional.class,
+                        with(Optional::isPresent, returning(true)),
+                        with(Optional::value, throwing(new RuntimeException()))), "threw <java.lang.RuntimeException>"),
+                new Fails<Optional<Integer>>(
+                    mock(Optional.class,
+                        with(Optional::isPresent, returning(false)),
+                        with(Optional::value, returning(123))), "not present"),
+                new Fails<Optional<Integer>>(
+                    mock(Optional.class,
+                        with(Optional::isPresent, returning(false)),
+                        with(Optional::value, returning(1234))), "not present"),
+                new Fails<Optional<Integer>>(
+                    mock(Optional.class,
+                        with(Optional::isPresent, returning(false)),
+                        with(Optional::value, throwing(new NoSuchElementException()))), "not present"),
+                new Fails<Optional<Integer>>(
+                    mock(Optional.class,
+                        with(Optional::isPresent, returning(false)),
+                        with(Optional::value, throwing(new RuntimeException()))), "not present"),
+                new HasDescription("<123> is present")));
     }
 
 }

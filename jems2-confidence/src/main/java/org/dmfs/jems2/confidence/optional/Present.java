@@ -18,13 +18,14 @@
 
 package org.dmfs.jems2.confidence.optional;
 
+import org.dmfs.jems2.Function;
 import org.dmfs.jems2.Optional;
 import org.dmfs.srcless.annotations.staticfactory.StaticFactories;
 import org.saynotobugs.confidence.Description;
 import org.saynotobugs.confidence.Quality;
 import org.saynotobugs.confidence.assessment.Fail;
 import org.saynotobugs.confidence.description.Spaced;
-import org.saynotobugs.confidence.description.TextDescription;
+import org.saynotobugs.confidence.description.Text;
 import org.saynotobugs.confidence.quality.composite.Has;
 import org.saynotobugs.confidence.quality.composite.QualityComposition;
 import org.saynotobugs.confidence.quality.object.EqualTo;
@@ -57,12 +58,26 @@ public final class Present<T> extends QualityComposition<Optional<T>>
      */
     public Present(Quality<? super T> delegate)
     {
+        this(description -> new Spaced(new Text("present"), description),
+            description -> new Spaced(new Text("present"), description),
+            new Text("absent"),
+            delegate);
+    }
+
+
+    /**
+     * Matches present {@link Optional}s with a value that matches the given {@link Quality}.
+     * <p>
+     * This constructor takes additional arguments to customize the {@link Description}s of the {@link Quality}.
+     */
+    public Present(Function<? super Description, ? extends Description> expectationDescription,
+        Function<? super Description, ? extends Description> delegateFailDescription,
+        Description absentDescription,
+        Quality<? super T> delegate)
+    {
         super(actual -> actual.isPresent()
-                ? new Has<Optional<T>, T>((Description description) -> new Spaced(new TextDescription("present"), description),
-                description -> new Spaced(new TextDescription("present"), description),
-                Optional::value,
-                delegate).assessmentOf(actual)
-                : new Fail(new TextDescription("absent")),
-            new Spaced(new TextDescription("present"), delegate.description()));
+                ? new Has<Optional<T>, T>(expectationDescription::value, delegateFailDescription::value, Optional::value, delegate).assessmentOf(actual)
+                : new Fail(absentDescription),
+            expectationDescription.value(delegate.description()));
     }
 }
