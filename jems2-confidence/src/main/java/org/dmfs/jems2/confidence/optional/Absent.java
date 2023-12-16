@@ -21,10 +21,11 @@ package org.dmfs.jems2.confidence.optional;
 import org.dmfs.jems2.Optional;
 import org.dmfs.srcless.annotations.staticfactory.StaticFactories;
 import org.saynotobugs.confidence.description.Spaced;
-import org.saynotobugs.confidence.description.TextDescription;
-import org.saynotobugs.confidence.description.ValueDescription;
+import org.saynotobugs.confidence.description.Text;
+import org.saynotobugs.confidence.description.Value;
 import org.saynotobugs.confidence.quality.composite.QualityComposition;
 import org.saynotobugs.confidence.quality.object.Satisfies;
+import org.saynotobugs.confidence.utils.FailSafe;
 
 
 @StaticFactories(value = "Jems2", packageName = "org.dmfs.jems2.confidence")
@@ -37,7 +38,9 @@ public final class Absent extends QualityComposition<Optional<?>>
     {
         super(new Satisfies<>(
             actual -> !actual.isPresent(),
-            actual -> new Spaced(new TextDescription("<present"), new ValueDescription(actual), new TextDescription(">")),
-            new TextDescription("<absent>")));
+            new FailSafe<>(
+                throwable -> new Spaced(new Text("<present but throwing"), new Value(throwable), new Text(">")),
+                actual -> new Spaced(new Text("<present"), new Value(actual.value()), new Text(">"))),
+            new Text("<absent>")));
     }
 }
