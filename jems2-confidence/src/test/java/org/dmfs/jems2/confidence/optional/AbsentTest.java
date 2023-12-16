@@ -23,24 +23,21 @@ class AbsentTest
                 new Passes<Optional<String>>(
                     mock(Optional.class,
                         with(Optional::isPresent, returning(false)),
-                        with(Optional::value, throwing(new NoSuchElementException())))
-                ),
-
+                        with(Optional::value, throwing(new NoSuchElementException())))),
                 new Fails<Optional<String>>(mock("optional with value", Optional.class,
                     with(Optional::isPresent, returning(true)),
                     with(Optional::value, throwing(new NoSuchElementException()))),
-                    "<present <optional with value> >"),
+                    "<present but throwing <java.util.NoSuchElementException> >"),
                 new Fails<Optional<String>>(mock("optional with value", Optional.class,
                     with(Optional::isPresent, returning(true)),
                     with(Optional::value, throwing(new RuntimeException()))),
-                    "<present <optional with value> >"),
+                    "<present but throwing <java.lang.RuntimeException> >"),
                 new Fails<Optional<String>>(mock("optional with value", Optional.class,
                     with(Optional::isPresent, returning(true)),
                     with(Optional::value, returning("123"))),
-                    "<present <optional with value> >"),
+                    "<present \"123\" >"),
                 new HasDescription("<absent>")
             ));
-
     }
 
 }

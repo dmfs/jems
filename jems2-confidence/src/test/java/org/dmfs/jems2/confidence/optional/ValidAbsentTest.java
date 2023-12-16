@@ -37,16 +37,16 @@ class ValidAbsentTest
                 new Fails<Optional<String>>(mock("optional with value", Optional.class,
                     with(Optional::isPresent, returning(true)),
                     with(Optional::value, throwing(new NoSuchElementException()))),
-                    "{ <present <optional with value> >\n  ... }"),
+                    "{ <present but throwing <java.util.NoSuchElementException> >\n  ... }"),
                 new Fails<Optional<String>>(mock("optional with value", Optional.class,
                     with(Optional::isPresent, returning(true)),
                     with(Optional::value, throwing(new RuntimeException()))),
-                    "{ <present <optional with value> >\n  and\n  had value() throwing instance of <class java.lang.RuntimeException> }"),
+                    "{ <present but throwing <java.lang.RuntimeException> >\n  and\n  had value() throwing instance of <class java.lang.RuntimeException> }"),
                 new Fails<Optional<String>>(mock("optional with value", Optional.class,
                     with(Optional::isPresent, returning(true)),
                     with(Optional::value, returning("123"))),
-                    "{ <present <optional with value> >\n  and\n  had value() not throwing instance of <class java.util.NoSuchElementException> }"),
-                new HasDescription("<absent>\n  and\n  has value() throwing instance of <class java.util.NoSuchElementException>")
+                    "{ <present \"123\" >\n  and\n  had value() not throwing instance of <class java.util.NoSuchElementException> }"),
+                new HasDescription("{ <absent>\n  and\n  has value() throwing instance of <class java.util.NoSuchElementException> }")
             ));
     }
 
