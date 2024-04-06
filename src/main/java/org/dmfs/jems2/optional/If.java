@@ -26,16 +26,25 @@ import java.util.NoSuchElementException;
 /**
  * {@link Optional} decorator restrains the presence of another {@link Optional} with a specific (independent) condition.
  *
- * @deprecated in favour of {@link If}, which expresses the intent more clearly.
+ * <h3>Example</h3>
+ *
+ * <pre>{@code
+ * // only finite recurrence sets have a last occurrence!
+ * Optional<DateTime> lastOccurrence = new If<>(new Not<>(recurrenceSet::isInfinite), new Last<>(recurrenceSet))
+ * }</pre>
  */
-@Deprecated
-public final class Restrained<T> implements Optional<T>
+public final class If<T> implements Optional<T>
 {
     private final Single<Boolean> mCondition;
     private final Optional<T> mDelegate;
 
 
-    public Restrained(Single<Boolean> condition, Optional<T> delegate)
+    public If(boolean condition, Optional<T> delegate)
+    {
+        this(() -> condition, delegate);
+    }
+
+    public If(Single<Boolean> condition, Optional<T> delegate)
     {
         mCondition = condition;
         mDelegate = delegate;
@@ -54,7 +63,7 @@ public final class Restrained<T> implements Optional<T>
     {
         if (!mCondition.value())
         {
-            throw new NoSuchElementException("Optional restrained by condition.");
+            throw new NoSuchElementException("Condition not satisfied");
         }
         return mDelegate.value();
     }
