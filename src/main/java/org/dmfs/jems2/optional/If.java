@@ -26,7 +26,7 @@ import java.util.NoSuchElementException;
 /**
  * {@link Optional} decorator restrains the presence of another {@link Optional} with a specific (independent) condition.
  *
- * <h3>Example</h3>
+ * <h2>Example</h2>
  *
  * <pre>{@code
  * // only finite recurrence sets have a last occurrence!
