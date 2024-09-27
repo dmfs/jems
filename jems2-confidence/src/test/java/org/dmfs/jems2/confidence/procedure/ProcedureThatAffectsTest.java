@@ -27,11 +27,11 @@ class ProcedureThatAffectsTest
                 new Spaced(new Text("adds <a> to list")), ArrayList::new, new SoIt<>(new Contains<>("a"))),
             new AllOf<>(
                 new Passes<>(l -> l.add("a")),
-                new Fails<>(l -> l.add("b"), "Procedure that adds <a> to list but [ \"b\" ] did not contain { \"a\" }\n  ..."),
+                new Fails<>(l -> l.add("b"), "Procedure that adds <a> to list but [ \"b\" ] did not contain \"a\"\n  ..."),
                 new Fails<>(l -> {
                     throw new IOException();
-                }, "Procedure that adds <a> to list but [  ] did not contain { \"a\" } threw <java.io.IOException>"),
-                new HasDescription("Procedure that adds <a> to list so it contains { \"a\" } after successful execution")
+                }, "Procedure that adds <a> to list but [  ] did not contain \"a\" threw <java.io.IOException>"),
+                new HasDescription("Procedure that adds <a> to list so it contains \"a\" after successful execution")
             ));
     }
 
@@ -42,11 +42,11 @@ class ProcedureThatAffectsTest
         assertThat(new ProcedureThatAffects<>(ArrayList::new, new SoIt<>(new Contains<>("a"))),
             new AllOf<>(
                 new Passes<>(l -> l.add("a")),
-                new Fails<>(l -> l.add("b"), "Procedure that affects [  ] but [ \"b\" ] did not contain { \"a\" }\n  ..."),
+                new Fails<>(l -> l.add("b"), "Procedure that affects [  ] but [ \"b\" ] did not contain \"a\"\n  ..."),
                 new Fails<>(l -> {
                     throw new IOException();
-                }, "Procedure that affects [  ] but [  ] did not contain { \"a\" } threw <java.io.IOException>"),
-                new HasDescription("Procedure that affects [  ] so it contains { \"a\" } after successful execution")
+                }, "Procedure that affects [  ] but [  ] did not contain \"a\" threw <java.io.IOException>"),
+                new HasDescription("Procedure that affects [  ] so it contains \"a\" after successful execution")
             ));
     }
 
@@ -65,15 +65,15 @@ class ProcedureThatAffectsTest
                     throw new IllegalArgumentException();
                 }),
                 new Fails<>(l -> l.add("a"), "Procedure that adds <a> to list ...\n  not throwing instance of <class java.lang.IllegalArgumentException>"),
-                new Fails<>(l -> l.add("b"), "Procedure that adds <a> to list but [ \"b\" ] did not contain { \"a\" } not throwing instance of <class java.lang.IllegalArgumentException>"),
+                new Fails<>(l -> l.add("b"), "Procedure that adds <a> to list but [ \"b\" ] did not contain \"a\" not throwing instance of <class java.lang.IllegalArgumentException>"),
                 new Fails<>(l -> {
                     l.add("a");
                     throw new IOException();
                 }, "Procedure that adds <a> to list ...\n  throwing instance of <class java.io.IOException>"),
                 new Fails<>(l -> {
                     throw new IOException();
-                }, "Procedure that adds <a> to list but [  ] did not contain { \"a\" } throwing instance of <class java.io.IOException>"),
-                new HasDescription("Procedure that adds <a> to list so it contains { \"a\" } throwing instance of <class java.lang.IllegalArgumentException>")
+                }, "Procedure that adds <a> to list but [  ] did not contain \"a\" throwing instance of <class java.io.IOException>"),
+                new HasDescription("Procedure that adds <a> to list so it contains \"a\" throwing instance of <class java.lang.IllegalArgumentException>")
             ));
     }
 
