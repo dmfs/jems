@@ -29,7 +29,7 @@ import org.saynotobugs.confidence.description.Text;
 import org.saynotobugs.confidence.quality.composite.Has;
 import org.saynotobugs.confidence.quality.composite.QualityComposition;
 import org.saynotobugs.confidence.quality.object.EqualTo;
-import org.saynotobugs.confidence.quality.trivial.Anything;
+import org.saynotobugs.confidence.quality.object.Anything;
 
 
 @StaticFactories(value = "Jems2", packageName = "org.dmfs.jems2.confidence")
