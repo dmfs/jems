@@ -19,8 +19,8 @@ class MapsTest
         assertThat(new Maps<>("abc", 3),
             new AllOf<>(
                 new Passes<FragileFunction<String, Integer, ?>>(String::length, x -> 3),
-                new Fails<FragileFunction<String, Integer, ?>>(x -> 4, "mapped \"abc\" <4>"),
-                new HasDescription("maps \"abc\" <3>")
+                new Fails<FragileFunction<String, Integer, ?>>(x -> 4, "mapped \"abc\" 4"),
+                new HasDescription("maps \"abc\" 3")
             ));
     }
 
@@ -31,8 +31,8 @@ class MapsTest
         assertThat(new Maps<>("abc", new EqualTo<>(3)),
             new AllOf<>(
                 new Passes<FragileFunction<String, Integer, ?>>(String::length, x -> 3),
-                new Fails<FragileFunction<String, Integer, ?>>(x -> 4, "mapped \"abc\" <4>"),
-                new HasDescription("maps \"abc\" <3>")
+                new Fails<FragileFunction<String, Integer, ?>>(x -> 4, "mapped \"abc\" 4"),
+                new HasDescription("maps \"abc\" 3")
             ));
     }
 }
