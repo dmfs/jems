@@ -61,7 +61,7 @@ class PresentTest
                 new Fails<Optional<Integer>>(
                     mock(Optional.class,
                         with(Optional::isPresent, returning(true)),
-                        with(Optional::value, returning(1234))), "present <1234>"),
+                        with(Optional::value, returning(1234))), "present 1234"),
                 new Fails<Optional<Integer>>(
                     mock(Optional.class,
                         with(Optional::isPresent, returning(true)),
@@ -86,7 +86,7 @@ class PresentTest
                     mock(Optional.class,
                         with(Optional::isPresent, returning(false)),
                         with(Optional::value, throwing(new RuntimeException()))), "absent"),
-                new HasDescription("present <123>")));
+                new HasDescription("present 123")));
     }
 
 
@@ -102,7 +102,7 @@ class PresentTest
                 new Fails<Optional<Integer>>(
                     mock(Optional.class,
                         with(Optional::isPresent, returning(true)),
-                        with(Optional::value, returning(1234))), "present <1234>"),
+                        with(Optional::value, returning(1234))), "present 1234"),
                 new Fails<Optional<Integer>>(
                     mock(Optional.class,
                         with(Optional::isPresent, returning(true)),
@@ -127,7 +127,7 @@ class PresentTest
                     mock(Optional.class,
                         with(Optional::isPresent, returning(false)),
                         with(Optional::value, throwing(new RuntimeException()))), "absent"),
-                new HasDescription("present <123>")));
+                new HasDescription("present 123")));
     }
 
 
@@ -146,7 +146,7 @@ class PresentTest
                 new Fails<Optional<Integer>>(
                     mock(Optional.class,
                         with(Optional::isPresent, returning(true)),
-                        with(Optional::value, returning(1234))), "<1234> was present"),
+                        with(Optional::value, returning(1234))), "1234 was present"),
                 new Fails<Optional<Integer>>(
                     mock(Optional.class,
                         with(Optional::isPresent, returning(true)),
@@ -171,7 +171,7 @@ class PresentTest
                     mock(Optional.class,
                         with(Optional::isPresent, returning(false)),
                         with(Optional::value, throwing(new RuntimeException()))), "not present"),
-                new HasDescription("<123> is present")));
+                new HasDescription("123 is present")));
     }
 
 }
